@@ -31,7 +31,8 @@ Publications:
 
 Peter Hakel,
 "FESTR: Finite-Element Spectral Transfer of Radiation spectroscopic modeling
- and analysis code", Computer Physics Communications, in press (2016).
+ and analysis code",
+Computer Physics Communications, vol. 207, pp. 415-425 (2016). (open access)
 http://dx.doi.org/10.1016/j.cpc.2016.05.027
 
 ===============================================================================
