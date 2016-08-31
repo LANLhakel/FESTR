@@ -69,11 +69,11 @@ Version Log:
 0.3, August 2016
      Release: festr_v0.3.tgz, added:
      *) bug fix in Detector::patch_string, where a missing (symmetry != “none”)
-        branch was added;
+        branch was added,
 
         added two new associated unit tests in test_Detector.cpp:
         Detector_patch_string_symmetry_none,
-        Detector_patch_string_symmetry_spherical;
+        Detector_patch_string_symmetry_spherical,
 
         adjusted “expected” values in two existing unit tests in
         test_Diagnostics.cpp also affected by the above described change:
