@@ -79,5 +79,6 @@ Version Log:
         test_Diagnostics.cpp also affected by the above described change:
         Diagnostics_do_history_SphSym1d_symmetry_spherical_center_patch
         Diagnostics_do_history_SphSym1d_flat_backlighter_center_patch
+     *) bug fix in Zone::load_mat, to ensure correct function in analysis mode
 
 -------------------------------------------------------------------------------
