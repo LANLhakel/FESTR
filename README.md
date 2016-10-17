@@ -7,6 +7,7 @@ hakel@lanl.gov
 Version 0.1 -- June 2015
 Version 0.2 -- March 2016
 Version 0.3 -- August 2016
+Version 0.4 -- October 2016
 CODE NAME:  FESTR (C15068)
 Classification Review Number: LA-CC-15-045
 Export Control Classification Number (ECCN): EAR99
@@ -80,3 +81,17 @@ Version Log:
      *) bug fix in Zone::load_mat, to ensure correct function in analysis mode
 
 -------------------------------------------------------------------------------
+
+0.4, October 2016
+     Release: festr_v0.4.tgz, added:
+     *) bug fix in Detector::do_Ray, where the wrong use of the “patch”
+        variable in the “spherical cap” if-test was changed to use the
+        correct “direction” variable;
+     *) a hard zero was replaced with 1.0e-19 in Cone::contains in order to
+        avoid spurious rejection of a valid solution due to round-off errors
+        for Rays exactly following the z-axis; three new unit tests (with names
+        containing "Ray_on_axis") were added to file test_Cone.cpp to cover
+        this edge case.
+
+-------------------------------------------------------------------------------
+
