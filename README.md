@@ -8,6 +8,7 @@ Version 0.1 -- June 2015
 Version 0.2 -- March 2016
 Version 0.3 -- August 2016
 Version 0.4 -- October 2016
+Version 0.5 -- August 2017
 CODE NAME:  FESTR (C15068)
 Classification Review Number: LA-CC-15-045
 Export Control Classification Number (ECCN): EAR99
@@ -92,6 +93,45 @@ Version Log:
         for Rays exactly following the z-axis; three new unit tests (with names
         containing "Ray_on_axis") were added to file test_Cone.cpp to cover
         this edge case.
+
+-------------------------------------------------------------------------------
+
+0.5, August 2017
+     Release: festr_v0.5.tgz:
+     *) Diagnostics constructor was extended to copy the times.txt input file
+        from the Hydro directory into the Output directories of all Detectors
+        in order to support postprocessing utilities time_hist and time_intavg,
+        unit test Diagnostics_Detector0_times_file_copy was added,
+     *) files Sphere1d-yp_time0_img.dat, Sphere1d-yp_time0_img.png,
+        c_car_img, car_img.cpp were added in directory img/ to enable the
+        generation of synthetic images from generic space-resolved spectra
+        (i.e., from spectra whose Detector has symmetry = none),
+     *) the meaning of the third argument in functions nearest and
+        nearest_exh (file utilities.h) has been changed in order to allow the
+        optimization of the subsequent loop in nearest_exh, calls to these
+        functions were updated accordingly, two new tests (utilities_nearest0
+        and utilities_nearest_exh_empty) were added to cover edge cases,
+     *) function Diagnostics::do_history() was renamed execute(),
+        refactored, and split into two shorter functions:
+        Diagnostics::postprocess() and Diagnostics::analyze(),
+        file do_history.cpp was renamed diag_exec.cpp,
+        replacements of "do_history" with "execute" were carried out in the
+        file Test/test_Diagnostics.cpp,
+     *) code in function Diagnostics::postprocess() was refactored to
+        accomodate MPI-parallelization of time steps using class TaskPool,
+     *) code in function Detector::yt_to_files() was refactored to accomodate
+        MPI-parallelization of time integration using class ReducePool,
+        a new function Detector::yst_using_mpi() was added in a similar manner,
+     *) OpenMP threading directives were added to ArrDblLoop.cpp and
+        Objective.h,
+     *) several methods in class ArrDbl were found to be thread-unsafe and
+        corrected accordingly,
+     *) makefile was enhanced with additional variables controlling the level
+        of optimization (opt), OpenMP threading (omp), and MPI parallelization
+        (mpi),
+     *) for completeness, "np" fields were added for each Zone in the file
+        Test/Analysis1/time_0.txt,
+     *) NOTE: the unit tests are not designed to run with MPI parallelization.
 
 -------------------------------------------------------------------------------
 
