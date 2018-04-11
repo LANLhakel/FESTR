@@ -9,6 +9,7 @@ Version 0.2 -- March 2016
 Version 0.3 -- August 2016
 Version 0.4 -- October 2016
 Version 0.5 -- August 2017
+Version 0.6 -- April 2018
 CODE NAME:  FESTR (C15068)
 Classification Review Number: LA-CC-15-045
 Export Control Classification Number (ECCN): EAR99
@@ -132,6 +133,40 @@ Version Log:
      *) for completeness, "np" fields were added for each Zone in the file
         Test/Analysis1/time_0.txt,
      *) NOTE: the unit tests are not designed to run with MPI parallelization.
+
+-------------------------------------------------------------------------------
+
+0.6, April 2018
+     Release: festr_v0.6.tgz:
+     *) The src/Sample/Data/Table.txt file content was updated to handle
+        element symbols starting with an uppercase letter,
+     *) Portland compiler name was changed from pgcpp to pgc++ in the makefile,
+     *) unit test names now use hyphen (instead of the original underscore) to
+        mark the end of the tests' group names (change in Test::get_id),
+     *) function replace_in_string was added in utilities, new related unit
+        tests were also added,
+     *) function string_to_bool (in utilities) was extended to accept "yes"
+        and "no" inputs,
+     *) new "tracking" members were added to classes Detector and Ray to mark
+        whether partial spectral results (along the specified Rays) should also
+        be output (the default is "no" i.e., "false"), several unit tests were
+        added and modified accordingly,
+     *) new members "nzd", "iz", "distance", "froot", and "hroot" were added
+        in class Ray to support the newly added "tracking" capability of
+        partial spectral results along a Ray, functions Detector::do_Ray,
+        Detector::omega_string, Ray::trace, and Ray_cross_Zone were modified
+        to support this new capability,
+     *) additional argument "nzmesh" was added to function Ray::cross_Zone,
+     *) Database constructor was modified to allow the reading of photon-energy
+        grids made of doubles (instead of the original integers),
+     *) Detector constructor was modified to print an error message and halt
+        the program, if the Detector's photon-energy range is entirely outside
+        of the photon-energy range of the Database,
+     *) Database constructor was given a third argument (type bool) to flag
+        whether the database path was set to "tops_default/" or not,
+        a getter function for this new member of class Database was added, all
+        affected unit tests were updated with this value set to "false" and
+        the festr.cpp file was changed accordingly.
 
 -------------------------------------------------------------------------------
 
