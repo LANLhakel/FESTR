@@ -10,6 +10,7 @@ Version 0.3 -- August 2016
 Version 0.4 -- October 2016
 Version 0.5 -- August 2017
 Version 0.6 -- April 2018
+Version 0.7 -- November 2018
 CODE NAME:  FESTR (C15068)
 Classification Review Number: LA-CC-15-045
 Export Control Classification Number (ECCN): EAR99
@@ -167,6 +168,41 @@ Version Log:
         a getter function for this new member of class Database was added, all
         affected unit tests were updated with this value set to "false" and
         the festr.cpp file was changed accordingly.
+
+-------------------------------------------------------------------------------
+
+0.7, November 2018
+     Release: festr_v0.7.tgz:
+     *) The makefile was generalized to use wildcard functionality and
+        placed into the new directory named "common" along with MPI and
+        unit-test relevant source files,
+     *) the source file containing the "main" function was renamed
+        "festr_main.cpp" and all the other production source files were moved
+        to the new "src" subdirectory (within the old "src"),
+     *) the Doxygen documentation (located in directory "doc/html") now
+        captures entities declared and defined in this new "src/src"
+        subdirectory (i.e., "main" and "common" files are no longer included),
+     *) object files are now assembled into library ("*.a") archive files
+        before linking with the object file containing the "main" function;
+        this change should facilitate the reuse of FESTR functions in other
+        possible future projects,
+     *) new "log" rule added to the makefile creates the file named
+        "makelog.txt" containing the configuration of the latest
+        "make libfestr.a" build; this new file therefore contains a record
+        of the build choices made for "libfestr.a" for future reference,
+     *) entities from "utilities" are now encapsulated in the namespace
+        "utils"; entities from "constants" are now encapsulated in the
+        namespace "cnst"; all source code was updated accordingly,
+     *) the filename extensions of include files were changed from ".cpp"
+        to ".inc",
+     *) subdirectory "Test" was renamed "UniTest", and two new files
+        named "tests_headers.inc" and "tests_runs.inc" were created by
+        cutting FESTR-specific code out of "tests.cpp" (now located in the
+        "common/UniTest" directory),
+     *) the new file "test_Face.cpp" containing an empty function was created
+        per the demands of the updated (and more automated) makefile,
+     *) compilation scripts and source code for supporting programs were
+        modified to accommodate the changes described above.
 
 -------------------------------------------------------------------------------
 
