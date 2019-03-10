@@ -11,6 +11,7 @@ Version 0.4 -- October 2016
 Version 0.5 -- August 2017
 Version 0.6 -- April 2018
 Version 0.7 -- November 2018
+Version 0.8 -- March 2019
 CODE NAME:  FESTR (C15068)
 Classification Review Number: LA-CC-15-045
 Export Control Classification Number (ECCN): EAR99
@@ -203,6 +204,18 @@ Version Log:
         per the demands of the updated (and more automated) makefile,
      *) compilation scripts and source code for supporting programs were
         modified to accommodate the changes described above.
+
+-------------------------------------------------------------------------------
+
+0.8, March 2019
+     Release of version 0.8:
+     *) The copyright notice was changed to reflect the transition of the
+        Los Alamos National Laboratory M&O contract from Los Alamos National
+        Security, LLC, to Triad National Security, LLC,
+     *) In class ArrDbl return types were changed to references for all
+        compound assignments, const was added to return types of unary and
+        binary operators, four unit tests covering compound assignments with
+        self were added in file test_ArrDbl.cpp.
 
 -------------------------------------------------------------------------------
 
