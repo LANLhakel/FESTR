@@ -1,0 +1,4 @@
+rm -rf Sample/Output/*txt
+rm -rf Sample/Output/Sphere1d/*txt
+rm -rf UniTest/Output/*txt
+

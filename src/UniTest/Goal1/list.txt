@@ -1,0 +1,6 @@
+Number of Objectives  4
+Objective_Name weight x_is_present w_is_present rescale
+ObjectiveNameXYW  2.0 true         TRue         false
+ObjectiveNameYW   3.0 FaLSe        1            0
+ObjectiveNameXY   4.0 On           ofF          off
+ObjectiveNameY    5.0 0            FALSE        false

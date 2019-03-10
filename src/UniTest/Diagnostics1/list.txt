@@ -1,0 +1,5 @@
+Frequency of prints  0
+Number of Detectors  2
+Detector_Name ntheta nphi freq_Ray
+DetectorName0           0           0           0
+DetectorName1           0           0           0

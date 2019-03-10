@@ -1,0 +1,9 @@
+z       1 WARNING: the numbers in this file are for testing purposes ONLY
+te      6.4000000e+03 eV
+tr      0.0000000e+00 eV
+dne     6.0000000e+16 elec/cm3
+zbar    1.0000000e+00
+range   0 1
+charge  fract_popul
+     0  0.0000000e+00
+     1  1.0000000e+00

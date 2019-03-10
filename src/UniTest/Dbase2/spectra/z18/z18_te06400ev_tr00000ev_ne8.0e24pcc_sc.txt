@@ -1,0 +1,11 @@
+z       18
+te      6.40000e+03 eV
+tr      0.00000e+00 eV
+dne     8.0000000e+24 elec/cm3
+nhv     3
+hv_min  300.0
+hv_max  900.0
+data for scattering in cm2
+8.0000000e-01
+8.0000000e-02
+8.0000000e-03

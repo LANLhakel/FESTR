@@ -1,0 +1,14 @@
+dname Sphere1d_nhv1
+path /
+freq_patch 25
+freq_trace 2
+symmetry none
+rc  2.0 0.0 0.0 cm
+rx  0.0 0.5 0.0 cm
+ry  0.0 0.0 0.5 cm
+dx  0.2 cm
+dy  0.2 cm
+range 600.0 600.0 eV
+fwhm -3.0 eV
+backlighter flat 0.0 W/cm2/sr/eV
+tracking no

@@ -1,0 +1,1 @@
+g++ -g -O0 -o plotxy ../src/utilities.cpp plotxy.cpp

@@ -1,0 +1,4 @@
+oname ObjectiveNameY
+data in arbitrary_units
+3.0
+7.0

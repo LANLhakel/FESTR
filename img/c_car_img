@@ -1,0 +1,1 @@
+g++ -g -O0 -o car_img ../src/src/utilities.cpp car_img.cpp

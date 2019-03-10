@@ -1,0 +1,1 @@
+g++ -g -O0 -o sph1d_img ../src/src/utilities.cpp sph1d_img.cpp

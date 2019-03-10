@@ -1,0 +1,5 @@
+Intervals included in the fitting
+Name        hvmin     hvmax
+Ar_Heb      3645      3720
+Ar_Heg_Lyb  3840      3990
+Ar_Lyg      4100      4200

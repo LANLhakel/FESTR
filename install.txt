@@ -1,0 +1,18 @@
+*) To compile and run festr, in the src/ directory execute:
+
+make
+./festr options.txt
+
+Output files are located in directories:
+src/Sample/Output/
+src/Sample/Output/Sphere1d
+
+*) To compile and run tests, in the src/ directory execute:
+
+make tests
+./tests    or    ./tests all verbose
+
+Output files are located in directory src/UniTest/Output/
+
+Add comp=intel or comp=pgi to the make command to invoke the
+Intel or Portland compilers, respectively.

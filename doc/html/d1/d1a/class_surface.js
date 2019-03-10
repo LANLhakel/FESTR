@@ -1,0 +1,26 @@
+var class_surface =
+[
+    [ "Surface", "d1/d1a/class_surface.html#a3b3ddf4701e0bb468a46254b12ab0c7a", null ],
+    [ "Surface", "d1/d1a/class_surface.html#add5ff90edd2a6b193660ba1622389ad7", null ],
+    [ "Surface", "d1/d1a/class_surface.html#ae590836e65ec6a48b831116f6ab9af9e", null ],
+    [ "Surface", "d1/d1a/class_surface.html#ae2ac038a79c7f36a1f6dbe7b8ae21106", null ],
+    [ "Surface", "d1/d1a/class_surface.html#a76b8e5cd9dc496c65c5035d3647f408e", null ],
+    [ "~Surface", "d1/d1a/class_surface.html#ae3a0acb00780ef4ba60499b81819a5ff", null ],
+    [ "add_face", "d1/d1a/class_surface.html#a766e2edb2a29d354c5860c1ef9bf9d3e", null ],
+    [ "area", "d1/d1a/class_surface.html#aea69b7636e1853b20fa91fd9b558bc65", null ],
+    [ "area2_normal_center", "d1/d1a/class_surface.html#aedb937266af81d66e5821721cec66257", null ],
+    [ "clear", "d1/d1a/class_surface.html#ad581454ccacea19d4f3bef1356dcd144", null ],
+    [ "contains", "d1/d1a/class_surface.html#a92522be324e85d760e43308e28b5bd75", null ],
+    [ "distance", "d1/d1a/class_surface.html#a14d6c0b766ef8a9b1b49d39a74bd01f0", null ],
+    [ "get_face", "d1/d1a/class_surface.html#a93699d2583758903d72a4be07b3ae3c0", null ],
+    [ "intercept", "d1/d1a/class_surface.html#ab52e745856e6775913816d47d422a8e5", null ],
+    [ "is_curved", "d1/d1a/class_surface.html#a699e93a0c229d68e91a185be04a3a149", null ],
+    [ "load", "d1/d1a/class_surface.html#ab96661f9a36c43d7128a68598b60e558", null ],
+    [ "normal", "d1/d1a/class_surface.html#a7bf639090cb8e492100fbd9132264442", null ],
+    [ "size", "d1/d1a/class_surface.html#a1e8a7b506ab97dd348a6b67ec30d1dc3", null ],
+    [ "subpoint", "d1/d1a/class_surface.html#a53236670aa86defbe1c13ec59dae30e1", null ],
+    [ "to_string", "d1/d1a/class_surface.html#a36f779d3ed99076a6aa66c38710182fb", null ],
+    [ "velocity", "d1/d1a/class_surface.html#a2816ba9f96e91b08b820a6d6daeabb6b", null ],
+    [ "face", "d1/d1a/class_surface.html#a138f60dec3e55e88f9c35f1d7d7e98cd", null ],
+    [ "nfaces", "d1/d1a/class_surface.html#a4b4fc03f40734aa1252bf3949517df6b", null ]
+];

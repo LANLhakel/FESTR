@@ -1,0 +1,14 @@
+dname DetectorName1
+path UniTest/Output/
+freq_patch 0
+freq_trace 0
+symmetry none
+rc  1.0 -20.0 0.5 cm
+rx  1.0 0.0 0.0 cm
+ry  0.0 0.0 0.5 cm
+dx  0.5 cm
+dy  0.2 cm
+range 300.0 900.0 eV
+fwhm -3.0 eV
+backlighter blackbody 0.0 eV
+tracking no

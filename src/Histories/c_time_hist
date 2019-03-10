@@ -1,0 +1,1 @@
+g++ -g -O0 -o time_hist ../src/utilities.cpp time_hist.cpp

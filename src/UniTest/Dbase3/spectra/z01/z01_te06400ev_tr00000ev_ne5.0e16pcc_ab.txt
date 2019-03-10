@@ -1,0 +1,11 @@
+z       1 WARNING: the numbers in this file are for testing purposes ONLY
+te      6.40000e+03 eV
+tr      0.00000e+00 eV
+dne     5.0000000e+16 elec/cm3
+nhv     3
+hv_min  300.0
+hv_max  900.0
+data for absorption in cm2
+1.0000000e-27
+1.0000000e-16
+1.0000000e-15

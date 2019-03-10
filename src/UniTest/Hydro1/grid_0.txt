@@ -1,0 +1,13 @@
+# Number of grid points
+# Grid points’ Cartesian coordinates (cm) and velocities (cm/s)
+# index rx ry rz vx vy vz
+# start
+ 8
+ 0 0.0 0.0 0.0 0.0 0.0 0.0
+ 1 0.0 0.0 1.0 0.0 0.0 1.0
+ 2 0.0 1.0 0.0 0.0 1.0 0.0
+ 3 0.0 1.0 1.0 0.0 1.0 1.0
+ 4 1.0 0.0 0.0 1.0 0.0 0.0
+ 5 1.0 0.0 1.0 1.0 0.0 1.0
+ 6 1.0 1.0 0.0 1.0 1.0 0.0
+ 7 1.0 1.0 1.0 1.0 1.0 1.0

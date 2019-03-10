@@ -1,0 +1,11 @@
+z       18
+te      6.40000e+03 eV
+tr      0.00000e+00 eV
+dne     8.0000000e+24 elec/cm3
+nhv     3
+hv_min  300.0
+hv_max  900.0
+data for emission in W/sr/eV
+1.0000000e+15
+2.0000000e+15
+5.0000000e+15

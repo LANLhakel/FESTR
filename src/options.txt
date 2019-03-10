@@ -1,0 +1,16 @@
+FESTR paths
+
+Top_path: ./Sample/ (paths are relative to this one)
+
+This sample run is based on Diagnostics_do_history_Sphere1d
+(symmetry none) set of Tests.
+
+Goal: none
+Output: Output/
+
+Material_table_path: Data/
+Material_table_file_name: Table.txt
+Hydro: Hydro3/
+TOPS_command: none
+Database: Dbase3/
+Diagnostics: Diagnostics2/

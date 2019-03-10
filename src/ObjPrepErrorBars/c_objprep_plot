@@ -1,0 +1,1 @@
+g++ -g -O0 -o objprep_plot ../src/utilities.cpp ArrSection.cpp objprep_plot.cpp

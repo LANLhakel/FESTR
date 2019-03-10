@@ -1,0 +1,73 @@
+Number_of_zones          3
+---------------------------------------------
+Zone          0
+          2
+Sphere
+          0          0
+          5
+          neighbors          0
+   1.000000e+02   0.000000e+00
+Surface
+          4
+          0          1
+          neighbors          4
+          1          0
+          1          2
+          2          0
+          2          1
+Cone
+          0         -1
+          3          0
+          neighbors          1
+          1          0
+Cone
+          1         -1
+          1          2
+          neighbors          1
+          1          2
+Cone
+          2         -1
+          4          3
+          neighbors          1
+          2          0
+Cone
+          3         -1
+          2          4
+          neighbors          1
+          2          1
+---------------------------------------------
+Zone          1
+          3
+Cone
+          1          0
+          0          3
+          neighbors          1
+          0          1
+Cone
+          1          1
+          3          2
+          neighbors          1
+          2          2
+Cone
+          1          2
+          2          1
+          neighbors          1
+          0          1
+---------------------------------------------
+Zone          2
+          3
+Cone
+          2          0
+          3          4
+          neighbors          1
+          0          1
+Cone
+          2          1
+          4          2
+          neighbors          1
+          0          1
+Cone
+          2          2
+          2          3
+          neighbors          1
+          1          1

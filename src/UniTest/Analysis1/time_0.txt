@@ -1,0 +1,35 @@
+time 0 s
+
+Zone 0
+te 0 0 1 lin eV
+tr 0 0 1 lin eV
+np 0 particles/cm3
+nmat 0
+material densities (particles/cm3)
+
+Zone          1
+te 6100.0 6400.0 4 lin eV
+tr 0 0 1 lin eV
+np 1.0 particles/cm3
+nmat 2
+material densities (particles/cm3)
+d  1.0e19 2.0e19 5 lin
+ar 3.0e19 4.0e19 9 lin
+
+Zone          2
+te 6400.0 6400.0 1 log eV
+tr 0 0 1 lin eV
+np 1.0 particles/cm3
+nmat 2
+material densities (particles/cm3)
+d  5.0e19 6.0e19 2 lin
+ar 7.0e19 8.0e19 2 lin
+
+Zone          3
+te 6400.0 6400.0 1 lin eV
+tr 0 0 1 lin eV
+np 1.0 particles/cm3
+nmat 2
+material densities (particles/cm3)
+d  0.0e19 1.0e19 2 lin
+ar 2.0e19 3.0e19 2 lin

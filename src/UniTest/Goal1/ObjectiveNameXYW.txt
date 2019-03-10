@@ -1,0 +1,4 @@
+oname ObjectiveNameXYW
+data in arbitrary_units
+300.0 3.0 0.1
+600.0 7.0 0.4
