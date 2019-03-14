@@ -1,9 +1,11 @@
+#!/usr/bin/env python
+
 # Usage: python img.py <datafile> <title> <unit> <nx> <ny> <xmin> <xmax> <ymin> <ymax>
 # Example 1: python img.py Sphere1d-yp_time0_img.dat Intensity unit 5 5 0.1 0.9 0.1 0.9
 # Example 2: python img.py SphSym1d-yt_img.dat Intensity unit 1001 1001 -0.4995 0.4995 -0.4995 0.4995
 
 # Created on 30 March 2015
-# Last modified on 3 March 2019
+# Last modified on 13 March 2019 (Python 3)
 
 # Copyright (c) 2015, Triad National Security, LLC.
 # All rights reserved.
@@ -24,23 +26,23 @@ import matplotlib.pyplot as plt
 
 # read command line options
 fname = str(sys.argv[1])
-print "Opening file: ", fname
+print("Opening file: " + fname)
 main_title = str(sys.argv[2])
-print "Title: ", main_title
+print("Title: " + main_title)
 units = str(sys.argv[3])
-print "Units: ", units
+print("Units: " + units)
 nx = int(sys.argv[4])
 ny = int(sys.argv[5])
-print "nx", nx
-print "ny", ny
+print("nx " + str(nx))
+print("ny " + str(ny))
 xmin = float(sys.argv[6])
 xmax = float(sys.argv[7])
-print "xmin", xmin
-print "xmax", xmax
+print("xmin " + str(xmin))
+print("xmax " + str(xmax))
 ymin = float(sys.argv[8])
 ymax = float(sys.argv[9])
-print "ymin", ymin
-print "ymax", ymax
+print("ymin " + str(ymin))
+print("ymax " + str(ymax))
 
 # open and read the data file and create z-list
 f = open(fname,'r')
