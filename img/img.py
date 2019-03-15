@@ -5,7 +5,7 @@
 # Example 2: python img.py SphSym1d-yt_img.dat Intensity unit 1001 1001 -0.4995 0.4995 -0.4995 0.4995
 
 # Created on 30 March 2015
-# Last modified on 13 March 2019 (Python 3)
+# Last modified on 14 March 2019 (Python 3)
 
 # Copyright (c) 2015, Triad National Security, LLC.
 # All rights reserved.

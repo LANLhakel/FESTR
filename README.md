@@ -215,7 +215,8 @@ Version Log:
      *) In class ArrDbl return types were changed to references for all
         compound assignments, const was added to return types of unary and
         binary operators, four unit tests covering compound assignments with
-        self were added in file test_ArrDbl.cpp.
+        self were added in file test_ArrDbl.cpp,
+     *) file img/img.py was converted to Python 3 and made self-executable.
 
 -------------------------------------------------------------------------------
 
