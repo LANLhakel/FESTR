@@ -117,26 +117,30 @@ endif
 
 # =============== Variables for paths and file names ===========
 
+BUILDIR  =   build
+
 PROGRAM  =   $(patsubst %_main.cpp,%,$(wildcard *_main.cpp))
 PSRCLOC  =   src
 PROGSRC  =   $(PROGRAM)_main.cpp
-PROGOBJ  =   $(PROGRAM)_main.o
+PROGOBJ  =   $(BUILDIR)/$(PROGRAM)_main.o
+PROGLIB  =   lib$(PROGRAM).a
 PROGEXE  =   $(PROGRAM)
 
 TESTLOC  =   UniTest
 TESTSRC  =   tests.cpp
-TESTOBJ  =   tests.o
+TESTOBJ  =   $(BUILDIR)/tests.o
+TESTLIB  =   libtest$(PROGRAM).a
 TESTEXE  =   tests
 
-CPPOBJ   =   $(patsubst $(PSRCLOC)/%.cpp, $(PSRCLOC)/%.o, \
+CPPOBJ   =   $(patsubst $(PSRCLOC)/%.cpp, $(BUILDIR)/%.o, \
              $(wildcard $(PSRCLOC)/*.cpp))
 
-TSTOBJ   =   $(TESTLOC)/Test.o \
-             $(patsubst $(PSRCLOC)/%.cpp, $(TESTLOC)/test_%.o, \
+TSTOBJ   =   $(BUILDIR)/Test.o \
+             $(patsubst $(PSRCLOC)/%.cpp, $(BUILDIR)/test_%.o, \
              $(wildcard $(PSRCLOC)/*.cpp))
 
 OPTIONS += -I./$(PSRCLOC)
-LOGFILE  =   makelog.txt
+LOGFILE  =   $(BUILDIR)/makelog.txt
 
 $(eval CXXPATH = $(shell which $(CXX)))
 $(eval CXXINFO = $(shell $(CXXPATH) --version))
@@ -147,18 +151,18 @@ export VERSION
 
 # =============== Rule for the main program ====================
 
-$(PROGEXE) : $(PROGOBJ) lib$(PROGRAM).a
+$(PROGEXE) : $(PROGOBJ) $(PROGLIB)
 	@echo
 	$(CXX) $(OPTIONS) -L. -o $@ $< -l$(PROGRAM) $(GSLLINK)
 
 
 # =============== Rules for the program sources ================
 
-$(PROGRAM)_main.o : $(PROGRAM)_main.cpp
+$(BUILDIR)/$(PROGRAM)_main.o : $(PROGRAM)_main.cpp
 	@echo
 	$(CXX) $(OPTIONS) -o $@ -c $^
 
-$(PSRCLOC)/%.o : $(PSRCLOC)/%.cpp
+$(BUILDIR)/%.o : $(PSRCLOC)/%.cpp
 	@echo
 	$(CXX) $(OPTIONS) -o $@ -c $^
 
@@ -170,7 +174,7 @@ lib$(PROGRAM).a : $(CPPOBJ)
 
 # =============== Rule for the unit-test program ===============
 
-$(TESTEXE) : $(TESTOBJ) libtest$(PROGRAM).a lib$(PROGRAM).a
+$(TESTEXE) : $(TESTOBJ) $(TESTLIB) $(PROGLIB)
 	@echo
 	$(CXX) $(OPTIONS) -I$(UNITEST) -L. -o $@ $< -ltest$(PROGRAM) -l$(PROGRAM) $(GSLLINK)
 
@@ -183,11 +187,11 @@ $(TESTOBJ) : $(UNITEST)/$(TESTSRC) $(TESTLOC)/tests_headers.inc $(TESTLOC)/tests
 	$(CXX) $(OPTIONS) -I$(UNITEST) -o $@ -c $(TESTSRC)
 	@rm -rf $(TESTSRC)
 
-$(TESTLOC)/Test.o : $(UNITEST)/Test.cpp
+$(BUILDIR)/Test.o : $(UNITEST)/Test.cpp
 	@echo
 	$(CXX) $(OPTIONS) -I$(UNITEST) -o $@ -c $^
 
-$(TESTLOC)/%.o : $(TESTLOC)/%.cpp
+$(BUILDIR)/%.o : $(TESTLOC)/%.cpp
 	@echo
 	$(CXX) $(OPTIONS) -I$(UNITEST) -o $@ -c $^
 
