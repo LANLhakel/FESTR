@@ -216,8 +216,8 @@ Version Log:
         compound assignments, const was added to return types of unary and
         binary operators, four unit tests covering compound assignments with
         self were added in file test_ArrDbl.cpp,
-     *) file img/img.py was converted to Python 3 and made self-executable,
-     *) build/ subdirectory was created to store object files during the
+     *) file "img/img.py" was converted to Python 3 and made self-executable,
+     *) "build" subdirectory was created to store object files during the
         compilation; the makefile was changed accordingly.
 
 -------------------------------------------------------------------------------
