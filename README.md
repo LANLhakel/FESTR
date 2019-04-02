@@ -1,7 +1,10 @@
 # FESTR
 Finite-Element Spectral Transfer of Radiation
+
 Peter Hakel
+
 Los Alamos National Laboratory
+
 hakel@lanl.gov
 
 Version 0.1 -- June 2015
