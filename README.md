@@ -44,19 +44,31 @@ Directory structure:
 
 common: resources that could be reused in other projects (makefile,
         the unit test mechanism, MPI parallelization)
+
 doc: documentation of this package
+
 img: utilities for preparing synthetic images based on FESTR output
+
 src: source files for this package
+
 src/build: target directory for object files produced during compilation
+
 src/Histories: postprocessor to generate time histories of outputs
+
 src/ObjPrep: preprocessor to create inputs for the analysis mode
              (fixed weights)
+
 src/ObjPrepErrorBars: preprocessor to create inputs for the analysis mode
                       (variable weights)
+
 src/Plot: utility to process output spectra for plotting
+
 src/Sample: input/output data for a sample FESTR run
+
 src/Scale: utility to rescale, shift, and calibrate experimental spectra
+
 src/src: FESTR source files
+
 src/UniTest: source files for FESTR unit tests
 
 ===============================================================================
