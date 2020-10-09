@@ -1,1 +1,1 @@
-g++ -g -O0 -o tests ../../common/UniTest/Test.cpp ../src/utilities.cpp ArrSection.cpp test_ArrSection.cpp tests.cpp
+g++ -std=c++11 -g -O0 -I. -I../src -I../../common/UniTest -o tests ../../common/UniTest/Test.cpp ../src/constants.cpp ../src/utils.cpp ArrSection.cpp test_ArrSection.cpp tests.cpp

@@ -8,14 +8,14 @@ Los Alamos National Laboratory
 XCP-5 group
 
 Created on 21 November 2014
-Last modified on 3 March 2019
+Last modified on 2 October 2020
 
 Copyright (c) 2015, Triad National Security, LLC.
 All rights reserved.
 Use of this source code is governed by the BSD 3-Clause License.
 See top-level license.txt file for full license text.
 
-CODE NAME:  FESTR, Version 0.8 (C15068)
+CODE NAME:  FESTR, Version 0.9 (C15068)
 Classification Review Number: LA-CC-15-045
 Export Control Classification Number (ECCN): EAR99
 B&R Code:  DP1516090
@@ -24,15 +24,15 @@ B&R Code:  DP1516090
 
 //  Note: only use trimmed strings for names
 
+#include <test_Grid.h>
 #include <Test.h>
-#include "../src/Grid.h"
-#include "../src/constants.h"
+
+#include <constants.h>
 
 #include <stdexcept>
 
 void test_Grid(int &failed_test_count, int &disabled_test_count)
 {
-
 const std::string GROUP = "Grid";
 const double EQT = 1.0e-15;
 
@@ -41,7 +41,7 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "add_get_node", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
         Grid g;
@@ -62,7 +62,7 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "add_get_node_out_of_range", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
         Grid g;
@@ -90,7 +90,7 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "replace_node", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
         Grid g;
@@ -115,7 +115,7 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "size0", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
         Grid g;
@@ -131,7 +131,7 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "size1", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
         Grid g;
@@ -151,7 +151,7 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "abs_diff", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
         Grid g, h;
@@ -174,7 +174,7 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "to_string", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
         Grid g;
@@ -200,7 +200,7 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "copy_ctor", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
         Grid g;
@@ -223,7 +223,7 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "assignment", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
         Grid g;
@@ -246,7 +246,7 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "clear_get_size", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
         Grid g;
@@ -270,7 +270,7 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "clear_get_Node", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
         Grid g;
@@ -302,10 +302,10 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "load_Hydro1_Grid0_size", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        std::string path(cnst::PATH + "UniTest/Hydro1/");
+        std::string path(cnststr::PATH + "UniTest/Hydro1/");
         std::string tlabel("0");
         Grid g(path, tlabel);
         size_t expected = 8;
@@ -320,10 +320,10 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "load_Hydro1_Grid0_Node5", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        std::string path(cnst::PATH + "UniTest/Hydro1/");
+        std::string path(cnststr::PATH + "UniTest/Hydro1/");
         std::string tlabel("0");
         Grid g(path, tlabel);
         Vector3d v(1.0, 0.0, 1.0);
@@ -338,4 +338,4 @@ const double EQT = 1.0e-15;
 
 }
 
-// end test_Grid.cpp
+//  end test_Grid.cpp

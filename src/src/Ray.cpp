@@ -2,24 +2,32 @@
  * @file Ray.cpp
  * @brief Ray carrying a spectrum and its own current position and direction
  * @author Peter Hakel
- * @version 0.8
+ * @version 0.9
  * @date Created on 24 December 2014\n
- * Last modified on 3 March 2019
+ * Last modified on 8 October 2020
  * @copyright (c) 2015, Triad National Security, LLC.
  * All rights reserved.\n
  * Use of this source code is governed by the BSD 3-Clause License.
  * See top-level license.txt file for full license text.
  */
 
-#include "Ray.h"
-#include "utilities.h"
-#include "Face.h"
-#include "Progress.h"
+#include <Ray.h>
+
+#include <Face.h>
+#include <Progress.h>
+#include <utils.h>
+
 #include <cmath>
+
+/*
+#ifdef OMP
+#include <omp.h>
+#endif
+*/
 
 //-----------------------------------------------------------------------------
 
-Waypoint::Waypoint(void): outface(), inface(), hitpt() {}
+Waypoint::Waypoint(): outface(), inface(), hitpt() {}
 
 //-----------------------------------------------------------------------------
 
@@ -45,11 +53,11 @@ void Ray::init(const size_t nin, const Vector3d &rin)
 
 //-----------------------------------------------------------------------------
 
-Ray::Ray(void): level(0), freq(0), n(0), jmin(0), jmax(0), nzones(0), nzd(0),
-    iz(0), distance(0.0), tracking(false), froot(""), hroot(""),
-    diag_id(-1), patch_id(0, 0), bundle_id(0, 0),
+Ray::Ray(): diag_id(-1), patch_id(0, 0), bundle_id(0, 0),
     r(), v(), analysis(false), zid(Zone::BOUNDING_ZONE), y(), wpt(),
-    ite(0), itr(0), ine(0), em(), ab(), sc() {}
+    ite(0), itr(0), ine(0), em(), ab(), sc(),
+    level(0), freq(0), n(0), jmin(0), jmax(0), nzones(0), nzd(0),
+    iz(0), distance(0.0), tracking(false), froot(""), hroot("") {}
 
 //-----------------------------------------------------------------------------
 
@@ -57,12 +65,12 @@ Ray::Ray(const int level_in, const size_t freq_in, const size_t nin,
          const size_t jmin_in, const size_t jmax_in, const bool tracking_in,
          const Vector3d &rin, const Vector3d &vin, const bool analysis_in,
          const std::string &froot_in, const std::string &hroot_in):
+    diag_id(-1), patch_id(0, 0), bundle_id(0, 0), r(rin), v(vin),
+    analysis(analysis_in), zid(Zone::BOUNDING_ZONE), y(), wpt(), ite(0), itr(0),
+    ine(0), em(), ab(), sc(),
     level(level_in), freq(freq_in), n(nin), jmin(jmin_in), jmax(jmax_in),
     nzones(0), nzd(0), iz(0), distance(0.0), tracking(tracking_in),
-    froot(froot_in), hroot(hroot_in), diag_id(-1), patch_id(0, 0),
-    bundle_id(0, 0), r(rin), v(vin), analysis(analysis_in),
-    zid(Zone::BOUNDING_ZONE), y(), wpt(), ite(0), itr(0), ine(0),
-    em(), ab(), sc()
+    froot(froot_in), hroot(hroot_in)
 {
     y.assign(nin, 0.0);
     init(nin, rin);
@@ -75,28 +83,33 @@ Ray::Ray(const int level_in, const size_t freq_in, const size_t nin,
          const Vector3d &rin, const Vector3d &vin, const bool analysis_in,
          const ArrDbl &yin,
          const std::string &froot_in, const std::string &hroot_in):
+    diag_id(-1), patch_id(0, 0), bundle_id(0, 0), r(rin), v(vin),
+    analysis(analysis_in), zid(Zone::BOUNDING_ZONE), y(yin), wpt(), ite(0),
+    itr(0), ine(0), em(), ab(), sc(),
     level(level_in), freq(freq_in), n(nin), jmin(jmin_in), jmax(jmax_in),
     nzones(0), nzd(0), iz(0), distance(0.0), tracking(tracking_in),
-    froot(froot_in), hroot(hroot_in), diag_id(-1), patch_id(0, 0),
-    bundle_id(0, 0), r(rin), v(vin), analysis(analysis_in),
-    zid(Zone::BOUNDING_ZONE), y(yin), wpt(), ite(0), itr(0), ine(0),
-    em(), ab(), sc() {init(nin, rin);}
+    froot(froot_in), hroot(hroot_in) {init(nin, rin);}
 
 //-----------------------------------------------------------------------------
 
-Ray::~Ray(void) {}
+size_t Ray::size() const
+{
+    return n;
+}
 
 //-----------------------------------------------------------------------------
 
-size_t Ray::size(void) const {return n;}
+size_t Ray::get_nzones() const
+{
+    return nzones;
+}
 
 //-----------------------------------------------------------------------------
 
-size_t Ray::get_nzones(void) const {return nzones;}
-
-//-----------------------------------------------------------------------------
-
-bool Ray::get_tracking(void) const {return tracking;}
+bool Ray::get_tracking() const
+{
+    return tracking;
+}
 
 //-----------------------------------------------------------------------------
 
@@ -107,15 +120,10 @@ double Ray::abs_diff(const Ray &o) const
 
 //-----------------------------------------------------------------------------
 
-void Ray::set_backlighter(const std::string &back_type,
-                          const double back_value, std::vector<double> &hv)
+void Ray::set_backlighter(const std::vector<double> &yb)
 {
-    if (back_type == "blackbody") // back_value is blackbody temperature in eV
-        for (size_t i = 0; i < hv.size(); ++i)
-            y.at(i) = utils::planckian(hv.at(i), back_value);
-
-    else // back_type == "flat", back_value is uniform specific intensity
-        y.fill(back_value);
+    size_t nhv = yb.size();
+    for (size_t i = 0; i < nhv; ++i) y.at(i) = yb.at(i);
 }
 
 //-----------------------------------------------------------------------------
@@ -130,7 +138,7 @@ void Ray::trace(const Grid &g, const Mesh &m)
     while (true)
     {
         if (tracking) ++nzones;
-        const Zone *z = m.get_zone(zid);
+        auto z = m.get_zone(zid);
         intrcpt = z->hit(g, r, v, w.outface);
         w.hitpt = intrcpt.w;
         w.inface = intrcpt.fid;
@@ -151,22 +159,27 @@ void Ray::transport(const double ct) // transport this->y across *this
 {
     // Optically-thin formula used for optical depth < 2.0e-10
     const double TR_THIN = exp(-2.0e-10);
-    #include "ArrDblLoop.inc"
+/*
+    #ifdef OMP
+    #pragma omp simd
+    #endif
+*/
+    for (size_t i = 0; i < n; ++i)
     {
-        double op = ab.at(i) + sc.at(i); // opacity
+        double op = ab[i] + sc[i];       // opacity
         double tr = exp( - op * ct );    // transmission
         double se;                       // self_emission
         if (tr > TR_THIN)
-            se = em.at(i) * ct; // optically thin limit in 1-D
+            se = em[i] * ct; // optically thin limit in 1-D
         else
-            se = (1.0 - tr) * em.at(i) / op; // general 1-D solution
-        y.at(i) = y.at(i) * tr + se; // transmitted_backlighter + self_emission
+            se = (1.0 - tr) * em[i] / op; // general 1-D solution
+        y[i] = y[i] * tr + se; // transmitted_backlighter + self_emission
     }
 }
 
 //-----------------------------------------------------------------------------
 
-void Ray::cross_Zone(const Zone *z, const Database &d, const Table &tbl,
+void Ray::cross_Zone(ZonePtr z, const Database &d, const Table &tbl,
                      const std::string &symmetry, const size_t ix,
                      const int ndmesh)
 {   // assumes that this->zid has already been set; e.g., in cross_Mesh()
@@ -174,11 +187,10 @@ void Ray::cross_Zone(const Zone *z, const Database &d, const Table &tbl,
     const Vector3d r_old = r;
     r = w.hitpt;
     const double ct = (r - r_old).norm(); // chord length across current Zone
-    Zone *zz = const_cast<Zone *>(z);
     if (d.get_tops_cmnd() == "none")
     {
-        zz->load_spectra(d, tbl, ite, itr, ine, symmetry, ix, analysis,
-                         jmin, jmax, em, ab, sc);
+        z->load_spectra(d, tbl, ite, itr, ine, symmetry, ix, analysis,
+                        jmin, jmax, em, ab, sc);
         transport(ct);
     }
     wpt.pop();
@@ -216,7 +228,7 @@ void Ray::cross_Mesh(const Mesh &m, const Database &d, const Table &tbl,
 
 //-----------------------------------------------------------------------------
 
-std::string Ray::to_string(void) const
+std::string Ray::to_string() const
 {
     std::string s(r.to_string() + v.to_string() + "\n");
     s += utils::int_to_string(zid, ' ', cnst::INT_WIDTH) + "\n"
@@ -235,4 +247,4 @@ std::ostream & operator << (std::ostream &ost, const Ray &o)
 
 //-----------------------------------------------------------------------------
 
-// end Ray.cpp
+//  end Ray.cpp

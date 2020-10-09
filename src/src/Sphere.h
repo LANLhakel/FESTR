@@ -1,44 +1,35 @@
-#ifndef SPHERE_H
-#define SPHERE_H
+#ifndef LANL_ASC_PEM_SPHERE_H_
+#define LANL_ASC_PEM_SPHERE_H_
 
 /**
  * @file Sphere.h
  * @brief Spherical shells (derived from class Face)
  * @author Peter Hakel
- * @version 0.8
+ * @version 0.9
  * @date Created on 21 November 2014\n
- * Last modified on 3 March 2019
+ * Last modified on 24 February 2020
  * @copyright (c) 2015, Triad National Security, LLC.
  * All rights reserved.\n
  * Use of this source code is governed by the BSD 3-Clause License.
  * See top-level license.txt file for full license text.
  */
 
-#include "Face.h"
+#include <Face.h>
+
+//-----------------------------------------------------------------------------
+
+class Sphere;
+typedef std::shared_ptr<Sphere> SpherePtr;
 
 //-----------------------------------------------------------------------------
 
 /// Spherical shells (derived from class Face)
 class Sphere : public Face
 {
-private:
-
-    /**
-     * @brief Signed radius (cm) relative to (inherited) center
-     *        (r > 0 for outer Zone surface; r < 0 for inner Zone surface)
-     */
-    double r;
-
-    /**
-     * @brief Signed surface velocity (cm/s) relative to (inherited) center
-     *        (v > 0 outward; v < 0 inward)
-     */
-    double v;
-
 public:
 
     /// Default constructor
-    Sphere(void);
+    Sphere();
 
     /**
      * @brief Parametrized constructor (leaves Face::node, Face::nbr empty)
@@ -73,9 +64,9 @@ public:
     explicit Sphere(std::ifstream &istr);
 
     /// Destructor
-    virtual ~Sphere(void);
+    ~Sphere() override;
 
-    virtual bool is_curved(const Grid &g) const;
+    bool is_curved(const Grid &g) const override;
 
     /**
      * @brief Setter for Sphere::r
@@ -87,7 +78,7 @@ public:
      * @brief Getter for Sphere::r
      * @return rin Signed sphere radius (cm)
      */
-    double getr(void) const;
+    double getr() const;
 
     /**
      * @brief Setter for Sphere::v
@@ -99,7 +90,7 @@ public:
      * @brief Getter for Sphere::v
      * @return vin Signed surface velocity (cm/s)
      */
-    double getv(void) const;
+    double getv() const;
 
     /**
      * @brief Setter for the sign of Sphere::r (Sphere orientation)
@@ -111,7 +102,7 @@ public:
      * @brief Getter for the sign of Sphere::r (Sphere orientation)
      * @return +1 (outward surface), -1 (inward surface), 0 (zero radius)
      */
-    int getn(void) const;
+    int getn() const;
 
     /**
      * @brief Getter for the location of the center of *this Sphere
@@ -125,34 +116,50 @@ public:
      */
     Vector3d center_velocity(const Grid &g) const;
 
-    virtual std::string to_string(void) const;
+    std::string to_string() const override;
 
-    virtual void load(std::ifstream &istr);
+    void load(std::ifstream &istr) override;
 
-    virtual Vector3d area2_normal_center(const Grid &g, Vector3d &c) const;
+    Vector3d area2_normal_center(const Grid &g, Vector3d &c) const override;
 
-    virtual Vector3d normal(const Grid &g) const;
+    Vector3d normal(const Grid &g) const override;
 
-    virtual double area(const Grid &g) const;
+    double area(const Grid &g) const override;
 
-    virtual double distance(const Grid &g, const Vector3d &w) const;
+    double distance(const Grid &g, const Vector3d &w) const override;
 
-    virtual Vector3d subpoint(const Grid &g, const Vector3d &w) const;
+    Vector3d subpoint(const Grid &g, const Vector3d &w) const override;
+
+    Vector3d face_point(const Grid &g, const Vector3d &w) const override;
 
     /**
      * @copydoc Face::contains()
      * @return Always "true" for a Sphere, because it has no boundary.
      */
-    virtual bool contains(const Grid &g, const Vector3d &w) const;
+    bool contains(const Grid &g, const Vector3d &w) const override;
 
-    virtual RetIntercept intercept(const Grid &g, const Vector3d &p,
+    RetIntercept intercept(const Grid &g, const Vector3d &p,
                                    const Vector3d &u, const double eqt,
-                                   const FaceID &fid) const;
+                                   const FaceID &fid) const override;
     
-    virtual Vector3d velocity(const Grid &g, const Vector3d &w) const;
+    Vector3d velocity(const Grid &g, const Vector3d &w) const override;
 
+
+private:
+
+    /**
+     * @brief Signed radius (cm) relative to (inherited) center
+     *        (r > 0 for outer Zone surface; r < 0 for inner Zone surface)
+     */
+    double r;
+
+    /**
+     * @brief Signed surface velocity (cm/s) relative to (inherited) center
+     *        (v > 0 outward; v < 0 inward)
+     */
+    double v;
 };
 
 //-----------------------------------------------------------------------------
 
-#endif // SPHERE_H
+#endif  // LANL_ASC_PEM_SPHERE_H_

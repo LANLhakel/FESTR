@@ -1,7 +1,7 @@
 var searchData=
 [
   ['r',['r',['../dc/d8f/class_node.html#ae78eea5c64ec05c42f5848584937a078',1,'Node::r()'],['../d2/d1f/class_ray.html#abd56311dd003ba86c9419d3dad8ef7ee',1,'Ray::r()'],['../d3/d62/class_sphere.html#a01c28b3e24c52c2b82f18dfcb6a64437',1,'Sphere::r()']]],
-  ['rank',['rank',['../d0/d1c/struct_time_step_output.html#a95dde0649da68a4c0f881510bfe7e674',1,'TimeStepOutput']]],
+  ['rank',['rank',['../d3/db3/struct_patch_spectrum.html#a78cb666687c765d05d848f6883dc9e03',1,'PatchSpectrum']]],
   ['rc',['rc',['../d2/d27/class_detector.html#aa708ab1db5d0f3394f692e8f40e5fb86',1,'Detector']]],
   ['rescale',['rescale',['../dd/d9a/class_objective.html#a1730d3d0177154702a43ade38ff738a4',1,'Objective']]],
   ['rn',['rn',['../d1/d6e/class_progress.html#aff83cb50553f4a5da38b76a7dbae30c9',1,'Progress']]],

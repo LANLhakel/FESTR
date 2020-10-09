@@ -1,20 +1,25 @@
-#ifndef POLYGON_H
-#define POLYGON_H
+#ifndef LANL_ASC_PEM_POLYGON_H_
+#define LANL_ASC_PEM_POLYGON_H_
 
 /**
  * @file Polygon.h
  * @brief Convex Polygons (derived from class Face)
  * @author Peter Hakel
- * @version 0.8
+ * @version 0.9
  * @date Created on 21 November 2014\n
- * Last modified on 3 March 2019
+ * Last modified on 24 February 2020
  * @copyright (c) 2015, Triad National Security, LLC.
  * All rights reserved.\n
  * Use of this source code is governed by the BSD 3-Clause License.
  * See top-level license.txt file for full license text.
  */
 
-#include "Face.h"
+#include <Face.h>
+
+//-----------------------------------------------------------------------------
+
+class Polygon;
+typedef std::shared_ptr<Polygon> PolygonPtr;
 
 //-----------------------------------------------------------------------------
 
@@ -33,7 +38,7 @@ class Polygon : public Face
 public:
 
     /// Default constructor
-    Polygon(void);
+    Polygon();
 
     /**
      * @brief Parametrized constructor (leaves Face::node, Face::nbr empty)
@@ -49,42 +54,43 @@ public:
     explicit Polygon(std::ifstream &istr);
 
     /// Destructor
-    virtual ~Polygon(void);
+    ~Polygon() override;
 
-    virtual bool is_curved(const Grid &g) const;
+    bool is_curved(const Grid &g) const override;
 
-    virtual std::string to_string(void) const;
+    std::string to_string() const override;
 
-    virtual void load(std::ifstream &istr);
+    void load(std::ifstream &istr) override;
 
     /**
      * @copydoc Face::area2_normal_center()
      * @todo Generalize this method to handle non-convex Polygon objects
      */
-    virtual Vector3d area2_normal_center(const Grid &g, Vector3d &c) const;
+    Vector3d area2_normal_center(const Grid &g, Vector3d &c) const override;
 
-    virtual Vector3d normal(const Grid &g) const;
+    Vector3d normal(const Grid &g) const override;
 
-    virtual double area(const Grid &g) const;
+    double area(const Grid &g) const override;
 
-    virtual double distance(const Grid &g, const Vector3d &w) const;
+    double distance(const Grid &g, const Vector3d &w) const override;
 
-    virtual Vector3d subpoint(const Grid &g, const Vector3d &w) const;
+    Vector3d subpoint(const Grid &g, const Vector3d &w) const override;
+
+    Vector3d face_point(const Grid &g, const Vector3d &w) const override;
 
     /**
      * @copydoc Face::contains()
      * @todo Generalize this method to handle non-convex Polygon objects
      */
-    virtual bool contains(const Grid &g, const Vector3d &w) const;
+    bool contains(const Grid &g, const Vector3d &w) const override;
 
-    virtual RetIntercept intercept(const Grid &g, const Vector3d &p,
-                                   const Vector3d &u, const double eqt,
-                                   const FaceID &fid) const;
+    RetIntercept intercept(const Grid &g, const Vector3d &p,
+                           const Vector3d &u, const double eqt,
+                           const FaceID &fid) const override;
 
-    virtual Vector3d velocity(const Grid &g, const Vector3d &w) const;
-
+    Vector3d velocity(const Grid &g, const Vector3d &w) const override;
 };
 
 //-----------------------------------------------------------------------------
 
-#endif // POLYGON_H
+#endif  // LANL_ASC_PEM_POLYGON_H_

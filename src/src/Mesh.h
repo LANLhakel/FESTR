@@ -1,38 +1,32 @@
-#ifndef MESH_H
-#define MESH_H
+#ifndef LANL_ASC_PEM_MESH_H_
+#define LANL_ASC_PEM_MESH_H_
 
 /**
  * @file Mesh.h
  * @brief Mesh of Zones
  * @author Peter Hakel
- * @version 0.8
+ * @version 0.9
  * @date Created on 18 December 2014\n
- * Last modified on 3 March 2019
+ * Last modified on 28 January 2020
  * @copyright (c) 2015, Triad National Security, LLC.
  * All rights reserved.\n
  * Use of this source code is governed by the BSD 3-Clause License.
  * See top-level license.txt file for full license text.
  */
 
-#include "Zone.h"
+#include <Zone.h>
+
+#include <memory>
 
 //-----------------------------------------------------------------------------
 
 /// Mesh of Zone objects
 class Mesh
 {
-private:
-
-    /// Number of Zone objects in *this Mesh
-    size_t nzones;
-
-    /// List of Zones
-    std::vector<const Zone *> zone; // copy ctor and operator = may be needed
-
 public:
 
     /// Default constructor
-    Mesh(void);
+    Mesh();
 
     /**
      * @brief Parametrized constructor: reserves room for nin Zone pointers
@@ -47,30 +41,27 @@ public:
      */
     Mesh(const std::string &path, const std::string &tlabel);
 
-    /// Destructor
-    ~Mesh(void);
-
     /// Removes all Zones from *this Mesh
-    void clear(void);
+    void clear();
 
     /**
      * @brief Adds a Zone to *this Mesh
      * @param[in] z Pointer to the Zone to be added to *this Mesh
      */
-    void add_zone(const Zone * const z);
+    void add_zone(ZonePtr z);
 
     /**
      * @brief Getter for the Zone at index i (Mesh::zone)
      * @param[in] i Zone index
      * @return Pointer to the Zone at index i
      */
-    const Zone * get_zone(const size_t i) const;
+    ZonePtr get_zone(const size_t i) const;
 
     /**
      * @brief Getter for the size of *this Mesh (Mesh::nzones)
      * @return Number of Zones in *this Mesh
      */
-    size_t size(void) const;
+    size_t size() const;
 
     /**
      * @brief Finds which of neighboring Faces contains hit point h
@@ -91,8 +82,16 @@ public:
      * @brief String representation of a Mesh object
      * @return String representation of *this
      */
-    std::string to_string(void) const;
+    std::string to_string() const;
 
+
+private:
+
+    /// Number of Zone objects in *this Mesh
+    size_t nzones;
+
+    /// Container of Zones
+    std::vector<ZonePtr> zone;
 };
 
 //-----------------------------------------------------------------------------
@@ -108,4 +107,4 @@ std::ostream & operator << (std::ostream &ost, const Mesh &o);
 
 //-----------------------------------------------------------------------------
 
-#endif // MESH_H
+#endif  // LANL_ASC_PEM_MESH_H_

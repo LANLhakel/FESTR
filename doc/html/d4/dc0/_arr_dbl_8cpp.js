@@ -1,5 +1,7 @@
 var _arr_dbl_8cpp =
 [
+    [ "exp", "d4/dc0/_arr_dbl_8cpp.html#a7b665cc67471c9f13b74733921c756ef", null ],
+    [ "log", "d4/dc0/_arr_dbl_8cpp.html#a5ae13bcc8b5adc2e979e57c88391af28", null ],
     [ "operator*", "d4/dc0/_arr_dbl_8cpp.html#a01dc17e0de2c8d694d061d2d666e5ede", null ],
     [ "operator*", "d4/dc0/_arr_dbl_8cpp.html#a6079d1243d9e6908d83071a4e86bb637", null ],
     [ "operator*", "d4/dc0/_arr_dbl_8cpp.html#aba3955199043008b42bfe4f06bc698d1", null ],

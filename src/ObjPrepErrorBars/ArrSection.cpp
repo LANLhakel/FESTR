@@ -4,18 +4,17 @@
  * @author Peter Hakel
  * @version 0.8
  * @date Created on 25 July 2016\n
- * Last modified on 3 March 2019
+ * Last modified on 28 March 2020
  * @copyright (c) 2015, Triad National Security, LLC.
  * All rights reserved.\n
  * Use of this source code is governed by the BSD 3-Clause License.
  * See top-level license.txt file for full license text.
  */
 
-#include "ArrSection.h"
-#include "../src/utilities.h"
+#include <ArrSection.h>
+#include <utils.h>
 
-#include <algorithm> // std::swap() in C++98
-#include <utility>   // std::swap() in C++11
+#include <utility>
 #include <iostream>
 
 //-----------------------------------------------------------------------------

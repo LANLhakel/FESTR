@@ -10,7 +10,7 @@ Los Alamos National Laboratory
 XCP-5 group
 
 Created on 18 July 2015
-Last modified on 3 March 2019
+Last modified on 28 January 2020
 
 Copyright (c) 2015, Triad National Security, LLC.
 All rights reserved.
@@ -24,9 +24,9 @@ B&R Code:  DP1516090
 
 =============================================================================*/
 
-std::string hydro_path(cnst::PATH + "UniTest/Data/");
-std::string table_path(cnst::PATH + "UniTest/Data/");
+std::string hydro_path(cnststr::PATH + "UniTest/Data/");
+std::string table_path(cnststr::PATH + "UniTest/Data/");
 std::string table_fname("Table.txt");
 Table tbl(hydro_path, table_path, table_fname);
 
-// end load_Table.inc
+//  end load_Table.inc

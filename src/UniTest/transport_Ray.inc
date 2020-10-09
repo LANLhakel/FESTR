@@ -9,7 +9,7 @@ Los Alamos National Laboratory
 XCP-5 group
 
 Created on 27 January 2015
-Last modified on 3 March 2019
+Last modified on 28 January 2020
 
 Copyright (c) 2015, Triad National Security, LLC.
 All rights reserved.
@@ -35,4 +35,4 @@ ray.sc.at(2) = 2.0e1;
 double ct = 0.4;
 ray.transport(ct);
 
-// end transport_Ray.inc
+//  end transport_Ray.inc

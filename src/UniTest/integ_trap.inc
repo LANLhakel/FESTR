@@ -11,7 +11,7 @@ Los Alamos National Laboratory
 XCP-5 group
 
 Created on 27 July 2015
-Last modified on 3 March 2019
+Last modified on 28 January 2020
 
 Copyright (c) 2015, Triad National Security, LLC.
 All rights reserved.
@@ -29,4 +29,4 @@ const size_t n = 4;
 double x[n] = {1.0, 3.0, 6.0, 7.0};
 double y[n] = {2.0, 8.0, 6.0, 0.0};
 
-// end integ_trap.inc
+//  end integ_trap.inc

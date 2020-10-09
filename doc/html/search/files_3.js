@@ -1,5 +1,7 @@
 var searchData=
 [
   ['face_2ecpp',['Face.cpp',['../d9/d60/_face_8cpp.html',1,'']]],
-  ['face_2eh',['Face.h',['../db/d71/_face_8h.html',1,'']]]
+  ['face_2eh',['Face.h',['../db/d71/_face_8h.html',1,'']]],
+  ['facefactory_2ecpp',['FaceFactory.cpp',['../d6/dd8/_face_factory_8cpp.html',1,'']]],
+  ['facefactory_2eh',['FaceFactory.h',['../d2/d6a/_face_factory_8h.html',1,'']]]
 ];

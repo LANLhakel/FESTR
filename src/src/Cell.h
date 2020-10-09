@@ -1,28 +1,32 @@
-#ifndef CELL_H
-#define CELL_H
+#ifndef LANL_ASC_PEM_CELL_H_
+#define LANL_ASC_PEM_CELL_H_
 
 /**
  * @file Cell.h
  * @brief Class Zone reduced to hold only materials' search grids for analysis
  * @author Peter Hakel
- * @version 0.8
+ * @version 0.9
  * @date Created on 4 July 2015\n
- * Last modified on 3 March 2019
+ * Last modified on 28 January 2020
  * @copyright (c) 2015, Triad National Security, LLC.
  * All rights reserved.\n
  * Use of this source code is governed by the BSD 3-Clause License.
  * See top-level license.txt file for full license text.
  */
 
-#include <vector>
-#include <string>
-#include <map>
 #include <fstream>
+#include <map>
+#include <memory>
+#include <string>
+#include <vector>
 
 //-----------------------------------------------------------------------------
 
 /// Maps material name (key) to density grid (value)
-typedef std::map< std::string, std::vector<double> > FpopMap;
+typedef std::map<std::string, std::vector<double>> FpopMap;
+
+class Cell;
+typedef std::shared_ptr<Cell> CellPtr;
 
 //-----------------------------------------------------------------------------
 
@@ -46,7 +50,6 @@ struct CellEOS
 
     /// Default constructor
     CellEOS(): te(-1.0), tr(-1.0), nmat(0), mat(), fp() {}
-
 };
 
 //-----------------------------------------------------------------------------
@@ -54,6 +57,113 @@ struct CellEOS
 /// Class Zone reduced to hold only materials' search grids for analysis
 class Cell
 {
+public:
+
+    /// Default constructor
+    Cell();
+
+    /**
+     * @brief Parametrized constructor: sets Cell ID within its Mesh
+     * @param[in] my_id_in Initializes Cell::my_id
+     */
+    explicit Cell(const size_t my_id_in);
+
+    /**
+     * @brief Parametrized constructor: loads search grid info from file
+     * @param[in] material Input stream for material data file
+     */
+    explicit Cell(std::ifstream &material);
+
+    /**
+     * @brief Setter for the Cell ID in its Mesh (Cell::my_id)
+     * @param[in] my_id_in Cell index
+     */
+    void set_id(const size_t my_id_in);
+
+    /**
+     * @brief Getter for the Cell ID in its Mesh (Cell::my_id)
+     * @return Cell index
+     */
+    size_t get_id() const;
+
+    /**
+     * @brief String representation of a Cell object
+     * @return String representation of *this
+     */
+    std::string to_string() const;
+
+    /**
+     * @brief Getter for Cell::nte
+     * @return Number of electron temperature grid points
+     */
+    size_t get_nte() const;
+
+    /**
+     * @brief Getter for Cell::tegrid
+     * @return Electron temperature grid points (eV)
+     */
+    std::vector<double> get_tegrid() const;
+
+    /**
+     * @brief Getter for Cell::ntr
+     * @return Number of radiation temperature grid points
+     */
+    size_t get_ntr() const;
+
+    /**
+     * @brief Getter for Cell::trgrid
+     * @return Radiation temperature grid points (eV)
+     */
+    std::vector<double> get_trgrid() const;
+
+    /**
+     * @brief Getter for Cell::nmat
+     * @return Number of materials in *this Cell
+     */
+    unsigned short int get_nmat() const;
+
+    /**
+     * @brief Getter for Cell::nfp
+     * @return Number of search cases for each material in *this Cell
+     */
+    std::vector<size_t> get_nfp() const;
+
+    /**
+     * @brief Getter for Cell::fpgrid
+     * @return Density search grid for *this Cell
+     */
+    FpopMap get_fpgrid() const;
+
+    /**
+     * @brief Retrieves Cell material conditions
+     * @param[in] ite Electron temperature search case index
+     * @param[in] itr Radiation temperature search case index
+     * @param[in] ifp Material densities global search case index
+     * @return Temperatures and densities encapsulated in a CellEOS object
+     */
+    CellEOS get_eos(const size_t ite, const size_t itr, const size_t ifp);
+
+    /**
+     * @brief Getter for Cell::nall
+     * @return Number of te, tr, fp search cases *this Cell,
+     *         (nte, ntr, Product(nfp's)
+     */
+    std::vector<size_t> get_nall() const;
+
+    /**
+     * @brief Retrieves Cell material conditions
+     * @param[in] i Material temperatures/densities global search case index
+     * @return Temperatures and densities encapsulated in a CellEOS object
+     */
+    CellEOS get_cell_eos(const size_t i);
+
+    /**
+     * @brief Calculates Product(nall's)
+     * @return Total number of search cases for *this Cell
+     */
+    size_t get_ncases() const;
+
+    
 private:
 
     /// Density units (e.g. "ions/cm3", "g/cm3" - currently "none" and unused)
@@ -129,119 +239,8 @@ private:
     /// Radiation temperature (eV) search grid for *this Cell
     std::vector<double> trgrid;
 
-    /// Density search grid for *this Cell (density == 0 is always included)
+    /// Density search grid for *this Cell
     FpopMap fpgrid;
-
-
-public:
-
-    /// Default constructor
-    Cell(void);
-
-    /**
-     * @brief Parametrized constructor: sets Cell ID within its Mesh
-     * @param[in] my_id_in Initializes Cell::my_id
-     */
-    explicit Cell(const size_t my_id_in);
-
-    /**
-     * @brief Parametrized constructor: loads search grid info from file
-     * @param[in] material Input stream for material data file
-     */
-    explicit Cell(std::ifstream &material);
-
-    /// Destructor
-    ~Cell(void);
-
-    /**
-     * @brief Setter for the Cell ID in its Mesh (Cell::my_id)
-     * @param[in] my_id_in Cell index
-     */
-    void set_id(const size_t my_id_in);
-
-    /**
-     * @brief Getter for the Cell ID in its Mesh (Cell::my_id)
-     * @return Cell index
-     */
-    size_t get_id(void) const;
-
-    /**
-     * @brief String representation of a Cell object
-     * @return String representation of *this
-     */
-    std::string to_string(void) const;
-
-    /**
-     * @brief Getter for Cell::nte
-     * @return Number of electron temperature grid points
-     */
-    size_t get_nte(void) const;
-
-    /**
-     * @brief Getter for Cell::tegrid
-     * @return Electron temperature grid points (eV)
-     */
-    std::vector<double> get_tegrid(void) const;
-
-    /**
-     * @brief Getter for Cell::ntr
-     * @return Number of radiation temperature grid points
-     */
-    size_t get_ntr(void) const;
-
-    /**
-     * @brief Getter for Cell::trgrid
-     * @return Radiation temperature grid points (eV)
-     */
-    std::vector<double> get_trgrid(void) const;
-
-    /**
-     * @brief Getter for Cell::nmat
-     * @return Number of materials in *this Cell
-     */
-    unsigned short int get_nmat(void) const;
-
-    /**
-     * @brief Getter for Cell::nfp
-     * @return Number of search cases for each material in *this Cell
-     */
-    std::vector<size_t> get_nfp(void) const;
-
-    /**
-     * @brief Getter for Cell::fpgrid
-     * @return Density search grid for *this Cell
-     */
-    FpopMap get_fpgrid(void) const;
-
-    /**
-     * @brief Retrieves Cell material conditions
-     * @param[in] ite Electron temperature search case index
-     * @param[in] itr Radiation temperature search case index
-     * @param[in] ifp Material densities global search case index
-     * @return Temperatures and densities encapsulated in a CellEOS object
-     */
-    CellEOS get_eos(const size_t ite, const size_t itr, const size_t ifp);
-
-    /**
-     * @brief Getter for Cell::nall
-     * @return Number of te, tr, fp search cases *this Cell,
-     *         (nte, ntr, Product(nfp's)
-     */
-    std::vector<size_t> get_nall(void) const;
-
-    /**
-     * @brief Retrieves Cell material conditions
-     * @param[in] i Material temperatures/densities global search case index
-     * @return Temperatures and densities encapsulated in a CellEOS object
-     */
-    CellEOS get_cell_eos(const size_t i);
-
-    /**
-     * @brief Calculates Product(nall's)
-     * @return Total number of search cases for *this Cell
-     */
-    size_t get_ncases(void) const;
-
 };
 
 //-----------------------------------------------------------------------------
@@ -256,4 +255,4 @@ std::ostream & operator << (std::ostream &ost, const Cell &o);
 
 //-----------------------------------------------------------------------------
 
-#endif // CELL_H
+#endif  // LANL_ASC_PEM_CELL_H_

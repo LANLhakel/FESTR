@@ -12,7 +12,7 @@ Los Alamos National Laboratory
 XCP-5 group
 
 Created on 8 December 2014
-Last modified on 3 March 2019
+Last modified on 28 January 2020
 
 Copyright (c) 2015, Triad National Security, LLC.
 All rights reserved.
@@ -30,7 +30,7 @@ Vector3d p;
 Node n;
 Grid g;
 Zone z;
-Face *f;
+FacePtr f;
 
 // Build Grid g of Nodes n
 
@@ -67,4 +67,4 @@ p = Vector3d(1.0, 1.0, 1.0);
 n = Node(7, p, p);
 g.add_node(n);
 
-// end cube_grid.inc
+//  end cube_grid.inc

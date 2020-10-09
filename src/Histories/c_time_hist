@@ -1,1 +1,1 @@
-g++ -g -O0 -o time_hist ../src/utilities.cpp time_hist.cpp
+g++ -std=c++11 -g -O0 -I../src -o time_hist ../src/constants.cpp ../src/utils.cpp time_hist.cpp

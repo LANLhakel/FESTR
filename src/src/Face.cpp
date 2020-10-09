@@ -2,17 +2,18 @@
  * @file Face.cpp
  * @brief Abstract base class for various Face types that define Zone objects
  * @author Peter Hakel
- * @version 0.8
+ * @version 0.9
  * @date Created on 20 November 2014\n
- * Last modified on 3 March 2019
+ * Last modified on 28 January 2020
  * @copyright (c) 2015, Triad National Security, LLC.
  * All rights reserved.\n
  * Use of this source code is governed by the BSD 3-Clause License.
  * See top-level license.txt file for full license text.
  */
 
-#include "Face.h"
-#include "utilities.h"
+#include <Face.h>
+
+#include <utils.h>
 
 //-----------------------------------------------------------------------------
 
@@ -24,7 +25,7 @@ std::ostream & operator << (std::ostream &ost, const FaceID &o)
 
 //-----------------------------------------------------------------------------
 
-Face::Face(void): my_zone(0), my_id(-2), node(), nbr() {}
+Face::Face(): my_zone(0), my_id(-2), node(), nbr() {}
 
 //-----------------------------------------------------------------------------
 
@@ -33,11 +34,14 @@ Face::Face(const size_t my_zone_in, const short int my_id_in):
 
 //-----------------------------------------------------------------------------
 
-Face::~Face(void) {clear();}
+Face::~Face()
+{
+    clear();
+}
 
 //-----------------------------------------------------------------------------
 
-void Face::clear(void)
+void Face::clear()
 {
     my_zone = 0;
     my_id = -2;
@@ -47,35 +51,59 @@ void Face::clear(void)
 
 //-----------------------------------------------------------------------------
 
-void Face::set_my_zone(const size_t my_zone_in) {my_zone = my_zone_in;}
+void Face::set_my_zone(const size_t my_zone_in)
+{
+    my_zone = my_zone_in;
+}
 
 //-----------------------------------------------------------------------------
 
-size_t Face::get_my_zone(void) const {return my_zone;}
+size_t Face::get_my_zone() const
+{
+    return my_zone;
+}
 
 //-----------------------------------------------------------------------------
 
-void Face::set_my_id(const short int my_id_in) {my_id = my_id_in;}
+void Face::set_my_id(const short int my_id_in)
+{
+    my_id = my_id_in;
+}
 
 //-----------------------------------------------------------------------------
 
-short int Face::get_my_id(void) const {return my_id;}
+short int Face::get_my_id() const
+{
+    return my_id;
+}
 
 //-----------------------------------------------------------------------------
 
-size_t Face::size(void) const {return node.size();}
+size_t Face::size() const
+{
+    return node.size();
+}
 
 //-----------------------------------------------------------------------------
 
-bool Face::is_flat(const Grid &g) const {return !is_curved(g);}
+bool Face::is_flat(const Grid &g) const
+{
+    return !is_curved(g);
+}
 
 //-----------------------------------------------------------------------------
 
-void Face::add_node(const size_t i) {node.push_back(i);}
+void Face::add_node(const size_t i)
+{
+    node.emplace_back(std::move(i));
+}
 
 //-----------------------------------------------------------------------------
 
-size_t Face::get_node(const size_t i) const {return node.at(i);}
+size_t Face::get_node(const size_t i) const
+{
+    return node.at(i);
+}
 
 //-----------------------------------------------------------------------------
 
@@ -103,7 +131,7 @@ double Face::abs_diff(const Face &o) const
 
 //-----------------------------------------------------------------------------
 
-std::string Face::to_string(void) const
+std::string Face::to_string() const
 {
     size_t i;
     std::string s = utils::int_to_string(my_zone, ' ', cnst::INT_WIDTH) +
@@ -150,16 +178,22 @@ void Face::load_face(std::ifstream &istr, const size_t nnodes)
 
 void Face::add_neighbor(const size_t zone_in, const short int face_in)
 {
-    nbr.push_back(FaceID(zone_in, face_in));
+    nbr.emplace_back(FaceID(zone_in, face_in));
 }
 
 //-----------------------------------------------------------------------------
 
-FaceID Face::get_neighbor(const size_t i) const {return nbr.at(i);}
+FaceID Face::get_neighbor(const size_t i) const
+{
+    return nbr.at(i);
+}
 
 //-----------------------------------------------------------------------------
 
-size_t Face::num_nbr(void) const {return nbr.size();}
+size_t Face::num_nbr() const
+{
+    return nbr.size();
+}
 
 //-----------------------------------------------------------------------------
 
@@ -189,4 +223,4 @@ const FaceID Face::BOUNDING_SPHERE = FaceID(0, 0);
 
 //-----------------------------------------------------------------------------
 
-// end Face.cpp
+//  end Face.cpp

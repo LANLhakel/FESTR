@@ -2,22 +2,24 @@
  * @file Objective.cpp
  * @brief Defines an objective to be matched by a calculation
  * @author Peter Hakel
- * @version 0.8
+ * @version 0.9
  * @date Created on 24 June 2015\n
- * Last modified on 3 March 2019
+ * Last modified on 8 October 2020
  * @copyright (c) 2015, Triad National Security, LLC.
  * All rights reserved.\n
  * Use of this source code is governed by the BSD 3-Clause License.
  * See top-level license.txt file for full license text.
  */
 
-#include "Objective.h"
-#include "utilities.h"
-#include <cstdlib>
-#include <iostream>
-#include <fstream>
-#include <cmath>
+#include <Objective.h>
+
+#include <utils.h>
+
 #include <algorithm>
+#include <cmath>
+#include <cstdlib>
+#include <fstream>
+#include <iostream>
 
 //-----------------------------------------------------------------------------
 
@@ -25,7 +27,7 @@ const double Objective::BIG = 1.0e300;
 
 //-----------------------------------------------------------------------------
 
-Objective::Objective(void): oname("no_name"), path("no_path"),
+Objective::Objective(): oname("no_name"), path("no_path"),
     my_id(-1), weight(0.0), x_is_present(false), w_is_present(false),
     x(), y(), w(), best_fitness(-BIG), best_case(0),
     rescale(false), best_scale(1.0) {}
@@ -54,51 +56,48 @@ Objective::Objective(const std::string &oname_in, const std::string &path_in,
     utils::find_word(infile, "data");
     std::string s;
     getline(infile, s);
-    double xin, yin, win;
 
     while (true)
     {
+        double xin, yin, win;
+
         if (x_is_present && w_is_present)
         {
             if ( !(infile >> xin >> yin >> win) ) break;
-            x.push_back(xin);
-            y.push_back(yin);
-            w.push_back(win);
+            x.emplace_back(std::move(xin));
+            y.emplace_back(std::move(yin));
+            w.emplace_back(std::move(win));
             continue;
         }
 
         if (!x_is_present && w_is_present)
         {
             if ( !(infile >> yin >> win) ) break;
-            y.push_back(yin);
-            w.push_back(win);
+            y.emplace_back(std::move(yin));
+            w.emplace_back(std::move(win));
             continue;
         }
 
         if (x_is_present && !w_is_present)
         {
             if ( !(infile >> xin >> yin) ) break;
-            x.push_back(xin);
-            y.push_back(yin);
-            w.push_back(1.0);
+            x.emplace_back(std::move(xin));
+            y.emplace_back(std::move(yin));
+            w.emplace_back(1.0);
             continue;
         }
 
         if (!x_is_present && !w_is_present)
         {
             if ( !(infile >> yin) ) break;
-            y.push_back(yin);
-            w.push_back(1.0);
+            y.emplace_back(std::move(yin));
+            w.emplace_back(1.0);
             continue;
         }
     }
     infile.close();
     infile.clear();
 }
-
-//-----------------------------------------------------------------------------
-
-Objective::~Objective(void) {}
 
 //-----------------------------------------------------------------------------
 
@@ -114,7 +113,7 @@ double Objective::abs_diff(const Objective &o) const
 
 //-----------------------------------------------------------------------------
 
-std::string Objective::to_string(void) const
+std::string Objective::to_string() const
 {
     std::string s(oname);
     const size_t n = get_size();
@@ -131,61 +130,101 @@ std::string Objective::to_string(void) const
 
 //-----------------------------------------------------------------------------
 
-std::string Objective::get_oname(void) const {return oname;}
+std::string Objective::get_oname() const
+{
+    return oname;
+}
 
 //-----------------------------------------------------------------------------
 
-std::string Objective::get_path(void) const {return path;}
+std::string Objective::get_path() const
+{
+    return path;
+}
 
 //-----------------------------------------------------------------------------
 
-int Objective::get_my_id(void) const {return my_id;}
+int Objective::get_my_id() const
+{
+    return my_id;
+}
 
 //-----------------------------------------------------------------------------
 
-double Objective::get_weight(void) const {return weight;}
+double Objective::get_weight() const
+{
+    return weight;
+}
 
 //-----------------------------------------------------------------------------
 
-std::string Objective::is_x_present(void) const
-{return utils::bool_to_string(x_is_present);}
+std::string Objective::is_x_present() const
+{
+    return utils::bool_to_string(x_is_present);
+}
 
 //-----------------------------------------------------------------------------
 
-std::string Objective::is_w_present(void) const
-{return utils::bool_to_string(w_is_present);}
+std::string Objective::is_w_present() const
+{
+    return utils::bool_to_string(w_is_present);
+}
 
 //-----------------------------------------------------------------------------
 
-size_t Objective::get_size(void) const {return y.size();}
+size_t Objective::get_size() const
+{
+    return y.size();
+}
 
 //-----------------------------------------------------------------------------
 
-double Objective::get_x_at(const size_t i) const {return x.at(i);}
+double Objective::get_x_at(const size_t i) const
+{
+    return x.at(i);
+}
 
 //-----------------------------------------------------------------------------
 
-double Objective::get_y_at(const size_t i) const {return y.at(i);}
+double Objective::get_y_at(const size_t i) const
+{
+    return y.at(i);
+}
 
 //-----------------------------------------------------------------------------
 
-double Objective::get_w_at(const size_t i) const {return w.at(i);}
+double Objective::get_w_at(const size_t i) const
+{
+    return w.at(i);
+}
 
 //-----------------------------------------------------------------------------
 
-double Objective::get_best_fitness(void) const {return best_fitness;}
+double Objective::get_best_fitness() const
+{
+    return best_fitness;
+}
 
 //-----------------------------------------------------------------------------
 
-size_t Objective::get_best_case(void) const {return best_case;}
+size_t Objective::get_best_case() const
+{
+    return best_case;
+}
 
 //-----------------------------------------------------------------------------
 
-bool Objective::get_rescale(void) const {return rescale;}
+bool Objective::get_rescale() const
+{
+    return rescale;
+}
 
 //-----------------------------------------------------------------------------
 
-double Objective::get_best_scale(void) const {return best_scale;}
+double Objective::get_best_scale() const
+{
+    return best_scale;
+}
 
 //-----------------------------------------------------------------------------
 
@@ -197,4 +236,4 @@ std::ostream & operator << (std::ostream & ost, const Objective & o)
 
 //-----------------------------------------------------------------------------
 
-// end Objective.cpp
+//  end Objective.cpp

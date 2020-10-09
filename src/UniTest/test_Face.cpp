@@ -8,7 +8,7 @@ Los Alamos National Laboratory
 XCP-5 group
 
 Created on 13 November 2018
-Last modified on 3 March 2019
+Last modified on 2 October 2020
 
 Copyright (c) 2015, Triad National Security, LLC.
 All rights reserved.
@@ -22,6 +22,9 @@ B&R Code:  DP1516090
 
 =============================================================================*/
 
+#include <test_Face.h>
+#include <Test.h>
+
 void test_Face(int &failed_test_count, int &disabled_test_count)
 {   // empty; there are no instances of an abstract base class,
     // its code is tested via classes that are derived from it.
@@ -29,4 +32,4 @@ void test_Face(int &failed_test_count, int &disabled_test_count)
     (void)(disabled_test_count);
 }
 
-// end test_Face.cpp
+//  end test_Face.cpp

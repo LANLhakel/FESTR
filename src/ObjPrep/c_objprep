@@ -1,1 +1,1 @@
-g++ -g -O0 -o objprep ../src/utilities.cpp objprep.cpp
+g++ -std=c++11 -g -O0 -I../src -o objprep ../src/constants.cpp ../src/utils.cpp objprep.cpp

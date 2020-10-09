@@ -8,14 +8,14 @@ Los Alamos National Laboratory
 XCP-5 group
 
 Created on 3 December 2014
-Last modified on 6 March 2019
+Last modified on 9 October 2020
 
 Copyright (c) 2015, Triad National Security, LLC.
 All rights reserved.
 Use of this source code is governed by the BSD 3-Clause License.
 See top-level license.txt file for full license text.
 
-CODE NAME:  FESTR, Version 0.8 (C15068)
+CODE NAME:  FESTR, Version 0.9 (C15068)
 Classification Review Number: LA-CC-15-045
 Export Control Classification Number (ECCN): EAR99
 B&R Code:  DP1516090
@@ -24,18 +24,19 @@ B&R Code:  DP1516090
 
 //  Note: only use trimmed strings for names
 
+#include <test_ArrDbl.h>
 #include <Test.h>
-#include "../src/ArrDbl.h"
-#include "../src/Vector3d.h"
-#include "../src/constants.h"
-#include "../src/utilities.h"
 
-#include <stdexcept>
+#include <constants.h>
+#include <utils.h>
+#include <Vector3d.h>
+
 #include <cstdlib>
+#include <memory>
+#include <stdexcept>
 
 void test_ArrDbl(int &failed_test_count, int &disabled_test_count)
 {
-
 const std::string GROUP = "ArrDbl";
 const double EQT = 1.0e-15;
 
@@ -44,7 +45,7 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "ctor_size", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
         ArrDbl a(3);
@@ -60,7 +61,7 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "ctor_value", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
         ArrDbl a(999);
@@ -76,7 +77,7 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "ctor_out_of_range", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
         ArrDbl a(3);
@@ -101,7 +102,7 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "push_back", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
         ArrDbl a;
@@ -117,11 +118,31 @@ const double EQT = 1.0e-15;
 }
 
 //-----------------------------------------------------------------------------
+    
+{
+    Test t(GROUP, "emplace_back", "fast");
+
+    t.check_to_disable_test(disabled_test_count);
+    if (t.is_enabled())
+    {
+        ArrDbl a;
+        a.emplace_back(1.0);
+        a.emplace_back(9.0);
+        a.emplace_back(-7.0);
+        a.emplace_back(4.0);
+        double expected = -7.0;
+        double actual = a.at(2);
+
+        failed_test_count += t.check_equal_real_num(expected, actual, EQT);
+    }
+}
+
+//-----------------------------------------------------------------------------
            
 {
     Test t(GROUP, "set_get_at", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
         ArrDbl a(999);
@@ -138,7 +159,7 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "set_get_index_operator", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
         ArrDbl a(999);
@@ -155,7 +176,7 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "abs_diff", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
         ArrDbl x(2);
@@ -175,7 +196,7 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "to_string", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
         ArrDbl a(2);
@@ -192,7 +213,7 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "to_file", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
         ArrDbl x(3);
@@ -200,17 +221,17 @@ const double EQT = 1.0e-15;
         x.at(1) = 0.0;
         x.at(2) = -1.0;
 
-        std::string fname(cnst::PATH + "UniTest/Output/ArrDbl_to_file.txt");
-
+        std::string fname(cnststr::PATH + "UniTest/Output/ArrDbl-to_file.txt");
+        #ifndef WIN
         std::string cmnd("rm -rf " + fname);
         if (system(cmnd.c_str()) != 0)
         {
             std::cerr << "\nError: system call failure in test "
-                      << "ArrDbl_to_file" << std::endl;
+                      << "ArrDbl-to_file" << std::endl;
             exit(EXIT_FAILURE);
         }
-
-        std::string header("# ArrDbl_to_file.txt");
+        #endif
+        std::string header("# ArrDbl-to_file.txt");
         x.to_file(fname, header);
         std::string expected(header);
         expected += "\n   2.000000e+00\n   0.000000e+00\n  -1.000000e+00";
@@ -225,7 +246,7 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "copy_ctor", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
         ArrDbl a(2);
@@ -243,13 +264,12 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "assignment", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        ArrDbl *a = new ArrDbl(2);
+        auto a = std::make_shared<ArrDbl>(2);
         a->at(0) = 7.0e-11;
-        ArrDbl b = *a;
-        delete a;
+        auto b = *a;
         std::string expected = "   7.000000e-11\n   0.000000e+00";
         std::string actual = b.to_string();
 
@@ -262,7 +282,7 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "assign_double", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
         ArrDbl actual(5);
@@ -284,7 +304,7 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "assign_float", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
         ArrDbl actual;
@@ -306,7 +326,7 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "assign_int", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
         ArrDbl actual(2);
@@ -329,7 +349,7 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "assign_size", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
         ArrDbl a(2);
@@ -347,7 +367,7 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "fill_double", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
         ArrDbl actual(5);
@@ -371,7 +391,7 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "fill_float", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
         ArrDbl actual;
@@ -395,7 +415,7 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "fill_int", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
         ArrDbl actual(2);
@@ -420,7 +440,7 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "fill_size", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
         ArrDbl a(2);
@@ -440,7 +460,7 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "clear_out_of_range", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
         ArrDbl a(2);
@@ -468,7 +488,7 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "clear_size", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
         ArrDbl a(2);
@@ -487,7 +507,7 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "unary_plus", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
         ArrDbl x(2);
@@ -505,7 +525,7 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "unary_minus", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
         ArrDbl x(3);
@@ -529,7 +549,7 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "plus_equal_ArrDbl", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
         ArrDbl x(3);
@@ -560,7 +580,7 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "self_plus_equal_ArrDbl", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
         ArrDbl x(3);
@@ -586,7 +606,7 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "plus_equal_ArrDbl_range_error", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
         ArrDbl x(3);
@@ -610,7 +630,7 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "plus_equal_ArrDbl_trans", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
         ArrDbl x(3);
@@ -639,7 +659,7 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "minus_equal_ArrDbl", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
         ArrDbl x(3);
@@ -668,35 +688,9 @@ const double EQT = 1.0e-15;
 //-----------------------------------------------------------------------------
 
 {
-    Test t(GROUP, "self_minus_equal_ArrDbl", "fast");
-
-    check_to_disable_test(t, disabled_test_count);
-    if (t.is_enabled())
-    {
-        ArrDbl x(3);
-        x.at(0) = 7.0;
-        x.at(1) = 0.0;
-        x.at(2) = -2.0;
-
-        x -= x;
-
-        ArrDbl expected(3);
-        expected.at(0) = 0.0;
-        expected.at(1) = 0.0;
-        expected.at(2) = 0.0;
-
-        ArrDbl actual = x;
-
-        failed_test_count += t.check_equal_real_obj(expected, actual, EQT);
-    }
-}
-
-//-----------------------------------------------------------------------------
-
-{
     Test t(GROUP, "minus_equal_ArrDbl_range_error", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
         ArrDbl x(3);
@@ -720,7 +714,7 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "minus_equal_ArrDbl_trans", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
         ArrDbl x(3);
@@ -749,7 +743,7 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "times_equal_ArrDbl", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
         ArrDbl x(3);
@@ -780,7 +774,7 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "self_times_equal_ArrDbl", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
         ArrDbl x(3);
@@ -806,7 +800,7 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "times_equal_ArrDbl_trans", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
         ArrDbl x(3);
@@ -835,7 +829,7 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "times_equal_ArrDbl_range_error", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
         ArrDbl x(3);
@@ -859,7 +853,7 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "divide_equal_ArrDbl", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
         ArrDbl x(3);
@@ -888,35 +882,9 @@ const double EQT = 1.0e-15;
 //-----------------------------------------------------------------------------
 
 {
-    Test t(GROUP, "self_divide_equal_ArrDbl", "fast");
-
-    check_to_disable_test(t, disabled_test_count);
-    if (t.is_enabled())
-    {
-        ArrDbl x(3);
-        x.at(0) = 4.0;
-        x.at(1) = 0.0;
-        x.at(2) = -2.0;
-
-        x /= x;
-
-        ArrDbl expected(3);
-        expected.at(0) = 1.0;
-        expected.at(1) = -Vector3d::get_big();
-        expected.at(2) = 1.0;
-
-        ArrDbl actual = x;
-
-        failed_test_count += t.check_equal_real_obj(expected, actual, EQT);
-    }
-}
-
-//-----------------------------------------------------------------------------
-
-{
     Test t(GROUP, "divide_equal_ArrDbl_trans", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
         ArrDbl x(3);
@@ -945,7 +913,7 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "divide_equal_ArrDbl_range_error", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
         ArrDbl x(3);
@@ -969,7 +937,7 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "binary_plus", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
         ArrDbl x(3);
@@ -998,7 +966,7 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "binary_plus_range_error", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
         ArrDbl x(3);
@@ -1022,7 +990,7 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "binary_minus", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
         ArrDbl x(3);
@@ -1051,7 +1019,7 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "binary_minus_range_error", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
         ArrDbl x(3);
@@ -1075,7 +1043,7 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "binary_times_ArrDbl", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
         ArrDbl x(3);
@@ -1104,7 +1072,7 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "binary_times_range_error", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
         ArrDbl x(3);
@@ -1128,7 +1096,7 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "binary_divide_ArrDbl", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
         ArrDbl x(3);
@@ -1157,7 +1125,7 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "binary_divide_range_error", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
         ArrDbl x(3);
@@ -1181,7 +1149,7 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "plus_equal_double", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
         ArrDbl x(3);
@@ -1208,7 +1176,7 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "plus_equal_double_trans", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
         ArrDbl x(3);
@@ -1233,7 +1201,7 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "plus_equal_float", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
         ArrDbl x(3);
@@ -1260,7 +1228,7 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "plus_equal_float_trans", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
         ArrDbl x(3);
@@ -1285,7 +1253,7 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "plus_equal_int", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
         ArrDbl x(3);
@@ -1312,7 +1280,7 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "plus_equal_int_trans", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
         ArrDbl x(3);
@@ -1337,7 +1305,7 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "minus_equal_double", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
         ArrDbl x(3);
@@ -1364,7 +1332,7 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "minus_equal_double_trans", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
         ArrDbl x(3);
@@ -1389,7 +1357,7 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "minus_equal_float", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
         ArrDbl x(3);
@@ -1416,7 +1384,7 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "minus_equal_float_trans", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
         ArrDbl x(3);
@@ -1441,7 +1409,7 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "minus_equal_int", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
         ArrDbl x(3);
@@ -1468,7 +1436,7 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "minus_equal_int_trans", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
         ArrDbl x(3);
@@ -1493,7 +1461,7 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "times_equal_double", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
         ArrDbl x(3);
@@ -1520,7 +1488,7 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "times_equal_double_trans", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
         ArrDbl x(3);
@@ -1545,7 +1513,7 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "times_equal_float", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
         ArrDbl x(3);
@@ -1572,7 +1540,7 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "times_equal_float_trans", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
         ArrDbl x(3);
@@ -1597,7 +1565,7 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "times_equal_int", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
         ArrDbl x(3);
@@ -1624,7 +1592,7 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "times_equal_int_trans", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
         ArrDbl x(3);
@@ -1649,7 +1617,7 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "divide_equal_double", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
         ArrDbl x(3);
@@ -1676,7 +1644,7 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "divide_equal_double0", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
         ArrDbl x(3);
@@ -1704,7 +1672,7 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "divide_equal_double_trans", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
         ArrDbl x(3);
@@ -1729,7 +1697,7 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "divide_equal_float", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
         ArrDbl x(3);
@@ -1756,7 +1724,7 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "divide_equal_float0", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
         ArrDbl x(3);
@@ -1784,7 +1752,7 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "divide_equal_float_trans", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
         ArrDbl x(3);
@@ -1809,7 +1777,7 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "divide_equal_int", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
         ArrDbl x(3);
@@ -1836,7 +1804,7 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "divide_equal_int0", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
         ArrDbl x(3);
@@ -1864,7 +1832,7 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "divide_equal_int_trans", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
         ArrDbl x(3);
@@ -1889,7 +1857,7 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "plus_double", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
         ArrDbl x(3);
@@ -1913,7 +1881,7 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "plus_float", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
         ArrDbl x(3);
@@ -1937,7 +1905,7 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "plus_int", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
         ArrDbl x(3);
@@ -1961,7 +1929,7 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "minus_double", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
         ArrDbl x(3);
@@ -1985,7 +1953,7 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "minus_float", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
         ArrDbl x(3);
@@ -2009,7 +1977,7 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "minus_int", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
         ArrDbl x(3);
@@ -2033,7 +2001,7 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "times_double", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
         ArrDbl x(3);
@@ -2057,7 +2025,7 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "times_float", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
         ArrDbl x(3);
@@ -2081,7 +2049,7 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "times_int", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
         ArrDbl x(3);
@@ -2105,7 +2073,7 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "divide_double", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
         ArrDbl x(3);
@@ -2129,7 +2097,7 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "divide_float", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
         ArrDbl x(3);
@@ -2153,7 +2121,7 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "divide_int", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
         ArrDbl x(3);
@@ -2177,7 +2145,7 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "double_plus", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
         ArrDbl x(3);
@@ -2201,7 +2169,7 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "float_plus", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
         ArrDbl x(3);
@@ -2225,7 +2193,7 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "int_plus", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
         ArrDbl x(3);
@@ -2249,7 +2217,7 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "double_minus", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
         ArrDbl x(3);
@@ -2273,7 +2241,7 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "float_minus", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
         ArrDbl x(3);
@@ -2297,7 +2265,7 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "int_minus", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
         ArrDbl x(3);
@@ -2321,7 +2289,7 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "double_times", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
         ArrDbl x(3);
@@ -2345,7 +2313,7 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "float_times", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
         ArrDbl x(3);
@@ -2369,7 +2337,7 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "int_times", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
         ArrDbl x(3);
@@ -2393,7 +2361,7 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "double_divide", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
         ArrDbl x(3);
@@ -2417,7 +2385,7 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "float_divide", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
         ArrDbl x(3);
@@ -2441,7 +2409,7 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "int_divide", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
         ArrDbl x(3);
@@ -2465,7 +2433,7 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "log", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
         ArrDbl x(3);
@@ -2489,7 +2457,7 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "exp", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
         ArrDbl x(3);
@@ -2512,4 +2480,4 @@ const double EQT = 1.0e-15;
 
 }
 
-// end test_ArrDbl.cpp
+//  end test_ArrDbl.cpp

@@ -4,7 +4,7 @@
  * @author Peter Hakel
  * @version 0.8
  * @date Created on 22 December 2016\n
- * Last modified on 3 March 2019
+ * Last modified on 28 January 2020
  * @copyright (c) 2016, Triad National Security, LLC.
  * All rights reserved.\n
  * Use of this source code is governed by the BSD 3-Clause License.
@@ -39,7 +39,7 @@ for (size_t id = 0; id < ndet; ++id)
             deti.yt[IntPair(itheta, iphi)].fill(0.0);
 }
 
-size_t nt = h.get_nintervals();
+size_t nintervals = h.get_nintervals();
 size_t freq_det(freq == 0 ? 0 : 1);
 
-// end diag_exec.inc
+//  end diag_exec.inc

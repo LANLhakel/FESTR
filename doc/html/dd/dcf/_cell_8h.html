@@ -36,7 +36,7 @@
   <td id="projectlogo"><img alt="Logo" src="../../mesh.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">FESTR
-   &#160;<span id="projectnumber">0.8</span>
+   &#160;<span id="projectnumber">0.9</span>
    </div>
    <div id="projectbrief">Finite-Element Spectral Transfer of Radiation</div>
   </td>
@@ -99,10 +99,11 @@ $(document).ready(function(){initNavTree('dd/dcf/_cell_8h.html','../../');});
 
 <p>Class <a class="el" href="../../da/d50/class_zone.html" title="Spatial zone, defined by a list bounding Face objects. ">Zone</a> reduced to hold only materials' search grids for analysis.  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &lt;vector&gt;</code><br />
-<code>#include &lt;string&gt;</code><br />
+<div class="textblock"><code>#include &lt;fstream&gt;</code><br />
 <code>#include &lt;map&gt;</code><br />
-<code>#include &lt;fstream&gt;</code><br />
+<code>#include &lt;memory&gt;</code><br />
+<code>#include &lt;string&gt;</code><br />
+<code>#include &lt;vector&gt;</code><br />
 </div>
 <p><a href="../../dd/dcf/_cell_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
@@ -117,9 +118,11 @@ Classes</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
 Typedefs</h2></td></tr>
-<tr class="memitem:a8bb055af8c78fecf3156274b45499db7"><td class="memItemLeft" align="right" valign="top">typedef std::map&lt; std::string, std::vector&lt; double &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/dcf/_cell_8h.html#a8bb055af8c78fecf3156274b45499db7">FpopMap</a></td></tr>
-<tr class="memdesc:a8bb055af8c78fecf3156274b45499db7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Maps material name (key) to density grid (value)  <a href="#a8bb055af8c78fecf3156274b45499db7">More...</a><br /></td></tr>
-<tr class="separator:a8bb055af8c78fecf3156274b45499db7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad4abf72af1e486bce93c94b0f8f9c2d7"><td class="memItemLeft" align="right" valign="top">typedef std::map&lt; std::string, std::vector&lt; double &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/dcf/_cell_8h.html#ad4abf72af1e486bce93c94b0f8f9c2d7">FpopMap</a></td></tr>
+<tr class="memdesc:ad4abf72af1e486bce93c94b0f8f9c2d7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Maps material name (key) to density grid (value)  <a href="#ad4abf72af1e486bce93c94b0f8f9c2d7">More...</a><br /></td></tr>
+<tr class="separator:ad4abf72af1e486bce93c94b0f8f9c2d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a95e26f7e0bb85bccc6eb0d112fbb385e"><td class="memItemLeft" align="right" valign="top">typedef std::shared_ptr&lt; <a class="el" href="../../dd/d11/class_cell.html">Cell</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/dcf/_cell_8h.html#a95e26f7e0bb85bccc6eb0d112fbb385e">CellPtr</a></td></tr>
+<tr class="separator:a95e26f7e0bb85bccc6eb0d112fbb385e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
@@ -130,29 +133,45 @@ Functions</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Class <a class="el" href="../../da/d50/class_zone.html" title="Spatial zone, defined by a list bounding Face objects. ">Zone</a> reduced to hold only materials' search grids for analysis. </p>
 <dl class="section author"><dt>Author</dt><dd>Peter Hakel </dd></dl>
-<dl class="section version"><dt>Version</dt><dd>0.8 </dd></dl>
+<dl class="section version"><dt>Version</dt><dd>0.9 </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>Created on 4 July 2015<br />
-Last modified on 3 March 2019 </dd></dl>
+Last modified on 28 January 2020 </dd></dl>
 <dl class="section copyright"><dt>Copyright</dt><dd>(c) 2015, Triad National Security, LLC. All rights reserved.<br />
 Use of this source code is governed by the BSD 3-Clause License. See top-level license.txt file for full license text. </dd></dl>
 
 <p class="definition">Definition in file <a class="el" href="../../dd/dcf/_cell_8h_source.html">Cell.h</a>.</p>
 </div><h2 class="groupheader">Typedef Documentation</h2>
-<a id="a8bb055af8c78fecf3156274b45499db7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8bb055af8c78fecf3156274b45499db7">&#9670;&nbsp;</a></span>FpopMap</h2>
+<a id="a95e26f7e0bb85bccc6eb0d112fbb385e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a95e26f7e0bb85bccc6eb0d112fbb385e">&#9670;&nbsp;</a></span>CellPtr</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">typedef std::map&lt; std::string, std::vector&lt;double&gt; &gt; <a class="el" href="../../dd/dcf/_cell_8h.html#a8bb055af8c78fecf3156274b45499db7">FpopMap</a></td>
+          <td class="memname">typedef std::shared_ptr&lt;<a class="el" href="../../dd/d11/class_cell.html">Cell</a>&gt; <a class="el" href="../../dd/dcf/_cell_8h.html#a95e26f7e0bb85bccc6eb0d112fbb385e">CellPtr</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../dd/dcf/_cell_8h_source.html#l00028">28</a> of file <a class="el" href="../../dd/dcf/_cell_8h_source.html">Cell.h</a>.</p>
+
+</div>
+</div>
+<a id="ad4abf72af1e486bce93c94b0f8f9c2d7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad4abf72af1e486bce93c94b0f8f9c2d7">&#9670;&nbsp;</a></span>FpopMap</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef std::map&lt;std::string, std::vector&lt;double&gt; &gt; <a class="el" href="../../dd/dcf/_cell_8h.html#ad4abf72af1e486bce93c94b0f8f9c2d7">FpopMap</a></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 <p>Maps material name (key) to density grid (value) </p>
 
-<p class="definition">Definition at line <a class="el" href="../../dd/dcf/_cell_8h_source.html#l00025">25</a> of file <a class="el" href="../../dd/dcf/_cell_8h_source.html">Cell.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../dd/dcf/_cell_8h_source.html#l00026">26</a> of file <a class="el" href="../../dd/dcf/_cell_8h_source.html">Cell.h</a>.</p>
 
 </div>
 </div>
@@ -193,7 +212,7 @@ Use of this source code is governed by the BSD 3-Clause License. See top-level l
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Reference to output stream </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../dd/ddd/_cell_8cpp_source.html#l00212">212</a> of file <a class="el" href="../../dd/ddd/_cell_8cpp_source.html">Cell.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../dd/ddd/_cell_8cpp_source.html#l00209">209</a> of file <a class="el" href="../../dd/ddd/_cell_8cpp_source.html">Cell.cpp</a>.</p>
 
 </div>
 </div>
@@ -203,7 +222,7 @@ Use of this source code is governed by the BSD 3-Clause License. See top-level l
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="../../dd/dcf/_cell_8h.html">Cell.h</a></li>
-    <li class="footer">Generated on Wed Mar 6 2019 11:56:58 for FESTR by
+    <li class="footer">Generated on Fri Oct 9 2020 15:10:22 for FESTR by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.13 </li>
   </ul>

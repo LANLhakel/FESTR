@@ -2,66 +2,101 @@
  * @file ArrDbl.cpp
  * @brief Array of doubles
  * @author Peter Hakel
- * @version 0.8
+ * @version 0.9
  * @date Created on 3 December 2014\n
- * Last modified on 6 March 2019
+ * Last modified on 27 February 2020
  * @copyright (c) 2015, Triad National Security, LLC.
  * All rights reserved.\n
  * Use of this source code is governed by the BSD 3-Clause License.
  * See top-level license.txt file for full license text.
  */
 
-#include "ArrDbl.h"
-#include "utilities.h"
-#include "Vector3d.h"
-#include <fstream>
-#include <cmath>
+#include <ArrDbl.h>
+
+#include <utils.h>
+#include <Vector3d.h>
+
 #include <algorithm>
+#include <cmath>
+#include <fstream>
 #include <stdexcept>
 
 //-----------------------------------------------------------------------------
 
-ArrDbl::ArrDbl(void): n(0), v() {}
+ArrDbl::ArrDbl(): n(0), v() {}
 
 //-----------------------------------------------------------------------------
 
-ArrDbl::ArrDbl(const size_t nin): n(nin), v() {v.assign(nin, 0.0);}
+ArrDbl::ArrDbl(const size_t nin): n(nin), v()
+{
+    v.assign(nin, 0.0);
+}
 
 //-----------------------------------------------------------------------------
 
-ArrDbl::~ArrDbl(void) {}
+void ArrDbl::clear()
+{
+    n = 0;
+    v.clear();
+}
 
 //-----------------------------------------------------------------------------
 
-void ArrDbl::clear(void) {n = 0; v.clear();}
+size_t ArrDbl::size() const
+{
+    return n;
+}
 
 //-----------------------------------------------------------------------------
 
-size_t ArrDbl::size(void) const {return n;}
+void ArrDbl::reserve(const size_t nin)
+{
+    v.reserve(nin);
+}
 
 //-----------------------------------------------------------------------------
 
-void ArrDbl::reserve(const size_t nin) {v.reserve(nin);}
+void ArrDbl::push_back(const double x)
+{
+    ++n;
+    v.push_back(x);
+}
 
 //-----------------------------------------------------------------------------
 
-void ArrDbl::push_back(const double x) {++n; v.push_back(x);}
+void ArrDbl::emplace_back(const double x)
+{
+    ++n;
+    v.emplace_back(std::move(x));
+}
 
 //-----------------------------------------------------------------------------
 
-double ArrDbl::at(const size_t i) const {return v.at(i);} // rvalue
+double ArrDbl::at(const size_t i) const // rvalue
+{
+    return v.at(i);
+}
 
 //-----------------------------------------------------------------------------
 
-double & ArrDbl::at(const size_t i) {return v.at(i);} // lvalue
+double & ArrDbl::at(const size_t i) // lvalue
+{
+    return v.at(i);
+}
 
 //-----------------------------------------------------------------------------
 
-double ArrDbl::operator [](const size_t i) const {return v[i];} // rvalue
+double ArrDbl::operator [](const size_t i) const // rvalue
+{
+    return v[i];
+}
 
 //-----------------------------------------------------------------------------
 
-double & ArrDbl::operator [](const size_t i) {return v[i];} // lvalue
+double & ArrDbl::operator [](const size_t i) // lvalue
+{
+    return v[i];
+}
 
 //-----------------------------------------------------------------------------
 
@@ -76,7 +111,7 @@ double ArrDbl::abs_diff(const ArrDbl &o) const
 
 //-----------------------------------------------------------------------------
 
-std::string ArrDbl::to_string(void) const
+std::string ArrDbl::to_string() const
 {
     std::string s = "";
     for (size_t i = 0; i < n; ++i)
@@ -101,42 +136,59 @@ void ArrDbl::to_file(const std::string &fname,
 //-----------------------------------------------------------------------------
 
 void ArrDbl::assign(const size_t nin, const double f)
-{n = nin; v.assign(nin, f);}
+{
+    n = nin;
+    v.assign(nin, f);
+}
 
 //-----------------------------------------------------------------------------
 
 void ArrDbl::assign(const size_t nin, const float f)
-{assign(nin, static_cast<double>(f));}
+{
+    assign(nin, static_cast<double>(f));
+}
 
 //-----------------------------------------------------------------------------
 
 void ArrDbl::assign(const size_t nin, const int f)
-{assign(nin, static_cast<double>(f));}
-
-//-----------------------------------------------------------------------------
-
-void ArrDbl::fill(const double f) {v.assign(n, f);}
-
-//-----------------------------------------------------------------------------
-
-void ArrDbl::fill(const float f) {fill(static_cast<double>(f));}
-
-//-----------------------------------------------------------------------------
-
-void ArrDbl::fill(const int f) {fill(static_cast<double>(f));}
-
-//-----------------------------------------------------------------------------
-
-const ArrDbl ArrDbl::operator + (void) const {return *this;}
-
-//-----------------------------------------------------------------------------
-
-const ArrDbl ArrDbl::operator - (void) const
 {
-    #include "ArrDblRVinit.inc"
-    #include "ArrDblLoop.inc"
-        rv.v.at(i) = -at(i);
+    assign(nin, static_cast<double>(f));
+}
 
+//-----------------------------------------------------------------------------
+
+void ArrDbl::fill(const double f)
+{
+    v.assign(n, f);
+}
+
+//-----------------------------------------------------------------------------
+
+void ArrDbl::fill(const float f)
+{
+    fill(static_cast<double>(f));
+}
+
+//-----------------------------------------------------------------------------
+
+void ArrDbl::fill(const int f)
+{
+    fill(static_cast<double>(f));
+}
+
+//-----------------------------------------------------------------------------
+
+const ArrDbl ArrDbl::operator + () const
+{
+    return *this;
+}
+
+//-----------------------------------------------------------------------------
+
+const ArrDbl ArrDbl::operator - () const
+{
+    #include <ArrDblRVinit.inc>
+    for (size_t i = 0; i < n; ++i) rv.v.at(i) = -at(i);
     return rv;
 }
 
@@ -144,10 +196,8 @@ const ArrDbl ArrDbl::operator - (void) const
 
 ArrDbl & ArrDbl::operator += (const ArrDbl &a)
 {
-    #include "ArrDblRangeCheck.inc"
-    #include "ArrDblLoop.inc"
-        v.at(i) += a.at(i);
-
+    #include <ArrDblRangeCheck.inc>
+    for (size_t i = 0; i < n; ++i) v.at(i) += a.at(i);
     return *this;
 }
 
@@ -155,10 +205,8 @@ ArrDbl & ArrDbl::operator += (const ArrDbl &a)
 
 ArrDbl & ArrDbl::operator -= (const ArrDbl &a)
 {
-    #include "ArrDblRangeCheck.inc"
-    #include "ArrDblLoop.inc"
-        v.at(i) -= a.at(i);
-
+    #include <ArrDblRangeCheck.inc>
+    for (size_t i = 0; i < n; ++i) v.at(i) -= a.at(i);
     return *this;
 }
 
@@ -166,9 +214,8 @@ ArrDbl & ArrDbl::operator -= (const ArrDbl &a)
 
 ArrDbl & ArrDbl::operator *= (const ArrDbl &a)
 {
-    #include "ArrDblRangeCheck.inc"
-    #include "ArrDblLoop.inc"
-        v.at(i) *= a.at(i);
+    #include <ArrDblRangeCheck.inc>
+    for (size_t i = 0; i < n; ++i) v.at(i) *= a.at(i);
 
     return *this;
 }
@@ -180,8 +227,8 @@ ArrDbl & ArrDbl::operator /= (const ArrDbl &a)
     const double SMALL = Vector3d::get_small();
     const double BIG = -Vector3d::get_big();
 
-    #include "ArrDblRangeCheck.inc"
-    #include "ArrDblLoop.inc"
+    #include <ArrDblRangeCheck.inc>
+    for (size_t i = 0; i < n; ++i)
     {
         if (fabs(a.at(i)) < SMALL)
             v.at(i) = BIG;
@@ -196,7 +243,7 @@ ArrDbl & ArrDbl::operator /= (const ArrDbl &a)
 
 const ArrDbl ArrDbl::operator + (const ArrDbl &a) const
 {
-    #include "ArrDblRVinit.inc"
+    #include <ArrDblRVinit.inc>
     rv = *this;
     return rv += a;
 }
@@ -205,7 +252,7 @@ const ArrDbl ArrDbl::operator + (const ArrDbl &a) const
 
 const ArrDbl ArrDbl::operator - (const ArrDbl &a) const
 {
-    #include "ArrDblRVinit.inc"
+    #include <ArrDblRVinit.inc>
     rv = *this;
     return rv -= a;
 }
@@ -214,7 +261,7 @@ const ArrDbl ArrDbl::operator - (const ArrDbl &a) const
 
 const ArrDbl ArrDbl::operator * (const ArrDbl &a) const
 {
-    #include "ArrDblRVinit.inc"
+    #include <ArrDblRVinit.inc>
     rv = *this;
     return rv *= a;
 }
@@ -223,7 +270,7 @@ const ArrDbl ArrDbl::operator * (const ArrDbl &a) const
 
 const ArrDbl ArrDbl::operator / (const ArrDbl &a) const
 {
-    #include "ArrDblRVinit.inc"
+    #include <ArrDblRVinit.inc>
     rv = *this;
     return rv /= a;
 }
@@ -232,9 +279,7 @@ const ArrDbl ArrDbl::operator / (const ArrDbl &a) const
 
 ArrDbl & ArrDbl::operator += (const double f)
 {
-    #include "ArrDblLoop.inc"
-        v.at(i) += f;
-
+    std::for_each(v.begin(), v.end(), [f](double &y){y += f;});
     return *this;
 }
 
@@ -256,9 +301,7 @@ ArrDbl & ArrDbl::operator += (const int f)
 
 ArrDbl & ArrDbl::operator -= (const double f)
 {
-    #include "ArrDblLoop.inc"
-        v.at(i) -= f;
-
+    std::for_each(v.begin(), v.end(), [f](double &y){y -= f;});
     return *this;
 }
 
@@ -280,9 +323,7 @@ ArrDbl & ArrDbl::operator -= (const int f)
 
 ArrDbl & ArrDbl::operator *= (const double f)
 {
-    #include "ArrDblLoop.inc"
-        v.at(i) *= f;
-
+    std::for_each(v.begin(), v.end(), [f](double &y){y *= f;});
     return *this;
 }
 
@@ -307,13 +348,11 @@ ArrDbl & ArrDbl::operator /= (const double f)
     if (fabs(f) < Vector3d::get_small())
     {
         const double BIG = -Vector3d::get_big();
-        #include "ArrDblLoop.inc"
-            v.at(i) = BIG;
+        std::for_each(v.begin(), v.end(), [BIG](double &y){y = BIG;});
     }
     else
     {
-        #include "ArrDblLoop.inc"
-            v.at(i) /= f;
+        std::for_each(v.begin(), v.end(), [f](double &y){y /= f;});
     }
 
     return *this;
@@ -337,7 +376,7 @@ ArrDbl & ArrDbl::operator /= (const int f)
 
 const ArrDbl ArrDbl::operator + (const double f) const
 {
-    #include "ArrDblRVinit.inc"
+    #include <ArrDblRVinit.inc>
     rv = *this;
     return rv += f;
 }
@@ -360,7 +399,7 @@ const ArrDbl ArrDbl::operator + (const int f) const
 
 const ArrDbl ArrDbl::operator - (const double f) const
 {
-    #include "ArrDblRVinit.inc"
+    #include <ArrDblRVinit.inc>
     rv = *this;
     return rv -= f;
 }
@@ -383,7 +422,7 @@ const ArrDbl ArrDbl::operator - (const int f) const
 
 const ArrDbl ArrDbl::operator * (const double f) const
 {
-    #include "ArrDblRVinit.inc"
+    #include <ArrDblRVinit.inc>
     rv = *this;
     return rv *= f;
 }
@@ -406,7 +445,7 @@ const ArrDbl ArrDbl::operator * (const int f) const
 
 const ArrDbl ArrDbl::operator / (const double f) const
 {
-    #include "ArrDblRVinit.inc"
+    #include <ArrDblRVinit.inc>
     rv = *this;
     return rv /= f;
 }
@@ -430,7 +469,7 @@ const ArrDbl ArrDbl::operator / (const int f) const
 const ArrDbl operator / (const double f, const ArrDbl &a)
 {
     const size_t n = a.size();
-    #include "ArrDblRVinit.inc"
+    #include <ArrDblRVinit.inc>
     rv.assign(n, f);
     return rv / a;
 }
@@ -445,39 +484,66 @@ std::ostream & operator << (std::ostream &ost, const ArrDbl &o)
 
 //-----------------------------------------------------------------------------
 
-const ArrDbl operator + (const double f, const ArrDbl &a) {return a + f;}
+const ArrDbl operator + (const double f, const ArrDbl &a)
+{
+    return a + f;
+}
 
 //-----------------------------------------------------------------------------
 
-const ArrDbl operator + (const float f, const ArrDbl &a) {return a + f;}
+const ArrDbl operator + (const float f, const ArrDbl &a)
+{
+    return a + f;
+}
 
 //-----------------------------------------------------------------------------
 
-const ArrDbl operator + (const int f, const ArrDbl &a) {return a + f;}
+const ArrDbl operator + (const int f, const ArrDbl &a)
+{
+    return a + f;
+}
 
 //-----------------------------------------------------------------------------
 
-const ArrDbl operator - (const double f, const ArrDbl &a) {return -(a - f);}
+const ArrDbl operator - (const double f, const ArrDbl &a)
+{
+    return -(a - f);
+}
 
 //-----------------------------------------------------------------------------
 
-const ArrDbl operator - (const float f, const ArrDbl &a) {return -(a - f);}
+const ArrDbl operator - (const float f, const ArrDbl &a)
+{
+    return -(a - f);
+}
 
 //-----------------------------------------------------------------------------
 
-const ArrDbl operator - (const int f, const ArrDbl &a) {return -(a - f);}
+const ArrDbl operator - (const int f, const ArrDbl &a)
+{
+    return -(a - f);
+}
 
 //-----------------------------------------------------------------------------
 
-const ArrDbl operator * (const double f, const ArrDbl &a) {return a * f;}
+const ArrDbl operator * (const double f, const ArrDbl &a)
+{
+    return a * f;
+}
 
 //-----------------------------------------------------------------------------
 
-const ArrDbl operator * (const float f, const ArrDbl &a) {return a * f;}
+const ArrDbl operator * (const float f, const ArrDbl &a)
+{
+    return a * f;
+}
 
 //-----------------------------------------------------------------------------
 
-const ArrDbl operator * (const int f, const ArrDbl &a) {return a * f;}
+const ArrDbl operator * (const int f, const ArrDbl &a)
+{
+    return a * f;
+}
 
 //-----------------------------------------------------------------------------
 
@@ -501,15 +567,13 @@ const ArrDbl log(const ArrDbl &a)
     const double BIG = -Vector3d::get_big();
     const size_t n = a.size();
     ArrDbl rv(a);
-
-    #include "ArrDblLoop.inc"
+    for (size_t i = 0; i < n; ++i)
     {
         if (utils::sign_eqt(a.at(i), SMALL) == 1)
             rv.at(i) = log(a.at(i));
         else
             rv.at(i) = BIG;
     }
-
     return rv;
 }
 
@@ -519,13 +583,10 @@ const ArrDbl exp(const ArrDbl &a)
 {
     const size_t n = a.size();
     ArrDbl rv(a);
-
-    #include "ArrDblLoop.inc"
-        rv.at(i) = exp(a.at(i));
-
+    for (size_t i = 0; i < n; ++i) rv.at(i) = exp(a.at(i));
     return rv;
 }
 
 //-----------------------------------------------------------------------------
 
-// end ArrDbl.cpp
+//  end ArrDbl.cpp

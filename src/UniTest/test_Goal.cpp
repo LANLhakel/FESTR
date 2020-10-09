@@ -11,14 +11,14 @@ Los Alamos National Laboratory
 XCP-5 group
 
 Created on 28 June 2015
-Last modified on 3 March 2019
+Last modified on 2 October 2020
 
 Copyright (c) 2015, Triad National Security, LLC.
 All rights reserved.
 Use of this source code is governed by the BSD 3-Clause License.
 See top-level license.txt file for full license text.
 
-CODE NAME:  FESTR, Version 0.8 (C15068)
+CODE NAME:  FESTR, Version 0.9 (C15068)
 Classification Review Number: LA-CC-15-045
 Export Control Classification Number (ECCN): EAR99
 B&R Code:  DP1516090
@@ -27,16 +27,16 @@ B&R Code:  DP1516090
 
 //  Note: only use trimmed strings for names
 
+#include <test_Goal.h>
 #include <Test.h>
-#include "../src/Goal.h"
-#include "../src/ArrDbl.h"
-#include "../src/constants.h"
+
+#include <ArrDbl.h>
+#include <constants.h>
 
 #include <stdexcept>
 
 void test_Goal(int &failed_test_count, int &disabled_test_count)
 {
-
 const std::string GROUP = "Goal";
 const double EQT = 1.0e-15;
 
@@ -45,7 +45,7 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "size0", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
         Goal gol;
@@ -61,7 +61,7 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "analysis0", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
         Goal gol;
@@ -77,7 +77,7 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "set_analysis_true", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
         Goal gol;
@@ -94,7 +94,7 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "get_best_scale", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
         Goal gol;
@@ -110,10 +110,10 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "set_analysis_false", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        Goal gol(true, cnst::PATH + "UniTest/Goal1/");
+        Goal gol(true, cnststr::PATH + "UniTest/Goal1/");
         gol.set_analysis(false);
         bool expected(false);
         bool actual = gol.get_analysis();
@@ -127,10 +127,10 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "size", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        Goal gol(true, cnst::PATH + "UniTest/Goal1/");
+        Goal gol(true, cnststr::PATH + "UniTest/Goal1/");
         size_t expected(4);
         size_t actual = gol.size();
 
@@ -143,10 +143,10 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "analysis", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        Goal gol(true, cnst::PATH + "UniTest/Goal1/");
+        Goal gol(true, cnststr::PATH + "UniTest/Goal1/");
         bool expected(true);
         bool actual = gol.get_analysis();
 
@@ -159,10 +159,10 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "size_none", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        Goal gol(false, cnst::PATH + "UniTest/Goal1/");
+        Goal gol(false, cnststr::PATH + "UniTest/Goal1/");
         size_t expected(0);
         size_t actual = gol.size();
 
@@ -175,10 +175,10 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "analysis_none", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        Goal gol(false, cnst::PATH + "UniTest/Goal1/");
+        Goal gol(false, cnststr::PATH + "UniTest/Goal1/");
         bool expected(false);
         bool actual = gol.get_analysis();
 
@@ -191,10 +191,10 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "to_string", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        Goal gol(true, cnst::PATH + "UniTest/Goal1/");
+        Goal gol(true, cnststr::PATH + "UniTest/Goal1/");
         std::string s("Number of Objectives           4");
         s += "\nObjective_Name weight x_is_present w_is_present";
         s += "\nObjectiveNameXYW    2.000000e+00 true true";
@@ -213,10 +213,10 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "initial_fitness", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        Goal gol(true, cnst::PATH + "UniTest/Goal1/");
+        Goal gol(true, cnststr::PATH + "UniTest/Goal1/");
         std::string expected(" -1.000000e+300");
         double act = gol.get_fitness_at(0);
         std::string actual(utils::double_to_string(act));
@@ -230,10 +230,10 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "get_name", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        Goal gol(true, cnst::PATH + "UniTest/Goal1/");
+        Goal gol(true, cnststr::PATH + "UniTest/Goal1/");
         std::string expected("ObjectiveNameXY");
         std::string actual = gol.get_name(2);
 
@@ -246,10 +246,10 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "get_index", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        Goal gol(true, cnst::PATH + "UniTest/Goal1/");
+        Goal gol(true, cnststr::PATH + "UniTest/Goal1/");
         size_t expected(2);
         size_t actual = gol.get_index("ObjectiveNameXY");
 
@@ -262,10 +262,10 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "get_index_nonexistent", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        Goal gol(true, cnst::PATH + "UniTest/Goal1/");
+        Goal gol(true, cnststr::PATH + "UniTest/Goal1/");
         size_t expected(4);
         size_t actual = gol.get_index("nonexistent");
 
@@ -278,10 +278,10 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "get_weight", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        Goal gol(true, cnst::PATH + "UniTest/Goal1/");
+        Goal gol(true, cnststr::PATH + "UniTest/Goal1/");
         double expected(2.0);
         double actual = gol.get_objective(0)->get_weight();
 
@@ -294,10 +294,10 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "fit_eval0", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        Goal gol(true, cnst::PATH + "UniTest/Goal1/");
+        Goal gol(true, cnststr::PATH + "UniTest/Goal1/");
         ArrDbl a(2);
         a.fill(0.0);
         gol.fit_eval("ObjectiveNameXYW", a);
@@ -313,10 +313,10 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "fit_eval1", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        Goal gol(true, cnst::PATH + "UniTest/Goal1/");
+        Goal gol(true, cnststr::PATH + "UniTest/Goal1/");
         ArrDbl a(2);
         a.fill(1.0);
         gol.fit_eval("ObjectiveNameYW", a);
@@ -332,10 +332,10 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "fit_eval2", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        Goal gol(true, cnst::PATH + "UniTest/Goal1/");
+        Goal gol(true, cnststr::PATH + "UniTest/Goal1/");
         ArrDbl a(2);
         a.fill(2.0);
         gol.fit_eval("ObjectiveNameXY", a);
@@ -351,10 +351,10 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "fit_eval3", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        Goal gol(true, cnst::PATH + "UniTest/Goal1/");
+        Goal gol(true, cnststr::PATH + "UniTest/Goal1/");
         ArrDbl a(2);
         a.fill(3.0);
         gol.fit_eval("ObjectiveNameY", a);
@@ -370,10 +370,10 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "get_fitness", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        #include "goal1.inc"
+        #include <goal1.inc>
         double expected(-138.35);
         double actual = gol.get_fitness();
 
@@ -386,10 +386,10 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "default_best_fitness", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        Goal gol(false, cnst::PATH + "UniTest/Goal1/");
+        Goal gol(false, cnststr::PATH + "UniTest/Goal1/");
         std::string expected(" -1.000000e+300");
         double act = gol.get_best_fitness();
         std::string actual(utils::double_to_string(act));
@@ -403,10 +403,10 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "initial_best_fitness", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        Goal gol(true, cnst::PATH + "UniTest/Goal1/");
+        Goal gol(true, cnststr::PATH + "UniTest/Goal1/");
         std::string expected(" -1.000000e+300");
         double act = gol.get_best_fitness();
         std::string actual(utils::double_to_string(act));
@@ -420,10 +420,10 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "default_best_case", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        Goal gol(false, cnst::PATH + "UniTest/Goal1/");
+        Goal gol(false, cnststr::PATH + "UniTest/Goal1/");
         size_t expected(0);
         size_t actual(gol.get_best_case());
 
@@ -436,10 +436,10 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "initial_best_case", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        Goal gol(true, cnst::PATH + "UniTest/Goal1/");
+        Goal gol(true, cnststr::PATH + "UniTest/Goal1/");
         size_t expected(0);
         size_t actual(gol.get_best_case());
 
@@ -452,10 +452,10 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "set_best_case", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        Goal gol(false, cnst::PATH + "UniTest/Goal1/");
+        Goal gol(false, cnststr::PATH + "UniTest/Goal1/");
         gol.set_best_case(11);
         size_t expected(11);
         size_t actual(gol.get_best_case());
@@ -469,10 +469,10 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "update_best_fitness_accept", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        #include "goal1.inc"
+        #include <goal1.inc>
         double expected(-138.35);
         double actual = gol.get_best_fitness();
 
@@ -485,10 +485,10 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "update_best_case_accept", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        #include "goal1.inc"
+        #include <goal1.inc>
         size_t expected(11);
         size_t actual = gol.get_best_case();
 
@@ -501,10 +501,10 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "update_best_fitness_reject", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        #include "poor_guess.inc"
+        #include <poor_guess.inc>
         double expected(-138.35);
         double actual = gol.get_best_fitness();
 
@@ -517,10 +517,10 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "update_best_case_reject", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        #include "poor_guess.inc"
+        #include <poor_guess.inc>
         size_t expected(11);
         size_t actual = gol.get_best_case();
 
@@ -532,4 +532,4 @@ const double EQT = 1.0e-15;
 
 }
 
-// end test_Goal.cpp
+//  end test_Goal.cpp

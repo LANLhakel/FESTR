@@ -1,1 +1,1 @@
-g++ -g -O0 -o car_img ../src/src/utilities.cpp car_img.cpp
+g++ -std=c++11 -g -O0 -I../src/src/ -o car_img ../src/src/constants.cpp ../src/src/utils.cpp car_img.cpp

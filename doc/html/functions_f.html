@@ -36,7 +36,7 @@
   <td id="projectlogo"><img alt="Logo" src="mesh.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">FESTR
-   &#160;<span id="projectnumber">0.8</span>
+   &#160;<span id="projectnumber">0.9</span>
    </div>
    <div id="projectbrief">Finite-Element Spectral Transfer of Radiation</div>
   </td>
@@ -95,11 +95,18 @@ $(document).ready(function(){initNavTree('functions_f.html','');});
 : <a class="el" href="d3/d5a/struct_table_data.html#ac2883ca4027ff289af94998d037478dc">TableData</a>
 </li>
 <li>Face()
-: <a class="el" href="d5/d2a/class_face.html#a283aed204ad89b5f081e7116ea403377">Face</a>
+: <a class="el" href="d5/d2a/class_face.html#afdb634bc2d5287ba0d62e46b57e9dc2e">Face</a>
 </li>
 <li>face
-: <a class="el" href="d1/d1a/class_surface.html#a138f60dec3e55e88f9c35f1d7d7e98cd">Surface</a>
-, <a class="el" href="da/d50/class_zone.html#ac31a69b78ad60d3eec6893e95e368266">Zone</a>
+: <a class="el" href="d1/d1a/class_surface.html#a5f75c89269962ec24b88311ac5077404">Surface</a>
+, <a class="el" href="da/d50/class_zone.html#a1307487e1dfd46829f1b2aa6f7fc34cd">Zone</a>
+</li>
+<li>face_point()
+: <a class="el" href="d8/da1/class_cone.html#a194a71cd172dfd8d315b4097f6f9c6c6">Cone</a>
+, <a class="el" href="d5/d2a/class_face.html#a1b3ff6e3cdae1065f47e53b9b945918f">Face</a>
+, <a class="el" href="d1/db0/class_polygon.html#ad5e7077e5c3fe3f147e37dd48f4cc2b7">Polygon</a>
+, <a class="el" href="d3/d62/class_sphere.html#ad8eca647c2bf2294965144ffe4a7c9dc">Sphere</a>
+, <a class="el" href="d1/d1a/class_surface.html#ac75b509da4c903bab5cdaa180c62f853">Surface</a>
 </li>
 <li>FaceID()
 : <a class="el" href="d6/d32/struct_face_i_d.html#a37bdbf5ac6115329493607b3789a9b71">FaceID</a>
@@ -107,17 +114,44 @@ $(document).ready(function(){initNavTree('functions_f.html','');});
 <li>fid
 : <a class="el" href="d8/d04/struct_ret_intercept.html#ac2923140693c6652d2c5a36eb8f055c8">RetIntercept</a>
 </li>
+<li>file_to_string()
+: <a class="el" href="df/da6/structutils.html#a1c33812d2dfe24f99ef1390e44b39166">utils</a>
+</li>
 <li>fill()
-: <a class="el" href="d9/d73/class_arr_dbl.html#a3fdba1d77b893fd7821f81c20230ffc7">ArrDbl</a>
+: <a class="el" href="d9/d73/class_arr_dbl.html#a4bcb188576135a8b7157bb6a9cb9c5de">ArrDbl</a>
+</li>
+<li>find_line()
+: <a class="el" href="df/da6/structutils.html#ae082a94113b9800ef270ee285c73476a">utils</a>
 </li>
 <li>find_ne()
 : <a class="el" href="dc/d83/class_database.html#aa81c2442f3e322c68f895c8f399d52a2">Database</a>
 </li>
+<li>find_word()
+: <a class="el" href="df/da6/structutils.html#a03fdad74820dad3ac41ff0c781b9961d">utils</a>
+</li>
+<li>first_difference()
+: <a class="el" href="df/da6/structutils.html#a7d437f8f35d837d6a295c12574009fd0">utils</a>
+</li>
 <li>fit_eval()
 : <a class="el" href="d1/dcf/class_goal.html#ada8dae126d02de43d3ff5f2b5221263b">Goal</a>
 </li>
+<li>fitlin()
+: <a class="el" href="df/da6/structutils.html#a1ed1a1d5d0da0e240c054db16560b426">utils</a>
+</li>
 <li>fitness
 : <a class="el" href="d1/dcf/class_goal.html#ac01077185ce97eec15cd561a49db454a">Goal</a>
+</li>
+<li>fitpoint()
+: <a class="el" href="df/da6/structutils.html#ac64afd582088b8986d333ffb535d21df">utils</a>
+</li>
+<li>fname_root()
+: <a class="el" href="df/da6/structutils.html#a9be31bd27730cc122144bbba95cb5ef7">utils</a>
+</li>
+<li>FOUR_PI
+: <a class="el" href="d1/ddd/structcnst.html#a0fd1adec5d08699dfba64eadbc664fef">cnst</a>
+</li>
+<li>FOUR_THIRDS_PI
+: <a class="el" href="d1/ddd/structcnst.html#a0bb5d256f00efee74a59e6f7209c55a9">cnst</a>
 </li>
 <li>fp
 : <a class="el" href="d3/d6e/struct_cell_e_o_s.html#a4a7eb17d2fe7f0ed60cea9f4f55d5b38">CellEOS</a>
@@ -167,7 +201,7 @@ $(document).ready(function(){initNavTree('functions_f.html','');});
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Wed Mar 6 2019 11:57:00 for FESTR by
+    <li class="footer">Generated on Fri Oct 9 2020 15:10:24 for FESTR by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.13 </li>
   </ul>

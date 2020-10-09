@@ -1,1 +1,1 @@
-g++ -g -O0 -o objprep_plot ../src/utilities.cpp ArrSection.cpp objprep_plot.cpp
+g++ -std=c++11 -g -O0 -I. -I../src -o objprep_plot ../src/constants.cpp ../src/utils.cpp ArrSection.cpp objprep_plot.cpp

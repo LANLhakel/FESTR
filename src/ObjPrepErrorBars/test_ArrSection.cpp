@@ -8,14 +8,14 @@ Los Alamos National Laboratory
 XCP-5 group
 
 Created on 25 July 2016
-Last modified on 3 March 2019
+Last modified on 9 October 2020
 
 Copyright (c) 2015, Triad National Security, LLC.
 All rights reserved.
 Use of this source code is governed by the BSD 3-Clause License.
 See top-level license.txt file for full license text.
 
-CODE NAME:  FESTR, Version 0.8 (C15068)
+CODE NAME:  FESTR, Version 0.9 (C15068)
 Classification Review Number: LA-CC-15-045
 Export Control Classification Number (ECCN): EAR99
 B&R Code:  DP1516090
@@ -24,10 +24,10 @@ B&R Code:  DP1516090
 
 //  Note: only use trimmed strings for names
 
-#include "../../common/UniTest/Test.h"
-#include "../src/utilities.h"
+#include <Test.h>
+#include <utils.h>
 
-#include "ArrSection.h"
+#include <ArrSection.h>
 #include <string>
 #include <cstdlib>
 
@@ -43,7 +43,7 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "ctor_lower_limit", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
         ArrSection a(-3, 5, false);
@@ -59,7 +59,7 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "ctor_upper_limit", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
         ArrSection a(-3, 5, false);
@@ -75,7 +75,7 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "ctor_upper_limit_with_swap", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
         ArrSection a(5, -3, false);
@@ -91,7 +91,7 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "ctor_lower_limit_with_swap", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
         ArrSection a(5, -3, false);
@@ -107,7 +107,7 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "ctor_size", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
         ArrSection a(-3, 5, false);
@@ -123,7 +123,7 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "ctor_value", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
         ArrSection a(-3, 5, false);
@@ -139,7 +139,7 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "set_get_at_p4", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
         ArrSection a(-3, 5, false);
@@ -156,7 +156,7 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "set_get_at_m2", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
         ArrSection a(-3, 5, false);
@@ -173,7 +173,7 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "beyond_lower_with_false", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
         ArrSection a(2, 3, false);
@@ -191,7 +191,7 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "beyond_upper_with_false", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
         ArrSection a(2, 3, false);
@@ -209,7 +209,7 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "beyond_lower_with_true", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
         ArrSection a(2, 3, true);
@@ -227,7 +227,7 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "beyond_upper_with_true", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
         ArrSection a(2, 3, true);
@@ -245,7 +245,7 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "abs_diff", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
         ArrSection a(2, 3, false);
@@ -265,7 +265,7 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "to_string", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
         ArrSection a(2, 3, false);
@@ -283,7 +283,7 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "to_file", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
         ArrSection a(0, 2, false);
@@ -323,7 +323,7 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "copy_ctor", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
         ArrSection a(-3, -2, false);
@@ -341,7 +341,7 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "assignment", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
         ArrSection a(-3, -2, false);
@@ -359,7 +359,7 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "fill", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
         ArrSection a(-3, -2, false);

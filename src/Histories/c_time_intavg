@@ -1,1 +1,1 @@
-g++ -g -O0 -o time_intavg ../src/utilities.cpp time_intavg.cpp
+g++ -std=c++11 -g -O0 -I../src -o time_intavg ../src/constants.cpp ../src/utils.cpp time_intavg.cpp

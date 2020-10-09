@@ -1,6 +1,6 @@
 var struct_waypoint =
 [
-    [ "Waypoint", "d9/d64/struct_waypoint.html#a7e1c75e2a29a819847258621506eb43f", null ],
+    [ "Waypoint", "d9/d64/struct_waypoint.html#aa063fce5db492e5adfa232f026a27367", null ],
     [ "Waypoint", "d9/d64/struct_waypoint.html#ac66ab591dab44f83e4beeaaddb7a14e6", null ],
     [ "Waypoint", "d9/d64/struct_waypoint.html#a0690f54fb814a770bf635dd4fe9366b4", null ],
     [ "hitpt", "d9/d64/struct_waypoint.html#a003153e5201feec35e04232ff2c3b7da", null ],

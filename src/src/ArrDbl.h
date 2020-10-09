@@ -1,39 +1,31 @@
-#ifndef ARRDBL_H
-#define ARRDBL_H
+#ifndef LANL_ASC_PEM_ARRDBL_H_
+#define LANL_ASC_PEM_ARRDBL_H_
 
 /**
  * @file ArrDbl.h
  * @brief Array of doubles
  * @author Peter Hakel
- * @version 0.8
+ * @version 0.9
  * @date Created on 3 December 2014\n
- * Last modified on 6 March 2019
+ * Last modified on 28 January 2020
  * @copyright (c) 2015, Triad National Security, LLC.
  * All rights reserved.\n
  * Use of this source code is governed by the BSD 3-Clause License.
  * See top-level license.txt file for full license text.
  */
 
-#include <vector>
 #include <string>
+#include <vector>
 
 //-----------------------------------------------------------------------------
 
 /// Array of doubles
 class ArrDbl
 {
-private:
-
-    /// Number of values in v
-    size_t n;
-
-    /// Array of values v
-    std::vector<double> v;
-
 public:
 
     /// Default constructor
-    ArrDbl(void);
+    ArrDbl();
 
     /**
      * @brief Parametrized constructor:
@@ -42,17 +34,14 @@ public:
      */
     explicit ArrDbl(const size_t nin);
 
-    /// Destructor
-    ~ArrDbl(void);
-
     /** @brief Releases all array memory */
-    void clear(void);
+    void clear();
 
     /**
      * @brief Getter for number of values (ArrDbl::n)
      * @return Size of the array
      */
-    size_t size(void) const;
+    size_t size() const;
 
     /** 
      * @brief Reserves memory for nin array elements
@@ -65,6 +54,12 @@ public:
      * @param[in] x Value to be added to the end of the array
      */
     void push_back(const double x);
+
+    /**
+     * @brief Places a given number to the end of the array
+     * @param[in] x Value to be placed to the end of the array
+     */
+    void emplace_back(const double x);
 
     /**
      * @brief Getter for i-th component (ArrDbl::v)
@@ -105,7 +100,7 @@ public:
      * @brief String representation of an ArrDbl object
      * @return String representation of *this
      */
-    std::string to_string(void) const;
+    std::string to_string() const;
 
     /**
      * @brief Writes array data to a file, following a header string
@@ -158,13 +153,13 @@ public:
      * @brief Unary plus
      * @return \f$\forall i,\;+t_i\f$
      */
-    const ArrDbl operator + (void) const;
+    const ArrDbl operator + () const;
 
     /**
      * @brief Unary minus
      * @return \f$\forall i,\;-t_i\f$
      */
-    const ArrDbl operator - (void) const;
+    const ArrDbl operator - () const;
 
     /**
      * @brief Adds to an array
@@ -408,6 +403,15 @@ public:
      *         \f$\infty\f$, for those i's where \f$a_i=0\f$
      */
     friend const ArrDbl operator / (const double f, const ArrDbl &a);
+
+
+private:
+
+    /// Number of values in v
+    size_t n;
+
+    /// Array of values v
+    std::vector<double> v;
 };
 
 //-----------------------------------------------------------------------------
@@ -525,4 +529,4 @@ const ArrDbl log(const ArrDbl &a);
  */
 const ArrDbl exp(const ArrDbl &a);
 
-#endif // ARRDBL_H
+#endif  // LANL_ASC_PEM_ARRDBL_H_

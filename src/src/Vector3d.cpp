@@ -2,30 +2,30 @@
  * @file Vector3d.cpp
  * @brief 3-D Cartesian vectors
  * @author Peter Hakel
- * @version 0.8
+ * @version 0.9
  * @date Created on 11 November 2014\n
- * Last modified on 3 March 2019
+ * Last modified on 8 October 2020
  * @copyright (c) 2015, Triad National Security, LLC.
  * All rights reserved.\n
  * Use of this source code is governed by the BSD 3-Clause License.
  * See top-level license.txt file for full license text.
  */
 
-#include "Vector3d.h"
-#include "utilities.h"
+#include <Vector3d.h>
+
+#include <utils.h>
+
 #include <cmath>
 
 //-----------------------------------------------------------------------------
 
 const double Vector3d::BIG = 1.0e100;
-
-//-----------------------------------------------------------------------------
-
 const double Vector3d::SMALL = 1.0 / Vector3d::BIG;
-
+const double Vector3d::ZERO = 0.0;
+    
 //-----------------------------------------------------------------------------
 
-Vector3d::Vector3d(void): x(0.0), y(0.0), z(0.0) {}
+Vector3d::Vector3d(): x(0.0), y(0.0), z(0.0) {}
 
 //-----------------------------------------------------------------------------
 
@@ -39,39 +39,56 @@ Vector3d::Vector3d(const double theta, const double phi):
 
 //-----------------------------------------------------------------------------
 
-Vector3d::~Vector3d(void) {}
+void Vector3d::setx(const double xin)
+{
+    x = xin;
+}
 
 //-----------------------------------------------------------------------------
 
-void Vector3d::setx(const double xin) {x = xin;}
+double Vector3d::getx() const
+{
+    return x;
+}
 
 //-----------------------------------------------------------------------------
 
-double Vector3d::getx(void) const {return x;}
+void Vector3d::sety(const double yin)
+{
+    y = yin;
+}
 
 //-----------------------------------------------------------------------------
 
-void Vector3d::sety(const double yin) {y = yin;}
+double Vector3d::gety() const
+{
+    return y;
+}
 
 //-----------------------------------------------------------------------------
 
-double Vector3d::gety(void) const {return y;}
+void Vector3d::setz(const double zin)
+{
+    z = zin;
+}
 
 //-----------------------------------------------------------------------------
 
-void Vector3d::setz(const double zin) {z = zin;}
+double Vector3d::getz() const
+{
+    return z;
+}
 
 //-----------------------------------------------------------------------------
 
-double Vector3d::getz(void) const {return z;}
+void Vector3d::set0()
+{
+    x = y = z = 0.0;
+}
 
 //-----------------------------------------------------------------------------
 
-void Vector3d::set0(void) {x = y = z = 0.0;}
-
-//-----------------------------------------------------------------------------
-
-double Vector3d::norm(void) const
+double Vector3d::norm() const
 {
     return sqrt(x*x + y*y + z*z);
 }
@@ -88,7 +105,7 @@ double Vector3d::abs_diff(const Vector3d &v) const
 
 //-----------------------------------------------------------------------------
 
-std::string Vector3d::to_string(void) const
+std::string Vector3d::to_string() const
 {
     return utils::double_to_string(x) +
            utils::double_to_string(y) +
@@ -97,14 +114,14 @@ std::string Vector3d::to_string(void) const
 
 //-----------------------------------------------------------------------------
 
-Vector3d Vector3d::operator + (void) const
+Vector3d Vector3d::operator + () const
 {
     return *this;
 }
 
 //-----------------------------------------------------------------------------
 
-Vector3d Vector3d::operator - (void) const
+Vector3d Vector3d::operator - () const
 {
     return Vector3d(-x, -y, -z);
 }
@@ -173,7 +190,7 @@ Vector3d Vector3d::operator * (const size_t f) const
 
 //-----------------------------------------------------------------------------
 
-Vector3d & Vector3d::normalize(void)
+Vector3d & Vector3d::normalize()
 {
     const double f = norm();
     if (fabs(f) < SMALL) return *this;
@@ -183,7 +200,7 @@ Vector3d & Vector3d::normalize(void)
 
 //-----------------------------------------------------------------------------
 
-Vector3d & Vector3d::reverse(void)
+Vector3d & Vector3d::reverse()
 {
     x = -x;
     y = -y;
@@ -193,7 +210,7 @@ Vector3d & Vector3d::reverse(void)
 
 //-----------------------------------------------------------------------------
 
-Vector3d Vector3d::unit(void) const
+Vector3d Vector3d::unit() const
 {
     Vector3d v(*this);
     return v.normalize();
@@ -255,7 +272,7 @@ double Vector3d::distance(const Vector3d &v) const
 
 //-----------------------------------------------------------------------------
 
-Vector3d Vector3d::right_normal(void) const
+Vector3d Vector3d::right_normal() const
 {
     Vector3d w(y, -x, 0.0);
     return w.normalize();
@@ -289,13 +306,15 @@ Vector3d Vector3d::perpendicular_to(const Vector3d &v) const // |v| != 0
 //-----------------------------------------------------------------------------
 
 bool Vector3d::is_between(const Vector3d &tail, const Vector3d &head) const
-{   // pmh_2015_0508, page 5
-    return (*this - tail) * (*this - head) <= 0.0;
+{   // pmh_2015_0508, page 5; amended in pmh_2019_1031
+    return (x - tail.x) * (x - head.x)  <=  ZERO   &&
+           (y - tail.y) * (y - head.y)  <=  ZERO   &&
+           (z - tail.z) * (z - head.z)  <=  ZERO;
 }
 
 //-----------------------------------------------------------------------------
 
-Vector3d Vector3d::get_rz(void) const
+Vector3d Vector3d::get_rz() const
 {
     return Vector3d(sqrt(x*x + y*y), z, 0.0);
 }
@@ -310,4 +329,13 @@ std::ostream & operator << (std::ostream &ost, const Vector3d &o)
 
 //-----------------------------------------------------------------------------
 
-// end Vector3d.cpp
+Vector3d linear_Vector3d_fit(const double f,
+                             const Vector3d &a, const Vector3d &b)
+{
+    double d = f / (a-b).norm();
+    return (1.0-d) * a  +  d * b;
+}
+
+//-----------------------------------------------------------------------------
+
+//  end Vector3d.cpp

@@ -1,22 +1,23 @@
-#ifndef TASKPOOL_H
-#define TASKPOOL_H
+#ifndef LANL_ASC_PEM_TASKPOOL_H_
+#define LANL_ASC_PEM_TASKPOOL_H_
 
 /**
  * @file TaskPool.h
  * @brief Implements MPI parallelism using dynamic load balancing.
  * @author Peter Hakel
- * @version 0.8
+ * @version 0.9
  * @date Created on 3 February 2016\n
- * Last modified on 3 March 2019
+ * Last modified on 27 February 2020
  * @copyright (c) 2016, Triad National Security, LLC.
  * All rights reserved.\n
  */
 
-#include "mpi.h"
-#include <queue>
-#include <iostream>
-#include <cstdlib>
+#include <mpi.h>
+
 #include <algorithm>
+#include <cstdlib>
+#include <iostream>
+#include <queue>
 
 //-----------------------------------------------------------------------------
 
@@ -29,16 +30,63 @@
  * \n
  * Type IT must contain public members: char *b,\n
  * and public methods: void allocate_buffer(const int), \n
- * void clear_buffer(void), int pack(void), void unpack(void).\n
+ * void clear_buffer(), int pack(), void unpack().\n
  * \n
  * Type OT must contain public members: char *b, int case_id, int rank,\n
  * and public methods: void allocate_buffer(const int), \n
- * void clear_buffer(void), int pack(void), void unpack(void).\n
+ * void clear_buffer(), int pack(), void unpack().\n
  */
 
 template <typename IT, typename OT> // IT: input type; OT: output type
 class TaskPool
 {
+public:
+
+    /// Default constructor
+    TaskPool();
+
+    /**
+     * @brief Parametrized constructor: without task queue initialization
+     * @param[in] comm_in MPI communicator for *this task pool
+     * @param[in] tf Pointer to the distributed task function
+     * @param[in] rf Pointer to the root-process function
+     */
+    TaskPool(const MPI_Comm comm_in,
+             void (*tf)(const IT &, OT &),
+             void (*rf)(const OT &));
+
+    /**
+     * @brief Parametrized constructor: with task queue initialization
+     * @param[in] comm_in MPI communicator for *this task pool
+     * @param[in] tf Pointer to the distributed task function
+     * @param[in] rf Pointer to the root-process function
+     * @param[in] qin Task queue
+     */
+    TaskPool(const MPI_Comm comm_in,
+             void (*tf)(const IT &, OT &),
+             void (*rf)(const OT &),
+             const std::queue<IT> &qin);
+
+    /// Destructor
+    ~TaskPool();
+
+    /**
+     * @brief Setter for the task queue
+     * @param[in] qin Task queue
+     */
+    void set_queue(const std::queue<IT> &qin);
+
+    ///
+    /**
+     * @brief Adds a task to the queue
+     * @param[in] itobj Input object for TaskPool::perform_task
+     */
+    void add_task(const IT &itobj);
+
+    /// Processes the queue of parallel tasks
+    void execute();
+
+
 private:
 
     /// MPI communicator for *this task pool
@@ -68,59 +116,13 @@ private:
     std::queue<IT> q;
 
     /// Constructor helper
-    void init(void);
-
-public:
-
-    /// Default constructor
-    TaskPool(void);
-
-    /**
-     * @brief Parametrized constructor: without task queue initialization
-     * @param[in] comm_in MPI communicator for *this task pool
-     * @param[in] tf Pointer to the distributed task function
-     * @param[in] rf Pointer to the root-process function
-     */
-    TaskPool(const MPI_Comm comm_in,
-             void (*tf)(const IT &, OT &),
-             void (*rf)(const OT &));
-
-    /**
-     * @brief Parametrized constructor: with task queue initialization
-     * @param[in] comm_in MPI communicator for *this task pool
-     * @param[in] tf Pointer to the distributed task function
-     * @param[in] rf Pointer to the root-process function
-     * @param[in] qin Task queue
-     */
-    TaskPool(const MPI_Comm comm_in,
-             void (*tf)(const IT &, OT &),
-             void (*rf)(const OT &),
-             const std::queue<IT> &qin);
-
-    /// Destructor
-    ~TaskPool(void);
-
-    /**
-     * @brief Setter for the task queue
-     * @param[in] qin Task queue
-     */
-    void set_queue(const std::queue<IT> &qin);
-
-    ///
-    /**
-     * @brief Adds a task to the queue
-     * @param[in] itobj Input object for TaskPool::perform_task
-     */
-    void add_task(const IT &itobj);
-
-    /// Processes the queue of parallel tasks
-    void execute(void);
+    void init();
 };
 
 //-----------------------------------------------------------------------------
 
 template <typename IT, typename OT>
-void TaskPool<IT, OT>::init(void)
+void TaskPool<IT, OT>::init()
 {
     MPI_Comm_size(comm, &nranks);
     MPI_Comm_rank(comm, &my_rank);
@@ -134,7 +136,7 @@ void TaskPool<IT, OT>::init(void)
 //-----------------------------------------------------------------------------
 
 template <typename IT, typename OT>
-TaskPool<IT, OT>::TaskPool(void):
+TaskPool<IT, OT>::TaskPool():
     comm(MPI_COMM_WORLD), nranks(0), my_rank(0),
     perform_task(NULL), process_results(NULL), q()
 {}
@@ -168,7 +170,7 @@ TaskPool<IT, OT>::TaskPool(const MPI_Comm comm_in,
 //-----------------------------------------------------------------------------
 
 template <typename IT, typename OT>
-TaskPool<IT, OT>::~TaskPool(void)
+TaskPool<IT, OT>::~TaskPool()
 {
     comm = MPI_COMM_WORLD;
     nranks = 0;
@@ -203,7 +205,7 @@ void TaskPool<IT, OT>::add_task(const IT &itobj)
 //-----------------------------------------------------------------------------
 
 template <typename IT, typename OT>
-void TaskPool<IT, OT>::execute(void)
+void TaskPool<IT, OT>::execute()
 {
     if (nranks < 2)
     {
@@ -343,4 +345,4 @@ void TaskPool<IT, OT>::execute(void)
 
 //-----------------------------------------------------------------------------
 
-#endif // TASKPOOL_H
+#endif  // LANL_ASC_PEM_TASKPOOL_H_

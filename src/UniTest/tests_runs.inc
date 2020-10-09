@@ -1,4 +1,5 @@
-test_utilities(failed_test_count, disabled_test_count);
+test_constants(failed_test_count, disabled_test_count);
+test_utils(failed_test_count, disabled_test_count);
 test_Progress(failed_test_count, disabled_test_count);
 test_ArrDbl(failed_test_count, disabled_test_count);
 test_Vector3d(failed_test_count, disabled_test_count);
@@ -7,6 +8,7 @@ test_Database(failed_test_count, disabled_test_count);
 test_Node(failed_test_count, disabled_test_count);
 test_Grid(failed_test_count, disabled_test_count);
 test_Face(failed_test_count, disabled_test_count);
+test_FaceFactory(failed_test_count, disabled_test_count);
 test_Sphere(failed_test_count, disabled_test_count);
 test_Cone(failed_test_count, disabled_test_count);
 test_Polygon(failed_test_count, disabled_test_count);

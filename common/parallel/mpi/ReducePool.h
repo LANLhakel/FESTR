@@ -1,21 +1,22 @@
-#ifndef REDUCEPOOL_H
-#define REDUCEPOOL_H
+#ifndef LANL_ASC_PEM_REDUCEPOOL_H_
+#define LANL_ASC_PEM_REDUCEPOOL_H_
 
 /**
  * @file ReducePool.h
  * @brief Implements MPI parallelism for reduction operations.
  * @author Peter Hakel
- * @version 0.8
+ * @version 0.9
  * @date Created on 1 June 2017\n
- * Last modified on 3 March 2019
+ * Last modified on 27 February 2020
  * @copyright (c) 2017, Triad National Security, LLC.
  * All rights reserved.\n
  */
 
-#include "mpi.h"
-#include <vector>
+#include <mpi.h>
+
 #include <cstdlib>
 #include <iostream>
+#include <vector>
 
 //-----------------------------------------------------------------------------
 
@@ -35,6 +36,69 @@
 template <typename IT, typename VT> // IT: input type; VT: value type
 class ReducePool
 {
+public:
+
+    /// Default constructor
+    ReducePool();
+
+    /**
+     * @brief Parametrized constructor: without task queue initialization
+     * @param[in] comm_in MPI communicator for *this task pool
+     * @param[in] fi Pointer to the distributed initialization function
+     * @param[in] tf Pointer to the distributed task function
+     * @param[in] rf Pointer to the root-process function
+     * @param[in] nvalues_in Number of reduced values
+     * @param[in] din MPI datatype
+     * @param[in] opin MPI Reduce operation
+     */
+    ReducePool(const MPI_Comm comm_in,
+               void (*fi)(const int, VT *),
+               void (*tf)(const IT &, const int, VT *),
+               void (*rf)(const int, const VT *),
+               const int nvalues_in,
+               const MPI_Datatype din,
+               const MPI_Op opin);
+
+    /**
+     * @brief Parametrized constructor: with task queue initialization
+     * @param[in] comm_in MPI communicator for *this task pool
+     * @param[in] fi Pointer to the distributed initialization function
+     * @param[in] tf Pointer to the distributed task function
+     * @param[in] rf Pointer to the root-process function
+     * @param[in] vin Task vector
+     * @param[in] nvalues_in Number of reduced values
+     * @param[in] din MPI datatype
+     * @param[in] opin MPI Reduce operation
+     */
+    ReducePool(const MPI_Comm comm_in,
+               void (*fi)(const int, VT *),
+               void (*tf)(const IT &, const int, VT *),
+               void (*rf)(const int, const VT *),
+               const std::vector<IT> &vin,
+               const int nvalues_in,
+               const MPI_Datatype din,
+               const MPI_Op opin);
+
+    /// Destructor
+    ~ReducePool();
+
+    /**
+     * @brief Setter for the task vector
+     * @param[in] vin Task vector
+     */
+    void set_vector(const std::vector<IT> &vin);
+
+    ///
+    /**
+     * @brief Adds a task to the vector
+     * @param[in] itobj Input object for ReducePool::perform_task
+     */
+    void add_task(const IT &itobj);
+
+    /// Processes the vector of parallel tasks and produces the reduced result
+    void execute();
+
+
 private:
 
     /// MPI communicator for *this task pool
@@ -83,7 +147,7 @@ private:
 
     /// Number of reduced values (size of output data from each task)
     int nvalues;
-    
+
     /// MPI Datatype (e.g., MPI_INT, MPI_FLOAT, MPI_DOUBLE, etc.)
     MPI_Datatype datatype;
 
@@ -104,75 +168,13 @@ private:
     MPI_Op redop;
 
     /// Constructor helper
-    void init(void);
-
-public:
-
-    /// Default constructor
-    ReducePool(void);
-
-    /**
-     * @brief Parametrized constructor: without task queue initialization
-     * @param[in] comm_in MPI communicator for *this task pool
-     * @param[in] fi Pointer to the distributed initialization function
-     * @param[in] tf Pointer to the distributed task function
-     * @param[in] rf Pointer to the root-process function
-     * @param[in] nvalues_in Number of reduced values
-     * @param[in] din MPI datatype
-     * @param[in] opin MPI Reduce operation
-     */
-    ReducePool(const MPI_Comm comm_in,
-               void (*fi)(const int, VT *),
-               void (*tf)(const IT &, const int, VT *),
-               void (*rf)(const int, const VT *),
-               const int nvalues_in,
-               const MPI_Datatype din,
-               const MPI_Op opin);
-
-    /**
-     * @brief Parametrized constructor: with task queue initialization
-     * @param[in] comm_in MPI communicator for *this task pool
-     * @param[in] fi Pointer to the distributed initialization function
-     * @param[in] tf Pointer to the distributed task function
-     * @param[in] rf Pointer to the root-process function
-     * @param[in] vin Task vector
-     * @param[in] nvalues_in Number of reduced values
-     * @param[in] din MPI datatype
-     * @param[in] opin MPI Reduce operation
-     */
-    ReducePool(const MPI_Comm comm_in,
-               void (*fi)(const int, VT *),
-               void (*tf)(const IT &, const int, VT *),
-               void (*rf)(const int, const VT *),
-               const std::vector<IT> &vin,
-               const int nvalues_in,
-               const MPI_Datatype din,
-               const MPI_Op opin);
-
-    /// Destructor
-    ~ReducePool(void);
-
-    /**
-     * @brief Setter for the task vector
-     * @param[in] vin Task vector
-     */
-    void set_vector(const std::vector<IT> &vin);
-
-    ///
-    /**
-     * @brief Adds a task to the vector
-     * @param[in] itobj Input object for ReducePool::perform_task
-     */
-    void add_task(const IT &itobj);
-
-    /// Processes the vector of parallel tasks and produces the reduced result
-    void execute(void);
+    void init();
 };
 
 //-----------------------------------------------------------------------------
 
 template <typename IT, typename VT>
-void ReducePool<IT, VT>::init(void)
+void ReducePool<IT, VT>::init()
 {
     MPI_Comm_size(comm, &nranks);
     MPI_Comm_rank(comm, &my_rank);
@@ -182,7 +184,7 @@ void ReducePool<IT, VT>::init(void)
 //-----------------------------------------------------------------------------
 
 template <typename IT, typename VT>
-ReducePool<IT, VT>::ReducePool(void):
+ReducePool<IT, VT>::ReducePool():
     comm(MPI_COMM_WORLD), nranks(0), my_rank(0), initialize_partial(NULL),
     perform_task(NULL), process_results(NULL), v(), ntasks(0),
     nvalues(0), datatype(MPI_INT), redop(MPI_MAX)
@@ -227,7 +229,7 @@ ReducePool<IT, VT>::ReducePool(const MPI_Comm comm_in,
 //-----------------------------------------------------------------------------
 
 template <typename IT, typename VT>
-ReducePool<IT, VT>::~ReducePool(void)
+ReducePool<IT, VT>::~ReducePool()
 {
     comm = MPI_COMM_WORLD;
     nranks = 0;
@@ -263,7 +265,7 @@ void ReducePool<IT, VT>::add_task(const IT &itobj)
 //-----------------------------------------------------------------------------
 
 template <typename IT, typename VT>
-void ReducePool<IT, VT>::execute(void)
+void ReducePool<IT, VT>::execute()
 {
     if (nranks < 2)
     {
@@ -316,4 +318,4 @@ void ReducePool<IT, VT>::execute(void)
 
 //-----------------------------------------------------------------------------
 
-#endif // REDUCEPOOL_H
+#endif  // LANL_ASC_PEM_REDUCEPOOL_H

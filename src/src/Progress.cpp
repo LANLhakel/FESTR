@@ -2,22 +2,24 @@
  * @file Progress.cpp
  * @brief Progress objects are used to monitor the progress of a calculation.
  * @author Peter Hakel
- * @version 0.8
+ * @version 0.9
  * @date Created on 8 August 2015\n
- * Last modified on 3 March 2019
+ * Last modified on 16 March 2020
  * @copyright (c) 2015, Triad National Security, LLC.
  * All rights reserved.\n
  * Use of this source code is governed by the BSD 3-Clause License.
  * See top-level license.txt file for full license text.
  */
 
-#include "Progress.h"
-#include "utilities.h"
+#include <Progress.h>
+
+#include <utils.h>
+
 #include <iostream>
 
 //-----------------------------------------------------------------------------
 
-Progress::Progress(void): name("empty"), label("none"), level(0), n(0),
+Progress::Progress(): name("empty"), label("none"), level(0), n(0),
     freq(0), sep(""), i(0), j(0), ndig(0), rn(0.0), maxstr(""), ostr(std::cerr)
 {}
 
@@ -40,7 +42,7 @@ Progress::Progress(const std::string &name_in, const int level_in,
 
 //-----------------------------------------------------------------------------
 
-Progress::~Progress(void)
+Progress::~Progress()
 {
     if (freq > 0)
     {
@@ -62,11 +64,14 @@ Progress::~Progress(void)
 
 //-----------------------------------------------------------------------------
 
-int Progress::get_level(void) const {return level;}
+int Progress::get_level() const
+{
+    return level;
+}
 
 //-----------------------------------------------------------------------------
 
-std::string Progress::to_string(void) const
+std::string Progress::to_string() const
 {
     std::string s("Progress: " + name + "\nlevel: ");
     size_t lev(static_cast<size_t>(level));
@@ -78,7 +83,7 @@ std::string Progress::to_string(void) const
 
 //-----------------------------------------------------------------------------
 
-void Progress::print(void) const
+void Progress::print() const
 {
     std::string s(label + utils::int_to_string(i, ' ', ndig) + maxstr);
     if (n > 0)
@@ -86,14 +91,19 @@ void Progress::print(void) const
         if (i == n)
             s += "100%";
         else
-            s += utils::int_to_string(floor(static_cast<double>(i)/rn), ' ', 3) + "%";
+        {
+            const double EPS = 1.0e-12; // due to Windows with optimization
+            double rr = floor(static_cast<double>(i)/rn + EPS);
+            int ir = static_cast<int>(rr);
+            s += utils::int_to_string(ir, ' ', 3) + "%";
+        }
     }
     ostr << s << sep << std::endl;
 }
 
 //-----------------------------------------------------------------------------
 
-void Progress::advance(void)
+void Progress::advance()
 {
     if (freq == 0) return;
     ++i; ++j; if (j == freq) {j = 0; print();}
@@ -109,6 +119,13 @@ size_t Progress::get_next_freq(const size_t f) const
 
 //-----------------------------------------------------------------------------
 
+size_t Progress::get_freq() const
+{
+    return freq;
+}
+
+//-----------------------------------------------------------------------------
+
 std::ostream & operator << (std::ostream &ost, const Progress &o)
 {
     ost << o.to_string();
@@ -117,4 +134,4 @@ std::ostream & operator << (std::ostream &ost, const Progress &o)
 
 //-----------------------------------------------------------------------------
 
-// end Progress.cpp
+//  end Progress.cpp

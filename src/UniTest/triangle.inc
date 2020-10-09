@@ -11,7 +11,7 @@ Los Alamos National Laboratory
 XCP-5 group
 
 Created on 16 December 2014
-Last modified on 3 March 2019
+Last modified on 28 January 2020
 
 Copyright (c) 2015, Triad National Security, LLC.
 All rights reserved.
@@ -25,7 +25,7 @@ B&R Code:  DP1516090
 
 =============================================================================*/
 
-Face *f = new Polygon(2, 1);
+FacePtr f = std::make_shared<Polygon>(2, 1);
 Grid g;
 Vector3d v;
 Node n;
@@ -49,4 +49,4 @@ n = Node(3, v);
 g.add_node(n);
 f->add_node(3);
 
-// end triangle.inc
+//  end triangle.inc

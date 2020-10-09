@@ -1,4 +1,4 @@
-*) To compile and run festr, in the src/ directory execute:
+*) To compile and run festr on Linux or MacOS, in the src/ directory execute:
 
 make
 ./festr options.txt
@@ -16,3 +16,13 @@ Output files are located in directory src/UniTest/Output/
 
 Add comp=intel or comp=pgi to the make command to invoke the
 Intel or Portland compilers, respectively.
+
+
+*) To compile under Windows 10 using Windows PowerShell with MinGW installed
+in its default location execute:
+Set-Alias -Name make C:\MinGW\bin\mingw32-make
+
+and then add
+os=win
+on the command line to every invocation of the make command.
+

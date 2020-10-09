@@ -1,13 +1,13 @@
-#ifndef CONSTANTS_H
-#define CONSTANTS_H
+#ifndef LANL_ASC_PEM_CELL_CONSTANTS_H
+#define LANL_ASC_PEM_CELL_CONSTANTS_H
 
 /**
  * @file constants.h
  * @brief List of fundamental and other constants
  * @author Peter Hakel
  * @date Created on 20 November 2014\n
- * Last modified on 3 March 2019
- * @version 0.8
+ * Last modified on 8 October 2020
+ * @version 0.9
  * @copyright (c) 2015, Triad National Security, LLC.
  * All rights reserved.\n
  * Use of this source code is governed by the BSD 3-Clause License.
@@ -16,31 +16,53 @@
 
 #include <string>
 
-/// Encapsulates global constants
-namespace cnst
-{
+//-----------------------------------------------------------------------------
 
+/// Global numeric constants
+struct cnst
+{
 /// Atomic mass unit (g)
-const double U = 1.660539e-24;
+static const double U;
 
 /// Speed of light in vacuum (cm/s)
-const double CV = 2.99792458e10;
+static const double CV;
 
 /// Number of characters used to display an integer
-const int INT_WIDTH = 11;
+static const int INT_WIDTH;
 
 /// Tolerance to detect rescalings due to arbitrary units
-const double SCALE_EQT = 1.0e-5;
+static const double SCALE_EQT;
 
-const double THIRD = 1.0 / 3.0;
-const double PI = 3.1415926535897932384626433832795028842;
-const double TWO_PI = 2.0 * PI;
-const double FOUR_PI = 4.0 * PI;
-const double FOUR_THIRDS_PI = FOUR_PI * THIRD;
+/// \f$\frac{1}{3}\f$
+static const double THIRD;
+
+/// \f$\pi\f$
+static const double PI;
+
+/// \f$2\pi\f$
+static const double TWO_PI;
+
+/// \f$4\pi\f$
+static const double FOUR_PI;
+
+/// \f$\frac{4\pi}{3}\f$
+static const double FOUR_THIRDS_PI;
+
+}; // struct cnst
+
+
+/// Global string constants
+namespace cnststr
+{
+/// Working directory
 const std::string PATH = "./";
+
+/// Separator
 const std::string DASHES = "---------------------------------------------";
+
+/// Zone separator
 const std::string ZONE_SEPARATOR = "\n" + DASHES + "\n";
 
-} // namespace cnst
+} // namespace cnststr
 
-#endif // CONSTANTS_H
+#endif  // LANL_ASC_PEM_CONSTANTS_H_

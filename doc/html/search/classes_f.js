@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['zone',['Zone',['../da/d50/class_zone.html',1,'']]]
+  ['waypoint',['Waypoint',['../d9/d64/struct_waypoint.html',1,'']]]
 ];

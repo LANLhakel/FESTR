@@ -8,14 +8,14 @@ Los Alamos National Laboratory
 XCP-5 group
 
 Created on 4 July 2015
-Last modified on 3 March 2019
+Last modified on 2 February 2020
 
 Copyright (c) 2015, Triad National Security, LLC.
 All rights reserved.
 Use of this source code is governed by the BSD 3-Clause License.
 See top-level license.txt file for full license text.
 
-CODE NAME:  FESTR, Version 0.8 (C15068)
+CODE NAME:  FESTR, Version 0.9 (C15068)
 Classification Review Number: LA-CC-15-045
 Export Control Classification Number (ECCN): EAR99
 B&R Code:  DP1516090
@@ -24,27 +24,27 @@ B&R Code:  DP1516090
 
 //  Note: only use trimmed strings for names
 
+#include <test_Cell.h>
 #include <Test.h>
-#include "../src/Cell.h"
-#include "../src/constants.h"
-#include "../src/utilities.h"
 
+#include <ArrDbl.h>
+#include <constants.h>
+#include <utils.h>
+
+#include <cstdlib>
 #include <fstream>
 #include <iostream>
-#include <cstdlib>
 
 void test_Cell(int &failed_test_count, int &disabled_test_count)
 {
-
 const std::string GROUP = "Cell";
-//const double EQT = 1.0e-15;
 
 //-----------------------------------------------------------------------------
 
 {
     Test t(GROUP, "set_get_id", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
         Cell z;
@@ -61,7 +61,7 @@ const std::string GROUP = "Cell";
 {
     Test t(GROUP, "ctor_id", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
         Cell z(5);
@@ -77,10 +77,10 @@ const std::string GROUP = "Cell";
 {
     Test t(GROUP, "0_to_string", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        #include "analysis1.inc"
+        #include <analysis1.inc>
         std::string expected = "Cell          0\n";
         expected += "te   0.000000e+00   0.000000e+00           1 lin eV\n";
         expected += "tr   0.000000e+00   0.000000e+00           1 lin eV\n";
@@ -96,10 +96,10 @@ const std::string GROUP = "Cell";
 {
     Test t(GROUP, "1_to_string", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        #include "analysis1.inc"
+        #include <analysis1.inc>
         std::string expected = "Cell          1\n";
         expected += "te   6.100000e+03   6.400000e+03           4 lin eV\n";
         expected += "tr   0.000000e+00   0.000000e+00           1 lin eV\n";
@@ -117,10 +117,10 @@ const std::string GROUP = "Cell";
 {
     Test t(GROUP, "get_nte", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        #include "analysis1.inc"
+        #include <analysis1.inc>
         size_t expected = 4;
         size_t actual = z1.get_nte();
 
@@ -133,10 +133,10 @@ const std::string GROUP = "Cell";
 {
     Test t(GROUP, "get_tegrid", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        #include "analysis1.inc"
+        #include <analysis1.inc>
         std::string expected = "   6.100000e+03   6.200000e+03";
         expected += "   6.300000e+03   6.400000e+03";
         std::vector<double> act = z1.get_tegrid();
@@ -154,10 +154,10 @@ const std::string GROUP = "Cell";
 {
     Test t(GROUP, "get_ntr", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        #include "analysis1.inc"
+        #include <analysis1.inc>
         size_t expected = 1;
         size_t actual = z1.get_ntr();
 
@@ -170,10 +170,10 @@ const std::string GROUP = "Cell";
 {
     Test t(GROUP, "get_trgrid", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        #include "analysis1.inc"
+        #include <analysis1.inc>
         std::string expected = "   0.000000e+00";
         std::vector<double> act = z1.get_trgrid();
         std::string actual = utils::double_to_string(act.at(0));
@@ -187,10 +187,10 @@ const std::string GROUP = "Cell";
 {
     Test t(GROUP, "get_nmat", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        #include "analysis1.inc"
+        #include <analysis1.inc>
         unsigned short int expected = 2;
         unsigned short int actual = z1.get_nmat();
 
@@ -203,10 +203,10 @@ const std::string GROUP = "Cell";
 {
     Test t(GROUP, "get_nfp", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        #include "analysis1.inc"
+        #include <analysis1.inc>
         // (6 grid points for "d" ) and (10 grid points for "ar")
         std::string expected = "          6         10";
         std::vector<size_t> act = z1.get_nfp();
@@ -222,10 +222,10 @@ const std::string GROUP = "Cell";
 {
     Test t(GROUP, "get_nall", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        #include "analysis1.inc"
+        #include <analysis1.inc>
         // 60 = (6 grid points for "d" ) * (10 grid points for "ar")
         std::string expected = "          4          1         60";
         std::vector<size_t> act = z1.get_nall();
@@ -242,10 +242,10 @@ const std::string GROUP = "Cell";
 {
     Test t(GROUP, "get_ncases", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        #include "analysis1.inc"
+        #include <analysis1.inc>
         size_t expected = 240; // = (nte=4) * (ntr=1) * (nall=60)
         size_t actual = z1.get_ncases();
 
@@ -258,10 +258,10 @@ const std::string GROUP = "Cell";
 {
     Test t(GROUP, "get_fpgrid_d", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        #include "analysis1.inc"
+        #include <analysis1.inc>
         std::string expected("   0.000000e+00   1.000000e+19   1.250000e+19");
         expected += "   1.500000e+19   1.750000e+19   2.000000e+19";
         std::vector<double> act = z1.get_fpgrid()["d"];
@@ -281,10 +281,10 @@ const std::string GROUP = "Cell";
 {
     Test t(GROUP, "get_fpgrid_ar", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        #include "analysis1.inc"
+        #include <analysis1.inc>
         std::string expected("   0.000000e+00   3.000000e+19   3.125000e+19");
         expected += "   3.250000e+19   3.375000e+19   3.500000e+19";
         expected += "   3.625000e+19   3.750000e+19   3.875000e+19";
@@ -310,10 +310,10 @@ const std::string GROUP = "Cell";
 {
     Test t(GROUP, "get_0eos_0_0_0", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        #include "analysis1.inc"
+        #include <analysis1.inc>
         std::string expected = "   0.000000e+00   0.000000e+00          0";
         CellEOS act = z0.get_eos(0, 0, 0);
         std::string actual = utils::double_to_string(act.te)
@@ -329,10 +329,10 @@ const std::string GROUP = "Cell";
 {
     Test t(GROUP, "get_1eos_2_0_34", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        #include "analysis1.inc"
+        #include <analysis1.inc>
         std::string expected = "   6.300000e+03   0.000000e+00          2";
         expected += "\nd   1.500000e+19\nar   3.375000e+19";
         CellEOS act = z1.get_eos(2, 0, 34);
@@ -352,10 +352,10 @@ const std::string GROUP = "Cell";
 {
     Test t(GROUP, "get_cell0eos_0", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        #include "analysis1.inc"
+        #include <analysis1.inc>
         std::string expected = "   0.000000e+00   0.000000e+00          0";
         CellEOS act = z0.get_cell_eos(0);
         std::string actual = utils::double_to_string(act.te)
@@ -371,10 +371,10 @@ const std::string GROUP = "Cell";
 {
     Test t(GROUP, "get_cell1eos_2_0_154", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        #include "analysis1.inc"
+        #include <analysis1.inc>
         std::string expected = "   6.300000e+03   0.000000e+00          2";
         expected += "\nd   1.500000e+19\nar   3.375000e+19";
         CellEOS act = z1.get_cell_eos(154);
@@ -393,4 +393,4 @@ const std::string GROUP = "Cell";
 
 }
 
-// end test_Cell.cpp
+//  end test_Cell.cpp

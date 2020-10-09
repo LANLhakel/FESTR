@@ -4,7 +4,7 @@
  * @author Peter Hakel
  * @version 0.8
  * @date Created on 29 January 2016\n
- * Last modified on 3 March 2019
+ * Last modified on 13 March 2020
  * @copyright (c) 2015, Triad National Security, LLC.
  * All rights reserved.\n
  * Use of this source code is governed by the BSD 3-Clause License.
@@ -20,7 +20,7 @@
 
 int next_level;
 size_t next_freq;
-if (parent == NULL)
+if (parent == nullptr)
 {
     next_level = 0;
     next_freq = 0;
@@ -34,4 +34,4 @@ const std::string SEP("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n");
 Progress counter(dname + "_patch", next_level, nx*ny, next_freq,
                  SEP, std::cout);
 
-// end patch_counter.inc
+//  end patch_counter.inc

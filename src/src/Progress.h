@@ -1,27 +1,78 @@
-#ifndef PROGRESS_H
-#define PROGRESS_H
+#ifndef LANL_ASC_PEM_PROGRESS_H_
+#define LANL_ASC_PEM_PROGRESS_H_
 
 /**
  * @file Progress.h
  * @brief Progress objects are used to monitor the progress of a calculation.
  * @author Peter Hakel
- * @version 0.8
+ * @version 0.9
  * @date Created on 8 August 2015\n
- * Last modified on 3 March 2019
+ * Last modified on 16 March 2020
  * @copyright (c) 2015, Triad National Security, LLC.
  * All rights reserved.\n
  * Use of this source code is governed by the BSD 3-Clause License.
  * See top-level license.txt file for full license text.
  */
 
-#include <string>
 #include <ostream>
+#include <string>
 
 //-----------------------------------------------------------------------------
 
 /// Object for monitoring the progress of a calculation
 class Progress
 {
+public:
+
+    /// Default constructor
+    Progress();
+
+    /**
+     * @brief Parametrized constructor
+     * @param[in] name_in Name of *this Progress object
+     * @param[in] level_in Indentation preceding the showing of name
+     * @param[in] nin Number of cases
+     * @param[in] freq_in Frequency of progress prints
+     * @param[in] sep_in Case separation string in prints
+     * @param[in] ostr_in Target output stream for prints
+     */
+    Progress(const std::string &name_in, const int level_in,
+             const size_t nin, const size_t freq_in,
+             const std::string &sep_in, std::ostream &ostr_in);
+
+    /// Destructor: prints the final case, if not printed already
+    ~Progress();
+
+    /**
+     * @brief Getter for indentation level (Progress::level)
+     * @return Indentation level
+     */
+    int get_level() const;
+
+    /**
+     * @brief String representation of a Progress object
+     * @return String representation of *this
+     */
+    std::string to_string() const;
+
+    /// Advances the counters, prints the case if j reaches freq
+    void advance();
+
+    /**
+     * @brief Keeps or turns off prints in a next-level Progress object; if
+     * current case is not printed, next-level Progress will not print either
+     * @param[in] f Frequency intended for next-level Progress object
+     * @return Frequency to be actually used by next-level Progress object
+     */
+    size_t get_next_freq(const size_t f) const;
+
+    /**
+     * @brief Getter for print frequency (Progress::freq)
+     * @return Frequency of prints
+     */
+    size_t get_freq() const;
+
+
 private:
 
     /// Name of *this Progress object
@@ -63,51 +114,7 @@ private:
     std::ostream &ostr;
 
     /// Prints current case
-    void print(void) const;
-
-public:
-
-    /// Default constructor
-    Progress(void);
-
-    /**
-     * @brief Parametrized constructor
-     * @param[in] name_in Name of *this Progress object
-     * @param[in] level_in Indentation preceding the showing of name
-     * @param[in] nin Number of cases
-     * @param[in] freq_in Frequency of progress prints
-     * @param[in] sep_in Case separation string in prints
-     * @param[in] ostr_in Target output stream for prints
-     */
-    Progress(const std::string &name_in, const int level_in,
-             const size_t nin, const size_t freq_in,
-             const std::string &sep_in, std::ostream &ostr_in);
-
-    /// Destructor: prints the final case, if not printed already
-    ~Progress(void);
-
-    /**
-     * @brief Getter for indentation level (Progress::level)
-     * @return Indentation level
-     */
-    int get_level(void) const;
-
-    /**
-     * @brief String representation of a Progress object
-     * @return String representation of *this
-     */
-    std::string to_string(void) const;
-
-    /// Advances the counters, prints the case if j reaches freq
-    void advance(void);
-
-    /**
-     * @brief Keeps or turns off prints in a next-level Progress object; if
-     * current case is not printed, next-level Progress will not print either
-     * @param[in] f Frequency intended for next-level Progress object
-     * @return Frequency to be actually used by next-level Progress object
-     */
-    size_t get_next_freq(const size_t f) const;
+    void print() const;
 };
 
 //-----------------------------------------------------------------------------
@@ -122,4 +129,4 @@ std::ostream & operator << (std::ostream &ost, const Progress &o);
 
 //-----------------------------------------------------------------------------
 
-#endif // PROGRESS_H
+#endif  // LANL_ASC_PEM_PROGRESS_H_

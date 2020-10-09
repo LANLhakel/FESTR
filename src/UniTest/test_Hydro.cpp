@@ -8,14 +8,14 @@ Los Alamos National Laboratory
 XCP-5 group
 
 Created on 7 January 2015
-Last modified on 3 March 2019
+Last modified on 2 October 2020
 
 Copyright (c) 2015, Triad National Security, LLC.
 All rights reserved.
 Use of this source code is governed by the BSD 3-Clause License.
 See top-level license.txt file for full license text.
 
-CODE NAME:  FESTR, Version 0.8 (C15068)
+CODE NAME:  FESTR, Version 0.9 (C15068)
 Classification Review Number: LA-CC-15-045
 Export Control Classification Number (ECCN): EAR99
 B&R Code:  DP1516090
@@ -24,16 +24,16 @@ B&R Code:  DP1516090
 
 //  Note: only use trimmed strings for names
 
+#include <test_Hydro.h>
 #include <Test.h>
-#include "../src/constants.h"
-#include "../src/Hydro.h"
-#include "../src/Goal.h"
+
+#include <constants.h>
+#include <Goal.h>
 
 #include <stdexcept>
 
 void test_Hydro(int &failed_test_count, int &disabled_test_count)
 {
-
 const std::string GROUP = "Hydro";
 const double EQT = 1.0e-24;
 
@@ -42,10 +42,10 @@ const double EQT = 1.0e-24;
 {
     Test t(GROUP, "Hydro1_Table_size", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        #include "hydro1.inc"
+        #include <hydro1.inc>
         size_t expected = 3;
         Table tbl = h.get_table();
         size_t actual = tbl.size();
@@ -58,10 +58,10 @@ const double EQT = 1.0e-24;
 {
     Test t(GROUP, "Hydro1_Table_argon_Z", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        #include "hydro1.inc"
+        #include <hydro1.inc>
         int expected = 18;
         int actual = h.get_table().get_Z("ar");
 
@@ -74,10 +74,10 @@ const double EQT = 1.0e-24;
 {
     Test t(GROUP, "Hydro1_Table_argon_A", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        #include "hydro1.inc"
+        #include <hydro1.inc>
         double expected = 39.948;
         double actual = h.get_table().get_A("ar");
 
@@ -90,10 +90,10 @@ const double EQT = 1.0e-24;
 {
     Test t(GROUP, "Hydro1_Table_argon_N", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        #include "hydro1.inc"
+        #include <hydro1.inc>
         int expected = 22;
         int actual = h.get_table().get_N("ar");
         failed_test_count += t.check_equal(expected, actual);
@@ -105,10 +105,10 @@ const double EQT = 1.0e-24;
 {
     Test t(GROUP, "Hydro1_Table_argon_F", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        #include "hydro1.inc"
+        #include <hydro1.inc>
         std::string expected("z18");
         std::string actual = h.get_table().get_F("ar");
 
@@ -121,10 +121,10 @@ const double EQT = 1.0e-24;
 {
     Test t(GROUP, "Hydro1_Table_not_present_Z", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        #include "hydro1.inc"
+        #include <hydro1.inc>
         std::string expected = "heavy_water is not present in Table";
         std::string actual = UNCAUGHT_EXCEPTION;
         try
@@ -146,10 +146,10 @@ const double EQT = 1.0e-24;
 {
     Test t(GROUP, "Hydro1_Table_not_present_A", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        #include "hydro1.inc"
+        #include <hydro1.inc>
         std::string expected = "heavy_water is not present in Table";
         std::string actual = UNCAUGHT_EXCEPTION;
         try
@@ -171,10 +171,10 @@ const double EQT = 1.0e-24;
 {
     Test t(GROUP, "Hydro1_Table_not_present_N", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        #include "hydro1.inc"
+        #include <hydro1.inc>
         std::string expected = "heavy_water is not present in Table";
         std::string actual = UNCAUGHT_EXCEPTION;
         try
@@ -196,10 +196,10 @@ const double EQT = 1.0e-24;
 {
     Test t(GROUP, "Hydro1_Table_not_present_F", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        #include "hydro1.inc"
+        #include <hydro1.inc>
         std::string expected = "heavy_water is not present in Table";
         std::string actual = UNCAUGHT_EXCEPTION;
         try
@@ -221,10 +221,10 @@ const double EQT = 1.0e-24;
 {
     Test t(GROUP, "Hydro1_analysis", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        #include "hydro1.inc"
+        #include <hydro1.inc>
         bool expected(false);
         bool actual = h.get_analysis();
 
@@ -237,10 +237,10 @@ const double EQT = 1.0e-24;
 {
     Test t(GROUP, "Hydro1_nzones", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        #include "hydro1.inc"
+        #include <hydro1.inc>
         size_t expected(0);
         size_t actual = h.get_nzones();
 
@@ -253,10 +253,10 @@ const double EQT = 1.0e-24;
 {
     Test t(GROUP, "Hydro1_path", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        #include "hydro1.inc"
+        #include <hydro1.inc>
         std::string expected = hydro_path;
         std::string actual = h.get_path();
 
@@ -269,10 +269,10 @@ const double EQT = 1.0e-24;
 {
     Test t(GROUP, "Hydro1_ntimes", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        #include "hydro1.inc"
+        #include <hydro1.inc>
         size_t expected = 3;
         size_t actual = h.get_ntimes();
 
@@ -285,10 +285,10 @@ const double EQT = 1.0e-24;
 {
     Test t(GROUP, "Hydro1_nintervals", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        #include "hydro1.inc"
+        #include <hydro1.inc>
         size_t expected = 2;
         size_t actual = h.get_nintervals();
 
@@ -301,10 +301,10 @@ const double EQT = 1.0e-24;
 {
     Test t(GROUP, "Hydro1_ntd", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        #include "hydro1.inc"
+        #include <hydro1.inc>
         int expected = 1;
         int actual = h.get_ntd();
 
@@ -315,12 +315,44 @@ const double EQT = 1.0e-24;
 //-----------------------------------------------------------------------------
 
 {
-    Test t(GROUP, "Hydro1_time_at_2", "fast");
+    Test t(GROUP, "Hydro1_tmin", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        #include "hydro1.inc"
+        #include <hydro1.inc>
+        double expected = -1.0;
+        double actual = h.get_tmin();
+
+        failed_test_count += t.check_equal_real_num(expected, actual, EQT);
+    }
+}
+
+//-----------------------------------------------------------------------------
+
+{
+    Test t(GROUP, "Hydro1_tmax", "fast");
+
+    t.check_to_disable_test(disabled_test_count);
+    if (t.is_enabled())
+    {
+        #include <hydro1.inc>
+        double expected = 1.0;
+        double actual = h.get_tmax();
+
+        failed_test_count += t.check_equal_real_num(expected, actual, EQT);
+    }
+}
+
+//-----------------------------------------------------------------------------
+
+{
+    Test t(GROUP, "Hydro1_time_at_2", "fast");
+
+    t.check_to_disable_test(disabled_test_count);
+    if (t.is_enabled())
+    {
+        #include <hydro1.inc>
         double expected = 7.0e-9;
         double actual = h.time_at(2);
 
@@ -333,10 +365,10 @@ const double EQT = 1.0e-24;
 {
     Test t(GROUP, "Hydro1_dt_at_1", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        #include "hydro1.inc"
+        #include <hydro1.inc>
         double expected = 6.0e-9;
         double actual = h.dt_at(1);
 
@@ -349,10 +381,10 @@ const double EQT = 1.0e-24;
 {
     Test t(GROUP, "Hydro1_Time0_Grid_size", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        #include "hydro1.inc"
+        #include <hydro1.inc>
         Grid g;
         Mesh m;
         h.load_at(0, g, m);
@@ -368,10 +400,10 @@ const double EQT = 1.0e-24;
 {
     Test t(GROUP, "Hydro1_Time0_Grid_Node5", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        #include "hydro1.inc"
+        #include <hydro1.inc>
         Grid g;
         Mesh m;
         h.load_at(0, g, m);
@@ -388,10 +420,10 @@ const double EQT = 1.0e-24;
 {
     Test t(GROUP, "Hydro1_Time0_Mesh_size", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        #include "hydro1.inc"
+        #include <hydro1.inc>
         Grid g;
         Mesh m;
         h.load_at(0, g, m);
@@ -407,10 +439,10 @@ const double EQT = 1.0e-24;
 {
     Test t(GROUP, "Hydro1_Time0_Mesh_to_string", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        #include "hydro1.inc"
+        #include <hydro1.inc>
         Grid g;
         Mesh m;
         h.load_at(0, g, m);
@@ -427,10 +459,10 @@ const double EQT = 1.0e-24;
 {
     Test t(GROUP, "Hydro1_Time0_Mesh_Zone1_te", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        #include "hydro1.inc"
+        #include <hydro1.inc>
         Grid g;
         Mesh m;
         h.load_at(0, g, m);
@@ -446,10 +478,10 @@ const double EQT = 1.0e-24;
 {
     Test t(GROUP, "Hydro1_Time0_Mesh_Zone1_tr", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        #include "hydro1.inc"
+        #include <hydro1.inc>
         Grid g;
         Mesh m;
         h.load_at(0, g, m);
@@ -465,10 +497,10 @@ const double EQT = 1.0e-24;
 {
     Test t(GROUP, "Hydro1_Time0_Mesh_Zone1_np", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        #include "hydro1.inc"
+        #include <hydro1.inc>
         Grid g;
         Mesh m;
         h.load_at(0, g, m);
@@ -484,10 +516,10 @@ const double EQT = 1.0e-24;
 {
     Test t(GROUP, "Hydro1_Time0_Mesh_Zone1_nmat", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        #include "hydro1.inc"
+        #include <hydro1.inc>
         Grid g;
         Mesh m;
         h.load_at(0, g, m);
@@ -503,10 +535,10 @@ const double EQT = 1.0e-24;
 {
     Test t(GROUP, "Hydro1_Time0_Mesh_Zone1_fp0", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        #include "hydro1.inc"
+        #include <hydro1.inc>
         Grid g;
         Mesh m;
         h.load_at(0, g, m);
@@ -522,10 +554,10 @@ const double EQT = 1.0e-24;
 {
     Test t(GROUP, "Hydro1_Time0_Mesh_Zone1_fp1", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        #include "hydro1.inc"
+        #include <hydro1.inc>
         Grid g;
         Mesh m;
         h.load_at(0, g, m);
@@ -541,10 +573,10 @@ const double EQT = 1.0e-24;
 {
     Test t(GROUP, "Hydro1_Time0_Mesh_Zone1_fp2", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        #include "hydro1.inc"
+        #include <hydro1.inc>
         Grid g;
         Mesh m;
         h.load_at(0, g, m);
@@ -558,12 +590,140 @@ const double EQT = 1.0e-24;
 //-----------------------------------------------------------------------------
 
 {
-    Test t(GROUP, "Analysis1_analysis", "fast");
+    Test t(GROUP, "Hydro_subset_ntimes", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        #include "analysis1_hydro.inc"
+        #include <hydro_subset.inc>
+        size_t expected = 10;
+        size_t actual = h.get_ntimes();
+
+        failed_test_count += t.check_equal(expected, actual);
+    }
+}
+
+//-----------------------------------------------------------------------------
+
+{
+    Test t(GROUP, "Hydro_subset_nintervals", "fast");
+
+    t.check_to_disable_test(disabled_test_count);
+    if (t.is_enabled())
+    {
+        #include <hydro_subset.inc>
+        size_t expected = 3;
+        size_t actual = h.get_nintervals();
+
+        failed_test_count += t.check_equal(expected, actual);
+    }
+}
+
+//-----------------------------------------------------------------------------
+
+{
+    Test t(GROUP, "Hydro_subset_ntd", "fast");
+
+    t.check_to_disable_test(disabled_test_count);
+    if (t.is_enabled())
+    {
+        #include <hydro_subset.inc>
+        int expected = 2;
+        int actual = h.get_ntd();
+
+        failed_test_count += t.check_equal(expected, actual);
+    }
+}
+
+//-----------------------------------------------------------------------------
+
+{
+    Test t(GROUP, "Hydro_subset_tmin", "fast");
+
+    t.check_to_disable_test(disabled_test_count);
+    if (t.is_enabled())
+    {
+        #include <hydro_subset.inc>
+        double expected = 3.5;
+        double actual = h.get_tmin();
+
+        failed_test_count += t.check_equal_real_num(expected, actual, EQT);
+    }
+}
+
+//-----------------------------------------------------------------------------
+
+{
+    Test t(GROUP, "Hydro_subset_tmax", "fast");
+
+    t.check_to_disable_test(disabled_test_count);
+    if (t.is_enabled())
+    {
+        #include <hydro_subset.inc>
+        double expected = 7.5;
+        double actual = h.get_tmax();
+
+        failed_test_count += t.check_equal_real_num(expected, actual, EQT);
+    }
+}
+
+//-----------------------------------------------------------------------------
+
+{
+    Test t(GROUP, "Hydro_subset_time_at_2", "fast");
+
+    t.check_to_disable_test(disabled_test_count);
+    if (t.is_enabled())
+    {
+        #include <hydro_subset.inc>
+        double expected = 2.4;
+        double actual = h.time_at(2);
+
+        failed_test_count += t.check_equal_real_num(expected, actual, 1.0e-15);
+    }
+}
+
+//-----------------------------------------------------------------------------
+
+{
+    Test t(GROUP, "Hydro_subset_dt_at_2", "fast");
+
+    t.check_to_disable_test(disabled_test_count);
+    if (t.is_enabled())
+    {
+        #include <hydro_subset.inc>
+        double expected = 0.6;
+        double actual = h.dt_at(2);
+
+        failed_test_count += t.check_equal_real_num(expected, actual, 1.0e-15);
+    }
+}
+
+//-----------------------------------------------------------------------------
+
+{
+    Test t(GROUP, "Hydro_subset_time_index_at_2", "fast");
+
+    t.check_to_disable_test(disabled_test_count);
+    if (t.is_enabled())
+    {
+        #include <hydro_subset.inc>
+        size_t expected = 6;
+        size_t actual = h.time_index_at(2);
+
+        failed_test_count += t.check_equal(expected, actual);
+    }
+}
+
+//-----------------------------------------------------------------------------
+
+{
+    Test t(GROUP, "Analysis1_analysis", "fast");
+
+    t.check_to_disable_test(disabled_test_count);
+    if (t.is_enabled())
+    {
+        #include <analysis1_hydro.inc>
         bool expected(true);
         bool actual = h.get_analysis();
 
@@ -576,10 +736,10 @@ const double EQT = 1.0e-24;
 {
     Test t(GROUP, "Analysis1_nzones", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        #include "analysis1_hydro.inc"
+        #include <analysis1_hydro.inc>
         size_t expected(4);
         size_t actual = h.get_nzones();
 
@@ -592,10 +752,10 @@ const double EQT = 1.0e-24;
 {
     Test t(GROUP, "Analysis1_ndim", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        #include "analysis1_hydro.inc"
+        #include <analysis1_hydro.inc>
         std::string expected("          1        240          9          6");
         std::vector<size_t> act = h.get_ndim();
         std::string actual = utils::int_to_string(act.at(0), ' ', cnst::INT_WIDTH)
@@ -612,10 +772,10 @@ const double EQT = 1.0e-24;
 {
     Test t(GROUP, "Analysis1_ncases", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        #include "analysis1_hydro.inc"
+        #include <analysis1_hydro.inc>
         size_t expected(12960); // = Product(ndim) = 1 * 240 * 9 * 6
         size_t actual = h.get_nintervals(); // used for "ncases" in analysis
 
@@ -628,10 +788,10 @@ const double EQT = 1.0e-24;
 {
     Test t(GROUP, "Analysis1_ntimes", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        #include "analysis1_hydro.inc"
+        #include <analysis1_hydro.inc>
         size_t expected(12961);
         size_t actual = h.get_ntimes(); // used for "ncases+1" in analysis
 
@@ -644,10 +804,10 @@ const double EQT = 1.0e-24;
 {
     Test t(GROUP, "Analysis1_get_symmetry", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        #include "analysis1_hydro.inc"
+        #include <analysis1_hydro.inc>
         std::string expected("none");
         std::string actual = h.get_symmetry();
 
@@ -660,10 +820,10 @@ const double EQT = 1.0e-24;
 {
     Test t(GROUP, "Analysis1_get_symmetry_spherical", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        #include "analysis1_hydro.inc"
+        #include <analysis1_hydro.inc>
         h.set_symmetry("spherical");
         std::string expected("spherical");
         std::string actual = h.get_symmetry();
@@ -677,10 +837,10 @@ const double EQT = 1.0e-24;
 {
     Test t(GROUP, "Analysis1_get_symmetry", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        #include "analysis1_hydro.inc"
+        #include <analysis1_hydro.inc>
         std::string expected("none");
         std::string actual = h.get_symmetry();
 
@@ -693,10 +853,10 @@ const double EQT = 1.0e-24;
 {
     Test t(GROUP, "Analysis1_ntd", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        #include "analysis1_hydro.inc"
+        #include <analysis1_hydro.inc>
         int expected = 1;
         int actual = h.get_ntd();
 
@@ -709,10 +869,10 @@ const double EQT = 1.0e-24;
 {
     Test t(GROUP, "Analysis1_time_at_1", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        #include "analysis1_hydro.inc"
+        #include <analysis1_hydro.inc>
         double expected = 1.0;
         double actual = h.time_at(1);
 
@@ -725,10 +885,10 @@ const double EQT = 1.0e-24;
 {
     Test t(GROUP, "Analysis1_dt_at_0", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        #include "analysis1_hydro.inc"
+        #include <analysis1_hydro.inc>
         double expected = 1.0;
         double actual = h.dt_at(0);
 
@@ -741,10 +901,10 @@ const double EQT = 1.0e-24;
 {
     Test t(GROUP, "Analysis2_ncases", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        #include "analysis2_hydro.inc"
+        #include <analysis2_hydro.inc>
         size_t expected(256); // = Sum(ndim) = 1 + 240 + 9 + 6
         size_t actual = h.get_nintervals(); // used for "ncases" in analysis
 
@@ -757,10 +917,10 @@ const double EQT = 1.0e-24;
 {
     Test t(GROUP, "Analysis2_ntimes", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        #include "analysis2_hydro.inc"
+        #include <analysis2_hydro.inc>
         size_t expected(257);
         size_t actual = h.get_ntimes(); // used for "ncases+1" in analysis
 
@@ -773,10 +933,10 @@ const double EQT = 1.0e-24;
 {
     Test t(GROUP, "Analysis2_get_symmetry", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        #include "analysis2_hydro.inc"
+        #include <analysis2_hydro.inc>
         std::string expected("spherical");
         std::string actual = h.get_symmetry();
 
@@ -788,4 +948,4 @@ const double EQT = 1.0e-24;
 
 }
 
-// end test_Hydro.cpp
+//  end test_Hydro.cpp

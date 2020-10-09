@@ -1,49 +1,32 @@
-#ifndef VECTOR3D_H
-#define VECTOR3D_H
+#ifndef LANL_ASC_PEM_VECTOR3D_H_
+#define LANL_ASC_PEM_VECTOR3D_H_
 
 /**
  * @file
  * @brief 3-D Cartesian vectors
  * @author Peter Hakel
- * @version 0.8
+ * @version 0.9
  * @date Created on 11 November 2014\n
- * Last modified on 3 March 2019
+ * Last modified on 8 October 2020
  * @copyright (c) 2015, Triad National Security, LLC.
  * All rights reserved.\n
  * Use of this source code is governed by the BSD 3-Clause License.
  * See top-level license.txt file for full license text.
  */
 
-#include <string>
-#include <iostream>
 #include <cmath>
+#include <iostream>
+#include <string>
 
 //-----------------------------------------------------------------------------
 
 /// 3-D Cartesian vectors
 class Vector3d
 {
-private:
-
-    /// Cartesian component x
-    double x;
-
-    /// Cartesian component y
-    double y;
-
-    /// Cartesian component z
-    double z;
-
-    /// Proxy for Infinity
-    static const double BIG;
-
-    /// Proxy for Zero
-    static const double SMALL;
-
 public:
 
     /// Default constructor
-    Vector3d(void);
+    Vector3d();
 
     /**
      * @brief Parametrized constructor (Cartesian input)
@@ -60,9 +43,6 @@ public:
      */
     Vector3d(const double theta, const double phi); // build a unit vector
 
-    /// Destructor
-    ~Vector3d(void);
-
     /**
      * @brief Setter for Cartesian component x (Vector3d::x)
      * @param[in] xin Cartesian component x
@@ -73,7 +53,7 @@ public:
      * @brief Getter for Cartesian component x (Vector3d::x)
      * @return Cartesian component x
      */
-    double getx(void) const;
+    double getx() const;
 
     /**
      * @brief Setter for Cartesian component y (Vector3d::y)
@@ -85,7 +65,7 @@ public:
      * @brief Getter for Cartesian component y (Vector3d::y)
      * @return Cartesian component y
      */
-    double gety(void) const;
+    double gety() const;
 
     /**
      * @brief Setter for Cartesian component z (Vector3d::z)
@@ -97,28 +77,28 @@ public:
      * @brief Getter for Cartesian component z (Vector3d::z)
      * @return Cartesian component z
      */
-    double getz(void) const;
+    double getz() const;
 
     /** @brief Set *this vector to null */
-    void set0(void);
+    void set0();
 
     /**
      * @brief Getter for proxy for Infinity (Vector3d::BIG)
      * @return Proxy for Infinity
      */
-    static double get_big(void) {return BIG;};
+    static double get_big() {return BIG;};
 
     /**
      * @brief Getter for proxy for Zero (Vector3d::SMALL)
      * @return Proxy for Zero
      */
-    static double get_small(void) {return SMALL;};
+    static double get_small() {return SMALL;};
 
     /**
      * @brief Vector norm
      * @return \f$ v = |\vec{v}| \f$
      */
-    double norm(void) const;
+    double norm() const;
 
     /**
      * @brief Absolute difference between two vectors
@@ -131,19 +111,19 @@ public:
      * @brief String representation of a Vector3d object
      * @return String representation of *this
      */
-    std::string to_string(void) const;
+    std::string to_string() const;
 
     /**
      * @brief Unary plus
      * @return \f$+\vec{v}\f$
      */
-    Vector3d operator + (void) const;
+    Vector3d operator + () const;
 
     /**
      * @brief Unary minus
      * @return \f$-\vec{v}\f$
      */
-    Vector3d operator - (void) const;
+    Vector3d operator - () const;
 
     /**
      * @brief Adds to a vector
@@ -257,19 +237,19 @@ public:
      * @brief Make vector unit length, maintain its direction
      * @return \f$\hat{t}=\vec{t}/t\f$, null vector remains unchanged
      */
-    Vector3d & normalize(void);
+    Vector3d & normalize();
 
     /**
      * @brief Flip vector direction, maintain its length
      * @return \f$\vec{t}\rightarrow -\vec{t}\f$
      */
-    Vector3d & reverse(void);
+    Vector3d & reverse();
 
     /**
      * @brief Unit vector in the same direction as *this
      * @return \f$\hat{t}=\vec{t}/t\f$, or the null vector
      */
-    Vector3d unit(void) const;
+    Vector3d unit() const;
 
     /**
      * @brief Scalar product of two vectors
@@ -319,7 +299,7 @@ public:
      * @return \f$\vec{t}\f$ turned clockwise and normalized,
      *         null vector remains unchanged
      */
-    Vector3d right_normal(void) const;
+    Vector3d right_normal() const;
 
     /**
      * @brief Relative orientation of two 2-D vectors in their common plane,
@@ -357,8 +337,28 @@ public:
      * @brief Convert *this to cylindrical RZ coordinates in the *this/z plane
      * @return \f$(\sqrt{x^2+y^2}\;,z\;,0)\f$
      */
-    Vector3d get_rz(void) const;
+    Vector3d get_rz() const;
 
+
+private:
+
+    /// Cartesian component x
+    double x;
+
+    /// Cartesian component y
+    double y;
+
+    /// Cartesian component z
+    double z;
+
+    /// Proxy for Infinity
+    static const double BIG;
+
+    /// Proxy for Zero
+    static const double SMALL;
+
+    /// Zero
+    static const double ZERO;
 };
 
 //-----------------------------------------------------------------------------
@@ -387,4 +387,16 @@ Vector3d operator * (const T f, const Vector3d &v)
 
 //-----------------------------------------------------------------------------
 
-#endif // VECTOR3D_H
+/**
+ * @brief Return a Vector3d on the line connecting two Vector3d objects
+ * @param[in] f Signed distance from a toward b
+ * @param[in] a First Vector3d (f = 0)
+ * @param[in] b Second Vector3d (f = |a-b|)
+ * @return Vector3d on the line connecting a and b at signed distance f from a
+ */
+Vector3d linear_Vector3d_fit(const double f,
+                             const Vector3d &a, const Vector3d &b);
+
+//-----------------------------------------------------------------------------
+
+#endif  // LANL_ASC_PEM_VECTOR3D_H_

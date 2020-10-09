@@ -2,9 +2,9 @@
  * @file
  * @brief FESTR driver, usage: ./festr \<options_file\>
  * @author Peter Hakel
- * @version 0.7
+ * @version 0.9
  * @date Created on 23 October 2014\n
- * Last modified on 3 March 2019
+ * Last modified on 6 October 2020
  * @copyright (c) 2015, Triad National Security, LLC.
  * All rights reserved.\n
  * Use of this source code is governed by the BSD 3-Clause License.
@@ -17,24 +17,24 @@ Finite-Element Spectral Transfer of Radiation
 
 festr.cpp
 
-CODE NAME:  FESTR, Version 0.8 (C15068)
+CODE NAME:  FESTR, Version 0.9 (C15068)
 Classification Review Number: LA-CC-15-045
 Export Control Classification Number (ECCN): EAR99
 B&R Code:  DP1516090
 
 =============================================================================*/
 
-#include "src/utilities.h"
-#include "src/Diagnostics.h"
-#include "src/Hydro.h"
-#include "src/Goal.h"
+#include <Diagnostics.h>
+#include <Goal.h>
+#include <Hydro.h>
+#include <utils.h>
 
-#include <iostream>
-#include <fstream>
 #include <cstdlib>
+#include <fstream>
+#include <iostream>
 
-#ifdef MPIYES
-#include "mpi.h"
+#ifdef MPI
+#include <mpi.h>
 #endif
 
 //-----------------------------------------------------------------------------
@@ -105,7 +105,7 @@ license += "POSSIBILITY OF SUCH DAMAGE.\n";
 
     std::cout << license
               << "\nFESTR: Finite-Element Spectral Transfer of Radiation, "
-              << "Version 0.8, March 2019\n" << std::endl;
+              << "Version 0.9, October 2020\n" << std::endl;
 
     if (argc != 2)
     {
@@ -185,19 +185,30 @@ license += "POSSIBILITY OF SUCH DAMAGE.\n";
     Diagnostics diag(level+1, diag_path, hydro_path, out_path, d);
     std::cout << "done" << std::endl;
 
+    // limit the time range for postprocessing
+    double tmin = 1.0e99;
+    double tmax = -1.0e99;
+    if (!analysis)
+    {
+        utils::find_word(options, "tmin_tmax:");
+        options >> tmin >> tmax;
+        std::cout << "\ntmin_tmax: " << tmin << " " << tmax << " seconds"
+                  << std::endl;
+    }
+
     // split from reading hydro_path, because Diagnostics needs hydro_path,
     // but then Hydro constructor needs Detector symmetry (via Diagnostics)
     std::cout << "\n... loading Hydro ... " << std::flush;
     Hydro h(analysis, hydro_path, table_path, table_fname,
-            diag.det.at(0).get_symmetry());
+            diag.det.at(0).get_symmetry(), tmin, tmax);
     std::cout << "done" << std::endl;
 
     std::cout << "\n... festr is running ...\n" << std::endl;
-    #ifdef MPIYES
+    #ifdef MPI
     MPI_Init(&argc, &argv);
     #endif
     diag.execute(d, h, gol);
-    #ifdef MPIYES
+    #ifdef MPI
     MPI_Finalize();
     #endif
     std::cout << "\nend" << std::endl;

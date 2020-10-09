@@ -8,14 +8,14 @@ Los Alamos National Laboratory
 XCP-5 group
 
 Created on 8 August 2015
-Last modified on 3 March 2019
+Last modified on 2 October 2020
 
 Copyright (c) 2015, Triad National Security, LLC.
 All rights reserved.
 Use of this source code is governed by the BSD 3-Clause License.
 See top-level license.txt file for full license text.
 
-CODE NAME:  FESTR, Version 0.8 (C15068)
+CODE NAME:  FESTR, Version 0.9 (C15068)
 Classification Review Number: LA-CC-15-045
 Export Control Classification Number (ECCN): EAR99
 B&R Code:  DP1516090
@@ -24,25 +24,24 @@ B&R Code:  DP1516090
 
 //  Note: only use trimmed strings for names
 
+#include <test_Progress.h>
 #include <Test.h>
-#include "../src/Progress.h"
-#include "../src/utilities.h"
 
-#include <fstream>
+#include <utils.h>
+
 #include <cstdlib>
+#include <fstream>
 
 void test_Progress(int &failed_test_count, int &disabled_test_count)
 {
-
 const std::string GROUP = "Progress";
-//const double EQT = 1.0e-15;
 
 //-----------------------------------------------------------------------------
 
 {
     Test t(GROUP, "default_get_level", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
         Progress counter;
@@ -58,7 +57,7 @@ const std::string GROUP = "Progress";
 {
     Test t(GROUP, "get_level", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
         Progress counter("name", 2, 100, 0, "", std::cout);
@@ -74,7 +73,7 @@ const std::string GROUP = "Progress";
 {
     Test t(GROUP, "default_to_string", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
         Progress counter;
@@ -90,7 +89,7 @@ const std::string GROUP = "Progress";
 {
     Test t(GROUP, "to_string", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
         Progress counter("name", 2, 100, 0, "", std::cout);
@@ -106,14 +105,14 @@ const std::string GROUP = "Progress";
 {
     Test t(GROUP, "silent", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
         const int nlevel = 1;
         const size_t n = 10, freq = 0;
         const size_t ncount = n;
         std::string name("Progress_silent");
-        #include "progress.inc"
+        #include <progress.inc>
         std::string actual(utils::file_to_string(fname));
 
         failed_test_count += t.check_equal(expected, actual);
@@ -125,14 +124,14 @@ const std::string GROUP = "Progress";
 {
     Test t(GROUP, "commensurable_n_freq", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
         const int nlevel = 2;
         const size_t n = 10, freq = 5;
         const size_t ncount = n;
         std::string name("Progress_comm");
-        #include "progress.inc"
+        #include <progress.inc>
         expected += label + " 0 of 10,   0%\n";
         expected += label + " 5 of 10,  50%\n";
         expected += label + "10 of 10, 100%";
@@ -148,14 +147,14 @@ const std::string GROUP = "Progress";
 {
     Test t(GROUP, "not_commensurable_n_freq", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
         const int nlevel = 4;
         const size_t n = 10, freq = 3;
         const size_t ncount = n;
         std::string name("Progress_not_comm");
-        #include "progress.inc"
+        #include <progress.inc>
         expected += label + " 0 of 10,   0%\n";
         expected += label + " 3 of 10,  30%\n";
         expected += label + " 6 of 10,  60%\n";
@@ -173,14 +172,14 @@ const std::string GROUP = "Progress";
 {
     Test t(GROUP, "n1_freq1", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
         const int nlevel = 2;
         const size_t n = 1, freq = 1;
         const size_t ncount = n;
         std::string name("Progress_n1_freq1");
-        #include "progress.inc"
+        #include <progress.inc>
         expected += label + "0 of 1,   0%\n";
         expected += label + "1 of 1, 100%";
 
@@ -195,14 +194,14 @@ const std::string GROUP = "Progress";
 {
     Test t(GROUP, "n2_freq1", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
         const int nlevel = 1;
         const size_t n = 2, freq = 1;
         const size_t ncount = n;
         std::string name("Progress_n2_freq1");
-        #include "progress.inc"
+        #include <progress.inc>
         expected += label + "0 of 2,   0%\n";
         expected += label + "1 of 2,  50%\n";
         expected += label + "2 of 2, 100%";
@@ -218,14 +217,14 @@ const std::string GROUP = "Progress";
 {
     Test t(GROUP, "unknown_total_count", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
         const int nlevel = 0;
         const size_t n = 0, freq = 2;
         const size_t ncount = 11;
         std::string name("Progress_unknown_total_count");
-        #include "progress.inc"
+        #include <progress.inc>
         expected += label + "0 of ?\n";
         expected += label + "2 of ?\n";
         expected += label + "4 of ?\n";
@@ -244,14 +243,36 @@ const std::string GROUP = "Progress";
 //-----------------------------------------------------------------------------
 
 {
-    Test t(GROUP, "get_freq20", "fast");
+    Test t(GROUP, "get_freq", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
         const size_t n = 5;
         const size_t freq = 2;
-        #include "freq.inc"
+        #include <freq.inc>
+        (void)(freq_next);
+        ostr.close();
+        ostr.clear();
+
+        size_t expected = 2;
+        size_t actual = counter.get_freq();
+
+        failed_test_count += t.check_equal(expected, actual);
+    }
+}
+
+//-----------------------------------------------------------------------------
+
+{
+    Test t(GROUP, "get_freq20", "fast");
+
+    t.check_to_disable_test(disabled_test_count);
+    if (t.is_enabled())
+    {
+        const size_t n = 5;
+        const size_t freq = 2;
+        #include <freq.inc>
         ostr.close();
         ostr.clear();
 
@@ -267,12 +288,12 @@ const std::string GROUP = "Progress";
 {
     Test t(GROUP, "get_freq21", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
         const size_t n = 5;
         const size_t freq = 2;
-        #include "freq.inc"
+        #include <freq.inc>
         counter.advance();
         ostr.close();
         ostr.clear();
@@ -289,12 +310,12 @@ const std::string GROUP = "Progress";
 {
     Test t(GROUP, "get_freq22", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
         const size_t n = 5;
         const size_t freq = 2;
-        #include "freq.inc"
+        #include <freq.inc>
         counter.advance();
         counter.advance();
         ostr.close();
@@ -312,12 +333,12 @@ const std::string GROUP = "Progress";
 {
     Test t(GROUP, "get_freq23", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
         const size_t n = 5;
         const size_t freq = 2;
-        #include "freq.inc"
+        #include <freq.inc>
         counter.advance();
         counter.advance();
         counter.advance();
@@ -336,12 +357,12 @@ const std::string GROUP = "Progress";
 {
     Test t(GROUP, "get_freq24", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
         const size_t n = 5;
         const size_t freq = 2;
-        #include "freq.inc"
+        #include <freq.inc>
         counter.advance();
         counter.advance();
         counter.advance();
@@ -361,12 +382,12 @@ const std::string GROUP = "Progress";
 {
     Test t(GROUP, "get_freq00", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
         const size_t n = 5;
         const size_t freq = 0;
-        #include "freq.inc"
+        #include <freq.inc>
         ostr.close();
         ostr.clear();
 
@@ -382,12 +403,12 @@ const std::string GROUP = "Progress";
 {
     Test t(GROUP, "get_freq01", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
         const size_t n = 5;
         const size_t freq = 0;
-        #include "freq.inc"
+        #include <freq.inc>
         counter.advance();
         ostr.close();
         ostr.clear();
@@ -404,12 +425,12 @@ const std::string GROUP = "Progress";
 {
     Test t(GROUP, "get_freq02", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
         const size_t n = 5;
         const size_t freq = 0;
-        #include "freq.inc"
+        #include <freq.inc>
         counter.advance();
         counter.advance();
         ostr.close();
@@ -427,12 +448,12 @@ const std::string GROUP = "Progress";
 {
     Test t(GROUP, "get_freq03", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
         const size_t n = 5;
         const size_t freq = 0;
-        #include "freq.inc"
+        #include <freq.inc>
         counter.advance();
         counter.advance();
         counter.advance();
@@ -451,12 +472,12 @@ const std::string GROUP = "Progress";
 {
     Test t(GROUP, "get_freq04", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
         const size_t n = 5;
         const size_t freq = 0;
-        #include "freq.inc"
+        #include <freq.inc>
         counter.advance();
         counter.advance();
         counter.advance();
@@ -476,12 +497,12 @@ const std::string GROUP = "Progress";
 {
     Test t(GROUP, "get_freq0", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
         const size_t n = 0;
         const size_t freq = 2;
-        #include "freq.inc"
+        #include <freq.inc>
         ostr.close();
         ostr.clear();
 
@@ -497,12 +518,12 @@ const std::string GROUP = "Progress";
 {
     Test t(GROUP, "get_freq1", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
         const size_t n = 0;
         const size_t freq = 2;
-        #include "freq.inc"
+        #include <freq.inc>
         counter.advance();
         ostr.close();
         ostr.clear();
@@ -519,12 +540,12 @@ const std::string GROUP = "Progress";
 {
     Test t(GROUP, "get_freq2", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
         const size_t n = 0;
         const size_t freq = 2;
-        #include "freq.inc"
+        #include <freq.inc>
         counter.advance();
         counter.advance();
         ostr.close();
@@ -542,12 +563,12 @@ const std::string GROUP = "Progress";
 {
     Test t(GROUP, "get_freq3", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
         const size_t n = 0;
         const size_t freq = 2;
-        #include "freq.inc"
+        #include <freq.inc>
         counter.advance();
         counter.advance();
         counter.advance();
@@ -566,12 +587,12 @@ const std::string GROUP = "Progress";
 {
     Test t(GROUP, "get_freq4", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
         const size_t n = 0;
         const size_t freq = 2;
-        #include "freq.inc"
+        #include <freq.inc>
         counter.advance();
         counter.advance();
         counter.advance();
@@ -590,4 +611,4 @@ const std::string GROUP = "Progress";
 
 }
 
-// end test_Progress.cpp
+//  end test_Progress.cpp

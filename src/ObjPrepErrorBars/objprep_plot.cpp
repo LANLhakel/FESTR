@@ -15,7 +15,7 @@ Los Alamos National Laboratory
 XCP-5 group
 
 Created on 25 October 2015
-Last modified on 3 March 2019
+Last modified on 28 March 2020
 
 Copyright (c) 2015, Triad National Security, LLC.
 All rights reserved.
@@ -29,8 +29,8 @@ B&R Code:  DP1516090
 
 =============================================================================*/
 
-#include "../src/utilities.h"
-#include "ArrSection.h"
+#include <ArrSection.h>
+#include <utils.h>
 
 #include <iostream>
 #include <fstream>

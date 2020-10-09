@@ -14,3 +14,5 @@ Hydro: Hydro3/
 TOPS_command: none
 Database: Dbase3/
 Diagnostics: Diagnostics2/
+
+tmin_tmax: -1.0 1e6 seconds

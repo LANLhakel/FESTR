@@ -8,14 +8,14 @@ Los Alamos National Laboratory
 XCP-5 group
 
 Created on 17 December 2014
-Last modified on 3 March 2019
+Last modified on 2 October 2020
 
 Copyright (c) 2015, Triad National Security, LLC.
 All rights reserved.
 Use of this source code is governed by the BSD 3-Clause License.
 See top-level license.txt file for full license text.
 
-CODE NAME:  FESTR, Version 0.8 (C15068)
+CODE NAME:  FESTR, Version 0.9 (C15068)
 Classification Review Number: LA-CC-15-045
 Export Control Classification Number (ECCN): EAR99
 B&R Code:  DP1516090
@@ -24,19 +24,19 @@ B&R Code:  DP1516090
 
 //  Note: only use trimmed strings for names
 
+#include <test_Surface.h>
 #include <Test.h>
-#include "../src/Surface.h"
-#include "../src/Polygon.h"
-#include "../src/Sphere.h"
-#include "../src/constants.h"
-#include "../src/utilities.h"
 
-#include <stdexcept>
+#include <constants.h>
+#include <Polygon.h>
+#include <Sphere.h>
+#include <utils.h>
+
 #include <fstream>
+#include <stdexcept>
 
 void test_Surface(int &failed_test_count, int &disabled_test_count)
 {
-
 const std::string GROUP = "Surface";
 const double EQT = 1.0e-15;
 
@@ -45,16 +45,15 @@ const double EQT = 1.0e-15;
 {   // Tests common to Faces
     Test t(GROUP, "set_get_my_zone", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        Face *f = new Surface;
+        FacePtr f = std::make_shared<Surface>();
         size_t expected = 7;
         f->set_my_zone(expected);
         size_t actual = f->get_my_zone();
 
         failed_test_count += t.check_equal(expected, actual);
-        delete f;
     }
 }
 
@@ -63,16 +62,15 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "set_get_my_id", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        Face *f = new Surface;
+        FacePtr f = std::make_shared<Surface>();
         short int expected = 7;
         f->set_my_id(expected);
         short int actual = f->get_my_id();
 
         failed_test_count += t.check_equal(expected, actual);
-        delete f;
     }
 }
 
@@ -81,17 +79,16 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "ctor_check_my_zone", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
         size_t mz = 6;
         short int mi = 9;
-        Face *f = new Surface(mz, mi);
+        FacePtr f = std::make_shared<Surface>(mz, mi);
         size_t expected = mz;
         size_t actual = f->get_my_zone();
 
         failed_test_count += t.check_equal(expected, actual);
-        delete f;
     }
 }
 
@@ -100,17 +97,16 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "ctor_check_my_id", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
         size_t mz = 6;
         short int mi = 9;
-        Face *f = new Surface(mz, mi);
+        FacePtr f = std::make_shared<Surface>(mz, mi);
         short int expected = mi;
         short int actual = f->get_my_id();
 
         failed_test_count += t.check_equal(expected, actual);
-        delete f;
     }
 }
 
@@ -119,15 +115,14 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "size0", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        Face *f = new Surface;
+        FacePtr f = std::make_shared<Surface>();
         size_t expected = 0;
         size_t actual = f->size();
 
         failed_test_count += t.check_equal(expected, actual);
-        delete f;
     }
 }
 
@@ -136,15 +131,14 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "size0_three_argument_ctor", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        Face *f = new Surface(3, 6, 9);
+        FacePtr f = std::make_shared<Surface>(3, 6, 9);
         size_t expected = 0;
         size_t actual = f->size();
 
         failed_test_count += t.check_equal(expected, actual);
-        delete f;
     }
 }
 
@@ -153,15 +147,14 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "size0_single_argument_ctor", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        Face *f = new Surface(9);
+        FacePtr f = std::make_shared<Surface>(9);
         size_t expected = 0;
         size_t actual = f->size();
 
         failed_test_count += t.check_equal(expected, actual);
-        delete f;
     }
 }
 
@@ -170,15 +163,14 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "is_curved", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        #include "cube_Surface.inc"
+        #include <cube_Surface.inc>
         bool expected = true;
         bool actual = a->is_curved(g);
 
         failed_test_count += t.check_equal(expected, actual);
-        delete q;
     }
 }
 
@@ -187,15 +179,14 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "is_flat", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        #include "cube_Surface.inc"
+        #include <cube_Surface.inc>
         bool expected = false;
         bool actual = a->is_flat(g);
 
         failed_test_count += t.check_equal(expected, actual);
-        delete q;
     }
 }
 
@@ -204,15 +195,13 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "ctor0", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        Face *expected = new Surface(0, -2);
-        Face *actual = new Surface;
+        FacePtr expected = std::make_shared<Surface>(0, -2);
+        FacePtr actual = std::make_shared<Surface>();
 
         failed_test_count += t.check_equal_real_obj(*expected, *actual, EQT);
-        delete expected;
-        delete actual;
     }
 }
 
@@ -221,16 +210,14 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "assignment", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        Face *expected = new Surface(4, 5);
-        Face *actual = new Surface;
+        FacePtr expected = std::make_shared<Surface>(4, 5);
+        FacePtr actual = std::make_shared<Surface>();
         *actual = *expected;
 
         failed_test_count += t.check_equal_real_obj(*expected, *actual, EQT);
-        delete expected;
-        delete actual;
     }
 }
 
@@ -239,17 +226,16 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "add_get_neighboring_zone", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        Face *f = new Surface(3, 1);
+        FacePtr f = std::make_shared<Surface>(3, 1);
         f->add_neighbor(2, 4);
         f->add_neighbor(9, 5);
         size_t expected = 9;
         size_t actual = f->get_neighbor(1).my_zone;
 
         failed_test_count += t.check_equal(expected, actual);
-        delete f;
     }
 }
 
@@ -258,17 +244,16 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "add_get_neighboring_Surface", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        Face *f = new Surface(3, 1);
+        FacePtr f = std::make_shared<Surface>(3, 1);
         f->add_neighbor(2, 4);
         f->add_neighbor(9, 5);
         short int expected = 5;
         short int actual = f->get_neighbor(1).my_id;
 
         failed_test_count += t.check_equal(expected, actual);
-        delete f;
     }
 }
 
@@ -277,17 +262,16 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "neighbor_count", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        Face *f = new Surface(3, 1);
+        FacePtr f = std::make_shared<Surface>(3, 1);
         f->add_neighbor(2, 4);
         f->add_neighbor(9, 5);
         size_t expected = 2;
         size_t actual = f->num_nbr();
 
         failed_test_count += t.check_equal(expected, actual);
-        delete f;
     }
 }
 
@@ -296,10 +280,10 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "add_get_neighbor_out_of_range", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        Face *f = new Surface(3, 1);
+        FacePtr f = std::make_shared<Surface>(3, 1);
         f->add_neighbor(2, 4);
         f->add_neighbor(9, 5);
         std::string expected = "out of range exception";
@@ -315,7 +299,6 @@ const double EQT = 1.0e-15;
         }
 
         failed_test_count += t.check_equal(expected, actual);
-        delete f;
     }
 }
 
@@ -324,15 +307,14 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "area2_normal", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        #include "cube_Surface.inc"
+        #include <cube_Surface.inc>
         Vector3d expected(0.0, 0.0, 0.0);
         Vector3d actual = a->area2_normal_center(g, expected);
 
         failed_test_count += t.check_equal_real_obj(expected, actual, EQT);
-        delete q;
     }
 }
 
@@ -341,16 +323,15 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "center", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        #include "cube_Surface.inc"
+        #include <cube_Surface.inc>
         Vector3d expected(1.0, 4.0/3.0, 1.0/3.0);
         Vector3d actual(expected);
         a->area2_normal_center(g, actual);
 
         failed_test_count += t.check_equal_real_obj(expected, actual, EQT);
-        delete q;
     }
 }
 
@@ -359,15 +340,14 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "normal", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        #include "cube_Surface.inc"
+        #include <cube_Surface.inc>
         Vector3d expected;
         Vector3d actual = a->normal(g);
 
         failed_test_count += t.check_equal_real_obj(expected, actual, EQT);
-        delete q;
     }
 }
 
@@ -376,15 +356,14 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "area", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        #include "cube_Surface.inc"
+        #include <cube_Surface.inc>
         double expected = 6.0;
         double actual = a->area(g);
 
         failed_test_count += t.check_equal_real_num(expected, actual, EQT);
-        delete q;
     }
 }
 
@@ -393,16 +372,15 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "signed_distance", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        #include "cube_Surface.inc"
+        #include <cube_Surface.inc>
         Vector3d v(1.0, 4.0/3.0, 1.0/3.0);
         double expected = 0.0;
         double actual = a->distance(g, v);
 
         failed_test_count += t.check_equal_real_num(expected, actual, EQT);
-        delete q;
     }
 }
 
@@ -411,15 +389,30 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "subpoint", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        #include "cube_Surface.inc"
+        #include <cube_Surface.inc>
         Vector3d expected;
         Vector3d actual = a->subpoint(g, expected);
 
         failed_test_count += t.check_equal_real_obj(expected, actual, EQT);
-        delete q;
+    }
+}
+
+//-----------------------------------------------------------------------------
+
+{
+    Test t(GROUP, "face_point", "fast");
+
+    t.check_to_disable_test(disabled_test_count);
+    if (t.is_enabled())
+    {
+        #include <cube_Surface.inc>
+        Vector3d expected;
+        Vector3d actual = a->subpoint(g, expected);
+
+        failed_test_count += t.check_equal_real_obj(expected, actual, EQT);
     }
 }
 
@@ -428,16 +421,15 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "has_point_above", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        #include "cube_Surface.inc"
+        #include <cube_Surface.inc>
         Vector3d v;
         bool expected = false;
         bool actual = a->has_above(g, v);
 
         failed_test_count += t.check_equal(expected, actual);
-        delete q;
     }
 }
 
@@ -446,16 +438,15 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "has_point_below", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        #include "cube_Surface.inc"
+        #include <cube_Surface.inc>
         Vector3d v;
         bool expected = false;
         bool actual = a->has_below(g, v);
 
         failed_test_count += t.check_equal(expected, actual);
-        delete q;
     }
 }
 
@@ -464,16 +455,15 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "contains_point", "fast");
     
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        #include "cube_Surface.inc"
+        #include <cube_Surface.inc>
         Vector3d v(1.0, 4.0/3.0, 1.0/3.0);
         bool expected = true;
         bool actual = a->contains(g, v);
         
         failed_test_count += t.check_equal(expected, actual);
-        delete q;
     }
 }
 
@@ -482,15 +472,14 @@ const double EQT = 1.0e-15;
 {   // Tests of Surface that are similar to Tests of Zone
     Test t(GROUP, "size", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        #include "cube_Surface.inc"
+        #include <cube_Surface.inc>
         size_t expected = 6;
         size_t actual = a->size();
 
         failed_test_count += t.check_equal(expected, actual);
-        delete q;
     }
 }
 
@@ -499,10 +488,10 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "cube_surface_to_string", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        #include "cube_Surface.inc"
+        #include <cube_Surface.inc>
         std::string expected = "Surface\n          6\n";
         expected += "          0          1\n          neighbors          6\n";
         expected += "          1          0\n";
@@ -538,7 +527,6 @@ const double EQT = 1.0e-15;
         std::string actual = a->to_string();
 
         failed_test_count += t.check_equal(expected, actual);
-        delete q;
     }
 }
 
@@ -547,10 +535,10 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "outer_sphere_to_cube_t", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        #include "cube_Surface.inc"
+        #include <cube_Surface.inc>
         a->set_my_zone(8);
         a->set_my_id(2);
         FaceID this_face(8, 1);
@@ -560,7 +548,6 @@ const double EQT = 1.0e-15;
         double actual = a->intercept(g, w, u, EQT, this_face).t;
 
         failed_test_count += t.check_equal_real_num(expected, actual, EQT);
-        delete q;
     }
 }
 
@@ -569,10 +556,10 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "outer_sphere_to_cube_w", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        #include "cube_Surface.inc"
+        #include <cube_Surface.inc>
         a->set_my_zone(8);
         a->set_my_id(2);
         FaceID this_face(8, 1);
@@ -582,7 +569,6 @@ const double EQT = 1.0e-15;
         Vector3d actual = a->intercept(g, w, u, EQT, this_face).w;
 
         failed_test_count += t.check_equal_real_obj(expected, actual, EQT);
-        delete q;
     }
 }
 
@@ -591,10 +577,10 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "outer_sphere_to_cube_fid", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        #include "cube_Surface.inc"
+        #include <cube_Surface.inc>
         a->set_my_zone(8);
         a->set_my_id(2);
         FaceID this_face(8, 1);
@@ -604,7 +590,6 @@ const double EQT = 1.0e-15;
         FaceID actual = a->intercept(g, w, u, EQT, this_face).fid;
 
         failed_test_count += t.check_equal(expected, actual);
-        delete q;
     }
 }
 
@@ -613,10 +598,10 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "outer_sphere_to_cube_is_found", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        #include "cube_Surface.inc"
+        #include <cube_Surface.inc>
         a->set_my_zone(8);
         a->set_my_id(1);
         FaceID this_face(8, 2);
@@ -626,7 +611,6 @@ const double EQT = 1.0e-15;
         bool actual = a->intercept(g, w, u, EQT, this_face).is_found;
 
         failed_test_count += t.check_equal(expected, actual);
-        delete q;
     }
 }
 
@@ -635,10 +619,10 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "clear_get_size", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        #include "cube_Surface.inc"
+        #include <cube_Surface.inc>
         a->set_my_zone(8);
         a->set_my_id(1);
         a->clear();
@@ -646,7 +630,6 @@ const double EQT = 1.0e-15;
         size_t actual = a->size();
 
         failed_test_count += t.check_equal(expected, actual);
-        delete q;
     }
 }
 
@@ -655,10 +638,10 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "clear_get_Face", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        #include "cube_Surface.inc"
+        #include <cube_Surface.inc>
         a->set_my_zone(8);
         a->set_my_id(1);
         a->clear();
@@ -674,7 +657,6 @@ const double EQT = 1.0e-15;
         }
 
         failed_test_count += t.check_equal(expected, actual);
-        delete q;
     }
 }
 
@@ -683,10 +665,10 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "clear_num_nbr", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        #include "cube_Surface.inc"
+        #include <cube_Surface.inc>
         a->set_my_zone(8);
         a->set_my_id(1);
         a->clear();
@@ -694,7 +676,6 @@ const double EQT = 1.0e-15;
         size_t actual = a->num_nbr();
 
         failed_test_count += t.check_equal(expected, actual);
-        delete q;
     }
 }
 
@@ -703,10 +684,10 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "clear_get_Neighbor", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        #include "cube_Surface.inc"
+        #include <cube_Surface.inc>
         a->set_my_zone(8);
         a->set_my_id(1);
         a->clear();
@@ -722,7 +703,6 @@ const double EQT = 1.0e-15;
         }
 
         failed_test_count += t.check_equal(expected, actual);
-        delete q;
     }
 }
 
@@ -731,10 +711,10 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "clear_get_my_zone", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        #include "cube_Surface.inc"
+        #include <cube_Surface.inc>
         a->set_my_zone(8);
         a->set_my_id(1);
         a->clear();
@@ -742,7 +722,6 @@ const double EQT = 1.0e-15;
         size_t actual = a->get_my_zone();
 
         failed_test_count += t.check_equal(expected, actual);
-        delete q;
     }
 }
 
@@ -751,10 +730,10 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "clear_get_my_id", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        #include "cube_Surface.inc"
+        #include <cube_Surface.inc>
         a->set_my_zone(8);
         a->set_my_id(1);
         a->clear();
@@ -762,7 +741,6 @@ const double EQT = 1.0e-15;
         short int actual = a->get_my_id();
 
         failed_test_count += t.check_equal(expected, actual);
-        delete q;
     }
 }
 
@@ -771,10 +749,10 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "load_Hydro1_Mesh0_1st_Surface", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        std::string path(cnst::PATH + "UniTest/Hydro1/");
+        std::string path(cnststr::PATH + "UniTest/Hydro1/");
         std::string tlabel("0");
         std::string fname = path + "mesh_" + tlabel + ".txt";
         std::ifstream infile(fname.c_str());
@@ -824,4 +802,4 @@ const double EQT = 1.0e-15;
 
 }
 
-// end test_Surface.cpp
+//  end test_Surface.cpp

@@ -1,28 +1,35 @@
-#ifndef FACE_H
-#define FACE_H
+#ifndef LANL_ASC_PEM_FACE_H_
+#define LANL_ASC_PEM_FACE_H_
 
 /**
  * @file Face.h
  * @brief Abstract base class for various Face types that define Zone objects
  * @author Peter Hakel
- * @version 0.8
+ * @version 0.9
  * @date Created on 20 November 2014\n
- * Last modified on 3 March 2019
+ * Last modified on 26 February 2020
  * @copyright (c) 2015, Triad National Security, LLC.
  * All rights reserved.\n
  * Use of this source code is governed by the BSD 3-Clause License.
  * See top-level license.txt file for full license text.
  */
 
-#include "constants.h"
-#include "utilities.h"
-#include "Vector3d.h"
-#include "Node.h"
-#include "Grid.h"
-#include <vector>
-#include <iostream>
+#include <constants.h>
+#include <Grid.h>
+#include <Node.h>
+#include <utils.h>
+#include <Vector3d.h>
+
 #include <fstream>
+#include <iostream>
+#include <memory>
 #include <string>
+#include <vector>
+
+//-----------------------------------------------------------------------------
+
+class Face;
+typedef std::shared_ptr<Face> FacePtr;
 
 //-----------------------------------------------------------------------------
 
@@ -62,7 +69,7 @@ struct FaceID
      * @brief String representation of a FaceID object
      * @return String representation of *this
      */
-    std::string to_string(void) const
+    std::string to_string() const
     {
         std::string s(utils::int_to_string(my_zone, ' ', cnst::INT_WIDTH));
         s += utils::int_to_string(my_id, ' ', cnst::INT_WIDTH);
@@ -105,27 +112,13 @@ struct RetIntercept
 /// Abstract base class for various Face types that define Zone objects
 class Face
 {
-private:
-
-    /// ID of the Zone to which *this Face belongs
-    size_t my_zone;
-
-    /// Face ID local to its Zone
-    short int my_id;
-
-    /// ID's of ordered Node objects defining *this Face
-    std::vector<size_t> node;
-
-    /// Neighbors: Faces from other Zone objects in contact with *this Face
-    std::vector<FaceID> nbr;
-
 public:
 
     /// Fixed label of the bounding Sphere
     static const FaceID BOUNDING_SPHERE;
 
     /// Default constructor
-    Face(void);
+    Face();
 
     /**
      * @brief Parametrized constructor (leaves Face::node, Face::nbr empty)
@@ -135,10 +128,10 @@ public:
     Face(const size_t my_zone_in, const short int my_id_in);
 
     /// Destructor
-    virtual ~Face(void);
+    virtual ~Face();
 
     /// Reset *this Face to the state initialized by Face::Face
-    virtual void clear(void);
+    virtual void clear();
 
     /**
      * @brief Setter for Face::my_zone
@@ -150,7 +143,7 @@ public:
      * @brief Getter for Face::my_zone
      * @return ID of the Zone to which *this Face belongs
      */
-    size_t get_my_zone(void) const;
+    size_t get_my_zone() const;
 
     /**
      * @brief Setter for Face::my_id
@@ -162,13 +155,13 @@ public:
      * @brief Getter for Face::my_id
      * @return Face ID local to its Zone
      */
-    short int get_my_id(void) const;
+    short int get_my_id() const;
 
     /**
      * @brief Getter for the size of Face::node
      * @return Number of Node objects forming *this Face
      */
-    virtual size_t size(void) const;
+    virtual size_t size() const;
 
     /**
      * @brief Flag for the shape of *this Face
@@ -206,7 +199,7 @@ public:
      * @brief String representation of a Face object
      * @return String representation of *this
      */
-    virtual std::string to_string(void) const;
+    virtual std::string to_string() const;
 
     /**
      * @brief Loads a Face from an input file
@@ -232,7 +225,7 @@ public:
      * @brief Getter for the size of Face::nbr
      * @return Number of neighbors that *this Face has
      */
-    size_t num_nbr(void) const;
+    size_t num_nbr() const;
 
     /**
      * @brief Retrieves neighbor's FaceID from given location in Face::nbr
@@ -282,6 +275,14 @@ public:
     virtual Vector3d subpoint(const Grid &g, const Vector3d &w) const = 0;
 
     /**
+     * @brief A reference point on *this Face (used by Zone::zone_point)
+     * @param[in] g Grid of Node objects
+     * @param[in] w Location of a point
+     * @return A reference point on *this Face
+     */
+    virtual Vector3d face_point(const Grid &g, const Vector3d &w) const = 0;
+
+    /**
      * @brief Flags whether a point is above *this oriented Face
      * @param[in] g Grid of Node objects
      * @param[in] w Point's location
@@ -327,6 +328,20 @@ public:
      */
     virtual Vector3d velocity(const Grid &g, const Vector3d &w) const = 0;
 
+
+private:
+
+    /// ID of the Zone to which *this Face belongs
+    size_t my_zone;
+
+    /// Face ID local to its Zone
+    short int my_id;
+
+    /// ID's of ordered Node objects defining *this Face
+    std::vector<size_t> node;
+
+    /// Neighbors: Faces from other Zone objects in contact with *this Face
+    std::vector<FaceID> nbr;
 };
 
 //-----------------------------------------------------------------------------
@@ -341,4 +356,4 @@ std::ostream & operator << (std::ostream &ost, const Face &o);
 
 //-----------------------------------------------------------------------------
 
-#endif // FACE_H
+#endif  // LANL_ASC_PEM_FACE_H_

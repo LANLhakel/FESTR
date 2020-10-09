@@ -16,6 +16,7 @@ Version 0.5 -- August 2017
 Version 0.6 -- April 2018
 Version 0.7 -- November 2018
 Version 0.8 -- March 2019
+Version 0.9 -- October 2020
 CODE NAME:  FESTR (C15068)
 Classification Review Number: LA-CC-15-045
 Export Control Classification Number (ECCN): EAR99
@@ -43,25 +44,6 @@ Peter Hakel,
  and analysis code",
 Computer Physics Communications, vol. 207, pp. 415-425 (2016). (open access)
 http://dx.doi.org/10.1016/j.cpc.2016.05.027
-
-Directory structure:
-
-common: resources that could be reused in other projects (makefile, 
-        the unit test mechanism, MPI parallelization)
-doc: documentation of this package
-img: utilities for preparing synthetic images based on FESTR output
-src: source files for this package
-src/build: target directory for object files produced during compilation
-src/Histories: postprocessor to generate time histories of outputs
-src/ObjPrep: preprocessor to create inputs for the analysis mode
-             (fixed weights)
-src/ObjPrepErrorBars: preprocessor to create inputs for the analysis mode
-                      (variable weights)
-src/Plot: utility to process output spectra for plotting
-src/Sample: input/output data for a sample FESTR run
-src/Scale: utility to rescale, shift, and calibrate experimental spectra
-src/src: FESTR source files
-src/UniTest: source files for FESTR unit tests
 
 ===============================================================================
 
@@ -96,14 +78,14 @@ Version Log:
 
 0.3, August 2016
      Release: festr_v0.3.tgz, added:
-     *) bug fix in Detector::patch_string, where a missing (symmetry != “none”)
+     *) bug fix in Detector::patch_string, where a missing (symmetry != "none")
         branch was added;
 
         added two new associated unit tests in test_Detector.cpp:
         Detector_patch_string_symmetry_none,
         Detector_patch_string_symmetry_spherical;
 
-        adjusted “expected” values in two existing unit tests in
+        adjusted "expected" values in two existing unit tests in
         test_Diagnostics.cpp also affected by the above described change:
         Diagnostics_do_history_SphSym1d_symmetry_spherical_center_patch
         Diagnostics_do_history_SphSym1d_flat_backlighter_center_patch
@@ -113,9 +95,9 @@ Version Log:
 
 0.4, October 2016
      Release: festr_v0.4.tgz, added:
-     *) bug fix in Detector::do_Ray, where the wrong use of the “patch”
-        variable in the “spherical cap” if-test was changed to use the
-        correct “direction” variable;
+     *) bug fix in Detector::do_Ray, where the wrong use of the "patch"
+        variable in the "spherical cap" if-test was changed to use the
+        correct "direction" variable;
      *) a hard zero was replaced with 1.0e-19 in Cone::contains in order to
         avoid spurious rejection of a valid solution due to round-off errors
         for Rays exactly following the z-axis; three new unit tests (with names
@@ -146,10 +128,10 @@ Version Log:
         replacements of "do_history" with "execute" were carried out in the
         file Test/test_Diagnostics.cpp,
      *) code in function Diagnostics::postprocess() was refactored to
-        accomodate MPI-parallelization of time steps using class TaskPool, 
+        accomodate MPI-parallelization of time steps using class TaskPool,
      *) code in function Detector::yt_to_files() was refactored to accomodate
-        MPI-parallelization of time integration using class ReducePool, 
-        a new fucntion Detector::yst_using_mpi() was added in a similar manner,
+        MPI-parallelization of time integration using class ReducePool,
+        a new function Detector::yst_using_mpi() was added in a similar manner,
      *) OpenMP threading directives were added to ArrDblLoop.cpp and
         Objective.h,
      *) several methods in class ArrDbl were found to be thread-unsafe and
@@ -237,13 +219,97 @@ Version Log:
      *) The copyright notice was changed to reflect the transition of the
         Los Alamos National Laboratory M&O contract from Los Alamos National
         Security, LLC, to Triad National Security, LLC,
-     *) In class ArrDbl return types were changed to references for all
+     *) in class ArrDbl return types were changed to references for all
         compound assignments, const was added to return types of unary and
         binary operators, four unit tests covering compound assignments with
         self were added in file test_ArrDbl.cpp,
      *) file "img/img.py" was converted to Python 3 and made self-executable,
      *) "build" subdirectory was created to store object files during the
         compilation; the makefile was changed accordingly.
+
+-------------------------------------------------------------------------------
+
+0.9, October 2020
+     Release: festr_v0.9.tgz:
+     *) The code was upgraded to the C++11 standard and ported to Windows 10;
+        the makefile was changed to support Windows compilation using MinGW,
+     *) raw pointers inside containers were replaced with smart pointers,
+     *) struct PatchID was added in file Detector.cpp to facilitate the
+        redeployment of MPI parallelization using TaskPool away from time steps
+        to parallelization over Detector patches,
+     *) the Detector class was modified to allow its pointing to an arbitrary
+        point with an arbitrary aperture angle; units tests for Detector and
+        Diagnostics were added and/or modified,
+     *) the "options" file in postprocessing mode now ends with the "tmin_tmax"
+        pair of numbers (in seconds) defining the interval of interest from the
+        Hydro time history; the "main" function and class Diagnostics (and some
+        of its unit tests) were modified accordingly, new unit tests named
+        Hydro-Hydro_subset* were added in test_Hydro.cpp,
+     *) public portions of class declarations are now listed first,
+     *) calls to push_back() were replaced with calls to emplace_back(),
+     *) class ArrDbl was given its own emplace_back() method, a corresponding
+        unit test was added in test_ArrDbl.cpp,
+     *) method Grid::add_node() was overloaded to accept an rvalue reference,
+     *) copy constructor and assignment of class StoichZbar were defaulted,
+     *) the creation of Face-derived objects was moved into struct FaceFactory,
+     *) virtual methods in Face-derived classes now use the override keyword,
+     *) a number of changes were made to increase the numerical robustness of
+        the raytracer in case of Mesh of Cones with Rays grazing nearly parallel
+        to near-disk Cone Faces:
+        *) Cone::SMALL is now 5.0e-7 cm instead of the original 1.0e-8 cm,
+        *) Cone::MINIMUM_DISTACE = 1.0e-6 cm was added (Rays hitting a Cone
+           within this distance of one of its Nodes are moved inward along the
+           Cone to this distance, Vector3d::linear_Vector3d_fit() was added to
+           facilitate the associated interpolation, Cone::get_endpoints() was
+           added and Cone::intercept() was modified, new units tests were added:
+           Cone-get_endpoints* and some extant ones like Cone-intercept_disk0_w
+           in test_Cone.cpp had their expected answer modified),
+        *) Cone::ZERO = 1.0e-19 cm2 was added and Cone::contains() was
+           modified to test individual components rather than the scalar
+           product of two vectors as a whole),
+        *) Vector3d::ZERO = 0.0 was added and Vector3d::is_between() was
+           modified to test individual components rather than the scalar
+           product of two vectors as a whole), new unit test
+           Vector3d-linear_Vector3d_fit was added in test_Vector3d.cpp,
+        *) in utils::solve_quadratic() the discriminant is now replaced with
+           a hard zero, if its original absolute value was less or equal to TOL;
+           this change makes the "cones_tiebreaks_to_top_Zone*" unit tests in
+           test_Mesh.cpp pass also with the PGI compiler (they were already
+           passing with the GNU and Intel compilers),
+        *) a short-hop branch was added to Cone::intercept() to facilitate Ray
+           advancement near the Cone's vertex; unit tests with Mesh defined in
+           file mesh_cones_vertex.inc were added to test_Mesh(),
+     *) to further improve the numerical robustness of the raytracer, methods
+        Face::face_point() and Zone::zone_point() were added (along with
+        corresponding new unit tests); method Zone::hit() was extended to
+        find a hitpoint based on Zone::zone_point() in case the original
+        search (based on the Ray's exit point p) fails (new unit tests were
+        also added),
+     *) utils::get_grid() was modified to prevent a division by nm1==0,
+     *) utils::double_to_string() was modified to remove a leading '0' in
+        3-digit exponents (due to formatting seen on Windows),
+     *) Progress::print() was given an extra constant named EPS to address
+        round-off issues in the floating-point numerics seen on Windows with
+        optimization turned on,
+     *) Sphere::intercept() now returns no solution, if the two roots are too
+        close to each other; the expected values in "intercept-one" unit tests
+        were changed accordingly,
+     *) Cone::intercept() now returns no solution, if the Ray runs along its
+        face,
+     *) arbitrary backlighters can now be read in from input files, whose names
+        are specified in the Detector's definition file as:
+        backlighter file <filename>,
+     *) utils::normalize() function was added along with new unit tests to
+        renormalize a vector of doubles,
+     *) methods Table::atom_to_mass() and Table::mass_to_atom() were added along
+        with new unit tests to convert between atom and mass material fractions,
+     *) function Table::get_elements() was added to return all present elements,
+     *) the src/UniTest directory was added to the include directories in the
+        makefile and #include's now use <> brackets around the file names,
+     *) unit-test sources were given their own .h files and all the test sources
+        were modified accordingly,
+     *) check_to_disable_test() was converted from a free function to a public
+        method of class Test; all unit-test drivers were changed accordingly.
 
 -------------------------------------------------------------------------------
 

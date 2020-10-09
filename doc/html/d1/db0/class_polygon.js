@@ -1,18 +1,19 @@
 var class_polygon =
 [
-    [ "Polygon", "d1/db0/class_polygon.html#a358a6dec8758783dfe2cc1b56bb81316", null ],
+    [ "Polygon", "d1/db0/class_polygon.html#ac183e712f8be1e13f1c9d5b4d4512ead", null ],
     [ "Polygon", "d1/db0/class_polygon.html#a92adb2f6d69f0abcd9eef2c7bdb676bb", null ],
     [ "Polygon", "d1/db0/class_polygon.html#af4a708152018794dec94f885105d9abb", null ],
-    [ "~Polygon", "d1/db0/class_polygon.html#ac4951d7c58fd56dda1e85dabb813fd86", null ],
-    [ "area", "d1/db0/class_polygon.html#a06478421ddbd81283e0b9ad16c64fb76", null ],
-    [ "area2_normal_center", "d1/db0/class_polygon.html#a363249e4103e6c9c8a5279bf8ea3f020", null ],
-    [ "contains", "d1/db0/class_polygon.html#ad464c0bf1805c773f6035e3a7a7f0b6f", null ],
-    [ "distance", "d1/db0/class_polygon.html#aeeabc56b48a6e24c3149ae889421d56b", null ],
-    [ "intercept", "d1/db0/class_polygon.html#a04fb6a66ef483133fed860b33bf3b451", null ],
-    [ "is_curved", "d1/db0/class_polygon.html#a2848b1dfa87f554bee65d94ee9c4540e", null ],
-    [ "load", "d1/db0/class_polygon.html#a40390ca3751b33b329817a8a5b35d4ad", null ],
-    [ "normal", "d1/db0/class_polygon.html#a44eaf88ef0c80ced236386c7cd72dcfd", null ],
-    [ "subpoint", "d1/db0/class_polygon.html#a75af609e1b58cea7d6af6bb6351eca22", null ],
-    [ "to_string", "d1/db0/class_polygon.html#a4c491ab3c1bd9ea056dbb72a854dd772", null ],
-    [ "velocity", "d1/db0/class_polygon.html#aceb5363df500c908bfefff8b58895c45", null ]
+    [ "~Polygon", "d1/db0/class_polygon.html#ad289583dba86760f78296670c95b1eb7", null ],
+    [ "area", "d1/db0/class_polygon.html#adcc07297459925918d259ae2d09f2cc7", null ],
+    [ "area2_normal_center", "d1/db0/class_polygon.html#aef64be057a3a1e9d181ea88447bfad48", null ],
+    [ "contains", "d1/db0/class_polygon.html#a0a555375ebdd9488af9279473b785199", null ],
+    [ "distance", "d1/db0/class_polygon.html#a3f4710e112a677c68214483002c05153", null ],
+    [ "face_point", "d1/db0/class_polygon.html#ad5e7077e5c3fe3f147e37dd48f4cc2b7", null ],
+    [ "intercept", "d1/db0/class_polygon.html#a9c4af171eb9ff68baa765d2413a0dff6", null ],
+    [ "is_curved", "d1/db0/class_polygon.html#ad1d15b8797f843ca30e6ff81254d37e9", null ],
+    [ "load", "d1/db0/class_polygon.html#ae72b8aa707aa7939d37f13f051345e67", null ],
+    [ "normal", "d1/db0/class_polygon.html#a14a8e072761eaaa6c2e05d6fc06f1a46", null ],
+    [ "subpoint", "d1/db0/class_polygon.html#ac5183e22655940591fc144aecca9f56e", null ],
+    [ "to_string", "d1/db0/class_polygon.html#a660ed6bbf19aa0cec1ba47ee16efba3b", null ],
+    [ "velocity", "d1/db0/class_polygon.html#a5ab41f28ed4184b2bca910d60730addb", null ]
 ];

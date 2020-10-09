@@ -1,24 +1,25 @@
-#ifndef RAY_H
-#define RAY_H
+#ifndef LANL_ASC_PEM_RAY_H_
+#define LANL_ASC_PEM_RAY_H_
 
 /**
  * @file Ray.h
  * @brief Ray carrying a spectrum and its own current position and direction
  * @author Peter Hakel
- * @version 0.8
+ * @version 0.9
  * @date Created on 24 December 2014\n
- * Last modified on 3 March 2019
+ * Last modified on 6 October 2020
  * @copyright (c) 2015, Triad National Security, LLC.
  * All rights reserved.\n
  * Use of this source code is governed by the BSD 3-Clause License.
  * See top-level license.txt file for full license text.
  */
 
-#include "Grid.h"
-#include "Mesh.h"
-#include <string>
+#include <Grid.h>
+#include <Mesh.h>
+
 #include <iostream>
 #include <stack>
+#include <string>
 #include <utility>
 
 //-----------------------------------------------------------------------------
@@ -36,7 +37,7 @@ struct Waypoint
     Vector3d hitpt;
 
     /// Default constructor
-    Waypoint(void);
+    Waypoint();
 
     /**
      * @brief Parametrized constructor
@@ -69,51 +70,6 @@ const IntPair INT_PAIR_00 = IntPair(0, 0);
 /// Ray carrying a spectrum and its own current position and direction
 class Ray
 {
-private:
-
-    /// Progress indentation level
-    int level;
-
-    /// Frequency of Progress prints
-    size_t freq;
-
-    /// Size of the photon-energy grid
-    size_t n;
-
-    /// Range of hv-grid (lower limit)
-    size_t jmin;
-
-    /// Range of hv-grid (upper limit)
-    size_t jmax;
-
-    /// Number of Zones crossed by *this Ray
-    size_t nzones;
-
-    /// Number of digits needed to represent Ray::nzones
-    int nzd;
-    
-    /// Zone cursor along the path of *this Ray
-    size_t iz;
-
-    /// Current distance (cm) traveled by *this Ray
-    double distance;
-
-    /// Tracking of partial results along *this Ray
-    bool tracking;
-
-    /// Output filename root for partial spectral results
-    std::string froot;
-
-    /// Header for partial spectral results
-    std::string hroot;
-    
-    /**
-     * @brief Ray constructor helper
-     * @param[in] nin Initializes sizes of Ray::em, Ray::ab, Ray::sc
-     * @param[in] rin Initializes Waypoint position (Ray::wpt)
-     */
-    void init(const size_t nin, const Vector3d &rin);
-
 public:
 
     /// ID of Detector that *this Ray hits at the end of its path
@@ -164,7 +120,7 @@ public:
 //-----------------------------------------------------------------------------
 
     /// Default constructor
-    Ray(void);
+    Ray();
 
     /**
      * @brief Parametrized constructor
@@ -206,26 +162,23 @@ public:
         const ArrDbl &yin,
         const std::string &froot_in, const std::string &hroot_in);
 
-    /// Destructor
-    ~Ray(void);
-
     /**
      * @brief Getter for size of the spectrum (Ray::n)
      * @return Number of photon-energy points in the spectrum
      */
-    size_t size(void) const;
+    size_t size() const;
 
     /**
      * @brief Getter for size of the Ray's trajectory (Ray::nzones)
      * @return Number of Zones crossed by *this Ray
      */
-    size_t get_nzones(void) const;
+    size_t get_nzones() const;
 
     /**
      * @brief Getter for Ray::tracking
      * @return Flag for printing of partial results along *this Ray
      */
-    bool get_tracking(void) const;
+    bool get_tracking() const;
 
     /**
      * @brief Absolute difference between two Rays
@@ -235,13 +188,10 @@ public:
     double abs_diff(const Ray &o) const;
 
     /**
-     * @brief Sets either a flat or a Planckian backlighter into Ray::y
-     * @param[in] back_type "flat" (constant), or "blackbody"
-     * @param[in] back_value Backlighter value or Planckian temperature (eV)
-     * @param[in] hv Photon-energy grid under Ray::y
+     * @brief Sets the backlighter into Ray::y
+     * @param[in] yb Backlighter to be set to Ray::y (W/cm2/sr/eV)
      */
-    void set_backlighter(const std::string &back_type,
-                         const double back_value, std::vector<double> &hv);
+    void set_backlighter(const std::vector<double> &yb);
 
     /**
      * @brief Ray tracing -> builds Ray::wpt stack of Waypoint objects
@@ -268,7 +218,7 @@ public:
      * @param[in] ndmesh Number of digits needed to represent the total
                   number of Zones in the Mesh
      */
-    void cross_Zone(const Zone *z, const Database &d, const Table &tbl,
+    void cross_Zone(ZonePtr z, const Database &d, const Table &tbl,
                     const std::string &symmetry, const size_t ix,
                     const int ndmesh);
 
@@ -288,8 +238,53 @@ public:
      * @brief String representation of a Ray object
      * @return String representation of *this
      */
-    std::string to_string(void) const;
+    std::string to_string() const;
 
+
+private:
+
+    /// Progress indentation level
+    int level;
+
+    /// Frequency of Progress prints
+    size_t freq;
+
+    /// Size of the photon-energy grid
+    size_t n;
+
+    /// Range of hv-grid (lower limit)
+    size_t jmin;
+
+    /// Range of hv-grid (upper limit)
+    size_t jmax;
+
+    /// Number of Zones crossed by *this Ray
+    size_t nzones;
+
+    /// Number of digits needed to represent Ray::nzones
+    int nzd;
+
+    /// Zone cursor along the path of *this Ray
+    size_t iz;
+
+    /// Current distance (cm) traveled by *this Ray
+    double distance;
+
+    /// Tracking of partial results along *this Ray
+    bool tracking;
+
+    /// Output filename root for partial spectral results
+    std::string froot;
+
+    /// Header for partial spectral results
+    std::string hroot;
+
+    /**
+     * @brief Ray constructor helper
+     * @param[in] nin Initializes sizes of Ray::em, Ray::ab, Ray::sc
+     * @param[in] rin Initializes Waypoint position (Ray::wpt)
+     */
+    void init(const size_t nin, const Vector3d &rin);
 };
 
 //-----------------------------------------------------------------------------
@@ -305,4 +300,4 @@ std::ostream & operator << (std::ostream &ost, const Ray &o);
 
 //-----------------------------------------------------------------------------
 
-#endif // RAY_H
+#endif  // LANL_ASC_PEM_RAY_H_

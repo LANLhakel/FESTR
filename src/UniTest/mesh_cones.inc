@@ -12,14 +12,14 @@ Los Alamos National Laboratory
 XCP-5 group
 
 Created on 22 May 2015
-Last modified on 3 March 2019
+Last modified on 28 January 2020
 
 Copyright (c) 2015, Triad National Security, LLC.
 All rights reserved.
 Use of this source code is governed by the BSD 3-Clause License.
 See top-level license.txt file for full license text.
 
-CODE NAME:  FESTR, Version 0.8 (C15068)
+CODE NAME:  FESTR, Version 0.9 (C15068)
 Classification Review Number: LA-CC-15-045
 Export Control Classification Number (ECCN): EAR99
 B&R Code:  DP1516090
@@ -59,27 +59,27 @@ g.add_node(n);
 
 //-----------------------------------------------------------------------------
 
-Face *f;
-Face *q;
-Zone *z;
-Sphere *s;
-Surface *a;
+FacePtr f;
+FacePtr q;
+ZonePtr z;
+SpherePtr s;
+SurfacePtr a;
 Mesh m(3);
 
 // Bounding Sphere Zone (outer Face = Sphere)
-z = new Zone(0);
+z = std::make_shared<Zone>(0);
 m.add_zone(z);
-f = s = new Sphere(0, 0);
+f = s = std::make_shared<Sphere>(0, 0);
 z->add_face(f);
 f->add_node(5); // location of Sphere's center
 s->setr(100.0); // Sphere radius, orientation outward (r is positive)
 
 // Bounding Sphere Zone (inner Face = Surface)
-q = a = new Surface(0, 1);
+q = a = std::make_shared<Surface>(0, 1);
 z->add_face(q);
 
 // cylinder bottom
-f = new Cone(0, -1);
+f = std::make_shared<Cone>(0, -1);
 f->add_node(3);
 f->add_node(0);
 f->add_neighbor(1,  0);
@@ -87,7 +87,7 @@ q->add_neighbor(1,  0);
 a->add_face(f);
 
 // cylinder top
-f = new Cone(1, -1);
+f = std::make_shared<Cone>(1, -1);
 f->add_node(1);
 f->add_node(2);
 f->add_neighbor(1, 2);
@@ -95,7 +95,7 @@ q->add_neighbor(1, 2);
 a->add_face(f);
 
 // cone bottom
-f = new Cone(2, -1);
+f = std::make_shared<Cone>(2, -1);
 f->add_node(4);
 f->add_node(3);
 f->add_neighbor(2, 0);
@@ -103,7 +103,7 @@ q->add_neighbor(2, 0);
 a->add_face(f);
 
 // cone slanted outer side
-f = new Cone(3, -1);
+f = std::make_shared<Cone>(3, -1);
 f->add_node(2);
 f->add_node(4);
 f->add_neighbor(2, 1);
@@ -113,25 +113,25 @@ a->add_face(f);
 //-----------------------------------------------------------------------------
 
 // cylinder
-z = new Zone(1);
+z = std::make_shared<Zone>(1);
 m.add_zone(z);
 
 // bottom
-f = new Cone(1, 0);
+f = std::make_shared<Cone>(1, 0);
 f->add_node(0);
 f->add_node(3);
 f->add_neighbor(0, 1);
 z->add_face(f);
 
 // side
-f = new Cone(1, 1);
+f = std::make_shared<Cone>(1, 1);
 f->add_node(3);
 f->add_node(2);
 f->add_neighbor(2, 2);
 z->add_face(f);
 
 // top
-f = new Cone(1, 2);
+f = std::make_shared<Cone>(1, 2);
 f->add_node(2);
 f->add_node(1);
 f->add_neighbor(0, 1);
@@ -140,28 +140,28 @@ z->add_face(f);
 //-----------------------------------------------------------------------------
 
 // cone
-z = new Zone(2);
+z = std::make_shared<Zone>(2);
 m.add_zone(z);
 
 // bottom
-f = new Cone(2, 0);
+f = std::make_shared<Cone>(2, 0);
 f->add_node(3);
 f->add_node(4);
 f->add_neighbor(0, 1);
 z->add_face(f);
 
 // slanted, outer side
-f = new Cone(2, 1);
+f = std::make_shared<Cone>(2, 1);
 f->add_node(4);
 f->add_node(2);
 f->add_neighbor(0, 1);
 z->add_face(f);
 
 // vertical, inner side
-f = new Cone(2, 2);
+f = std::make_shared<Cone>(2, 2);
 f->add_node(2);
 f->add_node(3);
 f->add_neighbor(1, 1);
 z->add_face(f);
 
-// end mesh_cones.inc
+//  end mesh_cones.inc

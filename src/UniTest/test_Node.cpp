@@ -8,14 +8,14 @@ Los Alamos National Laboratory
 XCP-5 group
 
 Created on 19 November 2014
-Last modified on 3 March 2019
+Last modified on 2 October 2020
 
 Copyright (c) 2015, Triad National Security, LLC.
 All rights reserved.
 Use of this source code is governed by the BSD 3-Clause License.
 See top-level license.txt file for full license text.
 
-CODE NAME:  FESTR, Version 0.8 (C15068)
+CODE NAME:  FESTR, Version 0.9 (C15068)
 Classification Review Number: LA-CC-15-045
 Export Control Classification Number (ECCN): EAR99
 B&R Code:  DP1516090
@@ -24,12 +24,11 @@ B&R Code:  DP1516090
 
 //  Note: only use trimmed strings for names
 
+#include <test_Node.h>
 #include <Test.h>
-#include "../src/Node.h"
 
 void test_Node(int &failed_test_count, int &disabled_test_count)
 {
-
 const std::string GROUP = "Node";
 const double EQT = 1.0e-15;
 
@@ -38,7 +37,7 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "set_get_i", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
         Node n;
@@ -55,7 +54,7 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "set_get_r", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
         Node n;
@@ -72,7 +71,7 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "set_get_v", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
         Node n;
@@ -89,7 +88,7 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "abs_diff", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
         Vector3d r(12.0, 4.0, -3.0);
@@ -108,7 +107,7 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "to_string", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
         Vector3d v(7.0e-11, 0.0, -500.0);
@@ -126,7 +125,7 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "ctor_i0_r0_v0", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
         Vector3d zero;
@@ -142,7 +141,7 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "ctor_v0", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
         Vector3d r(12.0, 4.0, -3.0);
@@ -159,7 +158,7 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "copy_ctor", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
         Vector3d r(12.0, 4.0, -3.0);
@@ -177,7 +176,7 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "assignment", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
         Vector3d r(12.0, 4.0, -3.0);
@@ -194,4 +193,4 @@ const double EQT = 1.0e-15;
 
 }
 
-// end test_Node.cpp
+//  end test_Node.cpp

@@ -36,7 +36,7 @@
   <td id="projectlogo"><img alt="Logo" src="mesh.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">FESTR
-   &#160;<span id="projectnumber">0.8</span>
+   &#160;<span id="projectnumber">0.9</span>
    </div>
    <div id="projectbrief">Finite-Element Spectral Transfer of Radiation</div>
   </td>
@@ -95,8 +95,8 @@ $(document).ready(function(){initNavTree('functions_p.html','');});
 : <a class="el" href="d2/d27/class_detector.html#a3aa22ff38ba5ba2ff34eafb10328d78f">Detector</a>
 </li>
 <li>pack()
-: <a class="el" href="df/dfd/struct_time_step_i_d.html#a6ecc7f6de74121b2d3d69e4058a4ca69">TimeStepID</a>
-, <a class="el" href="d0/d1c/struct_time_step_output.html#aed1ad5df1fea1dfba25ef23bbe21750d">TimeStepOutput</a>
+: <a class="el" href="d1/d00/struct_patch_i_d.html#ae386898fedb7c8415979bf4dbe7fe9ca">PatchID</a>
+, <a class="el" href="d3/db3/struct_patch_spectrum.html#a1c31f2b543e78f7dabfc9b2fd9a6b6e0">PatchSpectrum</a>
 </li>
 <li>parallel_to()
 : <a class="el" href="d4/d4d/class_vector3d.html#aeb0fa0797aff5cfc1e5129130a12e758">Vector3d</a>
@@ -110,6 +110,12 @@ $(document).ready(function(){initNavTree('functions_p.html','');});
 <li>patch_string()
 : <a class="el" href="d2/d27/class_detector.html#afc69ca9032ceda0c353c07cbd02abb06">Detector</a>
 </li>
+<li>PatchID()
+: <a class="el" href="d1/d00/struct_patch_i_d.html#a0f0b4784206cef568f9c55afc36ad5d3">PatchID</a>
+</li>
+<li>PatchSpectrum()
+: <a class="el" href="d3/db3/struct_patch_spectrum.html#af3a26f775a4d0dfd2b0587a7976064a2">PatchSpectrum</a>
+</li>
 <li>path
 : <a class="el" href="dc/d83/class_database.html#aa72d79c2bd4cf5c05f428238cc2afa3d">Database</a>
 , <a class="el" href="d2/d27/class_detector.html#a710218026bf76569be7da7f649ea0d38">Detector</a>
@@ -118,20 +124,29 @@ $(document).ready(function(){initNavTree('functions_p.html','');});
 , <a class="el" href="db/df0/class_hydro.html#a3a676326624b41cc4eac789de22e6601">Hydro</a>
 , <a class="el" href="dd/d9a/class_objective.html#acdc84dde07149fb5972fd7e4d0393f8b">Objective</a>
 </li>
+<li>pc
+: <a class="el" href="d2/d27/class_detector.html#a600ecb92cf915aec88b5359e7d560867">Detector</a>
+</li>
 <li>perpendicular_to()
 : <a class="el" href="d4/d4d/class_vector3d.html#aac3d8c8c53ce1ebc75b069034a463c91">Vector3d</a>
 </li>
+<li>PI
+: <a class="el" href="d1/ddd/structcnst.html#a36976b64f543002145398e63d4deb641">cnst</a>
+</li>
+<li>planckian()
+: <a class="el" href="df/da6/structutils.html#a2206abe2880434b20cc90d8d5b43accb">utils</a>
+</li>
 <li>Polygon()
-: <a class="el" href="d1/db0/class_polygon.html#af4a708152018794dec94f885105d9abb">Polygon</a>
+: <a class="el" href="d1/db0/class_polygon.html#ac183e712f8be1e13f1c9d5b4d4512ead">Polygon</a>
 </li>
 <li>postprocess()
 : <a class="el" href="d0/d24/class_diagnostics.html#acda872463acc2685f2bde15f0a1c9a02">Diagnostics</a>
 </li>
 <li>print()
-: <a class="el" href="d1/d6e/class_progress.html#a95aa3b4b91b7f8cf0362fe7f9459f6da">Progress</a>
+: <a class="el" href="d1/d6e/class_progress.html#ad0c9252ae6f1538a4410077c667ffcb0">Progress</a>
 </li>
 <li>Progress()
-: <a class="el" href="d1/d6e/class_progress.html#afc3b60500285eff2125f652a045ff4f1">Progress</a>
+: <a class="el" href="d1/d6e/class_progress.html#a3f7f6665fc5563b60c1599a07b3de999">Progress</a>
 </li>
 <li>push_back()
 : <a class="el" href="d9/d73/class_arr_dbl.html#a89090ed86f1f6ad1fdc2307403453a81">ArrDbl</a>
@@ -142,7 +157,7 @@ $(document).ready(function(){initNavTree('functions_p.html','');});
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Wed Mar 6 2019 11:57:00 for FESTR by
+    <li class="footer">Generated on Fri Oct 9 2020 15:10:24 for FESTR by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.13 </li>
   </ul>

@@ -36,7 +36,7 @@
   <td id="projectlogo"><img alt="Logo" src="../../mesh.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">FESTR
-   &#160;<span id="projectnumber">0.8</span>
+   &#160;<span id="projectnumber">0.9</span>
    </div>
    <div id="projectbrief">Finite-Element Spectral Transfer of Radiation</div>
   </td>
@@ -104,35 +104,38 @@ $(document).ready(function(){initNavTree('db/df0/class_hydro.html','../../');});
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:aeec1bffcff067933bf09154a3f9e1186"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/df0/class_hydro.html#aeec1bffcff067933bf09154a3f9e1186">Hydro</a> (void)</td></tr>
-<tr class="memdesc:aeec1bffcff067933bf09154a3f9e1186"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default constructor.  <a href="#aeec1bffcff067933bf09154a3f9e1186">More...</a><br /></td></tr>
-<tr class="separator:aeec1bffcff067933bf09154a3f9e1186"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9764cfdbb887cbff5977a9d44227ef6b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/df0/class_hydro.html#a9764cfdbb887cbff5977a9d44227ef6b">Hydro</a> (const bool analysis_in, const std::string &amp;hydro_path, const std::string &amp;table_path, const std::string &amp;table_fname, const std::string &amp;symmetry_in)</td></tr>
-<tr class="memdesc:a9764cfdbb887cbff5977a9d44227ef6b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Parametrized constructor: connects *this with input data files.  <a href="#a9764cfdbb887cbff5977a9d44227ef6b">More...</a><br /></td></tr>
-<tr class="separator:a9764cfdbb887cbff5977a9d44227ef6b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac5837eeb24d521362d9d327771bee1ab"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/df0/class_hydro.html#ac5837eeb24d521362d9d327771bee1ab">~Hydro</a> (void)</td></tr>
-<tr class="memdesc:ac5837eeb24d521362d9d327771bee1ab"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor.  <a href="#ac5837eeb24d521362d9d327771bee1ab">More...</a><br /></td></tr>
-<tr class="separator:ac5837eeb24d521362d9d327771bee1ab"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a89ba7377fe0d5ad2ee45eff4b5416866"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/df0/class_hydro.html#a89ba7377fe0d5ad2ee45eff4b5416866">get_path</a> (void) const</td></tr>
-<tr class="memdesc:a89ba7377fe0d5ad2ee45eff4b5416866"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for <a class="el" href="../../db/df0/class_hydro.html#a3a676326624b41cc4eac789de22e6601" title="Directory path to input data files for *this Hydro. ">Hydro::path</a>.  <a href="#a89ba7377fe0d5ad2ee45eff4b5416866">More...</a><br /></td></tr>
-<tr class="separator:a89ba7377fe0d5ad2ee45eff4b5416866"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0696848d985968ae52f0dd32a23a86fb"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="../../d2/d8f/class_table.html">Table</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/df0/class_hydro.html#a0696848d985968ae52f0dd32a23a86fb">get_table</a> (void) const</td></tr>
-<tr class="memdesc:a0696848d985968ae52f0dd32a23a86fb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for <a class="el" href="../../d2/d8f/class_table.html" title="Atomic data for materials. ">Table</a> of materials.  <a href="#a0696848d985968ae52f0dd32a23a86fb">More...</a><br /></td></tr>
-<tr class="separator:a0696848d985968ae52f0dd32a23a86fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0d3c6550ee6d190aaf9bfe20b8acc208"><td class="memItemLeft" align="right" valign="top">std::vector&lt; size_t &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/df0/class_hydro.html#a0d3c6550ee6d190aaf9bfe20b8acc208">get_ndim</a> (void) const</td></tr>
-<tr class="memdesc:a0d3c6550ee6d190aaf9bfe20b8acc208"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for <a class="el" href="../../db/df0/class_hydro.html#a4148dea4963d2cdf758ede5bcc7a3463" title="Number of analysis cases per Cell. ">Hydro::ndim</a>.  <a href="#a0d3c6550ee6d190aaf9bfe20b8acc208">More...</a><br /></td></tr>
-<tr class="separator:a0d3c6550ee6d190aaf9bfe20b8acc208"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa97b0e35c513bea7063079aa42f34fad"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/df0/class_hydro.html#aa97b0e35c513bea7063079aa42f34fad">get_ntimes</a> (void) const</td></tr>
-<tr class="memdesc:aa97b0e35c513bea7063079aa42f34fad"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for <a class="el" href="../../db/df0/class_hydro.html#af067ef7e78d0501ce310276fd93c3f2e" title="Number of time instants (postprocessing), or search cases + 1 (analysis);   ntimes == 2 for a single ...">Hydro::ntimes</a>.  <a href="#aa97b0e35c513bea7063079aa42f34fad">More...</a><br /></td></tr>
-<tr class="separator:aa97b0e35c513bea7063079aa42f34fad"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a25abf49ddec2bb963681b34d7822d478"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/df0/class_hydro.html#a25abf49ddec2bb963681b34d7822d478">get_nintervals</a> (void) const</td></tr>
-<tr class="memdesc:a25abf49ddec2bb963681b34d7822d478"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for <a class="el" href="../../db/df0/class_hydro.html#a6da848e79247756f060c85f70aecf745" title="Number of time intervals (postprocessing), or search cases (analysis);   nintervals == 1 for a single...">Hydro::nintervals</a>.  <a href="#a25abf49ddec2bb963681b34d7822d478">More...</a><br /></td></tr>
-<tr class="separator:a25abf49ddec2bb963681b34d7822d478"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a01b9deb073552fa2480d5a945ee10a9c"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/df0/class_hydro.html#a01b9deb073552fa2480d5a945ee10a9c">get_ntd</a> (void) const</td></tr>
-<tr class="memdesc:a01b9deb073552fa2480d5a945ee10a9c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for <a class="el" href="../../db/df0/class_hydro.html#acfb9b96a93fde3874eeb074cf98245f0" title="Number of digits needed to represent Hydro::ntimes. ">Hydro::ntd</a>.  <a href="#a01b9deb073552fa2480d5a945ee10a9c">More...</a><br /></td></tr>
-<tr class="separator:a01b9deb073552fa2480d5a945ee10a9c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a06d1852fde51a138a5db6210f79203ed"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/df0/class_hydro.html#a06d1852fde51a138a5db6210f79203ed">Hydro</a> ()</td></tr>
+<tr class="memdesc:a06d1852fde51a138a5db6210f79203ed"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default constructor.  <a href="#a06d1852fde51a138a5db6210f79203ed">More...</a><br /></td></tr>
+<tr class="separator:a06d1852fde51a138a5db6210f79203ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3e1712a38a3869cbabaac009f8584c0e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/df0/class_hydro.html#a3e1712a38a3869cbabaac009f8584c0e">Hydro</a> (const bool analysis_in, const std::string &amp;hydro_path, const std::string &amp;table_path, const std::string &amp;table_fname, const std::string &amp;symmetry_in, const double tmin_in, const double tmax_in)</td></tr>
+<tr class="memdesc:a3e1712a38a3869cbabaac009f8584c0e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Parametrized constructor: connects *this with input data files.  <a href="#a3e1712a38a3869cbabaac009f8584c0e">More...</a><br /></td></tr>
+<tr class="separator:a3e1712a38a3869cbabaac009f8584c0e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a22b78208da86b32396f5b37e2a78cc9e"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/df0/class_hydro.html#a22b78208da86b32396f5b37e2a78cc9e">get_path</a> () const</td></tr>
+<tr class="memdesc:a22b78208da86b32396f5b37e2a78cc9e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for <a class="el" href="../../db/df0/class_hydro.html#a3a676326624b41cc4eac789de22e6601" title="Directory path to input data files for *this Hydro. ">Hydro::path</a>.  <a href="#a22b78208da86b32396f5b37e2a78cc9e">More...</a><br /></td></tr>
+<tr class="separator:a22b78208da86b32396f5b37e2a78cc9e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a48a1fac6008154913c89cc4a0dc31006"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="../../d2/d8f/class_table.html">Table</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/df0/class_hydro.html#a48a1fac6008154913c89cc4a0dc31006">get_table</a> () const</td></tr>
+<tr class="memdesc:a48a1fac6008154913c89cc4a0dc31006"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for <a class="el" href="../../d2/d8f/class_table.html" title="Atomic data for materials. ">Table</a> of materials.  <a href="#a48a1fac6008154913c89cc4a0dc31006">More...</a><br /></td></tr>
+<tr class="separator:a48a1fac6008154913c89cc4a0dc31006"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a25f47ea01e89303028908ae31b67e7bf"><td class="memItemLeft" align="right" valign="top">std::vector&lt; size_t &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/df0/class_hydro.html#a25f47ea01e89303028908ae31b67e7bf">get_ndim</a> () const</td></tr>
+<tr class="memdesc:a25f47ea01e89303028908ae31b67e7bf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for <a class="el" href="../../db/df0/class_hydro.html#a4148dea4963d2cdf758ede5bcc7a3463" title="Number of analysis cases per Cell. ">Hydro::ndim</a>.  <a href="#a25f47ea01e89303028908ae31b67e7bf">More...</a><br /></td></tr>
+<tr class="separator:a25f47ea01e89303028908ae31b67e7bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a26af02fc92afd97e0a50ca086c13990b"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/df0/class_hydro.html#a26af02fc92afd97e0a50ca086c13990b">get_ntimes</a> () const</td></tr>
+<tr class="memdesc:a26af02fc92afd97e0a50ca086c13990b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for <a class="el" href="../../db/df0/class_hydro.html#af067ef7e78d0501ce310276fd93c3f2e" title="Number of time instants (postprocessing), or search cases + 1 (analysis);   ntimes == 2 for a single ...">Hydro::ntimes</a>.  <a href="#a26af02fc92afd97e0a50ca086c13990b">More...</a><br /></td></tr>
+<tr class="separator:a26af02fc92afd97e0a50ca086c13990b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac1bc7fbac516057da1f6d8e93ffd8a0d"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/df0/class_hydro.html#ac1bc7fbac516057da1f6d8e93ffd8a0d">get_nintervals</a> () const</td></tr>
+<tr class="memdesc:ac1bc7fbac516057da1f6d8e93ffd8a0d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for <a class="el" href="../../db/df0/class_hydro.html#a6da848e79247756f060c85f70aecf745" title="Number of time intervals (postprocessing), or search cases (analysis);   nintervals == 1 for a single...">Hydro::nintervals</a>.  <a href="#ac1bc7fbac516057da1f6d8e93ffd8a0d">More...</a><br /></td></tr>
+<tr class="separator:ac1bc7fbac516057da1f6d8e93ffd8a0d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1f7e7a0cba0c6f227952d6db8443ec9a"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/df0/class_hydro.html#a1f7e7a0cba0c6f227952d6db8443ec9a">get_ntd</a> () const</td></tr>
+<tr class="memdesc:a1f7e7a0cba0c6f227952d6db8443ec9a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for <a class="el" href="../../db/df0/class_hydro.html#acfb9b96a93fde3874eeb074cf98245f0" title="Number of digits needed to represent Hydro::ntimes. ">Hydro::ntd</a>.  <a href="#a1f7e7a0cba0c6f227952d6db8443ec9a">More...</a><br /></td></tr>
+<tr class="separator:a1f7e7a0cba0c6f227952d6db8443ec9a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3f9ac91d447611ddc9e9e45b56fef8ec"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/df0/class_hydro.html#a3f9ac91d447611ddc9e9e45b56fef8ec">get_tmin</a> () const</td></tr>
+<tr class="memdesc:a3f9ac91d447611ddc9e9e45b56fef8ec"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for <a class="el" href="../../db/df0/class_hydro.html#a584fdc97217c82a4cf910a87400629dd" title="Minimum time instant included (seconds) ">Hydro::tmin</a>.  <a href="#a3f9ac91d447611ddc9e9e45b56fef8ec">More...</a><br /></td></tr>
+<tr class="separator:a3f9ac91d447611ddc9e9e45b56fef8ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aade3ec6dc19a1243806cb775c90175bc"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/df0/class_hydro.html#aade3ec6dc19a1243806cb775c90175bc">get_tmax</a> () const</td></tr>
+<tr class="memdesc:aade3ec6dc19a1243806cb775c90175bc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for <a class="el" href="../../db/df0/class_hydro.html#a5a7640f2b2a02104f2c2770ea2bd5140" title="Maximum time instant included (seconds) ">Hydro::tmax</a>.  <a href="#aade3ec6dc19a1243806cb775c90175bc">More...</a><br /></td></tr>
+<tr class="separator:aade3ec6dc19a1243806cb775c90175bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8c576a3fbcbde05a29f2714a2ec80c4d"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/df0/class_hydro.html#a8c576a3fbcbde05a29f2714a2ec80c4d">time_at</a> (const size_t it) const</td></tr>
-<tr class="memdesc:a8c576a3fbcbde05a29f2714a2ec80c4d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Time instant (seconds) at index it (<a class="el" href="../../db/df0/class_hydro.html#abcedbf9153e58018d09882c61feec3d5" title="Time instants in seconds;   time[0] == 0.0 and time[1] == 1.0 for a single instantaneous calculation...">Hydro::time</a>)  <a href="#a8c576a3fbcbde05a29f2714a2ec80c4d">More...</a><br /></td></tr>
+<tr class="memdesc:a8c576a3fbcbde05a29f2714a2ec80c4d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Time instant (seconds) at index it (<a class="el" href="../../db/df0/class_hydro.html#abcedbf9153e58018d09882c61feec3d5" title="All available time instants (seconds) ">Hydro::time</a>)  <a href="#a8c576a3fbcbde05a29f2714a2ec80c4d">More...</a><br /></td></tr>
 <tr class="separator:a8c576a3fbcbde05a29f2714a2ec80c4d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4e3d1e205a4a90b9036418f466174a97"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/df0/class_hydro.html#a4e3d1e205a4a90b9036418f466174a97">dt_at</a> (const size_t it) const</td></tr>
 <tr class="memdesc:a4e3d1e205a4a90b9036418f466174a97"><td class="mdescLeft">&#160;</td><td class="mdescRight">Length of time interval (seconds) at index it.  <a href="#a4e3d1e205a4a90b9036418f466174a97">More...</a><br /></td></tr>
@@ -140,21 +143,24 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:aff720c9e0408304e90347f08e439da9c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/df0/class_hydro.html#aff720c9e0408304e90347f08e439da9c">load_at</a> (const size_t it, <a class="el" href="../../da/d74/class_grid.html">Grid</a> &amp;g, <a class="el" href="../../dc/dbe/class_mesh.html">Mesh</a> &amp;m) const</td></tr>
 <tr class="memdesc:aff720c9e0408304e90347f08e439da9c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Loads <a class="el" href="../../da/d74/class_grid.html" title="Grid of Node objects. ">Grid</a>, <a class="el" href="../../dc/dbe/class_mesh.html" title="Mesh of Zone objects. ">Mesh</a>, <a class="el" href="../../da/d50/class_zone.html" title="Spatial zone, defined by a list bounding Face objects. ">Zone</a> / <a class="el" href="../../dd/d11/class_cell.html" title="Class Zone reduced to hold only materials&#39; search grids for analysis. ">Cell</a> objects for time index it.  <a href="#aff720c9e0408304e90347f08e439da9c">More...</a><br /></td></tr>
 <tr class="separator:aff720c9e0408304e90347f08e439da9c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a93e8eb76b6af9bca1538684d7bcf9160"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/df0/class_hydro.html#a93e8eb76b6af9bca1538684d7bcf9160">to_string</a> (void) const</td></tr>
-<tr class="memdesc:a93e8eb76b6af9bca1538684d7bcf9160"><td class="mdescLeft">&#160;</td><td class="mdescRight">String representation of a <a class="el" href="../../db/df0/class_hydro.html" title="Holds material conditions within all Zone objects in the Mesh. ">Hydro</a> object.  <a href="#a93e8eb76b6af9bca1538684d7bcf9160">More...</a><br /></td></tr>
-<tr class="separator:a93e8eb76b6af9bca1538684d7bcf9160"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0ebb219ee1b84f29b2364644298d55a4"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/df0/class_hydro.html#a0ebb219ee1b84f29b2364644298d55a4">get_analysis</a> (void) const</td></tr>
-<tr class="memdesc:a0ebb219ee1b84f29b2364644298d55a4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for <a class="el" href="../../db/df0/class_hydro.html#afbcd7c30d5cc69baa6df7555d429e8b2" title="&quot;true&quot; for analysis, &quot;false&quot; for postprocessing mode ">Hydro::analysis</a>.  <a href="#a0ebb219ee1b84f29b2364644298d55a4">More...</a><br /></td></tr>
-<tr class="separator:a0ebb219ee1b84f29b2364644298d55a4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a106d77f892c905dafdbefd14e938d7b8"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/df0/class_hydro.html#a106d77f892c905dafdbefd14e938d7b8">get_nzones</a> (void) const</td></tr>
-<tr class="memdesc:a106d77f892c905dafdbefd14e938d7b8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for <a class="el" href="../../db/df0/class_hydro.html#a9aa37d56e4c2ec89168501daf1defd8e" title="Number of Zone objects in the Mesh. ">Hydro::nzones</a>.  <a href="#a106d77f892c905dafdbefd14e938d7b8">More...</a><br /></td></tr>
-<tr class="separator:a106d77f892c905dafdbefd14e938d7b8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a246993661e4d950201dc63a8b9d73ecd"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/df0/class_hydro.html#a246993661e4d950201dc63a8b9d73ecd">to_string</a> () const</td></tr>
+<tr class="memdesc:a246993661e4d950201dc63a8b9d73ecd"><td class="mdescLeft">&#160;</td><td class="mdescRight">String representation of a <a class="el" href="../../db/df0/class_hydro.html" title="Holds material conditions within all Zone objects in the Mesh. ">Hydro</a> object.  <a href="#a246993661e4d950201dc63a8b9d73ecd">More...</a><br /></td></tr>
+<tr class="separator:a246993661e4d950201dc63a8b9d73ecd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa66da754ee9baad93147b906a8caaaef"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/df0/class_hydro.html#aa66da754ee9baad93147b906a8caaaef">get_analysis</a> () const</td></tr>
+<tr class="memdesc:aa66da754ee9baad93147b906a8caaaef"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for <a class="el" href="../../db/df0/class_hydro.html#afbcd7c30d5cc69baa6df7555d429e8b2" title="&quot;true&quot; for analysis, &quot;false&quot; for postprocessing mode ">Hydro::analysis</a>.  <a href="#aa66da754ee9baad93147b906a8caaaef">More...</a><br /></td></tr>
+<tr class="separator:aa66da754ee9baad93147b906a8caaaef"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a66bc177923eff8c76758f284dd0ad7db"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/df0/class_hydro.html#a66bc177923eff8c76758f284dd0ad7db">get_nzones</a> () const</td></tr>
+<tr class="memdesc:a66bc177923eff8c76758f284dd0ad7db"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for <a class="el" href="../../db/df0/class_hydro.html#a9aa37d56e4c2ec89168501daf1defd8e" title="Number of Zone objects in the Mesh. ">Hydro::nzones</a>.  <a href="#a66bc177923eff8c76758f284dd0ad7db">More...</a><br /></td></tr>
+<tr class="separator:a66bc177923eff8c76758f284dd0ad7db"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7279ca1505252a1d81f58eee168e3f02"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/df0/class_hydro.html#a7279ca1505252a1d81f58eee168e3f02">set_symmetry</a> (const std::string &amp;s)</td></tr>
 <tr class="memdesc:a7279ca1505252a1d81f58eee168e3f02"><td class="mdescLeft">&#160;</td><td class="mdescRight">Setter for <a class="el" href="../../db/df0/class_hydro.html#a46eeeb4b90d0ab89d5ddb7da3b7ad23a" title="&quot;spherical&quot; or &quot;none&quot; (from class Detector) ">Hydro::symmetry</a> (turns symmetry-based shortcuts on/off when recalculating the final best case in analysis mode, see <a class="el" href="../../d0/d24/class_diagnostics.html#a709370babbd0fe71a998e4ebc8264f5a" title="Runs all analysis cases. ">Diagnostics::analyze</a>)  <a href="#a7279ca1505252a1d81f58eee168e3f02">More...</a><br /></td></tr>
 <tr class="separator:a7279ca1505252a1d81f58eee168e3f02"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afb29bf6779b9ddd426dca08729934964"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/df0/class_hydro.html#afb29bf6779b9ddd426dca08729934964">get_symmetry</a> (void) const</td></tr>
-<tr class="memdesc:afb29bf6779b9ddd426dca08729934964"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for <a class="el" href="../../db/df0/class_hydro.html#a46eeeb4b90d0ab89d5ddb7da3b7ad23a" title="&quot;spherical&quot; or &quot;none&quot; (from class Detector) ">Hydro::symmetry</a>.  <a href="#afb29bf6779b9ddd426dca08729934964">More...</a><br /></td></tr>
-<tr class="separator:afb29bf6779b9ddd426dca08729934964"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9edba94302ed5ae4f32a46dda89bca83"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/df0/class_hydro.html#a9edba94302ed5ae4f32a46dda89bca83">get_symmetry</a> () const</td></tr>
+<tr class="memdesc:a9edba94302ed5ae4f32a46dda89bca83"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for <a class="el" href="../../db/df0/class_hydro.html#a46eeeb4b90d0ab89d5ddb7da3b7ad23a" title="&quot;spherical&quot; or &quot;none&quot; (from class Detector) ">Hydro::symmetry</a>.  <a href="#a9edba94302ed5ae4f32a46dda89bca83">More...</a><br /></td></tr>
+<tr class="separator:a9edba94302ed5ae4f32a46dda89bca83"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad4de06ef11de84781e86bc89cb3fe317"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/df0/class_hydro.html#ad4de06ef11de84781e86bc89cb3fe317">time_index_at</a> (const size_t j) const</td></tr>
+<tr class="memdesc:ad4de06ef11de84781e86bc89cb3fe317"><td class="mdescLeft">&#160;</td><td class="mdescRight">Main time index.  <a href="#ad4de06ef11de84781e86bc89cb3fe317">More...</a><br /></td></tr>
+<tr class="separator:ad4de06ef11de84781e86bc89cb3fe317"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
@@ -173,21 +179,29 @@ Private Attributes</h2></td></tr>
  nintervals == 1 for a single instantaneous calculation.  <a href="#a6da848e79247756f060c85f70aecf745">More...</a><br /></td></tr>
 <tr class="separator:a6da848e79247756f060c85f70aecf745"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abcedbf9153e58018d09882c61feec3d5"><td class="memItemLeft" align="right" valign="top">std::vector&lt; double &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/df0/class_hydro.html#abcedbf9153e58018d09882c61feec3d5">time</a></td></tr>
-<tr class="memdesc:abcedbf9153e58018d09882c61feec3d5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Time instants in seconds; <br />
- time[0] == 0.0 and time[1] == 1.0 for a single instantaneous calculation.  <a href="#abcedbf9153e58018d09882c61feec3d5">More...</a><br /></td></tr>
+<tr class="memdesc:abcedbf9153e58018d09882c61feec3d5"><td class="mdescLeft">&#160;</td><td class="mdescRight">All available time instants (seconds)  <a href="#abcedbf9153e58018d09882c61feec3d5">More...</a><br /></td></tr>
 <tr class="separator:abcedbf9153e58018d09882c61feec3d5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acfb9b96a93fde3874eeb074cf98245f0"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/df0/class_hydro.html#acfb9b96a93fde3874eeb074cf98245f0">ntd</a></td></tr>
 <tr class="memdesc:acfb9b96a93fde3874eeb074cf98245f0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Number of digits needed to represent <a class="el" href="../../db/df0/class_hydro.html#af067ef7e78d0501ce310276fd93c3f2e" title="Number of time instants (postprocessing), or search cases + 1 (analysis);   ntimes == 2 for a single ...">Hydro::ntimes</a>.  <a href="#acfb9b96a93fde3874eeb074cf98245f0">More...</a><br /></td></tr>
 <tr class="separator:acfb9b96a93fde3874eeb074cf98245f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a584fdc97217c82a4cf910a87400629dd"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/df0/class_hydro.html#a584fdc97217c82a4cf910a87400629dd">tmin</a></td></tr>
+<tr class="memdesc:a584fdc97217c82a4cf910a87400629dd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Minimum time instant included (seconds)  <a href="#a584fdc97217c82a4cf910a87400629dd">More...</a><br /></td></tr>
+<tr class="separator:a584fdc97217c82a4cf910a87400629dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5a7640f2b2a02104f2c2770ea2bd5140"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/df0/class_hydro.html#a5a7640f2b2a02104f2c2770ea2bd5140">tmax</a></td></tr>
+<tr class="memdesc:a5a7640f2b2a02104f2c2770ea2bd5140"><td class="mdescLeft">&#160;</td><td class="mdescRight">Maximum time instant included (seconds)  <a href="#a5a7640f2b2a02104f2c2770ea2bd5140">More...</a><br /></td></tr>
+<tr class="separator:a5a7640f2b2a02104f2c2770ea2bd5140"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1f332d2ae1cbf6c6fdda6f078ee4f441"><td class="memItemLeft" align="right" valign="top">std::vector&lt; size_t &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/df0/class_hydro.html#a1f332d2ae1cbf6c6fdda6f078ee4f441">time_index</a></td></tr>
+<tr class="memdesc:a1f332d2ae1cbf6c6fdda6f078ee4f441"><td class="mdescLeft">&#160;</td><td class="mdescRight">Included time instants.  <a href="#a1f332d2ae1cbf6c6fdda6f078ee4f441">More...</a><br /></td></tr>
+<tr class="separator:a1f332d2ae1cbf6c6fdda6f078ee4f441"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afbcd7c30d5cc69baa6df7555d429e8b2"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/df0/class_hydro.html#afbcd7c30d5cc69baa6df7555d429e8b2">analysis</a></td></tr>
 <tr class="memdesc:afbcd7c30d5cc69baa6df7555d429e8b2"><td class="mdescLeft">&#160;</td><td class="mdescRight">"true" for analysis, "false" for postprocessing mode  <a href="#afbcd7c30d5cc69baa6df7555d429e8b2">More...</a><br /></td></tr>
 <tr class="separator:afbcd7c30d5cc69baa6df7555d429e8b2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9aa37d56e4c2ec89168501daf1defd8e"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/df0/class_hydro.html#a9aa37d56e4c2ec89168501daf1defd8e">nzones</a></td></tr>
 <tr class="memdesc:a9aa37d56e4c2ec89168501daf1defd8e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Number of <a class="el" href="../../da/d50/class_zone.html" title="Spatial zone, defined by a list bounding Face objects. ">Zone</a> objects in the <a class="el" href="../../dc/dbe/class_mesh.html" title="Mesh of Zone objects. ">Mesh</a>.  <a href="#a9aa37d56e4c2ec89168501daf1defd8e">More...</a><br /></td></tr>
 <tr class="separator:a9aa37d56e4c2ec89168501daf1defd8e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a29878dab11872838ca25893749311c6b"><td class="memItemLeft" align="right" valign="top">std::vector&lt; const <a class="el" href="../../dd/d11/class_cell.html">Cell</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/df0/class_hydro.html#a29878dab11872838ca25893749311c6b">cell</a></td></tr>
-<tr class="memdesc:a29878dab11872838ca25893749311c6b"><td class="mdescLeft">&#160;</td><td class="mdescRight">The <a class="el" href="../../dc/dbe/class_mesh.html" title="Mesh of Zone objects. ">Mesh</a> used only in analysis mode.  <a href="#a29878dab11872838ca25893749311c6b">More...</a><br /></td></tr>
-<tr class="separator:a29878dab11872838ca25893749311c6b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a562c82c0ba65271240eeea38197839a4"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="../../dd/dcf/_cell_8h.html#a95e26f7e0bb85bccc6eb0d112fbb385e">CellPtr</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/df0/class_hydro.html#a562c82c0ba65271240eeea38197839a4">cell</a></td></tr>
+<tr class="memdesc:a562c82c0ba65271240eeea38197839a4"><td class="mdescLeft">&#160;</td><td class="mdescRight">The <a class="el" href="../../dc/dbe/class_mesh.html" title="Mesh of Zone objects. ">Mesh</a> used only in analysis mode.  <a href="#a562c82c0ba65271240eeea38197839a4">More...</a><br /></td></tr>
+<tr class="separator:a562c82c0ba65271240eeea38197839a4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4148dea4963d2cdf758ede5bcc7a3463"><td class="memItemLeft" align="right" valign="top">std::vector&lt; size_t &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/df0/class_hydro.html#a4148dea4963d2cdf758ede5bcc7a3463">ndim</a></td></tr>
 <tr class="memdesc:a4148dea4963d2cdf758ede5bcc7a3463"><td class="mdescLeft">&#160;</td><td class="mdescRight">Number of analysis cases per <a class="el" href="../../dd/d11/class_cell.html" title="Class Zone reduced to hold only materials&#39; search grids for analysis. ">Cell</a>.  <a href="#a4148dea4963d2cdf758ede5bcc7a3463">More...</a><br /></td></tr>
 <tr class="separator:a4148dea4963d2cdf758ede5bcc7a3463"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -198,10 +212,10 @@ Private Attributes</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Holds material conditions within all <a class="el" href="../../da/d50/class_zone.html" title="Spatial zone, defined by a list bounding Face objects. ">Zone</a> objects in the <a class="el" href="../../dc/dbe/class_mesh.html" title="Mesh of Zone objects. ">Mesh</a>. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../db/d8e/_hydro_8h_source.html#l00025">25</a> of file <a class="el" href="../../db/d8e/_hydro_8h_source.html">Hydro.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../db/d8e/_hydro_8h_source.html#l00026">26</a> of file <a class="el" href="../../db/d8e/_hydro_8h_source.html">Hydro.h</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="aeec1bffcff067933bf09154a3f9e1186"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aeec1bffcff067933bf09154a3f9e1186">&#9670;&nbsp;</a></span>Hydro() <span class="overload">[1/2]</span></h2>
+<a id="a06d1852fde51a138a5db6210f79203ed"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a06d1852fde51a138a5db6210f79203ed">&#9670;&nbsp;</a></span>Hydro() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -209,7 +223,6 @@ Private Attributes</h2></td></tr>
         <tr>
           <td class="memname">Hydro::Hydro </td>
           <td>(</td>
-          <td class="paramtype">void&#160;</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
@@ -218,12 +231,12 @@ Private Attributes</h2></td></tr>
 
 <p>Default constructor. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../dd/dba/_hydro_8cpp_source.html#l00024">24</a> of file <a class="el" href="../../dd/dba/_hydro_8cpp_source.html">Hydro.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../dd/dba/_hydro_8cpp_source.html#l00026">26</a> of file <a class="el" href="../../dd/dba/_hydro_8cpp_source.html">Hydro.cpp</a>.</p>
 
 </div>
 </div>
-<a id="a9764cfdbb887cbff5977a9d44227ef6b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9764cfdbb887cbff5977a9d44227ef6b">&#9670;&nbsp;</a></span>Hydro() <span class="overload">[2/2]</span></h2>
+<a id="a3e1712a38a3869cbabaac009f8584c0e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3e1712a38a3869cbabaac009f8584c0e">&#9670;&nbsp;</a></span>Hydro() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -256,7 +269,19 @@ Private Attributes</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>symmetry_in</em>&#160;</td>
+          <td class="paramname"><em>symmetry_in</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const double&#160;</td>
+          <td class="paramname"><em>tmin_in</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const double&#160;</td>
+          <td class="paramname"><em>tmax_in</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -274,33 +299,13 @@ Private Attributes</h2></td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">table_path</td><td>Path to <a class="el" href="../../d2/d8f/class_table.html" title="Atomic data for materials. ">Table</a> (helps to initialize <a class="el" href="../../db/df0/class_hydro.html#a4a348f0448e07c290f2bc8c1644cd86e" title="Table of materials. ">Hydro::tbl</a>) </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">table_fname</td><td><a class="el" href="../../d2/d8f/class_table.html" title="Atomic data for materials. ">Table</a> filename (helps to initialize <a class="el" href="../../db/df0/class_hydro.html#a4a348f0448e07c290f2bc8c1644cd86e" title="Table of materials. ">Hydro::tbl</a>) </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">symmetry_in</td><td>Initializes <a class="el" href="../../db/df0/class_hydro.html#a46eeeb4b90d0ab89d5ddb7da3b7ad23a" title="&quot;spherical&quot; or &quot;none&quot; (from class Detector) ">Hydro::symmetry</a> </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">tmin_in</td><td>Minimum time instant included (seconds) </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">tmax_in</td><td>Maximum time instant included (seconds) </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../dd/dba/_hydro_8cpp_source.html#l00031">31</a> of file <a class="el" href="../../dd/dba/_hydro_8cpp_source.html">Hydro.cpp</a>.</p>
-
-</div>
-</div>
-<a id="ac5837eeb24d521362d9d327771bee1ab"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac5837eeb24d521362d9d327771bee1ab">&#9670;&nbsp;</a></span>~Hydro()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">Hydro::~Hydro </td>
-          <td>(</td>
-          <td class="paramtype">void&#160;</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Destructor. </p>
-
-<p class="definition">Definition at line <a class="el" href="../../dd/dba/_hydro_8cpp_source.html#l00121">121</a> of file <a class="el" href="../../dd/dba/_hydro_8cpp_source.html">Hydro.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../dd/dba/_hydro_8cpp_source.html#l00034">34</a> of file <a class="el" href="../../dd/dba/_hydro_8cpp_source.html">Hydro.cpp</a>.</p>
 
 </div>
 </div>
@@ -328,14 +333,14 @@ Private Attributes</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd><a class="el" href="../../db/df0/class_hydro.html#abcedbf9153e58018d09882c61feec3d5" title="Time instants in seconds;   time[0] == 0.0 and time[1] == 1.0 for a single instantaneous calculation...">Hydro::time</a>[it+1] - <a class="el" href="../../db/df0/class_hydro.html#abcedbf9153e58018d09882c61feec3d5" title="Time instants in seconds;   time[0] == 0.0 and time[1] == 1.0 for a single instantaneous calculation...">Hydro::time</a>[it] (seconds) </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="../../db/df0/class_hydro.html#abcedbf9153e58018d09882c61feec3d5" title="All available time instants (seconds) ">Hydro::time</a>[it+1] - <a class="el" href="../../db/df0/class_hydro.html#abcedbf9153e58018d09882c61feec3d5" title="All available time instants (seconds) ">Hydro::time</a>[it] (seconds) </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../dd/dba/_hydro_8cpp_source.html#l00166">166</a> of file <a class="el" href="../../dd/dba/_hydro_8cpp_source.html">Hydro.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../dd/dba/_hydro_8cpp_source.html#l00201">201</a> of file <a class="el" href="../../dd/dba/_hydro_8cpp_source.html">Hydro.cpp</a>.</p>
 
 </div>
 </div>
-<a id="a0ebb219ee1b84f29b2364644298d55a4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0ebb219ee1b84f29b2364644298d55a4">&#9670;&nbsp;</a></span>get_analysis()</h2>
+<a id="aa66da754ee9baad93147b906a8caaaef"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa66da754ee9baad93147b906a8caaaef">&#9670;&nbsp;</a></span>get_analysis()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -343,7 +348,6 @@ Private Attributes</h2></td></tr>
         <tr>
           <td class="memname">bool Hydro::get_analysis </td>
           <td>(</td>
-          <td class="paramtype">void&#160;</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
         </tr>
@@ -353,12 +357,12 @@ Private Attributes</h2></td></tr>
 <p>Getter for <a class="el" href="../../db/df0/class_hydro.html#afbcd7c30d5cc69baa6df7555d429e8b2" title="&quot;true&quot; for analysis, &quot;false&quot; for postprocessing mode ">Hydro::analysis</a>. </p>
 <dl class="section return"><dt>Returns</dt><dd>"true" for analysis, "false" for postprocessing mode </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../dd/dba/_hydro_8cpp_source.html#l00229">229</a> of file <a class="el" href="../../dd/dba/_hydro_8cpp_source.html">Hydro.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../dd/dba/_hydro_8cpp_source.html#l00266">266</a> of file <a class="el" href="../../dd/dba/_hydro_8cpp_source.html">Hydro.cpp</a>.</p>
 
 </div>
 </div>
-<a id="a0d3c6550ee6d190aaf9bfe20b8acc208"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0d3c6550ee6d190aaf9bfe20b8acc208">&#9670;&nbsp;</a></span>get_ndim()</h2>
+<a id="a25f47ea01e89303028908ae31b67e7bf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a25f47ea01e89303028908ae31b67e7bf">&#9670;&nbsp;</a></span>get_ndim()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -366,7 +370,6 @@ Private Attributes</h2></td></tr>
         <tr>
           <td class="memname">std::vector&lt; size_t &gt; Hydro::get_ndim </td>
           <td>(</td>
-          <td class="paramtype">void&#160;</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
         </tr>
@@ -376,12 +379,12 @@ Private Attributes</h2></td></tr>
 <p>Getter for <a class="el" href="../../db/df0/class_hydro.html#a4148dea4963d2cdf758ede5bcc7a3463" title="Number of analysis cases per Cell. ">Hydro::ndim</a>. </p>
 <dl class="section return"><dt>Returns</dt><dd>Number of analysis cases per <a class="el" href="../../dd/d11/class_cell.html" title="Class Zone reduced to hold only materials&#39; search grids for analysis. ">Cell</a> </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../dd/dba/_hydro_8cpp_source.html#l00146">146</a> of file <a class="el" href="../../dd/dba/_hydro_8cpp_source.html">Hydro.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../dd/dba/_hydro_8cpp_source.html#l00152">152</a> of file <a class="el" href="../../dd/dba/_hydro_8cpp_source.html">Hydro.cpp</a>.</p>
 
 </div>
 </div>
-<a id="a25abf49ddec2bb963681b34d7822d478"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a25abf49ddec2bb963681b34d7822d478">&#9670;&nbsp;</a></span>get_nintervals()</h2>
+<a id="ac1bc7fbac516057da1f6d8e93ffd8a0d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac1bc7fbac516057da1f6d8e93ffd8a0d">&#9670;&nbsp;</a></span>get_nintervals()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -389,7 +392,6 @@ Private Attributes</h2></td></tr>
         <tr>
           <td class="memname">size_t Hydro::get_nintervals </td>
           <td>(</td>
-          <td class="paramtype">void&#160;</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
         </tr>
@@ -399,12 +401,12 @@ Private Attributes</h2></td></tr>
 <p>Getter for <a class="el" href="../../db/df0/class_hydro.html#a6da848e79247756f060c85f70aecf745" title="Number of time intervals (postprocessing), or search cases (analysis);   nintervals == 1 for a single...">Hydro::nintervals</a>. </p>
 <dl class="section return"><dt>Returns</dt><dd>Number of time intervals, or search cases </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../dd/dba/_hydro_8cpp_source.html#l00154">154</a> of file <a class="el" href="../../dd/dba/_hydro_8cpp_source.html">Hydro.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../dd/dba/_hydro_8cpp_source.html#l00166">166</a> of file <a class="el" href="../../dd/dba/_hydro_8cpp_source.html">Hydro.cpp</a>.</p>
 
 </div>
 </div>
-<a id="a01b9deb073552fa2480d5a945ee10a9c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a01b9deb073552fa2480d5a945ee10a9c">&#9670;&nbsp;</a></span>get_ntd()</h2>
+<a id="a1f7e7a0cba0c6f227952d6db8443ec9a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1f7e7a0cba0c6f227952d6db8443ec9a">&#9670;&nbsp;</a></span>get_ntd()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -412,7 +414,6 @@ Private Attributes</h2></td></tr>
         <tr>
           <td class="memname">int Hydro::get_ntd </td>
           <td>(</td>
-          <td class="paramtype">void&#160;</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
         </tr>
@@ -422,12 +423,12 @@ Private Attributes</h2></td></tr>
 <p>Getter for <a class="el" href="../../db/df0/class_hydro.html#acfb9b96a93fde3874eeb074cf98245f0" title="Number of digits needed to represent Hydro::ntimes. ">Hydro::ntd</a>. </p>
 <dl class="section return"><dt>Returns</dt><dd>Number of digits needed to represent <a class="el" href="../../db/df0/class_hydro.html#af067ef7e78d0501ce310276fd93c3f2e" title="Number of time instants (postprocessing), or search cases + 1 (analysis);   ntimes == 2 for a single ...">Hydro::ntimes</a> </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../dd/dba/_hydro_8cpp_source.html#l00158">158</a> of file <a class="el" href="../../dd/dba/_hydro_8cpp_source.html">Hydro.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../dd/dba/_hydro_8cpp_source.html#l00173">173</a> of file <a class="el" href="../../dd/dba/_hydro_8cpp_source.html">Hydro.cpp</a>.</p>
 
 </div>
 </div>
-<a id="aa97b0e35c513bea7063079aa42f34fad"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa97b0e35c513bea7063079aa42f34fad">&#9670;&nbsp;</a></span>get_ntimes()</h2>
+<a id="a26af02fc92afd97e0a50ca086c13990b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a26af02fc92afd97e0a50ca086c13990b">&#9670;&nbsp;</a></span>get_ntimes()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -435,7 +436,6 @@ Private Attributes</h2></td></tr>
         <tr>
           <td class="memname">size_t Hydro::get_ntimes </td>
           <td>(</td>
-          <td class="paramtype">void&#160;</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
         </tr>
@@ -445,12 +445,12 @@ Private Attributes</h2></td></tr>
 <p>Getter for <a class="el" href="../../db/df0/class_hydro.html#af067ef7e78d0501ce310276fd93c3f2e" title="Number of time instants (postprocessing), or search cases + 1 (analysis);   ntimes == 2 for a single ...">Hydro::ntimes</a>. </p>
 <dl class="section return"><dt>Returns</dt><dd>Number of time instants, or search cases + 1 </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../dd/dba/_hydro_8cpp_source.html#l00150">150</a> of file <a class="el" href="../../dd/dba/_hydro_8cpp_source.html">Hydro.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../dd/dba/_hydro_8cpp_source.html#l00159">159</a> of file <a class="el" href="../../dd/dba/_hydro_8cpp_source.html">Hydro.cpp</a>.</p>
 
 </div>
 </div>
-<a id="a106d77f892c905dafdbefd14e938d7b8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a106d77f892c905dafdbefd14e938d7b8">&#9670;&nbsp;</a></span>get_nzones()</h2>
+<a id="a66bc177923eff8c76758f284dd0ad7db"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a66bc177923eff8c76758f284dd0ad7db">&#9670;&nbsp;</a></span>get_nzones()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -458,7 +458,6 @@ Private Attributes</h2></td></tr>
         <tr>
           <td class="memname">size_t Hydro::get_nzones </td>
           <td>(</td>
-          <td class="paramtype">void&#160;</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
         </tr>
@@ -468,12 +467,12 @@ Private Attributes</h2></td></tr>
 <p>Getter for <a class="el" href="../../db/df0/class_hydro.html#a9aa37d56e4c2ec89168501daf1defd8e" title="Number of Zone objects in the Mesh. ">Hydro::nzones</a>. </p>
 <dl class="section return"><dt>Returns</dt><dd>Number of <a class="el" href="../../da/d50/class_zone.html" title="Spatial zone, defined by a list bounding Face objects. ">Zone</a> objects in the <a class="el" href="../../dc/dbe/class_mesh.html" title="Mesh of Zone objects. ">Mesh</a> </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../dd/dba/_hydro_8cpp_source.html#l00233">233</a> of file <a class="el" href="../../dd/dba/_hydro_8cpp_source.html">Hydro.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../dd/dba/_hydro_8cpp_source.html#l00273">273</a> of file <a class="el" href="../../dd/dba/_hydro_8cpp_source.html">Hydro.cpp</a>.</p>
 
 </div>
 </div>
-<a id="a89ba7377fe0d5ad2ee45eff4b5416866"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a89ba7377fe0d5ad2ee45eff4b5416866">&#9670;&nbsp;</a></span>get_path()</h2>
+<a id="a22b78208da86b32396f5b37e2a78cc9e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a22b78208da86b32396f5b37e2a78cc9e">&#9670;&nbsp;</a></span>get_path()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -481,7 +480,6 @@ Private Attributes</h2></td></tr>
         <tr>
           <td class="memname">std::string Hydro::get_path </td>
           <td>(</td>
-          <td class="paramtype">void&#160;</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
         </tr>
@@ -495,8 +493,8 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="afb29bf6779b9ddd426dca08729934964"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afb29bf6779b9ddd426dca08729934964">&#9670;&nbsp;</a></span>get_symmetry()</h2>
+<a id="a9edba94302ed5ae4f32a46dda89bca83"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9edba94302ed5ae4f32a46dda89bca83">&#9670;&nbsp;</a></span>get_symmetry()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -504,7 +502,6 @@ Private Attributes</h2></td></tr>
         <tr>
           <td class="memname">std::string Hydro::get_symmetry </td>
           <td>(</td>
-          <td class="paramtype">void&#160;</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
         </tr>
@@ -514,12 +511,12 @@ Private Attributes</h2></td></tr>
 <p>Getter for <a class="el" href="../../db/df0/class_hydro.html#a46eeeb4b90d0ab89d5ddb7da3b7ad23a" title="&quot;spherical&quot; or &quot;none&quot; (from class Detector) ">Hydro::symmetry</a>. </p>
 <dl class="section return"><dt>Returns</dt><dd>"spherical" or "none" (from class <a class="el" href="../../d2/d27/class_detector.html" title="Detector object. ">Detector</a>) </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../dd/dba/_hydro_8cpp_source.html#l00241">241</a> of file <a class="el" href="../../dd/dba/_hydro_8cpp_source.html">Hydro.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../dd/dba/_hydro_8cpp_source.html#l00287">287</a> of file <a class="el" href="../../dd/dba/_hydro_8cpp_source.html">Hydro.cpp</a>.</p>
 
 </div>
 </div>
-<a id="a0696848d985968ae52f0dd32a23a86fb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0696848d985968ae52f0dd32a23a86fb">&#9670;&nbsp;</a></span>get_table()</h2>
+<a id="a48a1fac6008154913c89cc4a0dc31006"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a48a1fac6008154913c89cc4a0dc31006">&#9670;&nbsp;</a></span>get_table()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -527,7 +524,6 @@ Private Attributes</h2></td></tr>
         <tr>
           <td class="memname">const <a class="el" href="../../d2/d8f/class_table.html">Table</a> &amp; Hydro::get_table </td>
           <td>(</td>
-          <td class="paramtype">void&#160;</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
         </tr>
@@ -537,7 +533,51 @@ Private Attributes</h2></td></tr>
 <p>Getter for <a class="el" href="../../d2/d8f/class_table.html" title="Atomic data for materials. ">Table</a> of materials. </p>
 <dl class="section return"><dt>Returns</dt><dd>Reference to <a class="el" href="../../db/df0/class_hydro.html#a4a348f0448e07c290f2bc8c1644cd86e" title="Table of materials. ">Hydro::tbl</a> </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../dd/dba/_hydro_8cpp_source.html#l00142">142</a> of file <a class="el" href="../../dd/dba/_hydro_8cpp_source.html">Hydro.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../dd/dba/_hydro_8cpp_source.html#l00145">145</a> of file <a class="el" href="../../dd/dba/_hydro_8cpp_source.html">Hydro.cpp</a>.</p>
+
+</div>
+</div>
+<a id="aade3ec6dc19a1243806cb775c90175bc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aade3ec6dc19a1243806cb775c90175bc">&#9670;&nbsp;</a></span>get_tmax()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double Hydro::get_tmax </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Getter for <a class="el" href="../../db/df0/class_hydro.html#a5a7640f2b2a02104f2c2770ea2bd5140" title="Maximum time instant included (seconds) ">Hydro::tmax</a>. </p>
+<dl class="section return"><dt>Returns</dt><dd>Maximum time instant included (seconds) </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="../../dd/dba/_hydro_8cpp_source.html#l00187">187</a> of file <a class="el" href="../../dd/dba/_hydro_8cpp_source.html">Hydro.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a3f9ac91d447611ddc9e9e45b56fef8ec"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3f9ac91d447611ddc9e9e45b56fef8ec">&#9670;&nbsp;</a></span>get_tmin()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double Hydro::get_tmin </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Getter for <a class="el" href="../../db/df0/class_hydro.html#a584fdc97217c82a4cf910a87400629dd" title="Minimum time instant included (seconds) ">Hydro::tmin</a>. </p>
+<dl class="section return"><dt>Returns</dt><dd>Minimum time instant included (seconds) </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="../../dd/dba/_hydro_8cpp_source.html#l00180">180</a> of file <a class="el" href="../../dd/dba/_hydro_8cpp_source.html">Hydro.cpp</a>.</p>
 
 </div>
 </div>
@@ -583,7 +623,7 @@ Private Attributes</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../dd/dba/_hydro_8cpp_source.html#l00171">171</a> of file <a class="el" href="../../dd/dba/_hydro_8cpp_source.html">Hydro.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../dd/dba/_hydro_8cpp_source.html#l00208">208</a> of file <a class="el" href="../../dd/dba/_hydro_8cpp_source.html">Hydro.cpp</a>.</p>
 
 </div>
 </div>
@@ -611,7 +651,7 @@ Private Attributes</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../dd/dba/_hydro_8cpp_source.html#l00237">237</a> of file <a class="el" href="../../dd/dba/_hydro_8cpp_source.html">Hydro.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../dd/dba/_hydro_8cpp_source.html#l00280">280</a> of file <a class="el" href="../../dd/dba/_hydro_8cpp_source.html">Hydro.cpp</a>.</p>
 
 </div>
 </div>
@@ -631,7 +671,7 @@ Private Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Time instant (seconds) at index it (<a class="el" href="../../db/df0/class_hydro.html#abcedbf9153e58018d09882c61feec3d5" title="Time instants in seconds;   time[0] == 0.0 and time[1] == 1.0 for a single instantaneous calculation...">Hydro::time</a>) </p>
+<p>Time instant (seconds) at index it (<a class="el" href="../../db/df0/class_hydro.html#abcedbf9153e58018d09882c61feec3d5" title="All available time instants (seconds) ">Hydro::time</a>) </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">it</td><td>Time instant index </td></tr>
@@ -640,12 +680,41 @@ Private Attributes</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Time instant (seconds) </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../dd/dba/_hydro_8cpp_source.html#l00162">162</a> of file <a class="el" href="../../dd/dba/_hydro_8cpp_source.html">Hydro.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../dd/dba/_hydro_8cpp_source.html#l00194">194</a> of file <a class="el" href="../../dd/dba/_hydro_8cpp_source.html">Hydro.cpp</a>.</p>
 
 </div>
 </div>
-<a id="a93e8eb76b6af9bca1538684d7bcf9160"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a93e8eb76b6af9bca1538684d7bcf9160">&#9670;&nbsp;</a></span>to_string()</h2>
+<a id="ad4de06ef11de84781e86bc89cb3fe317"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad4de06ef11de84781e86bc89cb3fe317">&#9670;&nbsp;</a></span>time_index_at()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">size_t Hydro::time_index_at </td>
+          <td>(</td>
+          <td class="paramtype">const size_t&#160;</td>
+          <td class="paramname"><em>j</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Main time index. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">j</td><td>Position index within <a class="el" href="../../db/df0/class_hydro.html#a1f332d2ae1cbf6c6fdda6f078ee4f441" title="Included time instants. ">Hydro::time_index</a> </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Time index for <a class="el" href="../../db/df0/class_hydro.html#abcedbf9153e58018d09882c61feec3d5" title="All available time instants (seconds) ">Hydro::time</a> </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="../../dd/dba/_hydro_8cpp_source.html#l00294">294</a> of file <a class="el" href="../../dd/dba/_hydro_8cpp_source.html">Hydro.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a246993661e4d950201dc63a8b9d73ecd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a246993661e4d950201dc63a8b9d73ecd">&#9670;&nbsp;</a></span>to_string()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -653,7 +722,6 @@ Private Attributes</h2></td></tr>
         <tr>
           <td class="memname">std::string Hydro::to_string </td>
           <td>(</td>
-          <td class="paramtype">void&#160;</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
         </tr>
@@ -663,7 +731,7 @@ Private Attributes</h2></td></tr>
 <p>String representation of a <a class="el" href="../../db/df0/class_hydro.html" title="Holds material conditions within all Zone objects in the Mesh. ">Hydro</a> object. </p>
 <dl class="section return"><dt>Returns</dt><dd>String representation of *this </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../dd/dba/_hydro_8cpp_source.html#l00221">221</a> of file <a class="el" href="../../dd/dba/_hydro_8cpp_source.html">Hydro.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../dd/dba/_hydro_8cpp_source.html#l00258">258</a> of file <a class="el" href="../../dd/dba/_hydro_8cpp_source.html">Hydro.cpp</a>.</p>
 
 </div>
 </div>
@@ -690,12 +758,12 @@ Private Attributes</h2></td></tr>
 
 <p>"true" for analysis, "false" for postprocessing mode </p>
 
-<p class="definition">Definition at line <a class="el" href="../../db/d8e/_hydro_8h_source.html#l00059">59</a> of file <a class="el" href="../../db/d8e/_hydro_8h_source.html">Hydro.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../db/d8e/_hydro_8h_source.html#l00190">190</a> of file <a class="el" href="../../db/d8e/_hydro_8h_source.html">Hydro.h</a>.</p>
 
 </div>
 </div>
-<a id="a29878dab11872838ca25893749311c6b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a29878dab11872838ca25893749311c6b">&#9670;&nbsp;</a></span>cell</h2>
+<a id="a562c82c0ba65271240eeea38197839a4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a562c82c0ba65271240eeea38197839a4">&#9670;&nbsp;</a></span>cell</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -704,7 +772,7 @@ Private Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">std::vector&lt;const <a class="el" href="../../dd/d11/class_cell.html">Cell</a> *&gt; Hydro::cell</td>
+          <td class="memname">std::vector&lt;<a class="el" href="../../dd/dcf/_cell_8h.html#a95e26f7e0bb85bccc6eb0d112fbb385e">CellPtr</a>&gt; Hydro::cell</td>
         </tr>
       </table>
   </td>
@@ -716,7 +784,7 @@ Private Attributes</h2></td></tr>
 
 <p>The <a class="el" href="../../dc/dbe/class_mesh.html" title="Mesh of Zone objects. ">Mesh</a> used only in analysis mode. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../db/d8e/_hydro_8h_source.html#l00065">65</a> of file <a class="el" href="../../db/d8e/_hydro_8h_source.html">Hydro.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../db/d8e/_hydro_8h_source.html#l00196">196</a> of file <a class="el" href="../../db/d8e/_hydro_8h_source.html">Hydro.h</a>.</p>
 
 </div>
 </div>
@@ -742,7 +810,7 @@ Private Attributes</h2></td></tr>
 
 <p>Number of analysis cases per <a class="el" href="../../dd/d11/class_cell.html" title="Class Zone reduced to hold only materials&#39; search grids for analysis. ">Cell</a>. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../db/d8e/_hydro_8h_source.html#l00068">68</a> of file <a class="el" href="../../db/d8e/_hydro_8h_source.html">Hydro.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../db/d8e/_hydro_8h_source.html#l00199">199</a> of file <a class="el" href="../../db/d8e/_hydro_8h_source.html">Hydro.h</a>.</p>
 
 </div>
 </div>
@@ -769,7 +837,7 @@ Private Attributes</h2></td></tr>
 <p>Number of time intervals (postprocessing), or search cases (analysis); <br />
  nintervals == 1 for a single instantaneous calculation. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../db/d8e/_hydro_8h_source.html#l00047">47</a> of file <a class="el" href="../../db/d8e/_hydro_8h_source.html">Hydro.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../db/d8e/_hydro_8h_source.html#l00172">172</a> of file <a class="el" href="../../db/d8e/_hydro_8h_source.html">Hydro.h</a>.</p>
 
 </div>
 </div>
@@ -795,7 +863,7 @@ Private Attributes</h2></td></tr>
 
 <p>Number of digits needed to represent <a class="el" href="../../db/df0/class_hydro.html#af067ef7e78d0501ce310276fd93c3f2e" title="Number of time instants (postprocessing), or search cases + 1 (analysis);   ntimes == 2 for a single ...">Hydro::ntimes</a>. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../db/d8e/_hydro_8h_source.html#l00056">56</a> of file <a class="el" href="../../db/d8e/_hydro_8h_source.html">Hydro.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../db/d8e/_hydro_8h_source.html#l00178">178</a> of file <a class="el" href="../../db/d8e/_hydro_8h_source.html">Hydro.h</a>.</p>
 
 </div>
 </div>
@@ -822,7 +890,7 @@ Private Attributes</h2></td></tr>
 <p>Number of time instants (postprocessing), or search cases + 1 (analysis); <br />
  ntimes == 2 for a single instantaneous calculation. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../db/d8e/_hydro_8h_source.html#l00040">40</a> of file <a class="el" href="../../db/d8e/_hydro_8h_source.html">Hydro.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../db/d8e/_hydro_8h_source.html#l00165">165</a> of file <a class="el" href="../../db/d8e/_hydro_8h_source.html">Hydro.h</a>.</p>
 
 </div>
 </div>
@@ -848,7 +916,7 @@ Private Attributes</h2></td></tr>
 
 <p>Number of <a class="el" href="../../da/d50/class_zone.html" title="Spatial zone, defined by a list bounding Face objects. ">Zone</a> objects in the <a class="el" href="../../dc/dbe/class_mesh.html" title="Mesh of Zone objects. ">Mesh</a>. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../db/d8e/_hydro_8h_source.html#l00062">62</a> of file <a class="el" href="../../db/d8e/_hydro_8h_source.html">Hydro.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../db/d8e/_hydro_8h_source.html#l00193">193</a> of file <a class="el" href="../../db/d8e/_hydro_8h_source.html">Hydro.h</a>.</p>
 
 </div>
 </div>
@@ -874,7 +942,7 @@ Private Attributes</h2></td></tr>
 
 <p>Directory path to input data files for *this <a class="el" href="../../db/df0/class_hydro.html" title="Holds material conditions within all Zone objects in the Mesh. ">Hydro</a>. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../db/d8e/_hydro_8h_source.html#l00030">30</a> of file <a class="el" href="../../db/d8e/_hydro_8h_source.html">Hydro.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../db/d8e/_hydro_8h_source.html#l00155">155</a> of file <a class="el" href="../../db/d8e/_hydro_8h_source.html">Hydro.h</a>.</p>
 
 </div>
 </div>
@@ -900,7 +968,7 @@ Private Attributes</h2></td></tr>
 
 <p>"spherical" or "none" (from class <a class="el" href="../../d2/d27/class_detector.html" title="Detector object. ">Detector</a>) </p>
 
-<p class="definition">Definition at line <a class="el" href="../../db/d8e/_hydro_8h_source.html#l00071">71</a> of file <a class="el" href="../../db/d8e/_hydro_8h_source.html">Hydro.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../db/d8e/_hydro_8h_source.html#l00202">202</a> of file <a class="el" href="../../db/d8e/_hydro_8h_source.html">Hydro.h</a>.</p>
 
 </div>
 </div>
@@ -926,7 +994,7 @@ Private Attributes</h2></td></tr>
 
 <p><a class="el" href="../../d2/d8f/class_table.html" title="Atomic data for materials. ">Table</a> of materials. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../db/d8e/_hydro_8h_source.html#l00033">33</a> of file <a class="el" href="../../db/d8e/_hydro_8h_source.html">Hydro.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../db/d8e/_hydro_8h_source.html#l00158">158</a> of file <a class="el" href="../../db/d8e/_hydro_8h_source.html">Hydro.h</a>.</p>
 
 </div>
 </div>
@@ -950,10 +1018,87 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Time instants in seconds; <br />
- time[0] == 0.0 and time[1] == 1.0 for a single instantaneous calculation. </p>
+<p>All available time instants (seconds) </p>
 
-<p class="definition">Definition at line <a class="el" href="../../db/d8e/_hydro_8h_source.html#l00053">53</a> of file <a class="el" href="../../db/d8e/_hydro_8h_source.html">Hydro.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../db/d8e/_hydro_8h_source.html#l00175">175</a> of file <a class="el" href="../../db/d8e/_hydro_8h_source.html">Hydro.h</a>.</p>
+
+</div>
+</div>
+<a id="a1f332d2ae1cbf6c6fdda6f078ee4f441"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1f332d2ae1cbf6c6fdda6f078ee4f441">&#9670;&nbsp;</a></span>time_index</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;size_t&gt; Hydro::time_index</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Included time instants. </p>
+
+<p class="definition">Definition at line <a class="el" href="../../db/d8e/_hydro_8h_source.html#l00187">187</a> of file <a class="el" href="../../db/d8e/_hydro_8h_source.html">Hydro.h</a>.</p>
+
+</div>
+</div>
+<a id="a5a7640f2b2a02104f2c2770ea2bd5140"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5a7640f2b2a02104f2c2770ea2bd5140">&#9670;&nbsp;</a></span>tmax</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">double Hydro::tmax</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Maximum time instant included (seconds) </p>
+
+<p class="definition">Definition at line <a class="el" href="../../db/d8e/_hydro_8h_source.html#l00184">184</a> of file <a class="el" href="../../db/d8e/_hydro_8h_source.html">Hydro.h</a>.</p>
+
+</div>
+</div>
+<a id="a584fdc97217c82a4cf910a87400629dd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a584fdc97217c82a4cf910a87400629dd">&#9670;&nbsp;</a></span>tmin</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">double Hydro::tmin</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Minimum time instant included (seconds) </p>
+
+<p class="definition">Definition at line <a class="el" href="../../db/d8e/_hydro_8h_source.html#l00181">181</a> of file <a class="el" href="../../db/d8e/_hydro_8h_source.html">Hydro.h</a>.</p>
 
 </div>
 </div>
@@ -967,7 +1112,7 @@ Private Attributes</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="../../db/df0/class_hydro.html">Hydro</a></li>
-    <li class="footer">Generated on Wed Mar 6 2019 11:56:59 for FESTR by
+    <li class="footer">Generated on Fri Oct 9 2020 15:10:23 for FESTR by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.13 </li>
   </ul>

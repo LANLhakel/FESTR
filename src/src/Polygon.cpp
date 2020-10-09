@@ -2,17 +2,19 @@
  * @file Polygon.cpp
  * @brief Convex Polygons (derived from class Face)
  * @author Peter Hakel
- * @version 0.8
+ * @version 0.9
  * @date Created on 21 November 2014\n
- * Last modified on 3 March 2019
+ * Last modified on 24 February 2020
  * @copyright (c) 2015, Triad National Security, LLC.
  * All rights reserved.\n
  * Use of this source code is governed by the BSD 3-Clause License.
  * See top-level license.txt file for full license text.
  */
 
-#include "Polygon.h"
-#include "utilities.h"
+#include <Polygon.h>
+
+#include <utils.h>
+
 #include <cmath>
 
 //-----------------------------------------------------------------------------
@@ -24,7 +26,7 @@
 
 //-----------------------------------------------------------------------------
 
-Polygon::Polygon(void): Face() {}
+Polygon::Polygon(): Face() {}
 
 //-----------------------------------------------------------------------------
 
@@ -33,11 +35,14 @@ Polygon::Polygon(const size_t my_zone_in, const short int my_id_in):
 
 //-----------------------------------------------------------------------------
 
-Polygon::Polygon(std::ifstream &istr) {load(istr);}
+Polygon::Polygon(std::ifstream &istr)
+{
+    load(istr);
+}
 
 //-----------------------------------------------------------------------------
 
-Polygon::~Polygon(void) {}
+Polygon::~Polygon() {}
 
 //-----------------------------------------------------------------------------
 
@@ -49,7 +54,7 @@ bool Polygon::is_curved(const Grid &g) const
 
 //-----------------------------------------------------------------------------
 
-std::string Polygon::to_string(void) const
+std::string Polygon::to_string() const
 {
     return "Polygon\n"
            + utils::int_to_string(Face::size(), ' ', cnst::INT_WIDTH) + "\n"
@@ -73,9 +78,10 @@ Vector3d Polygon::area2_normal_center(const Grid &g, Vector3d &c) const
     const Vector3d origin = POINT(0);
     Vector3d p_next = POINT(1);
     Vector3d v_next = p_next - origin;
-    Vector3d p_prev, v_prev, a, s, ctr;
+    Vector3d p_prev, v_prev, s;
     c.set0();
-    for (size_t i = 2; i < size(); ++i)
+    size_t n = size();
+    for (size_t i = 2; i < n; ++i)
     {
         p_prev = p_next;
         p_next = POINT(i);
@@ -83,11 +89,11 @@ Vector3d Polygon::area2_normal_center(const Grid &g, Vector3d &c) const
         // normal vector part
         v_prev = v_next;
         v_next = p_next - origin;
-        a = v_prev % v_next;
+        Vector3d a = v_prev % v_next;
         s += a;
 
         // center part
-        ctr = (origin + p_prev + p_next) / 3.0; // centroid of a triangle
+        Vector3d ctr = (origin + p_prev + p_next) / 3.0; // triangle's centroid
         c += ctr * a.norm(); // building triangle-area-weighted average vector
     }
     c /= s.norm();
@@ -126,6 +132,17 @@ Vector3d Polygon::subpoint(const Grid &g, const Vector3d &w) const
     const double t = distance(g, w);
     const Vector3d n = normal(g);
     return w - n*t;
+}
+
+//-----------------------------------------------------------------------------
+
+Vector3d Polygon::face_point(const Grid &g, const Vector3d &w) const
+{
+    (void)(w);
+    Vector3d s;
+    size_t n = size();
+    for (size_t i = 0; i < n; ++i) s += POINT(i);
+    return s / n;
 }
 
 //-----------------------------------------------------------------------------
@@ -236,4 +253,4 @@ Vector3d Polygon::velocity(const Grid &g, const Vector3d &w) const
 
 //-----------------------------------------------------------------------------
 
-// end Polygon.cpp
+//  end Polygon.cpp

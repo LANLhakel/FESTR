@@ -1,21 +1,22 @@
-#ifndef TABLE_H
-#define TABLE_H
+#ifndef LANL_ASC_PEM_TABLE_H_
+#define LANL_ASC_PEM_TABLE_H_
 
 /**
  * @file Table.h
  * @brief Atomic data for materials
  * @author Peter Hakel
- * @version 0.8
+ * @version 0.9
  * @date Created on 9 January 2015\n
- * Last modified on 3 March 2019
+ * Last modified on 29 September 2020
  * @copyright (c) 2015, Triad National Security, LLC.
  * All rights reserved.\n
  * Use of this source code is governed by the BSD 3-Clause License.
  * See top-level license.txt file for full license text.
  */
 
-#include <string>
 #include <map>
+#include <string>
+#include <vector>
 
 //-----------------------------------------------------------------------------
 
@@ -32,7 +33,7 @@ struct TableData
     std::string f;
 
     /// Default constructor
-    TableData(void): z(0), a(0.0), f("") {}
+    TableData(): z(0), a(0.0), f("") {}
 
     /// Copy constructor
     TableData(const TableData &t): z(t.z), a(t.a), f(t.f) {}
@@ -50,22 +51,17 @@ struct TableData
 //-----------------------------------------------------------------------------
 
 /// Maps material name (key) to TableData (value)
-typedef std::map< std::string, TableData > TableMap;
+typedef std::map<std::string, TableData> TableMap;
 
 //-----------------------------------------------------------------------------
 
 /// Atomic data for materials
 class Table
 {
-private:
-
-    /// Maps material name (key) to TableData (value)
-    TableMap d;
-
 public:
 
     /// Default constructor
-    Table(void);
+    Table();
 
     /**
      * @brief Parametrized constructor
@@ -76,17 +72,14 @@ public:
     Table(const std::string &hydro_path, const std::string &table_path,
           const std::string &table_fname);
 
-    /// Destructor
-    ~Table(void);
-
     /// Clears Table
-    void clear(void);
+    void clear();
 
     /**
      * @brief Getter for Table size
      * @return Number of materials in Table
      */
-    size_t size(void) const;
+    size_t size() const;
 
     /**
      * @brief Getter for nuclear charge
@@ -119,8 +112,37 @@ public:
      *         throws an exception, if material is not in the Table
      */
     std::string get_F(const std::string s) const;
+
+    /**
+     * @brief Convert atom abundances to normalized mass fractions
+     * @param[in] mat Materials
+     * @param[in] a Atom abundances
+     * @return Mass fractions normalized to add up to 1
+     */
+    std::vector<double> atom_to_mass(const std::vector<std::string> &mat,
+                                     const std::vector<double> &a) const;
+
+    /**
+     * @brief Convert mass abundances to normalized atom fractions
+     * @param[in] mat Materials
+     * @param[in] m Mass abundances
+     * @return Atom fractions normalized to add up to 1
+     */
+    std::vector<double> mass_to_atom(const std::vector<std::string> &mat,
+                                     const std::vector<double> &m) const;
+
+    /**
+     * @brief Return a sorted (ascending) vector of atomic numbers
+     * @return Atomic numbers of elements present in *this Table
+     */
+    std::vector<int> get_elements() const;
+
+private:
+
+    /// Maps material name (key) to TableData (value)
+    TableMap d;
 };
 
 //-----------------------------------------------------------------------------
 
-#endif // TABLE_H
+#endif  // LANL_ASC_PEM_TABLE_H_

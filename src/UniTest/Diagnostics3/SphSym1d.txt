@@ -8,6 +8,8 @@ rx  0.0 0.5 0.0 cm
 ry  0.0 0.0 0.5 cm
 dx  0.001 cm
 dy  0.02 cm (ignored)
+pc  0.0 0.0 0.0 cm
+theta_max 0.0 rad
 range 300.0 900.0 eV
 fwhm -3.0 eV
 backlighter blackbody 0.0 eV

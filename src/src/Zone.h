@@ -1,82 +1,42 @@
-#ifndef ZONE_H
-#define ZONE_H
+#ifndef LANL_ASC_PEM_ZONE_H_
+#define LANL_ASC_PEM_ZONE_H_
 
 /**
  * @file Zone.h
  * @brief Spatial zone, defined by a list bounding Face objects
  * @author Peter Hakel
- * @version 0.8
+ * @version 0.9
  * @date Created on 8 December 2014\n
- * Last modified on 3 March 2019
+ * Last modified on 6 October 2020
  * @copyright (c) 2015, Triad National Security, LLC.
  * All rights reserved.\n
  * Use of this source code is governed by the BSD 3-Clause License.
  * See top-level license.txt file for full license text.
  */
 
-#include "Face.h"
-#include "Database.h"
-#include "ArrDbl.h"
+#include <ArrDbl.h>
+#include <Database.h>
+#include <Face.h>
+
+#include <memory>
+
+//-----------------------------------------------------------------------------
+
+class Zone;
+typedef std::shared_ptr<Zone> ZonePtr;
 
 //-----------------------------------------------------------------------------
 
 /// Spatial zone, defined by a list bounding Face objects
 class Zone
 {
-private:
-    // Geometry (read from "mesh_*" files)
-
-    /// Unique ID of *this Zone on the Mesh
-    size_t my_id;
-
-    /// List of pointers to Face objects defining *this Zone
-    std::vector<const Face *> face; // copy ctor and operator = may be needed
-
-
-    // Materials (EOS data, read from "time_*" files)
-
-    /// Electron temperature (eV)
-    double te;
-
-    /// Radiation temperature (eV)
-    double tr;
-
-    /// Total particle number density (particles/cm3)
-    double np;
-
-    /// Number of materials in *this Zone
-    unsigned short int nmat;
-
-    /// Material IDs
-    std::vector<std::string> mat;
-
-    /// Fractional populations
-    std::vector<double> fp;
-
-    /// Electron number density (el./cm3) from charge neutrality constraint
-    double ne;
-
-
-    // Arrays only to be used in 1-D geometry to speed up the calculation
-    // by computing optical data once, and then saving/retrieving them
-
-    /// Monochromatic emissivity ( W / cm3 / sr / eV )
-    ArrDbl emis;
-
-    /// Monochromatic absorption coefficient ( 1 / cm )
-    ArrDbl absp;
-
-    /// Monochromatic scattering coefficient ( 1 / cm )
-    ArrDbl scat;
-
-
 public:
 
     /// ID of the bounding Zone
     static const size_t BOUNDING_ZONE;
 
     /// Default constructor
-    Zone(void);
+    Zone();
 
     /**
      * @brief Parametrized constructor: sets Zone ID within its Mesh
@@ -91,11 +51,8 @@ public:
      */
     Zone(std::ifstream &geometry, std::ifstream &material);
 
-    /// Destructor
-    ~Zone(void);
-
     /// Wipes out all data from *this Zone
-    void clear(void);
+    void clear();
 
     /**
      * @brief Setter for the Zone ID in its Mesh (Zone::my_id)
@@ -107,20 +64,20 @@ public:
      * @brief Getter for the Zone ID in its Mesh (Zone::my_id)
      * @return Zone index
      */
-    size_t get_id(void) const;
+    size_t get_id() const;
 
     /**
      * @brief Adds Face to *this Zone (Zone::face)
      * @param[in] f Face pointer
      */
-    void add_face(const Face * const f);
+    void add_face(FacePtr f);
 
     /**
      * @brief Getter for the i-th Face within *this Zone (Zone::face)
      * @param[in] i Face index
      * @return Face pointer
      */
-    const Face * get_face(const short int i) const;
+    FacePtr get_face(const short int i) const;
 
     /**
      * @brief Setter for the electron number density (Zone::ne)
@@ -132,7 +89,7 @@ public:
      * @brief Getter for the electron number density (Zone::ne)
      * @return Electron number density (electrons/cm3) in *this Zone
      */
-    double get_ne(void) const;
+    double get_ne() const;
 
     /**
      * @brief Setter for the electron temperature (Zone::te)
@@ -144,7 +101,7 @@ public:
      * @brief Getter for the electron temperature (Zone::te)
      * @return Electron temperature (eV) in *this Zone
      */
-    double get_te(void) const;
+    double get_te() const;
 
     /**
      * @brief Setter for the radiation temperature (Zone::tr)
@@ -156,19 +113,19 @@ public:
      * @brief Getter for the radiation temperature (Zone::tr)
      * @return Radiation temperature (eV)
      */
-    double get_tr(void) const;
+    double get_tr() const;
 
     /**
      * @brief Setter for total density (Zone::np)
-     * @param[in] np_in Total density (ions/cm3)
+     * @param[in] np_in Total density (ions/cm3, or, g/cm3)
      */
     void set_np(const double np_in);
 
     /**
      * @brief Getter for total density (Zone::np)
-     * @return Total density (ions/cm3)
+     * @return Total density (ions/cm3, or, g/cm3)
      */
-    double get_np(void) const;
+    double get_np() const;
 
     /**
      * @brief Setter for number of materials (Zone::nmat)
@@ -180,7 +137,7 @@ public:
      * @brief Getter for number of materials (Zone::nmat)
      * @return Number of materials
      */
-    unsigned short int get_nmat(void) const;
+    unsigned short int get_nmat() const;
 
     /**
      * @brief Setter for material IDs (Zone::mat)
@@ -199,11 +156,11 @@ public:
      * @brief Getter for material IDs (Zone::mat)
      * @return Material IDs
      */
-    const std::vector<std::string> &get_mat(void) const;
+    const std::vector<std::string> &get_mat() const;
 
     /**
      * @brief Setter for material fractions (Zone::fp)
-     * @param[in] fp_in Material fractions (atomic)
+     * @param[in] fp_in Material fractions (atomic, or, mass)
      */
     void set_fp(const std::vector<double> &fp_in);
 
@@ -218,13 +175,21 @@ public:
      * @brief Getter for material fractions (Zone::fp)
      * @return Material fractions (atomic)
      */
-    const std::vector<double> &get_fp(void) const;
+    const std::vector<double> &get_fp() const;
 
     /**
      * @brief Getter for the number of Face objects for *this Zone
      * @return Number of Face objects for *this Zone
      */
-    size_t size(void) const;
+    size_t size() const;
+
+    /**
+     * @brief Calculates a reference point within *this Zone
+     * @param[in] g Grid of Node objects
+     * @param[in] p Current location of Ray
+     * @return Reference point within *this Zone for the given Ray
+     */
+    Vector3d zone_point(const Grid &g, const Vector3d &p) const;
 
     /**
      * @brief Calculates the hit-point where a Ray enters *this Zone
@@ -241,11 +206,11 @@ public:
      * @brief String representation of a Zone object
      * @return String representation of *this
      */
-    std::string to_string(void) const;
+    std::string to_string() const;
 
     /**
      * @brief Loads geometry (Face shapes and sizes) info from input file;
-     *        \n assumes ::find_word (geometry, "Zone") has already
+     *        \n assumes utils::find_word (geometry, "Zone") has already
      *        been called
      * @param[in] geometry Input stream for geometry data file
      */
@@ -254,7 +219,7 @@ public:
     /**
      * @brief Loads material info (temperatures, densities) from input file;
      *        \n assumes Zone::load_geo (geometry) has already been called,
-     *        \n assumes ::find_word (material, "Zone") has already
+     *        \n assumes utils::find_word (material, "Zone") has already
      *        been called
      * @param[in] material Input stream for material data file
      */
@@ -290,14 +255,59 @@ public:
      * @brief Full string representation of materials in *this Zone
      * @return Material info in the FESTR hydro input format (ASCII)
      */
-    std::string mat_to_string_full(void) const;
+    std::string mat_to_string_full() const;
 
     /**
      * @brief Abbreviated string representation of materials in *this Zone
      * @return Material info in simple columns (e.g., for plotting)
      */
-    std::string mat_to_string_plot(void) const;
+    std::string mat_to_string_plot() const;
 
+
+private:
+    // Geometry (read from "mesh_*" files)
+
+    /// Unique ID of *this Zone on the Mesh
+    size_t my_id;
+
+    /// List of pointers to Face objects defining *this Zone
+    std::vector<FacePtr> face; // copy ctor and operator = may be needed
+
+
+    // Materials (EOS data, read from "time_*" files)
+
+    /// Electron temperature (eV)
+    double te;
+
+    /// Radiation temperature (eV)
+    double tr;
+
+    /// @brief Total particle number density (particles/cm3)
+    double np;
+
+    /// Number of materials in *this Zone
+    unsigned short int nmat;
+
+    /// Material IDs
+    std::vector<std::string> mat;
+
+    /// @brief Fractional populations
+    std::vector<double> fp;
+
+    /// Electron number density (el./cm3) from charge neutrality constraint
+    double ne;
+
+    // Arrays only to be used in 1-D geometry to speed up the calculation
+    // by computing optical data once, and then saving/retrieving them
+
+    /// Monochromatic emissivity ( W / cm3 / sr / eV )
+    ArrDbl emis;
+
+    /// Monochromatic absorption coefficient ( 1 / cm )
+    ArrDbl absp;
+
+    /// Monochromatic scattering coefficient ( 1 / cm )
+    ArrDbl scat;
 };
 
 //-----------------------------------------------------------------------------
@@ -313,4 +323,4 @@ std::ostream & operator << (std::ostream &ost, const Zone &o);
 
 //-----------------------------------------------------------------------------
 
-#endif // ZONE_H
+#endif  // LANL_ASC_PEM_ZONE_H_

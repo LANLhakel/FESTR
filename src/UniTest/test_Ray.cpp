@@ -8,14 +8,14 @@ Los Alamos National Laboratory
 XCP-5 group
 
 Created on 24 December 2014
-Last modified on 3 March 2019
+Last modified on 2 October 2020
 
 Copyright (c) 2015, Triad National Security, LLC.
 All rights reserved.
 Use of this source code is governed by the BSD 3-Clause License.
 See top-level license.txt file for full license text.
 
-CODE NAME:  FESTR, Version 0.8 (C15068)
+CODE NAME:  FESTR, Version 0.9 (C15068)
 Classification Review Number: LA-CC-15-045
 Export Control Classification Number (ECCN): EAR99
 B&R Code:  DP1516090
@@ -24,25 +24,25 @@ B&R Code:  DP1516090
 
 //  Note: only use trimmed strings for names
 
+#include <test_Ray.h>
 #include <Test.h>
-#include "../src/Database.h"
-#include "../src/Vector3d.h"
-#include "../src/Node.h"
-#include "../src/Grid.h"
-#include "../src/Face.h"
-#include "../src/Sphere.h"
-#include "../src/Polygon.h"
-#include "../src/Cone.h"
-#include "../src/Surface.h"
-#include "../src/Zone.h"
-#include "../src/Mesh.h"
-#include "../src/Ray.h"
 
-#define CurntZone const_cast<Zone *>(m.get_zone(ray.wpt.top().outface.my_zone))
+#include <Cone.h>
+#include <Database.h>
+#include <Face.h>
+#include <Grid.h>
+#include <Mesh.h>
+#include <Node.h>
+#include <Polygon.h>
+#include <Sphere.h>
+#include <Surface.h>
+#include <Vector3d.h>
+#include <Zone.h>
+
+#define CurntZone m.get_zone(ray.wpt.top().outface.my_zone)
 
 void test_Ray(int &failed_test_count, int &disabled_test_count)
 {
-
 const std::string GROUP = "Ray";
 const double EQT = 1.0e-15;
 
@@ -51,7 +51,7 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "default_ctor_diag_id", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
         Ray rx;
@@ -67,7 +67,7 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "default_ctor_patch_id_first", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
         Ray rx;
@@ -83,7 +83,7 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "default_ctor_patch_id_second", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
         Ray rx;
@@ -99,7 +99,7 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "default_ctor_bundle_id_first", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
         Ray rx;
@@ -115,7 +115,7 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "default_ctor_bundle_id_second", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
         Ray rx;
@@ -131,7 +131,7 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "default_ctor_zid", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
         Ray rx;
@@ -147,7 +147,7 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "default_ctor_n", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
         Ray rx;
@@ -163,7 +163,7 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "default_ctor_nzones", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
         Ray rx;
@@ -179,7 +179,7 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "default_tracking", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
         Ray rx;
@@ -195,7 +195,7 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "abs_diff_no_array", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
         Vector3d vx(1.0, 2.0, 3.0);
@@ -214,7 +214,7 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "abs_diff", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
         Vector3d vx(1.0, 2.0, 3.0);
@@ -238,7 +238,7 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "size", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
         Vector3d vx(7.0e-11, 0.0, -500.0);
@@ -258,7 +258,7 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "to_string_no_array", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
         Vector3d vx(7.0e-11, 0.0, -500.0);
@@ -277,7 +277,7 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "to_string", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
         Vector3d vx(7.0e-11, 0.0, -500.0);
@@ -298,13 +298,14 @@ const double EQT = 1.0e-15;
 //-----------------------------------------------------------------------------
 
 {
-    Test t(GROUP, "set_backlighter_flat", "fast");
+    Test t(GROUP, "set_backlighter", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        std::string back_type("flat");
-        #include "backlit_Ray.inc"
+        Ray ray(0, 0, 1, 0, 0, false, Vector3d(), Vector3d(), false, "", "");
+        std::vector<double> yb = {500.0};
+        ray.set_backlighter(yb);
         double expected(500.0);
         double actual(ray.y.at(0));
 
@@ -315,29 +316,12 @@ const double EQT = 1.0e-15;
 //-----------------------------------------------------------------------------
 
 {
-    Test t(GROUP, "set_backlighter_temp", "fast");
-
-    check_to_disable_test(t, disabled_test_count);
-    if (t.is_enabled())
-    {
-        std::string back_type("blackbody");
-        #include "backlit_Ray.inc"
-        double expected(788906361433.20398); // 0.5 keV Planckian at hv = 1 keV
-        double actual(ray.y.at(0));
-
-        failed_test_count += t.check_equal_real_num(expected, actual, EQT);
-    }
-}
-
-//-----------------------------------------------------------------------------
-
-{
     Test t(GROUP, "transport_thin", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        #include "transport_Ray.inc"
+        #include <transport_Ray.inc>
         double expected(139.99999999976001);
         double actual(ray.y.at(0));
 
@@ -350,10 +334,10 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "transport_intermediate", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        #include "transport_Ray.inc"
+        #include <transport_Ray.inc>
         double expected(75.904463047023839);
         double actual(ray.y.at(1));
 
@@ -366,10 +350,10 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "transport_thick", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        #include "transport_Ray.inc"
+        #include <transport_Ray.inc>
         double expected(10.000061442123533);
         double actual(ray.y.at(2));
 
@@ -382,10 +366,10 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "trace_r", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        #include "trace.inc"
+        #include <trace.inc>
         Vector3d expected(-12.968712349342937, 0.75, 0.5);
         Vector3d actual(ray.r);
 
@@ -398,10 +382,10 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "trace_v", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        #include "trace.inc"
+        #include <trace.inc>
         Vector3d expected(2.0, 0.0, 0.0);
         Vector3d actual(ray.v);
 
@@ -414,10 +398,10 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "trace_zid", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        #include "trace.inc"
+        #include <trace.inc>
         size_t expected(0);
         size_t actual(ray.zid);
 
@@ -430,10 +414,10 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "cross_Zone0_r", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        #include "trace.inc"
+        #include <trace.inc>
         ray.cross_Zone(CurntZone, d, tbl, "none", 0, 0);
         Vector3d expected(0.0, 0.75, 0.5);
         Vector3d actual(ray.r);
@@ -447,10 +431,10 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "cross_Zone0_v", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        #include "trace.inc"
+        #include <trace.inc>
         ray.cross_Zone(CurntZone, d, tbl, "none", 0, 0);
         Vector3d expected(2.0, 0.0, 0.0);
         Vector3d actual(ray.v);
@@ -464,10 +448,10 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "cross_Zone0_size", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        #include "trace.inc"
+        #include <trace.inc>
         ray.cross_Zone(CurntZone, d, tbl, "none", 0, 0);
         size_t expected(3); // number of remaining HitPoints
         size_t actual(ray.wpt.size());
@@ -481,10 +465,10 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "cross_Zone1_r", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        #include "trace.inc"
+        #include <trace.inc>
         ray.cross_Zone(CurntZone, d, tbl, "none", 0, 0);
         ray.cross_Zone(CurntZone, d, tbl, "none", 0, 0);
         Vector3d expected(1.0, 0.75, 0.5);
@@ -499,10 +483,10 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "cross_Zone1_v", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        #include "trace.inc"
+        #include <trace.inc>
         ray.cross_Zone(CurntZone, d, tbl, "none", 0, 0);
         ray.cross_Zone(CurntZone, d, tbl, "none", 0, 0);
         Vector3d expected(2.0, 0.0, 0.0);
@@ -517,10 +501,10 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "cross_Zone1_size", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        #include "trace.inc"
+        #include <trace.inc>
         ray.cross_Zone(CurntZone, d, tbl, "none", 0, 0);
         ray.cross_Zone(CurntZone, d, tbl, "none", 0, 0);
         size_t expected(2); // number of remaining HitPoints
@@ -535,10 +519,10 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "cross_Zone3_r", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        #include "trace.inc"
+        #include <trace.inc>
         ray.cross_Zone(CurntZone, d, tbl, "none", 0, 0);
         ray.cross_Zone(CurntZone, d, tbl, "none", 0, 0);
         ray.cross_Zone(CurntZone, d, tbl, "none", 0, 0);
@@ -554,10 +538,10 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "cross_Zone3_v", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        #include "trace.inc"
+        #include <trace.inc>
         ray.cross_Zone(CurntZone, d, tbl, "none", 0, 0);
         ray.cross_Zone(CurntZone, d, tbl, "none", 0, 0);
         ray.cross_Zone(CurntZone, d, tbl, "none", 0, 0);
@@ -573,10 +557,10 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "cross_Zone3_size", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        #include "trace.inc"
+        #include <trace.inc>
         ray.cross_Zone(CurntZone, d, tbl, "none", 0, 0);
         ray.cross_Zone(CurntZone, d, tbl, "none", 0, 0);
         ray.cross_Zone(CurntZone, d, tbl, "none", 0, 0);
@@ -592,10 +576,10 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "cross_Zone_last_r", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        #include "trace.inc"
+        #include <trace.inc>
         ray.cross_Zone(CurntZone, d, tbl, "none", 0, 0);
         ray.cross_Zone(CurntZone, d, tbl, "none", 0, 0);
         ray.cross_Zone(CurntZone, d, tbl, "none", 0, 0);
@@ -612,10 +596,10 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "cross_Zone_last_v", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        #include "trace.inc"
+        #include <trace.inc>
         ray.cross_Zone(CurntZone, d, tbl, "none", 0, 0);
         ray.cross_Zone(CurntZone, d, tbl, "none", 0, 0);
         ray.cross_Zone(CurntZone, d, tbl, "none", 0, 0);
@@ -632,10 +616,10 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "cross_Zone_last_zid", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        #include "trace.inc"
+        #include <trace.inc>
         ray.cross_Zone(CurntZone, d, tbl, "none", 0, 0);
         ray.cross_Zone(CurntZone, d, tbl, "none", 0, 0);
         ray.cross_Zone(CurntZone, d, tbl, "none", 0, 0);
@@ -652,10 +636,10 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "cross_Zone_last_size", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        #include "trace.inc"
+        #include <trace.inc>
         ray.cross_Zone(CurntZone, d, tbl, "none", 0, 0);
         ray.cross_Zone(CurntZone, d, tbl, "none", 0, 0);
         ray.cross_Zone(CurntZone, d, tbl, "none", 0, 0);
@@ -672,10 +656,10 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "cross_Mesh_r", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        #include "trace.inc"
+        #include <trace.inc>
         ray.cross_Mesh(m, d, tbl, "none", 0);
         Vector3d expected(12.968712349342937, 0.75, 0.5);
         Vector3d actual(ray.r);
@@ -689,10 +673,10 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "cross_Mesh_v", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        #include "trace.inc"
+        #include <trace.inc>
         ray.cross_Mesh(m, d, tbl, "none", 0);
         Vector3d expected(2.0, 0.0, 0.0);
         Vector3d actual(ray.v);
@@ -706,10 +690,10 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "cross_Mesh_zid", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        #include "trace.inc"
+        #include <trace.inc>
         ray.cross_Mesh(m, d, tbl, "none", 0);
         size_t expected(0);
         size_t actual(ray.zid);
@@ -723,10 +707,10 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "cross_Mesh_size", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        #include "trace.inc"
+        #include <trace.inc>
         ray.cross_Mesh(m, d, tbl, "none", 0);
         size_t expected(0); // number of remaining HitPoints
         size_t actual(ray.wpt.size());
@@ -740,10 +724,10 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "after_trace_y", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        #include "trace_Mesh.inc"
+        #include <trace_Mesh.inc>
         ArrDbl expected;
         expected.assign(3, 0.0);
         ArrDbl actual(ray.y);
@@ -757,10 +741,10 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "after_trace_ite", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        #include "trace_Mesh.inc"
+        #include <trace_Mesh.inc>
         size_t expected(0);
         size_t actual = ray.ite;
 
@@ -773,10 +757,10 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "after_trace_itr", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        #include "trace_Mesh.inc"
+        #include <trace_Mesh.inc>
         size_t expected(0);
         size_t actual = ray.itr;
 
@@ -789,10 +773,10 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "after_trace_ine", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        #include "trace_Mesh.inc"
+        #include <trace_Mesh.inc>
         size_t expected(0);
         size_t actual = ray.ine;
 
@@ -805,10 +789,10 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "after_trace_em", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        #include "trace_Mesh.inc"
+        #include <trace_Mesh.inc>
         ArrDbl expected;
         expected.assign(3, -1.0);
         ArrDbl actual(ray.em);
@@ -822,10 +806,10 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "after_trace_ab", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        #include "trace_Mesh.inc"
+        #include <trace_Mesh.inc>
         ArrDbl expected;
         expected.assign(3, -2.0);
         ArrDbl actual(ray.ab);
@@ -839,10 +823,10 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "after_trace_sc", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        #include "trace_Mesh.inc"
+        #include <trace_Mesh.inc>
         ArrDbl expected;
         expected.assign(3, -3.0);
         ArrDbl actual(ray.sc);
@@ -856,10 +840,10 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "after_trace_r", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        #include "trace_Mesh.inc"
+        #include <trace_Mesh.inc>
         Vector3d expected(-12.968712349342937, 0.75, 0.5);
         Vector3d actual(ray.r);
 
@@ -872,10 +856,10 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "after_trace_v", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        #include "trace_Mesh.inc"
+        #include <trace_Mesh.inc>
         Vector3d expected(2.0, 0.0, 0.0);
         Vector3d actual(ray.v);
 
@@ -888,10 +872,10 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "load_em_Zone0", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        #include "trace_Mesh.inc"
+        #include <trace_Mesh.inc>
         CurntZone->load_spectra(d, tbl, ray.ite, ray.itr, ray.ine,
                                   "none", 0, false, 0, 2,
                                   ray.em, ray.ab, ray.sc);
@@ -908,10 +892,10 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "load_ab_Zone0", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        #include "trace_Mesh.inc"
+        #include <trace_Mesh.inc>
         CurntZone->load_spectra(d, tbl, ray.ite, ray.itr, ray.ine,
                                   "none", 0, false, 0, 2,
                                   ray.em, ray.ab, ray.sc);
@@ -928,10 +912,10 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "load_sc_Zone0", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        #include "trace_Mesh.inc"
+        #include <trace_Mesh.inc>
         CurntZone->load_spectra(d, tbl, ray.ite, ray.itr, ray.ine,
                                   "none", 0, false, 0, 2,
                                   ray.em, ray.ab, ray.sc);
@@ -948,10 +932,10 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "number_of_crossed_Zones", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        #include "trace_Mesh.inc"
+        #include <trace_Mesh.inc>
         size_t expected(4);
         size_t actual(ray.get_nzones());
 
@@ -964,10 +948,10 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "after_Zone0_y", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        #include "trace_Mesh.inc"
+        #include <trace_Mesh.inc>
         ray.cross_Zone(CurntZone, d, tbl, "none", 0, 0);
         ArrDbl expected;
         expected.assign(3, 0.0);
@@ -982,10 +966,10 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "after_Zone0_y_to_file", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        #include "trace_Mesh.inc"
+        #include <trace_Mesh.inc>
         ray.cross_Zone(CurntZone, d, tbl, "none", 0, 1);
         std::string expected("File name for zone_iz0\nRest of header");
         expected += "\niz 0   1.296871e+01 cm\nZoneID 0\ndata in W/cm2/sr/eV";
@@ -1001,10 +985,10 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "after_Zone0_r", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        #include "trace_Mesh.inc"
+        #include <trace_Mesh.inc>
         ray.cross_Zone(CurntZone, d, tbl, "none", 0, 0);
         Vector3d expected(0.0, 0.75, 0.5);
         Vector3d actual(ray.r);
@@ -1018,10 +1002,10 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "after_Zone1_ine", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        #include "trace_Mesh.inc"
+        #include <trace_Mesh.inc>
         ray.cross_Zone(CurntZone, d, tbl, "none", 0, 0);
         ray.cross_Zone(CurntZone, d, tbl, "none", 0, 0);
         size_t expected(5);
@@ -1036,10 +1020,10 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "after_Zone1_em", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        #include "trace_Mesh.inc"
+        #include <trace_Mesh.inc>
         ray.cross_Zone(CurntZone, d, tbl, "none", 0, 0);
         ray.cross_Zone(CurntZone, d, tbl, "none", 0, 0);
         ArrDbl expected(3);
@@ -1057,10 +1041,10 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "after_Zone1_ab", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        #include "trace_Mesh.inc"
+        #include <trace_Mesh.inc>
         ray.cross_Zone(CurntZone, d, tbl, "none", 0, 0);
         ray.cross_Zone(CurntZone, d, tbl, "none", 0, 0);
         ArrDbl expected(3);
@@ -1078,10 +1062,10 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "after_Zone1_sc", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        #include "trace_Mesh.inc"
+        #include <trace_Mesh.inc>
         ray.cross_Zone(CurntZone, d, tbl, "none", 0, 0);
         ray.cross_Zone(CurntZone, d, tbl, "none", 0, 0);
         ArrDbl expected(3);
@@ -1099,10 +1083,10 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "after_Zone1_y", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        #include "trace_Mesh.inc"
+        #include <trace_Mesh.inc>
         ray.cross_Zone(CurntZone, d, tbl, "none", 0, 0);
         ray.cross_Zone(CurntZone, d, tbl, "none", 0, 0);
         ArrDbl expected(3);
@@ -1120,10 +1104,10 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "after_Zone1_y_to_file", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        #include "trace_Mesh.inc"
+        #include <trace_Mesh.inc>
         ray.cross_Zone(CurntZone, d, tbl, "none", 0, 1);
         ray.cross_Zone(CurntZone, d, tbl, "none", 0, 1);
         std::string expected("File name for zone_iz1\nRest of header");
@@ -1140,10 +1124,10 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "after_Zone1_r", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        #include "trace_Mesh.inc"
+        #include <trace_Mesh.inc>
         ray.cross_Zone(CurntZone, d, tbl, "none", 0, 0);
         ray.cross_Zone(CurntZone, d, tbl, "none", 0, 0);
         Vector3d expected(1.0, 0.75, 0.5);
@@ -1158,10 +1142,10 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "after_Zone3_ine", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        #include "trace_Mesh.inc"
+        #include <trace_Mesh.inc>
         ray.cross_Zone(CurntZone, d, tbl, "none", 0, 0);
         ray.cross_Zone(CurntZone, d, tbl, "none", 0, 0);
         ray.cross_Zone(CurntZone, d, tbl, "none", 0, 0);
@@ -1177,10 +1161,10 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "after_Zone3_em", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        #include "trace_Mesh.inc"
+        #include <trace_Mesh.inc>
         ray.cross_Zone(CurntZone, d, tbl, "none", 0, 0);
         ray.cross_Zone(CurntZone, d, tbl, "none", 0, 0);
         ray.cross_Zone(CurntZone, d, tbl, "none", 0, 0);
@@ -1199,10 +1183,10 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "after_Zone3_ab", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        #include "trace_Mesh.inc"
+        #include <trace_Mesh.inc>
         ray.cross_Zone(CurntZone, d, tbl, "none", 0, 0);
         ray.cross_Zone(CurntZone, d, tbl, "none", 0, 0);
         ray.cross_Zone(CurntZone, d, tbl, "none", 0, 0);
@@ -1221,10 +1205,10 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "after_Zone3_sc", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        #include "trace_Mesh.inc"
+        #include <trace_Mesh.inc>
         ray.cross_Zone(CurntZone, d, tbl, "none", 0, 0);
         ray.cross_Zone(CurntZone, d, tbl, "none", 0, 0);
         ray.cross_Zone(CurntZone, d, tbl, "none", 0, 0);
@@ -1243,10 +1227,10 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "after_Zone3_y", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        #include "trace_Mesh.inc"
+        #include <trace_Mesh.inc>
         ray.cross_Zone(CurntZone, d, tbl, "none", 0, 0);
         ray.cross_Zone(CurntZone, d, tbl, "none", 0, 0);
         ray.cross_Zone(CurntZone, d, tbl, "none", 0, 0);
@@ -1265,10 +1249,10 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "after_Zone3_y_to_file", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        #include "trace_Mesh.inc"
+        #include <trace_Mesh.inc>
         ray.cross_Zone(CurntZone, d, tbl, "none", 0, 1);
         ray.cross_Zone(CurntZone, d, tbl, "none", 0, 1);
         ray.cross_Zone(CurntZone, d, tbl, "none", 0, 1);
@@ -1286,10 +1270,10 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "after_Zone3_r", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        #include "trace_Mesh.inc"
+        #include <trace_Mesh.inc>
         ray.cross_Zone(CurntZone, d, tbl, "none", 0, 0);
         ray.cross_Zone(CurntZone, d, tbl, "none", 0, 0);
         ray.cross_Zone(CurntZone, d, tbl, "none", 0, 0);
@@ -1305,10 +1289,10 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "after_Zone_last_ine", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        #include "trace_Mesh.inc"
+        #include <trace_Mesh.inc>
         ray.cross_Zone(CurntZone, d, tbl, "none", 0, 0);
         ray.cross_Zone(CurntZone, d, tbl, "none", 0, 0);
         ray.cross_Zone(CurntZone, d, tbl, "none", 0, 0);
@@ -1325,10 +1309,10 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "after_Zone_last_em", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        #include "trace_Mesh.inc"
+        #include <trace_Mesh.inc>
         ray.cross_Zone(CurntZone, d, tbl, "none", 0, 0);
         ray.cross_Zone(CurntZone, d, tbl, "none", 0, 0);
         ray.cross_Zone(CurntZone, d, tbl, "none", 0, 0);
@@ -1345,10 +1329,10 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "after_Zone_last_ab", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        #include "trace_Mesh.inc"
+        #include <trace_Mesh.inc>
         ray.cross_Zone(CurntZone, d, tbl, "none", 0, 0);
         ray.cross_Zone(CurntZone, d, tbl, "none", 0, 0);
         ray.cross_Zone(CurntZone, d, tbl, "none", 0, 0);
@@ -1365,10 +1349,10 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "after_Zone_last_sc", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        #include "trace_Mesh.inc"
+        #include <trace_Mesh.inc>
         ray.cross_Zone(CurntZone, d, tbl, "none", 0, 0);
         ray.cross_Zone(CurntZone, d, tbl, "none", 0, 0);
         ray.cross_Zone(CurntZone, d, tbl, "none", 0, 0);
@@ -1385,10 +1369,10 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "after_Zone_last_y", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        #include "trace_Mesh.inc"
+        #include <trace_Mesh.inc>
         ray.cross_Zone(CurntZone, d, tbl, "none", 0, 0);
         ray.cross_Zone(CurntZone, d, tbl, "none", 0, 0);
         ray.cross_Zone(CurntZone, d, tbl, "none", 0, 0);
@@ -1408,10 +1392,10 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "after_Zone_last_y_to_file", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        #include "trace_Mesh.inc"
+        #include <trace_Mesh.inc>
         ray.cross_Zone(CurntZone, d, tbl, "none", 0, 1);
         ray.cross_Zone(CurntZone, d, tbl, "none", 0, 1);
         ray.cross_Zone(CurntZone, d, tbl, "none", 0, 1);
@@ -1430,10 +1414,10 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "after_Zone_last_r", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        #include "trace_Mesh.inc"
+        #include <trace_Mesh.inc>
         ray.cross_Zone(CurntZone, d, tbl, "none", 0, 0);
         ray.cross_Zone(CurntZone, d, tbl, "none", 0, 0);
         ray.cross_Zone(CurntZone, d, tbl, "none", 0, 0);
@@ -1450,10 +1434,10 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "cross_Mesh_from_Hydro1_y", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        #include "trace_Mesh.inc"
+        #include <trace_Mesh.inc>
         ray.cross_Mesh(m, d, tbl, "none", 0);
         ArrDbl expected(3);
         expected.at(0) = 8.1199999999730247e+30;
@@ -1470,10 +1454,10 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "cross_Mesh_from_Hydro1_r", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        #include "trace_Mesh.inc"
+        #include <trace_Mesh.inc>
         ray.cross_Mesh(m, d, tbl, "none", 0);
         Vector3d expected(12.968712349342937, 0.75, 0.5);
         Vector3d actual(ray.r);
@@ -1487,10 +1471,10 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "cross_Mesh_from_Hydro1_v", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        #include "trace_Mesh.inc"
+        #include <trace_Mesh.inc>
         ray.cross_Mesh(m, d, tbl, "none", 0);
         Vector3d expected(2.0, 0.0, 0.0);
         Vector3d actual(ray.v);
@@ -1509,10 +1493,10 @@ const double EQT = 1.0e-15;
 // y = em * t in the optically thin limit (element at 0)
     Test t(GROUP, "cross_Mesh_from_Hydro4_y", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        #include "trace_conic_Mesh.inc"
+        #include <trace_conic_Mesh.inc>
         ray.cross_Mesh(m, d, tbl, "none", 0);
         ArrDbl expected(3);
         expected.at(0) = 4.007964983915389e+31;
@@ -1529,10 +1513,10 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "cross_Mesh_from_Hydro4_r", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        #include "trace_conic_Mesh.inc"
+        #include <trace_conic_Mesh.inc>
         ray.cross_Mesh(m, d, tbl, "none", 0);
         Vector3d expected(-20.6592869168006,
                           -31.488930375200901, -92.637147667202399);
@@ -1547,10 +1531,10 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "cross_Mesh_from_Hydro4_v", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        #include "trace_conic_Mesh.inc"
+        #include <trace_conic_Mesh.inc>
         ray.cross_Mesh(m, d, tbl, "none", 0);
         Vector3d expected(-2.0, -3.0, -8.0);
         Vector3d actual(ray.v);
@@ -1565,4 +1549,4 @@ const double EQT = 1.0e-15;
 
 #undef CurntZone
 
-// end test_Ray.cpp
+//  end test_Ray.cpp

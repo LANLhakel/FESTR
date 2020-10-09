@@ -1,6 +1,7 @@
 var searchData=
 [
-  ['b',['b',['../df/dfd/struct_time_step_i_d.html#a07007a3f6eddf8a962d78d345a6e98c9',1,'TimeStepID::b()'],['../d0/d1c/struct_time_step_output.html#ada248a3dfdf833e82260a2a730714190',1,'TimeStepOutput::b()']]],
+  ['b',['b',['../d1/d00/struct_patch_i_d.html#a0da64cfd51aa546ae644d847ab6ec6c4',1,'PatchID::b()'],['../d3/db3/struct_patch_spectrum.html#a1790dcdfb6158c514d16e1614b2c885a',1,'PatchSpectrum::b()']]],
+  ['back_5ffname',['back_fname',['../d2/d27/class_detector.html#a1c86a5c333b897888988b138d3969773',1,'Detector']]],
   ['back_5ftype',['back_type',['../d2/d27/class_detector.html#a5338e44810c0ce7c93ad5ca83ebf9d9d',1,'Detector']]],
   ['back_5fvalue',['back_value',['../d2/d27/class_detector.html#a6fe06a6d1bb553f2ed0cb5903c034fee',1,'Detector']]],
   ['best_5fcase',['best_case',['../d1/dcf/class_goal.html#ade2fdf52b6f829cef17f0aa1127c5f8d',1,'Goal::best_case()'],['../dd/d9a/class_objective.html#a4a2a2a6fadcf71c2a3883d3d53bede02',1,'Objective::best_case()']]],

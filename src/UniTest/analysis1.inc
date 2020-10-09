@@ -9,7 +9,7 @@ Los Alamos National Laboratory
 XCP-5 group
 
 Created on 4 July 2015
-Last modified on 3 March 2019
+Last modified on 28 January 2020
 
 Copyright (c) 2015, Triad National Security, LLC.
 All rights reserved.
@@ -23,7 +23,7 @@ B&R Code:  DP1516090
 
 =============================================================================*/
 
-std::string fname(cnst::PATH + "UniTest/Analysis1/time_0.txt");
+std::string fname(cnststr::PATH + "UniTest/Analysis1/time_0.txt");
 std::ifstream material(fname.c_str());
 if (!material.is_open())
 {
@@ -34,4 +34,4 @@ if (!material.is_open())
 Cell z0(material);
 Cell z1(material);
 
-// end analysis1.inc
+//  end analysis1.inc

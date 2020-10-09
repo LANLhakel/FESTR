@@ -1,20 +1,25 @@
-#ifndef CONE_H
-#define CONE_H
+#ifndef LANL_ASC_PEM_CELL_CONE_H_
+#define LANL_ASC_PEM_CELL_CONE_H_
 
 /**
  * @file Cone.h
  * @brief Conical ribbons for 2-D RZ geometry (derived from class Face)
  * @author Peter Hakel
- * @version 0.8
+ * @version 0.9
  * @date Created on 14 May 2015\n
- * Last modified on 3 March 2019
+ * Last modified on 8 October 2020
  * @copyright (c) 2015, Triad National Security, LLC.
  * All rights reserved.\n
  * Use of this source code is governed by the BSD 3-Clause License.
  * See top-level license.txt file for full license text.
  */
 
-#include "Face.h"
+#include <Face.h>
+
+//-----------------------------------------------------------------------------
+
+class Cone;
+typedef std::shared_ptr<Cone> ConePtr;
 
 //-----------------------------------------------------------------------------
 
@@ -28,15 +33,10 @@
  */
 class Cone : public Face
 {
-private:
-
-    /// Cone with |dz| <= SMALL is a flat hoop
-    static const double SMALL;
-
 public:
 
     /// Default constructor
-    Cone(void);
+    Cone();
 
     /**
      * @brief Parametrized constructor (leaves Face::node, Face::nbr empty)
@@ -52,34 +52,56 @@ public:
     explicit Cone(std::ifstream &istr);
 
     /// Destructor
-    virtual ~Cone(void);
+    ~Cone() override;
 
-    virtual bool is_curved(const Grid &g) const;
+    bool is_curved(const Grid &g) const override;
 
-    virtual std::string to_string(void) const;
+    std::string to_string() const override;
 
-    virtual void load(std::ifstream &istr);
+    void load(std::ifstream &istr) override;
 
-    virtual Vector3d area2_normal_center(const Grid &g, Vector3d &c) const;
+    Vector3d area2_normal_center(const Grid &g, Vector3d &c) const override;
 
-    virtual Vector3d normal(const Grid &g) const;
+    Vector3d normal(const Grid &g) const override;
 
-    virtual double area(const Grid &g) const;
+    double area(const Grid &g) const override;
 
-    virtual double distance(const Grid &g, const Vector3d &w) const;
+    double distance(const Grid &g, const Vector3d &w) const override;
 
-    virtual Vector3d subpoint(const Grid &g, const Vector3d &w) const;
+    Vector3d subpoint(const Grid &g, const Vector3d &w) const override;
 
-    virtual bool contains(const Grid &g, const Vector3d &w) const;
+    Vector3d face_point(const Grid &g, const Vector3d &w) const override;
 
-    virtual RetIntercept intercept(const Grid &g, const Vector3d &p,
-                                   const Vector3d &u, const double eqt,
-                                   const FaceID &fid) const;
+    bool contains(const Grid &g, const Vector3d &w) const override;
 
-    virtual Vector3d velocity(const Grid &g, const Vector3d &w) const;
+    RetIntercept intercept(const Grid &g, const Vector3d &p,
+                           const Vector3d &u, const double eqt,
+                           const FaceID &fid) const override;
 
+    Vector3d velocity(const Grid &g, const Vector3d &w) const override;
+
+    /**
+     * @brief End points of *this Cone for a given azimuthal angle
+     * @param[in] g Grid
+     * @param[in] phi Azimuthal angle (radians)
+     * @return Pair of Vector3d objects with the "upper" one as first
+     */
+    std::pair<Vector3d, Vector3d> get_endpoints(const Grid &g,
+                                                const double phi) const;
+
+
+private:
+
+    /// Cone with |dz| <= SMALL is a flat hoop
+    static const double SMALL; // centimeters
+
+    /// Hit points cannot be closer to a Node than this value
+    static const double MINIMUM_DISTANCE; // centimeters
+
+    /// Effective zero squared distance near one of the edges
+    static const double ZERO; // centimeters squared
 };
 
 //-----------------------------------------------------------------------------
 
-#endif // CONE_H
+#endif // LANL_ASC_PEM_CELL_CONE_H_

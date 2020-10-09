@@ -8,7 +8,7 @@ Los Alamos National Laboratory
 XCP-5 group
 
 Created on 30 October 2018
-Last modified on 3 March 2019
+Last modified on 14 July 2020
 
 Copyright (c) 2018, Triad National Security, LLC.
 All rights reserved.
@@ -19,13 +19,13 @@ See top-level license.txt file for full license text.
 
 #include <Test.h>
 
-#include <iostream>
-#include <fstream>
 #include <cstdlib>
+#include <fstream>
+#include <iostream>
 
 //-----------------------------------------------------------------------------
 
-#include "UniTest/tests_headers.inc"
+#include <tests_headers.inc>
 
 //-----------------------------------------------------------------------------
 
@@ -120,6 +120,11 @@ int main(int argc, char **argv)
 
     // read in disabled tests
     std::ifstream disabled_infile("UniTest/disabled_tests.txt");
+    if (!disabled_infile.is_open())
+    {
+        std::cout << "Error opening file: UniTest/disabled_tests.txt" << std::endl;
+        std::exit(EXIT_FAILURE);
+    }
     while (!disabled_infile.eof())
     {
         getline(disabled_infile, str);
@@ -132,7 +137,7 @@ int main(int argc, char **argv)
     disabled_infile.close();
 
     // run tests
-#include "UniTest/tests_runs.inc"
+#include <tests_runs.inc>
 
     // print test statistics
     std::cout << "\n";

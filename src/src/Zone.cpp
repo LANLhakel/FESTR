@@ -2,35 +2,32 @@
  * @file Zone.cpp
  * @brief Spatial zone, defined by a list bounding Face objects
  * @author Peter Hakel
- * @version 0.8
+ * @version 0.9
  * @date Created on 8 December 2014\n
- * Last modified on 3 March 2019
+ * Last modified on 6 October 2020
  * @copyright (c) 2015, Triad National Security, LLC.
  * All rights reserved.\n
  * Use of this source code is governed by the BSD 3-Clause License.
  * See top-level license.txt file for full license text.
  */
 
-#include "Zone.h"
-#include "Surface.h"
-#include "Polygon.h"
-#include "Sphere.h"
-#include "Cone.h"
-#include "Table.h"
+#include <Zone.h>
+
+#include <FaceFactory.h>
+#include <Table.h>
+#include <utils.h>
+
 #include <algorithm>
 #include <cstdlib>
 #include <fstream>
 
-//-----------------------------------------------------------------------------
-
-#ifdef MPIYES
-#include "mpi.h"
-#include "utilities.h"
+#ifdef MPI
+#include <mpi.h>
 #endif
 
 //-----------------------------------------------------------------------------
 
-Zone::Zone(void):
+Zone::Zone():
     my_id(0), face(), te(-1.0), tr(-1.0),
     np(-1.0), nmat(0), mat(), fp(), ne(0.0), emis(), absp(), scat() {}
 
@@ -52,14 +49,9 @@ Zone::Zone(std::ifstream &geometry, std::ifstream &material):
 
 //-----------------------------------------------------------------------------
 
-Zone::~Zone(void) {clear();}
-
-//-----------------------------------------------------------------------------
-
-void Zone::clear(void)
+void Zone::clear()
 {
     my_id = 0;
-    for_each(face.begin(), face.end(), utils::DeleteObject());
     face.clear();
     te = -1.0;
     tr = -1.0;
@@ -75,90 +67,160 @@ void Zone::clear(void)
 
 //-----------------------------------------------------------------------------
 
-void Zone::set_id(const size_t my_id_in) {my_id = my_id_in;}
+void Zone::set_id(const size_t my_id_in)
+{
+    my_id = my_id_in;
+}
 
 //-----------------------------------------------------------------------------
 
-size_t Zone::get_id(void) const {return my_id;}
+size_t Zone::get_id() const
+{
+    return my_id;
+}
 
 //-----------------------------------------------------------------------------
 
-void Zone::add_face(const Face * const f) {face.push_back(f);}
+void Zone::add_face(FacePtr f)
+{
+    face.emplace_back(std::move(f));
+}
 
 //-----------------------------------------------------------------------------
 
-const Face * Zone::get_face(const short int i) const
+FacePtr Zone::get_face(const short int i) const
 {
     return face.at(static_cast<size_t>(i));
 }
 
 //-----------------------------------------------------------------------------
 
-void Zone::set_ne(const double ne_in) {ne = ne_in;}
+void Zone::set_ne(const double ne_in)
+{
+    ne = ne_in;
+}
 
 //-----------------------------------------------------------------------------
 
-double Zone::get_ne(void) const {return ne;}
+double Zone::get_ne() const
+{
+    return ne;
+}
 
 //-----------------------------------------------------------------------------
 
-void Zone::set_te(const double te_in) {te = te_in;}
+void Zone::set_te(const double te_in)
+{
+    te = te_in;
+}
 
 //-----------------------------------------------------------------------------
 
-double Zone::get_te(void) const {return te;}
+double Zone::get_te() const
+{
+    return te;
+}
 
 //-----------------------------------------------------------------------------
 
-void Zone::set_tr(const double tr_in) {tr = tr_in;}
+void Zone::set_tr(const double tr_in)
+{
+    tr = tr_in;
+}
 
 //-----------------------------------------------------------------------------
 
-double Zone::get_tr(void) const {return tr;}
+double Zone::get_tr() const
+{
+    return tr;
+}
 
 //-----------------------------------------------------------------------------
 
-void Zone::set_np(const double np_in) {np = np_in;}
+void Zone::set_np(const double np_in)
+{
+    np = np_in;
+}
 
 //-----------------------------------------------------------------------------
 
-double Zone::get_np(void) const {return np;}
+double Zone::get_np() const
+{
+    return np;
+}
 
 //-----------------------------------------------------------------------------
 
-void Zone::set_nmat(const unsigned short int nmat_in) {nmat = nmat_in;}
+void Zone::set_nmat(const unsigned short int nmat_in)
+{
+    nmat = nmat_in;
+}
 
 //-----------------------------------------------------------------------------
 
-unsigned short int Zone::get_nmat(void) const {return nmat;}
+unsigned short int Zone::get_nmat() const
+{
+    return nmat;
+}
 
 //-----------------------------------------------------------------------------
 
-void Zone::set_mat(const std::vector<std::string> &mat_in) {mat = mat_in;}
+void Zone::set_mat(const std::vector<std::string> &mat_in)
+{
+    mat = mat_in;
+}
 
 //-----------------------------------------------------------------------------
 
-std::string Zone::mat_at(const unsigned short int i) const {return mat.at(i);}
+std::string Zone::mat_at(const unsigned short int i) const
+{
+    return mat.at(i);
+}
 
 //-----------------------------------------------------------------------------
 
-const std::vector<std::string> & Zone::get_mat(void) const {return mat;}
+const std::vector<std::string> & Zone::get_mat() const
+{
+    return mat;
+}
 
 //-----------------------------------------------------------------------------
 
-void Zone::set_fp(const std::vector<double> &fp_in) {fp = fp_in;}
+void Zone::set_fp(const std::vector<double> &fp_in)
+{
+    fp = fp_in;
+}
 
 //-----------------------------------------------------------------------------
 
-double Zone::fp_at(const unsigned short int i) const {return fp.at(i);}
+double Zone::fp_at(const unsigned short int i) const
+{
+    return fp.at(i);
+}
 
 //-----------------------------------------------------------------------------
 
-const std::vector<double> & Zone::get_fp(void) const {return fp;}
+const std::vector<double> & Zone::get_fp() const
+{
+    return fp;
+}
 
 //-----------------------------------------------------------------------------
 
-size_t Zone::size(void) const {return face.size();}
+size_t Zone::size() const
+{
+    return face.size();
+}
+
+//-----------------------------------------------------------------------------
+
+Vector3d Zone::zone_point(const Grid &g, const Vector3d &p) const
+{
+    Vector3d s;
+    std::for_each(face.begin(), face.end(),
+                  [&](const FacePtr f){s += f->face_point(g, p);});
+    return s / size();
+}
 
 //-----------------------------------------------------------------------------
 
@@ -179,12 +241,24 @@ RetIntercept Zone::hit(const Grid &g, const Vector3d &p, const Vector3d &u,
         pt = face.at(i)->intercept(g, p, u, EQT, fid);
         if (pt.is_found  &&  pt.t < rv.t) rv = pt;
     }
+
+    if (!rv.is_found)
+    {   // try again, this time tracing from zp instead of p
+        Vector3d zp = zone_point(g, p);
+        rv.t = Vector3d::get_big();
+        for (size_t i = 0; i < n; ++i) // loop over *this Zone's Faces
+        {
+            pt = face.at(i)->intercept(g, zp, u, EQT, fid);
+            if (pt.is_found  &&  pt.t < rv.t) rv = pt;
+        }
+    }
+
     return rv;
 }
 
 //-----------------------------------------------------------------------------
 
-std::string Zone::to_string(void) const
+std::string Zone::to_string() const
 {
     const size_t n = size();
     std::string s("Zone");
@@ -205,7 +279,7 @@ void Zone::load_geo(std::ifstream &geometry)
     clear();
     size_t nfaces;
     geometry >> my_id >> nfaces;
-    #include "load_Faces.inc"
+    #include <load_Faces.inc>
 }
 
 //-----------------------------------------------------------------------------
@@ -213,9 +287,6 @@ void Zone::load_geo(std::ifstream &geometry)
 void Zone::load_mat(std::ifstream &material)
 {
     size_t j;
-    std::string s;
-    double x;
-
     material >> j; // my_id already read in by load_geo()
     utils::find_word(material, "te");
     material >> te;
@@ -226,12 +297,15 @@ void Zone::load_mat(std::ifstream &material)
     utils::find_word(material, "nmat");
     material >> nmat;
     utils::find_word(material, "material");
-    getline(material, s); // skip over the rest of this line
+    std::string str;
+    getline(material, str); // skip over the rest of this line
     for (unsigned short int i = 0; i < nmat; ++i)
     {
+        std::string s;
+        double x;
         material >> s >> x;
-        mat.push_back(s);
-        fp.push_back(x);
+        mat.emplace_back(std::move(s));
+        fp.emplace_back(std::move(x));
     }
 }
 
@@ -313,7 +387,7 @@ void Zone::load_spectra(const Database &d, const Table &tbl,
 
 //-----------------------------------------------------------------------------
 
-std::string Zone::mat_to_string_full(void) const
+std::string Zone::mat_to_string_full() const
 {
     std::string s("Zone");
     s += utils::int_to_string(my_id, ' ', cnst::INT_WIDTH) + "\n";
@@ -333,7 +407,7 @@ std::string Zone::mat_to_string_full(void) const
 
 //-----------------------------------------------------------------------------
 
-std::string Zone::mat_to_string_plot(void) const
+std::string Zone::mat_to_string_plot() const
 {
     std::string s("");
     s += utils::double_to_string(ne) + utils::double_to_string(te)
@@ -358,4 +432,4 @@ const size_t Zone::BOUNDING_ZONE = Face::BOUNDING_SPHERE.my_zone;
 
 //-----------------------------------------------------------------------------
 
-// end Zone.cpp
+//  end Zone.cpp

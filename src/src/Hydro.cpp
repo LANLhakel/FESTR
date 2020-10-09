@@ -2,38 +2,43 @@
  * @file Hydro.cpp
  * @brief Holds material conditions within all Zone objects in the Mesh
  * @author Peter Hakel
- * @version 0.8
+ * @version 0.9
  * @date Created on 7 January 2015\n
- * Last modified on 3 March 2019
+ * Last modified on 28 January 2020
  * @copyright (c) 2015, Triad National Security, LLC.
  * All rights reserved.\n
  * Use of this source code is governed by the BSD 3-Clause License.
  * See top-level license.txt file for full license text.
  */
 
-#include "Hydro.h"
-#include "Table.h"
-#include "utilities.h"
+#include <Hydro.h>
+
+#include <Table.h>
+#include <utils.h>
+
+#include <algorithm>
+#include <cstdlib>
 #include <fstream>
 #include <iostream>
-#include <cstdlib>
-#include <algorithm>
 
 //-----------------------------------------------------------------------------
 
-Hydro::Hydro(void):
-    path(""), tbl(), ntimes(0), nintervals(0), time(), ntd(0),
-    analysis(false), nzones(0), cell(), ndim(), symmetry("none")
+Hydro::Hydro():
+    path(""), tbl(), ntimes(0), nintervals(0), time(), ntd(0), tmin(-1.0e99),
+    tmax(1.0e99), time_index(), analysis(false), nzones(0), cell(), ndim(),
+    symmetry("none")
 {}
 
 //-----------------------------------------------------------------------------
 
 Hydro::Hydro(const bool analysis_in, const std::string &hydro_path,
              const std::string &table_path, const std::string &table_fname,
-             const std::string &symmetry_in):
+             const std::string &symmetry_in,
+             const double tmin_in, const double tmax_in):
     path(hydro_path), tbl(hydro_path, table_path, table_fname),
-    ntimes(0), nintervals(0), time(), ntd(0),
-    analysis(analysis_in), nzones(0), cell(), ndim(), symmetry(symmetry_in)
+    ntimes(0), nintervals(0), time(), ntd(0), tmin(tmin_in), tmax(tmax_in),
+    time_index(), analysis(analysis_in), nzones(0), cell(), ndim(),
+    symmetry(symmetry_in)
 {
     std::string fname;
 
@@ -67,22 +72,22 @@ Hydro::Hydro(const bool analysis_in, const std::string &hydro_path,
         else // symmetry == "none"
             nintervals = 1; // initialize for multiplication
 
-        Cell *cellptr;
-        size_t nx;
         for (size_t i = 0; i < nzones; ++i)
         {
-            cellptr = new Cell(material);
-            cell.push_back(cellptr);
-            nx = cellptr->get_ncases();
-            ndim.push_back(nx);
+            auto cellptr = std::make_shared<Cell>(material);
+            size_t nx = cellptr->get_ncases();
+            cell.emplace_back(std::move(cellptr));
             if (symmetry == "spherical")
                 nintervals += nx;
             else // symmetry == "none"
                 nintervals *= nx;
+            ndim.emplace_back(std::move(nx));
         }
         ntimes = nintervals + 1;
-        time.push_back(0.0);
-        time.push_back(1.0);
+        time.emplace_back(0.0);
+        time.emplace_back(1.0);
+        time_index.emplace_back(0);
+        time_index.emplace_back(1);
         ntd = 1;
 
         material.close();
@@ -102,15 +107,27 @@ Hydro::Hydro(const bool analysis_in, const std::string &hydro_path,
         utils::find_line(infile, "# start");
         infile >> ntimes;
         ntd = utils::ndigits(ntimes);
-        nintervals = ntimes - 1;
         time.reserve(ntimes);
-        size_t i, j;
-        double t;
-        for (i = 0; i < ntimes; ++i)
+        for (size_t i = 0; i < ntimes; ++i)
         {
+            size_t j;
+            double t;
             infile >> j >> t;
-            time.push_back(t);
+            if (i != j)
+            {
+                std::cerr << "Error: time index mismatch while reading file "
+                          << "times.txt: " << i << " != " << j << " in "
+                          << "Hydro::Hydro(parametrized)" << std::endl;
+                exit(EXIT_FAILURE);
+            }
+            time.emplace_back(t);
+            if (t >= tmin  &&  t <= tmax)
+            {
+                time_index.emplace_back(j);
+                ++nintervals;
+            }
         }
+        --nintervals;
         infile.close();
         infile.clear();
     } // analysis
@@ -118,53 +135,73 @@ Hydro::Hydro(const bool analysis_in, const std::string &hydro_path,
 
 //-----------------------------------------------------------------------------
 
-Hydro::~Hydro(void)
+std::string Hydro::get_path() const
 {
-    path = "";
-    tbl.clear();
-    ntimes = 0;
-    nintervals = 0;
-    time.clear();
-    ntd = 0;
-    analysis = false;
-    nzones = 0;
-    for_each(cell.begin(), cell.end(), utils::DeleteObject());
-    cell.clear();
-    ndim.clear();
+    return path;
 }
 
 //-----------------------------------------------------------------------------
 
-std::string Hydro::get_path(void) const {return path;}
+const Table & Hydro::get_table() const
+{
+    return tbl;
+}
 
 //-----------------------------------------------------------------------------
 
-const Table & Hydro::get_table(void) const {return tbl;}
+std::vector<size_t> Hydro::get_ndim() const
+{
+    return ndim;
+}
 
 //-----------------------------------------------------------------------------
 
-std::vector<size_t> Hydro::get_ndim(void) const {return ndim;}
+size_t Hydro::get_ntimes() const
+{
+    return ntimes;
+}
 
 //-----------------------------------------------------------------------------
 
-size_t Hydro::get_ntimes(void) const {return ntimes;}
+size_t Hydro::get_nintervals() const
+{
+    return nintervals;
+}
 
 //-----------------------------------------------------------------------------
 
-size_t Hydro::get_nintervals(void) const {return nintervals;}
+int Hydro::get_ntd() const
+{
+    return ntd;
+}
 
 //-----------------------------------------------------------------------------
 
-int Hydro::get_ntd(void) const {return ntd;}
+double Hydro::get_tmin() const
+{
+    return tmin;
+}
 
 //-----------------------------------------------------------------------------
 
-double Hydro::time_at(const size_t it) const {return time.at(it);}
+double Hydro::get_tmax() const
+{
+    return tmax;
+}
+
+//-----------------------------------------------------------------------------
+
+double Hydro::time_at(const size_t it) const
+{
+    return time.at(it);
+}
 
 //-----------------------------------------------------------------------------
 
 double Hydro::dt_at(const size_t it) const
-{return time.at(it+1) - time.at(it);}
+{
+    return time.at(it+1) - time.at(it);
+}
 
 //-----------------------------------------------------------------------------
 
@@ -182,9 +219,9 @@ void Hydro::load_at(const size_t i, Grid &g, Mesh &m) const
             std::pair<size_t, size_t> pr = utils::one_to_two(ndim, i);
             size_t izone = pr.first;
             size_t icase = pr.second;
-            Cell *cptr = const_cast<Cell *>(cell.at(izone));
+            auto cptr = cell.at(izone);
             CellEOS e = cptr->get_cell_eos(icase);
-            Zone *zptr = const_cast<Zone *>(m.get_zone(izone));
+            auto zptr = m.get_zone(izone);
             zptr->set_te(e.te);
             zptr->set_tr(e.tr);
             zptr->set_nmat(e.nmat);
@@ -197,9 +234,9 @@ void Hydro::load_at(const size_t i, Grid &g, Mesh &m) const
             // seed Mesh with CellEOS data
             for (size_t izone = 0; izone < nzones; ++izone)
             {
-                Cell *cptr = const_cast<Cell *>(cell.at(izone));
+                auto cptr = cell.at(izone);
                 CellEOS e = cptr->get_cell_eos(indx.at(izone));
-                Zone *zptr = const_cast<Zone *>(m.get_zone(izone));
+                auto zptr = m.get_zone(izone);
                 zptr->set_te(e.te);
                 zptr->set_tr(e.tr);
                 zptr->set_nmat(e.nmat);
@@ -218,7 +255,7 @@ void Hydro::load_at(const size_t i, Grid &g, Mesh &m) const
 
 //-----------------------------------------------------------------------------
 
-std::string Hydro::to_string(void) const
+std::string Hydro::to_string() const
 {
     std::string s("");
     return s;
@@ -226,19 +263,38 @@ std::string Hydro::to_string(void) const
 
 //-----------------------------------------------------------------------------
 
-bool Hydro::get_analysis(void) const {return analysis;}
+bool Hydro::get_analysis() const
+{
+    return analysis;
+}
 
 //-----------------------------------------------------------------------------
 
-size_t Hydro::get_nzones(void) const {return nzones;}
+size_t Hydro::get_nzones() const
+{
+    return nzones;
+}
 
 //-----------------------------------------------------------------------------
 
-void Hydro::set_symmetry(const std::string &s) {symmetry = s;}
+void Hydro::set_symmetry(const std::string &s)
+{
+    symmetry = s;
+}
 
 //-----------------------------------------------------------------------------
 
-std::string Hydro::get_symmetry(void) const {return symmetry;}
+std::string Hydro::get_symmetry() const
+{
+    return symmetry;
+}
+
+//-----------------------------------------------------------------------------
+
+size_t Hydro::time_index_at(const size_t j) const
+{
+    return time_index.at(j);
+}
 
 //-----------------------------------------------------------------------------
 
@@ -250,4 +306,4 @@ std::ostream & operator << (std::ostream &ost, const Hydro &o)
 
 //-----------------------------------------------------------------------------
 
-// end Hydro.cpp
+//  end Hydro.cpp

@@ -2,17 +2,18 @@
  * @file Sphere.cpp
  * @brief Spherical shells (derived from class Face)
  * @author Peter Hakel
- * @version 0.8
+ * @version 0.9
  * @date Created on 21 November 2014\n
- * Last modified on 3 March 2019
+ * Last modified on 27 February 2020
  * @copyright (c) 2015, Triad National Security, LLC.
  * All rights reserved.\n
  * Use of this source code is governed by the BSD 3-Clause License.
  * See top-level license.txt file for full license text.
  */
 
-#include "Sphere.h"
-#include "utilities.h"
+#include <Sphere.h>
+#include <utils.h>
+
 #include <cmath>
 
 //-----------------------------------------------------------------------------
@@ -24,7 +25,7 @@
 
 //-----------------------------------------------------------------------------
 
-Sphere::Sphere(void): Face(), r(0.0), v(0.0) {}
+Sphere::Sphere(): Face(), r(0.0), v(0.0) {}
 
 //-----------------------------------------------------------------------------
 
@@ -45,11 +46,14 @@ Sphere::Sphere(const size_t my_zone_in, const short int my_id_in,
 
 //-----------------------------------------------------------------------------
 
-Sphere::Sphere(std::ifstream &istr): Face(), r(0.0), v(0.0) {load(istr);}
+Sphere::Sphere(std::ifstream &istr): Face(), r(0.0), v(0.0)
+{
+    load(istr);
+}
 
 //-----------------------------------------------------------------------------
 
-Sphere::~Sphere(void) {}
+Sphere::~Sphere() {}
 
 //-----------------------------------------------------------------------------
 
@@ -61,19 +65,31 @@ bool Sphere::is_curved(const Grid &g) const
 
 //-----------------------------------------------------------------------------
 
-void Sphere::setr(const double rin) {r = rin;}
+void Sphere::setr(const double rin)
+{
+    r = rin;
+}
 
 //-----------------------------------------------------------------------------
 
-double Sphere::getr(void) const {return fabs(r);}
+double Sphere::getr() const
+{
+    return fabs(r);
+}
 
 //-----------------------------------------------------------------------------
 
-void Sphere::setv(const double vin) {v = vin;}
+void Sphere::setv(const double vin)
+{
+    v = vin;
+}
 
 //-----------------------------------------------------------------------------
 
-double Sphere::getv(void) const {return v;}
+double Sphere::getv() const
+{
+    return v;
+}
 
 //-----------------------------------------------------------------------------
 
@@ -90,7 +106,7 @@ void Sphere::setn(const int nin)
 
 //-----------------------------------------------------------------------------
 
-int Sphere::getn(void) const
+int Sphere::getn() const
 {
     if (r > 0.0)
         return 1;
@@ -116,7 +132,7 @@ Vector3d Sphere::center_velocity(const Grid &g) const
 
 //-----------------------------------------------------------------------------
 
-std::string Sphere::to_string(void) const
+std::string Sphere::to_string() const
 {
     return "Sphere\n" + Face::to_string() + "\n" +
            utils::double_to_string(r) + utils::double_to_string(v);
@@ -182,6 +198,13 @@ Vector3d Sphere::subpoint(const Grid &g, const Vector3d &w) const
 
 //-----------------------------------------------------------------------------
 
+Vector3d Sphere::face_point(const Grid &g, const Vector3d &w) const
+{
+    return subpoint(g, w);
+}
+
+//-----------------------------------------------------------------------------
+
 bool Sphere::contains(const Grid &g, const Vector3d &w) const
 {
     (void)(g);
@@ -203,7 +226,16 @@ RetIntercept Sphere::intercept(const Grid &g, const Vector3d &p,
     const double c = d * d  -  r * r;
 
     // Eq.(3)
-    #include "choose_root.inc" // contains: return rv;
+    #include <choose_root.inc>
+    if (x.nroots == 0) return rv; // no solution
+    if (fabs(x.x1 - x.x2) < eqt)
+    {   // Ray touches but does not intersect *this
+        const double BIG = -Vector3d::get_big();
+        rv.t = BIG;
+        rv.w = Vector3d(BIG, BIG, BIG);
+        rv.is_found = false;
+    }
+    return rv;
 }
 
 //-----------------------------------------------------------------------------

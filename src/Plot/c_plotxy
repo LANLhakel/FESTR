@@ -1,1 +1,1 @@
-g++ -g -O0 -o plotxy ../src/utilities.cpp plotxy.cpp
+g++ -std=c++11 -g -O0 -I../src -o plotxy ../src/utils.cpp plotxy.cpp

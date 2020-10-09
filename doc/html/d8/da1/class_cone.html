@@ -36,7 +36,7 @@
   <td id="projectlogo"><img alt="Logo" src="../../mesh.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">FESTR
-   &#160;<span id="projectnumber">0.8</span>
+   &#160;<span id="projectnumber">0.9</span>
    </div>
    <div id="projectbrief">Finite-Element Spectral Transfer of Radiation</div>
   </td>
@@ -113,79 +113,85 @@ Inheritance diagram for Cone:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:acd507e166fb94f61a81e26173bf00dd3"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/da1/class_cone.html#acd507e166fb94f61a81e26173bf00dd3">Cone</a> (void)</td></tr>
-<tr class="memdesc:acd507e166fb94f61a81e26173bf00dd3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default constructor.  <a href="#acd507e166fb94f61a81e26173bf00dd3">More...</a><br /></td></tr>
-<tr class="separator:acd507e166fb94f61a81e26173bf00dd3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aec709e915b3271a750d420b14b215bfb"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/da1/class_cone.html#aec709e915b3271a750d420b14b215bfb">Cone</a> ()</td></tr>
+<tr class="memdesc:aec709e915b3271a750d420b14b215bfb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default constructor.  <a href="#aec709e915b3271a750d420b14b215bfb">More...</a><br /></td></tr>
+<tr class="separator:aec709e915b3271a750d420b14b215bfb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a60735f779d2f0a8cc39c204ad4d9d886"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/da1/class_cone.html#a60735f779d2f0a8cc39c204ad4d9d886">Cone</a> (const size_t my_zone_in, const short int my_id_in)</td></tr>
 <tr class="memdesc:a60735f779d2f0a8cc39c204ad4d9d886"><td class="mdescLeft">&#160;</td><td class="mdescRight">Parametrized constructor (leaves <a class="el" href="../../d5/d2a/class_face.html#abad7d1f0991304a13c2ace82d745a666" title="ID&#39;s of ordered Node objects defining *this Face. ">Face::node</a>, <a class="el" href="../../d5/d2a/class_face.html#a0fcdf7ab25475761461afde7d7cef647" title="Neighbors: Faces from other Zone objects in contact with *this Face. ">Face::nbr</a> empty)  <a href="#a60735f779d2f0a8cc39c204ad4d9d886">More...</a><br /></td></tr>
 <tr class="separator:a60735f779d2f0a8cc39c204ad4d9d886"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aed763cd7ed4e8b3488dce4ab718c33e5"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/da1/class_cone.html#aed763cd7ed4e8b3488dce4ab718c33e5">Cone</a> (std::ifstream &amp;istr)</td></tr>
 <tr class="memdesc:aed763cd7ed4e8b3488dce4ab718c33e5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Parametrized constructor (loads a <a class="el" href="../../d8/da1/class_cone.html" title="Conical ribbons for 2-D RZ geometry (derived from class Face) ">Cone</a> from an input file)  <a href="#aed763cd7ed4e8b3488dce4ab718c33e5">More...</a><br /></td></tr>
 <tr class="separator:aed763cd7ed4e8b3488dce4ab718c33e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af5d87fb81285aa7ef7d69f582a853481"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/da1/class_cone.html#af5d87fb81285aa7ef7d69f582a853481">~Cone</a> (void)</td></tr>
-<tr class="memdesc:af5d87fb81285aa7ef7d69f582a853481"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor.  <a href="#af5d87fb81285aa7ef7d69f582a853481">More...</a><br /></td></tr>
-<tr class="separator:af5d87fb81285aa7ef7d69f582a853481"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afea6de6553d18cf5a6a1bf4c078cd174"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/da1/class_cone.html#afea6de6553d18cf5a6a1bf4c078cd174">is_curved</a> (const <a class="el" href="../../da/d74/class_grid.html">Grid</a> &amp;g) const</td></tr>
-<tr class="memdesc:afea6de6553d18cf5a6a1bf4c078cd174"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flag for the shape of *this <a class="el" href="../../d5/d2a/class_face.html" title="Abstract base class for various Face types that define Zone objects. ">Face</a>.  <a href="#afea6de6553d18cf5a6a1bf4c078cd174">More...</a><br /></td></tr>
-<tr class="separator:afea6de6553d18cf5a6a1bf4c078cd174"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8c260772f3e1d6402e1cebed2fba87c7"><td class="memItemLeft" align="right" valign="top">virtual std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/da1/class_cone.html#a8c260772f3e1d6402e1cebed2fba87c7">to_string</a> (void) const</td></tr>
-<tr class="memdesc:a8c260772f3e1d6402e1cebed2fba87c7"><td class="mdescLeft">&#160;</td><td class="mdescRight">String representation of a <a class="el" href="../../d5/d2a/class_face.html" title="Abstract base class for various Face types that define Zone objects. ">Face</a> object.  <a href="#a8c260772f3e1d6402e1cebed2fba87c7">More...</a><br /></td></tr>
-<tr class="separator:a8c260772f3e1d6402e1cebed2fba87c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a460c5fec6bd39ebff0734ba99080a33c"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/da1/class_cone.html#a460c5fec6bd39ebff0734ba99080a33c">load</a> (std::ifstream &amp;istr)</td></tr>
-<tr class="memdesc:a460c5fec6bd39ebff0734ba99080a33c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor helper: loads a <a class="el" href="../../d5/d2a/class_face.html" title="Abstract base class for various Face types that define Zone objects. ">Face</a> from an input file.  <a href="#a460c5fec6bd39ebff0734ba99080a33c">More...</a><br /></td></tr>
-<tr class="separator:a460c5fec6bd39ebff0734ba99080a33c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8905346ac9702c2a20a3ae1d1dca8396"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="../../d4/d4d/class_vector3d.html">Vector3d</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/da1/class_cone.html#a8905346ac9702c2a20a3ae1d1dca8396">area2_normal_center</a> (const <a class="el" href="../../da/d74/class_grid.html">Grid</a> &amp;g, <a class="el" href="../../d4/d4d/class_vector3d.html">Vector3d</a> &amp;c) const</td></tr>
-<tr class="memdesc:a8905346ac9702c2a20a3ae1d1dca8396"><td class="mdescLeft">&#160;</td><td class="mdescRight">Normal vector of *this oriented <a class="el" href="../../d5/d2a/class_face.html" title="Abstract base class for various Face types that define Zone objects. ">Face</a> of length 2*area; center of *this <a class="el" href="../../d5/d2a/class_face.html" title="Abstract base class for various Face types that define Zone objects. ">Face</a> is also calculated as a byproduct.  <a href="#a8905346ac9702c2a20a3ae1d1dca8396">More...</a><br /></td></tr>
-<tr class="separator:a8905346ac9702c2a20a3ae1d1dca8396"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aada32efd5bd3aa235e8349c026a56ba1"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="../../d4/d4d/class_vector3d.html">Vector3d</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/da1/class_cone.html#aada32efd5bd3aa235e8349c026a56ba1">normal</a> (const <a class="el" href="../../da/d74/class_grid.html">Grid</a> &amp;g) const</td></tr>
-<tr class="memdesc:aada32efd5bd3aa235e8349c026a56ba1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Unit normal vector of *this oriented <a class="el" href="../../d5/d2a/class_face.html" title="Abstract base class for various Face types that define Zone objects. ">Face</a>.  <a href="#aada32efd5bd3aa235e8349c026a56ba1">More...</a><br /></td></tr>
-<tr class="separator:aada32efd5bd3aa235e8349c026a56ba1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad6ff3f0e3fa9699661575b614ec8144e"><td class="memItemLeft" align="right" valign="top">virtual double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/da1/class_cone.html#ad6ff3f0e3fa9699661575b614ec8144e">area</a> (const <a class="el" href="../../da/d74/class_grid.html">Grid</a> &amp;g) const</td></tr>
-<tr class="memdesc:ad6ff3f0e3fa9699661575b614ec8144e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Area of *this <a class="el" href="../../d5/d2a/class_face.html" title="Abstract base class for various Face types that define Zone objects. ">Face</a>.  <a href="#ad6ff3f0e3fa9699661575b614ec8144e">More...</a><br /></td></tr>
-<tr class="separator:ad6ff3f0e3fa9699661575b614ec8144e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae050a4cc109f95322c94d226b211df29"><td class="memItemLeft" align="right" valign="top">virtual double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/da1/class_cone.html#ae050a4cc109f95322c94d226b211df29">distance</a> (const <a class="el" href="../../da/d74/class_grid.html">Grid</a> &amp;g, const <a class="el" href="../../d4/d4d/class_vector3d.html">Vector3d</a> &amp;w) const</td></tr>
-<tr class="memdesc:ae050a4cc109f95322c94d226b211df29"><td class="mdescLeft">&#160;</td><td class="mdescRight">Signed distance of a point from *this <a class="el" href="../../d5/d2a/class_face.html" title="Abstract base class for various Face types that define Zone objects. ">Face</a>.  <a href="#ae050a4cc109f95322c94d226b211df29">More...</a><br /></td></tr>
-<tr class="separator:ae050a4cc109f95322c94d226b211df29"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a563f388a4143967ac5193d9bf2ac670b"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="../../d4/d4d/class_vector3d.html">Vector3d</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/da1/class_cone.html#a563f388a4143967ac5193d9bf2ac670b">subpoint</a> (const <a class="el" href="../../da/d74/class_grid.html">Grid</a> &amp;g, const <a class="el" href="../../d4/d4d/class_vector3d.html">Vector3d</a> &amp;w) const</td></tr>
-<tr class="memdesc:a563f388a4143967ac5193d9bf2ac670b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Location of a point's subpoint on *this <a class="el" href="../../d5/d2a/class_face.html" title="Abstract base class for various Face types that define Zone objects. ">Face</a>.  <a href="#a563f388a4143967ac5193d9bf2ac670b">More...</a><br /></td></tr>
-<tr class="separator:a563f388a4143967ac5193d9bf2ac670b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aecfc760da38dfcb857a32a94e6487f13"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/da1/class_cone.html#aecfc760da38dfcb857a32a94e6487f13">contains</a> (const <a class="el" href="../../da/d74/class_grid.html">Grid</a> &amp;g, const <a class="el" href="../../d4/d4d/class_vector3d.html">Vector3d</a> &amp;w) const</td></tr>
-<tr class="memdesc:aecfc760da38dfcb857a32a94e6487f13"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flags whether a point is within *this <a class="el" href="../../d5/d2a/class_face.html" title="Abstract base class for various Face types that define Zone objects. ">Face</a>.  <a href="#aecfc760da38dfcb857a32a94e6487f13">More...</a><br /></td></tr>
-<tr class="separator:aecfc760da38dfcb857a32a94e6487f13"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa3f04c3ce89820a946e76deb093bdcf9"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="../../d8/d04/struct_ret_intercept.html">RetIntercept</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/da1/class_cone.html#aa3f04c3ce89820a946e76deb093bdcf9">intercept</a> (const <a class="el" href="../../da/d74/class_grid.html">Grid</a> &amp;g, const <a class="el" href="../../d4/d4d/class_vector3d.html">Vector3d</a> &amp;p, const <a class="el" href="../../d4/d4d/class_vector3d.html">Vector3d</a> &amp;u, const double eqt, const <a class="el" href="../../d6/d32/struct_face_i_d.html">FaceID</a> &amp;fid) const</td></tr>
-<tr class="memdesc:aa3f04c3ce89820a946e76deb093bdcf9"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="../../d2/d1f/class_ray.html" title="Ray carrying a spectrum and its own current position and direction. ">Ray</a> intercept with *this <a class="el" href="../../d5/d2a/class_face.html" title="Abstract base class for various Face types that define Zone objects. ">Face</a>.  <a href="#aa3f04c3ce89820a946e76deb093bdcf9">More...</a><br /></td></tr>
-<tr class="separator:aa3f04c3ce89820a946e76deb093bdcf9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5a72293dd1d74b692214595747651ea9"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="../../d4/d4d/class_vector3d.html">Vector3d</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/da1/class_cone.html#a5a72293dd1d74b692214595747651ea9">velocity</a> (const <a class="el" href="../../da/d74/class_grid.html">Grid</a> &amp;g, const <a class="el" href="../../d4/d4d/class_vector3d.html">Vector3d</a> &amp;w) const</td></tr>
-<tr class="memdesc:a5a72293dd1d74b692214595747651ea9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Velocity of a point on *this <a class="el" href="../../d5/d2a/class_face.html" title="Abstract base class for various Face types that define Zone objects. ">Face</a>.  <a href="#a5a72293dd1d74b692214595747651ea9">More...</a><br /></td></tr>
-<tr class="separator:a5a72293dd1d74b692214595747651ea9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3cec1a2ec649e0855bde0202e89b282c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/da1/class_cone.html#a3cec1a2ec649e0855bde0202e89b282c">~Cone</a> () override</td></tr>
+<tr class="memdesc:a3cec1a2ec649e0855bde0202e89b282c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor.  <a href="#a3cec1a2ec649e0855bde0202e89b282c">More...</a><br /></td></tr>
+<tr class="separator:a3cec1a2ec649e0855bde0202e89b282c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8017dbfc03bcfc53c6585c282427a82a"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/da1/class_cone.html#a8017dbfc03bcfc53c6585c282427a82a">is_curved</a> (const <a class="el" href="../../da/d74/class_grid.html">Grid</a> &amp;g) const override</td></tr>
+<tr class="memdesc:a8017dbfc03bcfc53c6585c282427a82a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flag for the shape of *this <a class="el" href="../../d5/d2a/class_face.html" title="Abstract base class for various Face types that define Zone objects. ">Face</a>.  <a href="#a8017dbfc03bcfc53c6585c282427a82a">More...</a><br /></td></tr>
+<tr class="separator:a8017dbfc03bcfc53c6585c282427a82a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a94e954f2d51c6a007800a6d9fedd796d"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/da1/class_cone.html#a94e954f2d51c6a007800a6d9fedd796d">to_string</a> () const override</td></tr>
+<tr class="memdesc:a94e954f2d51c6a007800a6d9fedd796d"><td class="mdescLeft">&#160;</td><td class="mdescRight">String representation of a <a class="el" href="../../d5/d2a/class_face.html" title="Abstract base class for various Face types that define Zone objects. ">Face</a> object.  <a href="#a94e954f2d51c6a007800a6d9fedd796d">More...</a><br /></td></tr>
+<tr class="separator:a94e954f2d51c6a007800a6d9fedd796d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3994b67a61776c4bedc058e0eef7a3a1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/da1/class_cone.html#a3994b67a61776c4bedc058e0eef7a3a1">load</a> (std::ifstream &amp;istr) override</td></tr>
+<tr class="memdesc:a3994b67a61776c4bedc058e0eef7a3a1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor helper: loads a <a class="el" href="../../d5/d2a/class_face.html" title="Abstract base class for various Face types that define Zone objects. ">Face</a> from an input file.  <a href="#a3994b67a61776c4bedc058e0eef7a3a1">More...</a><br /></td></tr>
+<tr class="separator:a3994b67a61776c4bedc058e0eef7a3a1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad0c465ed17366e62d2cdef32b9473a85"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d4/d4d/class_vector3d.html">Vector3d</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/da1/class_cone.html#ad0c465ed17366e62d2cdef32b9473a85">area2_normal_center</a> (const <a class="el" href="../../da/d74/class_grid.html">Grid</a> &amp;g, <a class="el" href="../../d4/d4d/class_vector3d.html">Vector3d</a> &amp;c) const override</td></tr>
+<tr class="memdesc:ad0c465ed17366e62d2cdef32b9473a85"><td class="mdescLeft">&#160;</td><td class="mdescRight">Normal vector of *this oriented <a class="el" href="../../d5/d2a/class_face.html" title="Abstract base class for various Face types that define Zone objects. ">Face</a> of length 2*area; center of *this <a class="el" href="../../d5/d2a/class_face.html" title="Abstract base class for various Face types that define Zone objects. ">Face</a> is also calculated as a byproduct.  <a href="#ad0c465ed17366e62d2cdef32b9473a85">More...</a><br /></td></tr>
+<tr class="separator:ad0c465ed17366e62d2cdef32b9473a85"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad621ca438bbb3edfd6a6f497b5febc0d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d4/d4d/class_vector3d.html">Vector3d</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/da1/class_cone.html#ad621ca438bbb3edfd6a6f497b5febc0d">normal</a> (const <a class="el" href="../../da/d74/class_grid.html">Grid</a> &amp;g) const override</td></tr>
+<tr class="memdesc:ad621ca438bbb3edfd6a6f497b5febc0d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Unit normal vector of *this oriented <a class="el" href="../../d5/d2a/class_face.html" title="Abstract base class for various Face types that define Zone objects. ">Face</a>.  <a href="#ad621ca438bbb3edfd6a6f497b5febc0d">More...</a><br /></td></tr>
+<tr class="separator:ad621ca438bbb3edfd6a6f497b5febc0d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8ed7d15fdae2b868de30da9b6830eca7"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/da1/class_cone.html#a8ed7d15fdae2b868de30da9b6830eca7">area</a> (const <a class="el" href="../../da/d74/class_grid.html">Grid</a> &amp;g) const override</td></tr>
+<tr class="memdesc:a8ed7d15fdae2b868de30da9b6830eca7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Area of *this <a class="el" href="../../d5/d2a/class_face.html" title="Abstract base class for various Face types that define Zone objects. ">Face</a>.  <a href="#a8ed7d15fdae2b868de30da9b6830eca7">More...</a><br /></td></tr>
+<tr class="separator:a8ed7d15fdae2b868de30da9b6830eca7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aec08db7aa55a21a6fdbdebf1172a9f48"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/da1/class_cone.html#aec08db7aa55a21a6fdbdebf1172a9f48">distance</a> (const <a class="el" href="../../da/d74/class_grid.html">Grid</a> &amp;g, const <a class="el" href="../../d4/d4d/class_vector3d.html">Vector3d</a> &amp;w) const override</td></tr>
+<tr class="memdesc:aec08db7aa55a21a6fdbdebf1172a9f48"><td class="mdescLeft">&#160;</td><td class="mdescRight">Signed distance of a point from *this <a class="el" href="../../d5/d2a/class_face.html" title="Abstract base class for various Face types that define Zone objects. ">Face</a>.  <a href="#aec08db7aa55a21a6fdbdebf1172a9f48">More...</a><br /></td></tr>
+<tr class="separator:aec08db7aa55a21a6fdbdebf1172a9f48"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af8052ebd52bd1571bc15dceb223625f2"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d4/d4d/class_vector3d.html">Vector3d</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/da1/class_cone.html#af8052ebd52bd1571bc15dceb223625f2">subpoint</a> (const <a class="el" href="../../da/d74/class_grid.html">Grid</a> &amp;g, const <a class="el" href="../../d4/d4d/class_vector3d.html">Vector3d</a> &amp;w) const override</td></tr>
+<tr class="memdesc:af8052ebd52bd1571bc15dceb223625f2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Location of a point's subpoint on *this <a class="el" href="../../d5/d2a/class_face.html" title="Abstract base class for various Face types that define Zone objects. ">Face</a>.  <a href="#af8052ebd52bd1571bc15dceb223625f2">More...</a><br /></td></tr>
+<tr class="separator:af8052ebd52bd1571bc15dceb223625f2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a194a71cd172dfd8d315b4097f6f9c6c6"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d4/d4d/class_vector3d.html">Vector3d</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/da1/class_cone.html#a194a71cd172dfd8d315b4097f6f9c6c6">face_point</a> (const <a class="el" href="../../da/d74/class_grid.html">Grid</a> &amp;g, const <a class="el" href="../../d4/d4d/class_vector3d.html">Vector3d</a> &amp;w) const override</td></tr>
+<tr class="memdesc:a194a71cd172dfd8d315b4097f6f9c6c6"><td class="mdescLeft">&#160;</td><td class="mdescRight">A reference point on *this <a class="el" href="../../d5/d2a/class_face.html" title="Abstract base class for various Face types that define Zone objects. ">Face</a> (used by <a class="el" href="../../da/d50/class_zone.html#adab4ea5eeb863e154058d55a13c01522" title="Calculates a reference point within *this Zone. ">Zone::zone_point</a>)  <a href="#a194a71cd172dfd8d315b4097f6f9c6c6">More...</a><br /></td></tr>
+<tr class="separator:a194a71cd172dfd8d315b4097f6f9c6c6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6715fa4cd55368d9782684bd59ee9edc"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/da1/class_cone.html#a6715fa4cd55368d9782684bd59ee9edc">contains</a> (const <a class="el" href="../../da/d74/class_grid.html">Grid</a> &amp;g, const <a class="el" href="../../d4/d4d/class_vector3d.html">Vector3d</a> &amp;w) const override</td></tr>
+<tr class="memdesc:a6715fa4cd55368d9782684bd59ee9edc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flags whether a point is within *this <a class="el" href="../../d5/d2a/class_face.html" title="Abstract base class for various Face types that define Zone objects. ">Face</a>.  <a href="#a6715fa4cd55368d9782684bd59ee9edc">More...</a><br /></td></tr>
+<tr class="separator:a6715fa4cd55368d9782684bd59ee9edc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a680f4b877bb1a64048ecc79d092d857d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d8/d04/struct_ret_intercept.html">RetIntercept</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/da1/class_cone.html#a680f4b877bb1a64048ecc79d092d857d">intercept</a> (const <a class="el" href="../../da/d74/class_grid.html">Grid</a> &amp;g, const <a class="el" href="../../d4/d4d/class_vector3d.html">Vector3d</a> &amp;p, const <a class="el" href="../../d4/d4d/class_vector3d.html">Vector3d</a> &amp;u, const double eqt, const <a class="el" href="../../d6/d32/struct_face_i_d.html">FaceID</a> &amp;fid) const override</td></tr>
+<tr class="memdesc:a680f4b877bb1a64048ecc79d092d857d"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="../../d2/d1f/class_ray.html" title="Ray carrying a spectrum and its own current position and direction. ">Ray</a> intercept with *this <a class="el" href="../../d5/d2a/class_face.html" title="Abstract base class for various Face types that define Zone objects. ">Face</a>.  <a href="#a680f4b877bb1a64048ecc79d092d857d">More...</a><br /></td></tr>
+<tr class="separator:a680f4b877bb1a64048ecc79d092d857d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a819ae8d4c945795d19c1ceb1ae3e6546"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d4/d4d/class_vector3d.html">Vector3d</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/da1/class_cone.html#a819ae8d4c945795d19c1ceb1ae3e6546">velocity</a> (const <a class="el" href="../../da/d74/class_grid.html">Grid</a> &amp;g, const <a class="el" href="../../d4/d4d/class_vector3d.html">Vector3d</a> &amp;w) const override</td></tr>
+<tr class="memdesc:a819ae8d4c945795d19c1ceb1ae3e6546"><td class="mdescLeft">&#160;</td><td class="mdescRight">Velocity of a point on *this <a class="el" href="../../d5/d2a/class_face.html" title="Abstract base class for various Face types that define Zone objects. ">Face</a>.  <a href="#a819ae8d4c945795d19c1ceb1ae3e6546">More...</a><br /></td></tr>
+<tr class="separator:a819ae8d4c945795d19c1ceb1ae3e6546"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8bd873f28d1353cd6e25fe1b45827c14"><td class="memItemLeft" align="right" valign="top">std::pair&lt; <a class="el" href="../../d4/d4d/class_vector3d.html">Vector3d</a>, <a class="el" href="../../d4/d4d/class_vector3d.html">Vector3d</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/da1/class_cone.html#a8bd873f28d1353cd6e25fe1b45827c14">get_endpoints</a> (const <a class="el" href="../../da/d74/class_grid.html">Grid</a> &amp;g, const double phi) const</td></tr>
+<tr class="memdesc:a8bd873f28d1353cd6e25fe1b45827c14"><td class="mdescLeft">&#160;</td><td class="mdescRight">End points of *this <a class="el" href="../../d8/da1/class_cone.html" title="Conical ribbons for 2-D RZ geometry (derived from class Face) ">Cone</a> for a given azimuthal angle.  <a href="#a8bd873f28d1353cd6e25fe1b45827c14">More...</a><br /></td></tr>
+<tr class="separator:a8bd873f28d1353cd6e25fe1b45827c14"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_class_face"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_class_face')"><img src="../../closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="../../d5/d2a/class_face.html">Face</a></td></tr>
-<tr class="memitem:a283aed204ad89b5f081e7116ea403377 inherit pub_methods_class_face"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d2a/class_face.html#a283aed204ad89b5f081e7116ea403377">Face</a> (void)</td></tr>
-<tr class="memdesc:a283aed204ad89b5f081e7116ea403377 inherit pub_methods_class_face"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default constructor.  <a href="../../d5/d2a/class_face.html#a283aed204ad89b5f081e7116ea403377">More...</a><br /></td></tr>
-<tr class="separator:a283aed204ad89b5f081e7116ea403377 inherit pub_methods_class_face"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afdb634bc2d5287ba0d62e46b57e9dc2e inherit pub_methods_class_face"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d2a/class_face.html#afdb634bc2d5287ba0d62e46b57e9dc2e">Face</a> ()</td></tr>
+<tr class="memdesc:afdb634bc2d5287ba0d62e46b57e9dc2e inherit pub_methods_class_face"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default constructor.  <a href="../../d5/d2a/class_face.html#afdb634bc2d5287ba0d62e46b57e9dc2e">More...</a><br /></td></tr>
+<tr class="separator:afdb634bc2d5287ba0d62e46b57e9dc2e inherit pub_methods_class_face"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5ca235f6e921e79f1749e2d9e514d67f inherit pub_methods_class_face"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d2a/class_face.html#a5ca235f6e921e79f1749e2d9e514d67f">Face</a> (const size_t my_zone_in, const short int my_id_in)</td></tr>
 <tr class="memdesc:a5ca235f6e921e79f1749e2d9e514d67f inherit pub_methods_class_face"><td class="mdescLeft">&#160;</td><td class="mdescRight">Parametrized constructor (leaves <a class="el" href="../../d5/d2a/class_face.html#abad7d1f0991304a13c2ace82d745a666" title="ID&#39;s of ordered Node objects defining *this Face. ">Face::node</a>, <a class="el" href="../../d5/d2a/class_face.html#a0fcdf7ab25475761461afde7d7cef647" title="Neighbors: Faces from other Zone objects in contact with *this Face. ">Face::nbr</a> empty)  <a href="../../d5/d2a/class_face.html#a5ca235f6e921e79f1749e2d9e514d67f">More...</a><br /></td></tr>
 <tr class="separator:a5ca235f6e921e79f1749e2d9e514d67f inherit pub_methods_class_face"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5bfbf21bc4522e5897ad9e5d6081c35e inherit pub_methods_class_face"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d2a/class_face.html#a5bfbf21bc4522e5897ad9e5d6081c35e">~Face</a> (void)</td></tr>
-<tr class="memdesc:a5bfbf21bc4522e5897ad9e5d6081c35e inherit pub_methods_class_face"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor.  <a href="../../d5/d2a/class_face.html#a5bfbf21bc4522e5897ad9e5d6081c35e">More...</a><br /></td></tr>
-<tr class="separator:a5bfbf21bc4522e5897ad9e5d6081c35e inherit pub_methods_class_face"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aaf99d0fd07ba764e19d06c0f5adf6ad1 inherit pub_methods_class_face"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d2a/class_face.html#aaf99d0fd07ba764e19d06c0f5adf6ad1">clear</a> (void)</td></tr>
-<tr class="memdesc:aaf99d0fd07ba764e19d06c0f5adf6ad1 inherit pub_methods_class_face"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reset *this <a class="el" href="../../d5/d2a/class_face.html" title="Abstract base class for various Face types that define Zone objects. ">Face</a> to the state initialized by <a class="el" href="../../d5/d2a/class_face.html#a283aed204ad89b5f081e7116ea403377" title="Default constructor. ">Face::Face</a>.  <a href="../../d5/d2a/class_face.html#aaf99d0fd07ba764e19d06c0f5adf6ad1">More...</a><br /></td></tr>
-<tr class="separator:aaf99d0fd07ba764e19d06c0f5adf6ad1 inherit pub_methods_class_face"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a182c8c9ba652d46b01fdf6816cd65590 inherit pub_methods_class_face"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d2a/class_face.html#a182c8c9ba652d46b01fdf6816cd65590">~Face</a> ()</td></tr>
+<tr class="memdesc:a182c8c9ba652d46b01fdf6816cd65590 inherit pub_methods_class_face"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor.  <a href="../../d5/d2a/class_face.html#a182c8c9ba652d46b01fdf6816cd65590">More...</a><br /></td></tr>
+<tr class="separator:a182c8c9ba652d46b01fdf6816cd65590 inherit pub_methods_class_face"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7d41bac85d7714be181ac0af7d3945cf inherit pub_methods_class_face"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d2a/class_face.html#a7d41bac85d7714be181ac0af7d3945cf">clear</a> ()</td></tr>
+<tr class="memdesc:a7d41bac85d7714be181ac0af7d3945cf inherit pub_methods_class_face"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reset *this <a class="el" href="../../d5/d2a/class_face.html" title="Abstract base class for various Face types that define Zone objects. ">Face</a> to the state initialized by <a class="el" href="../../d5/d2a/class_face.html#afdb634bc2d5287ba0d62e46b57e9dc2e" title="Default constructor. ">Face::Face</a>.  <a href="../../d5/d2a/class_face.html#a7d41bac85d7714be181ac0af7d3945cf">More...</a><br /></td></tr>
+<tr class="separator:a7d41bac85d7714be181ac0af7d3945cf inherit pub_methods_class_face"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9e05806e6e19723597921cd9d4415963 inherit pub_methods_class_face"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d2a/class_face.html#a9e05806e6e19723597921cd9d4415963">set_my_zone</a> (const size_t my_zone_in)</td></tr>
 <tr class="memdesc:a9e05806e6e19723597921cd9d4415963 inherit pub_methods_class_face"><td class="mdescLeft">&#160;</td><td class="mdescRight">Setter for <a class="el" href="../../d5/d2a/class_face.html#ab3f8c099d09ea69262c41374deb41431" title="ID of the Zone to which *this Face belongs. ">Face::my_zone</a>.  <a href="../../d5/d2a/class_face.html#a9e05806e6e19723597921cd9d4415963">More...</a><br /></td></tr>
 <tr class="separator:a9e05806e6e19723597921cd9d4415963 inherit pub_methods_class_face"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af9fa793e843f8892661b6cf821988eb2 inherit pub_methods_class_face"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d2a/class_face.html#af9fa793e843f8892661b6cf821988eb2">get_my_zone</a> (void) const</td></tr>
-<tr class="memdesc:af9fa793e843f8892661b6cf821988eb2 inherit pub_methods_class_face"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for <a class="el" href="../../d5/d2a/class_face.html#ab3f8c099d09ea69262c41374deb41431" title="ID of the Zone to which *this Face belongs. ">Face::my_zone</a>.  <a href="../../d5/d2a/class_face.html#af9fa793e843f8892661b6cf821988eb2">More...</a><br /></td></tr>
-<tr class="separator:af9fa793e843f8892661b6cf821988eb2 inherit pub_methods_class_face"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a34c5f2dabd2a6f28a73ee54fb32e7186 inherit pub_methods_class_face"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d2a/class_face.html#a34c5f2dabd2a6f28a73ee54fb32e7186">get_my_zone</a> () const</td></tr>
+<tr class="memdesc:a34c5f2dabd2a6f28a73ee54fb32e7186 inherit pub_methods_class_face"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for <a class="el" href="../../d5/d2a/class_face.html#ab3f8c099d09ea69262c41374deb41431" title="ID of the Zone to which *this Face belongs. ">Face::my_zone</a>.  <a href="../../d5/d2a/class_face.html#a34c5f2dabd2a6f28a73ee54fb32e7186">More...</a><br /></td></tr>
+<tr class="separator:a34c5f2dabd2a6f28a73ee54fb32e7186 inherit pub_methods_class_face"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8ed04f65911f0e9241a8775fdefb6c71 inherit pub_methods_class_face"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d2a/class_face.html#a8ed04f65911f0e9241a8775fdefb6c71">set_my_id</a> (const short int my_id_in)</td></tr>
 <tr class="memdesc:a8ed04f65911f0e9241a8775fdefb6c71 inherit pub_methods_class_face"><td class="mdescLeft">&#160;</td><td class="mdescRight">Setter for <a class="el" href="../../d5/d2a/class_face.html#afe03259da2cab33edb342ffef6eb995b" title="Face ID local to its Zone. ">Face::my_id</a>.  <a href="../../d5/d2a/class_face.html#a8ed04f65911f0e9241a8775fdefb6c71">More...</a><br /></td></tr>
 <tr class="separator:a8ed04f65911f0e9241a8775fdefb6c71 inherit pub_methods_class_face"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2c19a8c8a2ebc249683d87296594085b inherit pub_methods_class_face"><td class="memItemLeft" align="right" valign="top">short int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d2a/class_face.html#a2c19a8c8a2ebc249683d87296594085b">get_my_id</a> (void) const</td></tr>
-<tr class="memdesc:a2c19a8c8a2ebc249683d87296594085b inherit pub_methods_class_face"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for <a class="el" href="../../d5/d2a/class_face.html#afe03259da2cab33edb342ffef6eb995b" title="Face ID local to its Zone. ">Face::my_id</a>.  <a href="../../d5/d2a/class_face.html#a2c19a8c8a2ebc249683d87296594085b">More...</a><br /></td></tr>
-<tr class="separator:a2c19a8c8a2ebc249683d87296594085b inherit pub_methods_class_face"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a61ac92b1ab417babb9c9372d4133b63f inherit pub_methods_class_face"><td class="memItemLeft" align="right" valign="top">virtual size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d2a/class_face.html#a61ac92b1ab417babb9c9372d4133b63f">size</a> (void) const</td></tr>
-<tr class="memdesc:a61ac92b1ab417babb9c9372d4133b63f inherit pub_methods_class_face"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for the size of <a class="el" href="../../d5/d2a/class_face.html#abad7d1f0991304a13c2ace82d745a666" title="ID&#39;s of ordered Node objects defining *this Face. ">Face::node</a>.  <a href="../../d5/d2a/class_face.html#a61ac92b1ab417babb9c9372d4133b63f">More...</a><br /></td></tr>
-<tr class="separator:a61ac92b1ab417babb9c9372d4133b63f inherit pub_methods_class_face"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7399e180b1174da1e015ba2355a2736c inherit pub_methods_class_face"><td class="memItemLeft" align="right" valign="top">short int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d2a/class_face.html#a7399e180b1174da1e015ba2355a2736c">get_my_id</a> () const</td></tr>
+<tr class="memdesc:a7399e180b1174da1e015ba2355a2736c inherit pub_methods_class_face"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for <a class="el" href="../../d5/d2a/class_face.html#afe03259da2cab33edb342ffef6eb995b" title="Face ID local to its Zone. ">Face::my_id</a>.  <a href="../../d5/d2a/class_face.html#a7399e180b1174da1e015ba2355a2736c">More...</a><br /></td></tr>
+<tr class="separator:a7399e180b1174da1e015ba2355a2736c inherit pub_methods_class_face"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a02d4478105fac64701aace58f2563830 inherit pub_methods_class_face"><td class="memItemLeft" align="right" valign="top">virtual size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d2a/class_face.html#a02d4478105fac64701aace58f2563830">size</a> () const</td></tr>
+<tr class="memdesc:a02d4478105fac64701aace58f2563830 inherit pub_methods_class_face"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for the size of <a class="el" href="../../d5/d2a/class_face.html#abad7d1f0991304a13c2ace82d745a666" title="ID&#39;s of ordered Node objects defining *this Face. ">Face::node</a>.  <a href="../../d5/d2a/class_face.html#a02d4478105fac64701aace58f2563830">More...</a><br /></td></tr>
+<tr class="separator:a02d4478105fac64701aace58f2563830 inherit pub_methods_class_face"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8b48b30da3bb7207760de9912564be9a inherit pub_methods_class_face"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d2a/class_face.html#a8b48b30da3bb7207760de9912564be9a">is_flat</a> (const <a class="el" href="../../da/d74/class_grid.html">Grid</a> &amp;g) const</td></tr>
 <tr class="memdesc:a8b48b30da3bb7207760de9912564be9a inherit pub_methods_class_face"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flag for the shape of *this <a class="el" href="../../d5/d2a/class_face.html" title="Abstract base class for various Face types that define Zone objects. ">Face</a>.  <a href="../../d5/d2a/class_face.html#a8b48b30da3bb7207760de9912564be9a">More...</a><br /></td></tr>
 <tr class="separator:a8b48b30da3bb7207760de9912564be9a inherit pub_methods_class_face"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -204,9 +210,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a46193e0726c4e587a648f59f335d1e8f inherit pub_methods_class_face"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d2a/class_face.html#a46193e0726c4e587a648f59f335d1e8f">add_neighbor</a> (const size_t zone_in, const short int face_in)</td></tr>
 <tr class="memdesc:a46193e0726c4e587a648f59f335d1e8f inherit pub_methods_class_face"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds a neighbor's <a class="el" href="../../d6/d32/struct_face_i_d.html" title="Pair of integer labels identifying a Face within its Zone. ">FaceID</a> to the end of <a class="el" href="../../d5/d2a/class_face.html#a0fcdf7ab25475761461afde7d7cef647" title="Neighbors: Faces from other Zone objects in contact with *this Face. ">Face::nbr</a>.  <a href="../../d5/d2a/class_face.html#a46193e0726c4e587a648f59f335d1e8f">More...</a><br /></td></tr>
 <tr class="separator:a46193e0726c4e587a648f59f335d1e8f inherit pub_methods_class_face"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae2e61c0278a2f805955d572dc18f5266 inherit pub_methods_class_face"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d2a/class_face.html#ae2e61c0278a2f805955d572dc18f5266">num_nbr</a> (void) const</td></tr>
-<tr class="memdesc:ae2e61c0278a2f805955d572dc18f5266 inherit pub_methods_class_face"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for the size of <a class="el" href="../../d5/d2a/class_face.html#a0fcdf7ab25475761461afde7d7cef647" title="Neighbors: Faces from other Zone objects in contact with *this Face. ">Face::nbr</a>.  <a href="../../d5/d2a/class_face.html#ae2e61c0278a2f805955d572dc18f5266">More...</a><br /></td></tr>
-<tr class="separator:ae2e61c0278a2f805955d572dc18f5266 inherit pub_methods_class_face"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a588bbce00f5ddf87bf2bfe3ff0ec6215 inherit pub_methods_class_face"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d2a/class_face.html#a588bbce00f5ddf87bf2bfe3ff0ec6215">num_nbr</a> () const</td></tr>
+<tr class="memdesc:a588bbce00f5ddf87bf2bfe3ff0ec6215 inherit pub_methods_class_face"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for the size of <a class="el" href="../../d5/d2a/class_face.html#a0fcdf7ab25475761461afde7d7cef647" title="Neighbors: Faces from other Zone objects in contact with *this Face. ">Face::nbr</a>.  <a href="../../d5/d2a/class_face.html#a588bbce00f5ddf87bf2bfe3ff0ec6215">More...</a><br /></td></tr>
+<tr class="separator:a588bbce00f5ddf87bf2bfe3ff0ec6215 inherit pub_methods_class_face"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a066d3f9dbb7e1a1b9416a13748c201fc inherit pub_methods_class_face"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d6/d32/struct_face_i_d.html">FaceID</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d2a/class_face.html#a066d3f9dbb7e1a1b9416a13748c201fc">get_neighbor</a> (const size_t i) const</td></tr>
 <tr class="memdesc:a066d3f9dbb7e1a1b9416a13748c201fc inherit pub_methods_class_face"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves neighbor's <a class="el" href="../../d6/d32/struct_face_i_d.html" title="Pair of integer labels identifying a Face within its Zone. ">FaceID</a> from given location in <a class="el" href="../../d5/d2a/class_face.html#a0fcdf7ab25475761461afde7d7cef647" title="Neighbors: Faces from other Zone objects in contact with *this Face. ">Face::nbr</a>.  <a href="../../d5/d2a/class_face.html#a066d3f9dbb7e1a1b9416a13748c201fc">More...</a><br /></td></tr>
 <tr class="separator:a066d3f9dbb7e1a1b9416a13748c201fc inherit pub_methods_class_face"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -219,9 +225,15 @@ Public Member Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-static-attribs"></a>
 Static Private Attributes</h2></td></tr>
-<tr class="memitem:ae301e45258f35c61b0ba44c306347d58"><td class="memItemLeft" align="right" valign="top">static const double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/da1/class_cone.html#ae301e45258f35c61b0ba44c306347d58">SMALL</a> = 1.0e-8</td></tr>
+<tr class="memitem:ae301e45258f35c61b0ba44c306347d58"><td class="memItemLeft" align="right" valign="top">static const double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/da1/class_cone.html#ae301e45258f35c61b0ba44c306347d58">SMALL</a> = 5.0e-7</td></tr>
 <tr class="memdesc:ae301e45258f35c61b0ba44c306347d58"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="../../d8/da1/class_cone.html" title="Conical ribbons for 2-D RZ geometry (derived from class Face) ">Cone</a> with |dz| &lt;= SMALL is a flat hoop.  <a href="#ae301e45258f35c61b0ba44c306347d58">More...</a><br /></td></tr>
 <tr class="separator:ae301e45258f35c61b0ba44c306347d58"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5515e368df933636f5dc3aed0be33c9e"><td class="memItemLeft" align="right" valign="top">static const double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/da1/class_cone.html#a5515e368df933636f5dc3aed0be33c9e">MINIMUM_DISTANCE</a> = 1.0e-6</td></tr>
+<tr class="memdesc:a5515e368df933636f5dc3aed0be33c9e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Hit points cannot be closer to a <a class="el" href="../../dc/d8f/class_node.html" title="Grid Node. ">Node</a> than this value.  <a href="#a5515e368df933636f5dc3aed0be33c9e">More...</a><br /></td></tr>
+<tr class="separator:a5515e368df933636f5dc3aed0be33c9e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aed2dae84cf088d81d675df6c957c76de"><td class="memItemLeft" align="right" valign="top">static const double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/da1/class_cone.html#aed2dae84cf088d81d675df6c957c76de">ZERO</a> = 1.0e-19</td></tr>
+<tr class="memdesc:aed2dae84cf088d81d675df6c957c76de"><td class="mdescLeft">&#160;</td><td class="mdescRight">Effective zero squared distance near one of the edges.  <a href="#aed2dae84cf088d81d675df6c957c76de">More...</a><br /></td></tr>
+<tr class="separator:aed2dae84cf088d81d675df6c957c76de"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="inherited"></a>
 Additional Inherited Members</h2></td></tr>
@@ -234,10 +246,10 @@ Additional Inherited Members</h2></td></tr>
 <div class="textblock"><p>Conical ribbons for 2-D RZ geometry (derived from class <a class="el" href="../../d5/d2a/class_face.html" title="Abstract base class for various Face types that define Zone objects. ">Face</a>) </p>
 <p>Each <a class="el" href="../../d8/da1/class_cone.html" title="Conical ribbons for 2-D RZ geometry (derived from class Face) ">Cone</a> consists of two <a class="el" href="../../dc/d8f/class_node.html" title="Grid Node. ">Node</a> objects, whose order defines the orientation of the <a class="el" href="../../d8/da1/class_cone.html" title="Conical ribbons for 2-D RZ geometry (derived from class Face) ">Cone</a>. In the <a class="el" href="../../d4/d4d/class_vector3d.html" title="3-D Cartesian vectors ">Vector3d</a> components of each <a class="el" href="../../dc/d8f/class_node.html" title="Grid Node. ">Node</a> the x coordinate represents R, and the y coordinate represents Z. The z coordinates of Nodes' <a class="el" href="../../d4/d4d/class_vector3d.html" title="3-D Cartesian vectors ">Vector3d</a>'s are set to zero, and are ignored in class <a class="el" href="../../d8/da1/class_cone.html" title="Conical ribbons for 2-D RZ geometry (derived from class Face) ">Cone</a>. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../df/df5/_cone_8h_source.html#l00029">29</a> of file <a class="el" href="../../df/df5/_cone_8h_source.html">Cone.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../df/df5/_cone_8h_source.html#l00034">34</a> of file <a class="el" href="../../df/df5/_cone_8h_source.html">Cone.h</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="acd507e166fb94f61a81e26173bf00dd3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#acd507e166fb94f61a81e26173bf00dd3">&#9670;&nbsp;</a></span>Cone() <span class="overload">[1/3]</span></h2>
+<a id="aec709e915b3271a750d420b14b215bfb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aec709e915b3271a750d420b14b215bfb">&#9670;&nbsp;</a></span>Cone() <span class="overload">[1/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -245,7 +257,6 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">Cone::Cone </td>
           <td>(</td>
-          <td class="paramtype">void&#160;</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
@@ -254,7 +265,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Default constructor. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d5/def/_cone_8cpp_source.html#l00031">31</a> of file <a class="el" href="../../d5/def/_cone_8cpp_source.html">Cone.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d5/def/_cone_8cpp_source.html#l00036">36</a> of file <a class="el" href="../../d5/def/_cone_8cpp_source.html">Cone.cpp</a>.</p>
 
 </div>
 </div>
@@ -293,7 +304,7 @@ Additional Inherited Members</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d5/def/_cone_8cpp_source.html#l00035">35</a> of file <a class="el" href="../../d5/def/_cone_8cpp_source.html">Cone.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d5/def/_cone_8cpp_source.html#l00040">40</a> of file <a class="el" href="../../d5/def/_cone_8cpp_source.html">Cone.cpp</a>.</p>
 
 </div>
 </div>
@@ -329,12 +340,12 @@ Additional Inherited Members</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d5/def/_cone_8cpp_source.html#l00040">40</a> of file <a class="el" href="../../d5/def/_cone_8cpp_source.html">Cone.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d5/def/_cone_8cpp_source.html#l00045">45</a> of file <a class="el" href="../../d5/def/_cone_8cpp_source.html">Cone.cpp</a>.</p>
 
 </div>
 </div>
-<a id="af5d87fb81285aa7ef7d69f582a853481"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af5d87fb81285aa7ef7d69f582a853481">&#9670;&nbsp;</a></span>~Cone()</h2>
+<a id="a3cec1a2ec649e0855bde0202e89b282c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3cec1a2ec649e0855bde0202e89b282c">&#9670;&nbsp;</a></span>~Cone()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -345,27 +356,26 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">Cone::~Cone </td>
           <td>(</td>
-          <td class="paramtype">void&#160;</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">override</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
 <p>Destructor. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d5/def/_cone_8cpp_source.html#l00044">44</a> of file <a class="el" href="../../d5/def/_cone_8cpp_source.html">Cone.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d5/def/_cone_8cpp_source.html#l00052">52</a> of file <a class="el" href="../../d5/def/_cone_8cpp_source.html">Cone.cpp</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="ad6ff3f0e3fa9699661575b614ec8144e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad6ff3f0e3fa9699661575b614ec8144e">&#9670;&nbsp;</a></span>area()</h2>
+<a id="a8ed7d15fdae2b868de30da9b6830eca7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8ed7d15fdae2b868de30da9b6830eca7">&#9670;&nbsp;</a></span>area()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -383,7 +393,7 @@ Additional Inherited Members</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -399,12 +409,12 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Implements <a class="el" href="../../d5/d2a/class_face.html#adbf1fed785effdd5442e735468c7491b">Face</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="../../d5/def/_cone_8cpp_source.html#l00094">94</a> of file <a class="el" href="../../d5/def/_cone_8cpp_source.html">Cone.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d5/def/_cone_8cpp_source.html#l00102">102</a> of file <a class="el" href="../../d5/def/_cone_8cpp_source.html">Cone.cpp</a>.</p>
 
 </div>
 </div>
-<a id="a8905346ac9702c2a20a3ae1d1dca8396"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8905346ac9702c2a20a3ae1d1dca8396">&#9670;&nbsp;</a></span>area2_normal_center()</h2>
+<a id="ad0c465ed17366e62d2cdef32b9473a85"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad0c465ed17366e62d2cdef32b9473a85">&#9670;&nbsp;</a></span>area2_normal_center()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -432,7 +442,7 @@ Additional Inherited Members</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -449,12 +459,12 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Implements <a class="el" href="../../d5/d2a/class_face.html#a0f133c90064cad157b3ea79297ed0b31">Face</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="../../d5/def/_cone_8cpp_source.html#l00069">69</a> of file <a class="el" href="../../d5/def/_cone_8cpp_source.html">Cone.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d5/def/_cone_8cpp_source.html#l00077">77</a> of file <a class="el" href="../../d5/def/_cone_8cpp_source.html">Cone.cpp</a>.</p>
 
 </div>
 </div>
-<a id="aecfc760da38dfcb857a32a94e6487f13"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aecfc760da38dfcb857a32a94e6487f13">&#9670;&nbsp;</a></span>contains()</h2>
+<a id="a6715fa4cd55368d9782684bd59ee9edc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6715fa4cd55368d9782684bd59ee9edc">&#9670;&nbsp;</a></span>contains()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -482,7 +492,7 @@ Additional Inherited Members</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -499,12 +509,12 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Implements <a class="el" href="../../d5/d2a/class_face.html#aeb4776cf2c7b6432bd850fa04c68308a">Face</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="../../d5/def/_cone_8cpp_source.html#l00136">136</a> of file <a class="el" href="../../d5/def/_cone_8cpp_source.html">Cone.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d5/def/_cone_8cpp_source.html#l00156">156</a> of file <a class="el" href="../../d5/def/_cone_8cpp_source.html">Cone.cpp</a>.</p>
 
 </div>
 </div>
-<a id="ae050a4cc109f95322c94d226b211df29"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae050a4cc109f95322c94d226b211df29">&#9670;&nbsp;</a></span>distance()</h2>
+<a id="aec08db7aa55a21a6fdbdebf1172a9f48"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aec08db7aa55a21a6fdbdebf1172a9f48">&#9670;&nbsp;</a></span>distance()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -532,7 +542,7 @@ Additional Inherited Members</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -549,12 +559,12 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Implements <a class="el" href="../../d5/d2a/class_face.html#a4757e8d31bfdba5a98ae1bce11459681">Face</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="../../d5/def/_cone_8cpp_source.html#l00102">102</a> of file <a class="el" href="../../d5/def/_cone_8cpp_source.html">Cone.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d5/def/_cone_8cpp_source.html#l00110">110</a> of file <a class="el" href="../../d5/def/_cone_8cpp_source.html">Cone.cpp</a>.</p>
 
 </div>
 </div>
-<a id="aa3f04c3ce89820a946e76deb093bdcf9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa3f04c3ce89820a946e76deb093bdcf9">&#9670;&nbsp;</a></span>intercept()</h2>
+<a id="a194a71cd172dfd8d315b4097f6f9c6c6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a194a71cd172dfd8d315b4097f6f9c6c6">&#9670;&nbsp;</a></span>face_point()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -563,7 +573,97 @@ Additional Inherited Members</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual <a class="el" href="../../d8/d04/struct_ret_intercept.html">RetIntercept</a> Cone::intercept </td>
+          <td class="memname"><a class="el" href="../../d4/d4d/class_vector3d.html">Vector3d</a> Cone::face_point </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="../../da/d74/class_grid.html">Grid</a> &amp;&#160;</td>
+          <td class="paramname"><em>g</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="../../d4/d4d/class_vector3d.html">Vector3d</a> &amp;&#160;</td>
+          <td class="paramname"><em>w</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>A reference point on *this <a class="el" href="../../d5/d2a/class_face.html" title="Abstract base class for various Face types that define Zone objects. ">Face</a> (used by <a class="el" href="../../da/d50/class_zone.html#adab4ea5eeb863e154058d55a13c01522" title="Calculates a reference point within *this Zone. ">Zone::zone_point</a>) </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">g</td><td><a class="el" href="../../da/d74/class_grid.html" title="Grid of Node objects. ">Grid</a> of <a class="el" href="../../dc/d8f/class_node.html" title="Grid Node. ">Node</a> objects </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">w</td><td>Location of a point </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A reference point on *this <a class="el" href="../../d5/d2a/class_face.html" title="Abstract base class for various Face types that define Zone objects. ">Face</a> </dd></dl>
+
+<p>Implements <a class="el" href="../../d5/d2a/class_face.html#a1b3ff6e3cdae1065f47e53b9b945918f">Face</a>.</p>
+
+<p class="definition">Definition at line <a class="el" href="../../d5/def/_cone_8cpp_source.html#l00144">144</a> of file <a class="el" href="../../d5/def/_cone_8cpp_source.html">Cone.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a8bd873f28d1353cd6e25fe1b45827c14"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8bd873f28d1353cd6e25fe1b45827c14">&#9670;&nbsp;</a></span>get_endpoints()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::pair&lt; <a class="el" href="../../d4/d4d/class_vector3d.html">Vector3d</a>, <a class="el" href="../../d4/d4d/class_vector3d.html">Vector3d</a> &gt; Cone::get_endpoints </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="../../da/d74/class_grid.html">Grid</a> &amp;&#160;</td>
+          <td class="paramname"><em>g</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const double&#160;</td>
+          <td class="paramname"><em>phi</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>End points of *this <a class="el" href="../../d8/da1/class_cone.html" title="Conical ribbons for 2-D RZ geometry (derived from class Face) ">Cone</a> for a given azimuthal angle. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">g</td><td><a class="el" href="../../da/d74/class_grid.html" title="Grid of Node objects. ">Grid</a> </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">phi</td><td>Azimuthal angle (radians) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Pair of <a class="el" href="../../d4/d4d/class_vector3d.html" title="3-D Cartesian vectors ">Vector3d</a> objects with the "upper" one as first </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="../../d5/def/_cone_8cpp_source.html#l00306">306</a> of file <a class="el" href="../../d5/def/_cone_8cpp_source.html">Cone.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a680f4b877bb1a64048ecc79d092d857d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a680f4b877bb1a64048ecc79d092d857d">&#9670;&nbsp;</a></span>intercept()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../d8/d04/struct_ret_intercept.html">RetIntercept</a> Cone::intercept </td>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="../../da/d74/class_grid.html">Grid</a> &amp;&#160;</td>
           <td class="paramname"><em>g</em>, </td>
@@ -600,7 +700,7 @@ Additional Inherited Members</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -622,8 +722,8 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="afea6de6553d18cf5a6a1bf4c078cd174"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afea6de6553d18cf5a6a1bf4c078cd174">&#9670;&nbsp;</a></span>is_curved()</h2>
+<a id="a8017dbfc03bcfc53c6585c282427a82a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8017dbfc03bcfc53c6585c282427a82a">&#9670;&nbsp;</a></span>is_curved()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -641,7 +741,7 @@ Additional Inherited Members</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -651,12 +751,12 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Implements <a class="el" href="../../d5/d2a/class_face.html#ac80801c2a40600b47989051549a4173b">Face</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="../../d5/def/_cone_8cpp_source.html#l00048">48</a> of file <a class="el" href="../../d5/def/_cone_8cpp_source.html">Cone.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d5/def/_cone_8cpp_source.html#l00056">56</a> of file <a class="el" href="../../d5/def/_cone_8cpp_source.html">Cone.cpp</a>.</p>
 
 </div>
 </div>
-<a id="a460c5fec6bd39ebff0734ba99080a33c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a460c5fec6bd39ebff0734ba99080a33c">&#9670;&nbsp;</a></span>load()</h2>
+<a id="a3994b67a61776c4bedc058e0eef7a3a1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3994b67a61776c4bedc058e0eef7a3a1">&#9670;&nbsp;</a></span>load()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -674,7 +774,7 @@ Additional Inherited Members</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -689,12 +789,12 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Implements <a class="el" href="../../d5/d2a/class_face.html#a4207299828fadfb47528697a50ea1a6b">Face</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="../../d5/def/_cone_8cpp_source.html#l00062">62</a> of file <a class="el" href="../../d5/def/_cone_8cpp_source.html">Cone.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d5/def/_cone_8cpp_source.html#l00070">70</a> of file <a class="el" href="../../d5/def/_cone_8cpp_source.html">Cone.cpp</a>.</p>
 
 </div>
 </div>
-<a id="aada32efd5bd3aa235e8349c026a56ba1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aada32efd5bd3aa235e8349c026a56ba1">&#9670;&nbsp;</a></span>normal()</h2>
+<a id="ad621ca438bbb3edfd6a6f497b5febc0d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad621ca438bbb3edfd6a6f497b5febc0d">&#9670;&nbsp;</a></span>normal()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -712,7 +812,7 @@ Additional Inherited Members</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -728,12 +828,12 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Implements <a class="el" href="../../d5/d2a/class_face.html#aa41811786c1d08f7c48475c0ef75ab85">Face</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="../../d5/def/_cone_8cpp_source.html#l00086">86</a> of file <a class="el" href="../../d5/def/_cone_8cpp_source.html">Cone.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d5/def/_cone_8cpp_source.html#l00094">94</a> of file <a class="el" href="../../d5/def/_cone_8cpp_source.html">Cone.cpp</a>.</p>
 
 </div>
 </div>
-<a id="a563f388a4143967ac5193d9bf2ac670b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a563f388a4143967ac5193d9bf2ac670b">&#9670;&nbsp;</a></span>subpoint()</h2>
+<a id="af8052ebd52bd1571bc15dceb223625f2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af8052ebd52bd1571bc15dceb223625f2">&#9670;&nbsp;</a></span>subpoint()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -761,7 +861,7 @@ Additional Inherited Members</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -778,12 +878,12 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Implements <a class="el" href="../../d5/d2a/class_face.html#a89af36d9b614603ce160094e5eef00c6">Face</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="../../d5/def/_cone_8cpp_source.html#l00111">111</a> of file <a class="el" href="../../d5/def/_cone_8cpp_source.html">Cone.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d5/def/_cone_8cpp_source.html#l00119">119</a> of file <a class="el" href="../../d5/def/_cone_8cpp_source.html">Cone.cpp</a>.</p>
 
 </div>
 </div>
-<a id="a8c260772f3e1d6402e1cebed2fba87c7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8c260772f3e1d6402e1cebed2fba87c7">&#9670;&nbsp;</a></span>to_string()</h2>
+<a id="a94e954f2d51c6a007800a6d9fedd796d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a94e954f2d51c6a007800a6d9fedd796d">&#9670;&nbsp;</a></span>to_string()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -794,14 +894,13 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">std::string Cone::to_string </td>
           <td>(</td>
-          <td class="paramtype">void&#160;</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -809,14 +908,14 @@ Additional Inherited Members</h2></td></tr>
 <p>String representation of a <a class="el" href="../../d5/d2a/class_face.html" title="Abstract base class for various Face types that define Zone objects. ">Face</a> object. </p>
 <dl class="section return"><dt>Returns</dt><dd>String representation of *this </dd></dl>
 
-<p>Reimplemented from <a class="el" href="../../d5/d2a/class_face.html#a29a6245ec818d8e3d0273da161b7d63e">Face</a>.</p>
+<p>Reimplemented from <a class="el" href="../../d5/d2a/class_face.html#a9eb15d3270e66da022569ed401c22cc8">Face</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="../../d5/def/_cone_8cpp_source.html#l00055">55</a> of file <a class="el" href="../../d5/def/_cone_8cpp_source.html">Cone.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d5/def/_cone_8cpp_source.html#l00063">63</a> of file <a class="el" href="../../d5/def/_cone_8cpp_source.html">Cone.cpp</a>.</p>
 
 </div>
 </div>
-<a id="a5a72293dd1d74b692214595747651ea9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5a72293dd1d74b692214595747651ea9">&#9670;&nbsp;</a></span>velocity()</h2>
+<a id="a819ae8d4c945795d19c1ceb1ae3e6546"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a819ae8d4c945795d19c1ceb1ae3e6546">&#9670;&nbsp;</a></span>velocity()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -844,7 +943,7 @@ Additional Inherited Members</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -861,11 +960,37 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Implements <a class="el" href="../../d5/d2a/class_face.html#aa682b7975090b58f528a807b0f1a13fa">Face</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="../../d5/def/_cone_8cpp_source.html#l00201">201</a> of file <a class="el" href="../../d5/def/_cone_8cpp_source.html">Cone.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d5/def/_cone_8cpp_source.html#l00274">274</a> of file <a class="el" href="../../d5/def/_cone_8cpp_source.html">Cone.cpp</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
+<a id="a5515e368df933636f5dc3aed0be33c9e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5515e368df933636f5dc3aed0be33c9e">&#9670;&nbsp;</a></span>MINIMUM_DISTANCE</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const double Cone::MINIMUM_DISTANCE = 1.0e-6</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Hit points cannot be closer to a <a class="el" href="../../dc/d8f/class_node.html" title="Grid Node. ">Node</a> than this value. </p>
+
+<p class="definition">Definition at line <a class="el" href="../../df/df5/_cone_8h_source.html#l00099">99</a> of file <a class="el" href="../../df/df5/_cone_8h_source.html">Cone.h</a>.</p>
+
+</div>
+</div>
 <a id="ae301e45258f35c61b0ba44c306347d58"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ae301e45258f35c61b0ba44c306347d58">&#9670;&nbsp;</a></span>SMALL</h2>
 
@@ -876,7 +1001,7 @@ Additional Inherited Members</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">const double Cone::SMALL = 1.0e-8</td>
+          <td class="memname">const double Cone::SMALL = 5.0e-7</td>
         </tr>
       </table>
   </td>
@@ -888,7 +1013,33 @@ Additional Inherited Members</h2></td></tr>
 
 <p><a class="el" href="../../d8/da1/class_cone.html" title="Conical ribbons for 2-D RZ geometry (derived from class Face) ">Cone</a> with |dz| &lt;= SMALL is a flat hoop. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../df/df5/_cone_8h_source.html#l00034">34</a> of file <a class="el" href="../../df/df5/_cone_8h_source.html">Cone.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../df/df5/_cone_8h_source.html#l00096">96</a> of file <a class="el" href="../../df/df5/_cone_8h_source.html">Cone.h</a>.</p>
+
+</div>
+</div>
+<a id="aed2dae84cf088d81d675df6c957c76de"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aed2dae84cf088d81d675df6c957c76de">&#9670;&nbsp;</a></span>ZERO</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const double Cone::ZERO = 1.0e-19</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Effective zero squared distance near one of the edges. </p>
+
+<p class="definition">Definition at line <a class="el" href="../../df/df5/_cone_8h_source.html#l00102">102</a> of file <a class="el" href="../../df/df5/_cone_8h_source.html">Cone.h</a>.</p>
 
 </div>
 </div>
@@ -902,7 +1053,7 @@ Additional Inherited Members</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="../../d8/da1/class_cone.html">Cone</a></li>
-    <li class="footer">Generated on Wed Mar 6 2019 11:56:59 for FESTR by
+    <li class="footer">Generated on Fri Oct 9 2020 15:10:23 for FESTR by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.13 </li>
   </ul>

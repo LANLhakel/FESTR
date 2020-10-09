@@ -1,43 +1,33 @@
-#ifndef NODE_H
-#define NODE_H
+#ifndef LANL_ASC_PEM_NODE_H_
+#define LANL_ASC_PEM_NODE_H_
 
 /**
  * @file Node.h
  * @brief Grid Node
  * @author Peter Hakel
- * @version 0.8
+ * @version 0.9
  * @date Created on 19 November 2014\n
- * Last modified on 3 March 2019
+ * Last modified on 28 January 2020
  * @copyright (c) 2015, Triad National Security, LLC.
  * All rights reserved.\n
  * Use of this source code is governed by the BSD 3-Clause License.
  * See top-level license.txt file for full license text.
  */
 
-#include "Vector3d.h"
-#include <string>
+#include <Vector3d.h>
+
 #include <iostream>
+#include <string>
 
 //-----------------------------------------------------------------------------
 
 /// Grid Node
 class Node
 {
-private:
-
-    /// Node id
-    size_t i;
-
-    /// Node position
-    Vector3d r;
-
-    /// Node velocity
-    Vector3d v;
-
 public:
 
     /// Default constructor
-    Node(void);
+    Node();
 
     /**
      * @brief Parametrized constructor
@@ -54,9 +44,6 @@ public:
      */
     Node(const size_t iin, const Vector3d &rin, const Vector3d &vin);
 
-    /// Destructor
-    ~Node(void);
-
     /**
      * @brief Setter for Node id (Node::i)
      * @param[in] iin Node id
@@ -67,7 +54,7 @@ public:
      * @brief Getter for Node id (Node::i)
      * @return Node id
      */
-    size_t geti(void) const;
+    size_t geti() const;
     
     /**
      * @brief Setter for Node position (Node::r)
@@ -79,7 +66,7 @@ public:
      * @brief Getter for Node position (Node::r)
      * @return Node position
      */
-    Vector3d getr(void) const;
+    Vector3d getr() const;
 
     /**
      * @brief Setter for Node velocity (Node::v)
@@ -91,7 +78,7 @@ public:
      * @brief Getter for Node velocity (Node::v)
      * @return Node velocity
      */
-    Vector3d getv(void) const;
+    Vector3d getv() const;
 
     /**
      * @brief Absolute difference between two Nodes
@@ -104,8 +91,19 @@ public:
      * @brief String representation of a Node object
      * @return String representation of *this
      */
-    std::string to_string(void) const;
+    std::string to_string() const;
 
+
+private:
+
+    /// Node id
+    size_t i;
+
+    /// Node position
+    Vector3d r;
+
+    /// Node velocity
+    Vector3d v;
 };
 
 //-----------------------------------------------------------------------------
@@ -120,4 +118,4 @@ std::ostream & operator << (std::ostream &ost, const Node &o);
 
 //-----------------------------------------------------------------------------
 
-#endif // NODE_H
+#endif  // LANL_ASC_PEM_NODE_H

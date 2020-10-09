@@ -1,1 +1,1 @@
-g++ -g -O0 -o sph1d_img ../src/src/utilities.cpp sph1d_img.cpp
+g++ -std=c++11 -g -O0 -I../src/src/ -o sph1d_img ../src/src/constants.cpp ../src/src/utils.cpp sph1d_img.cpp

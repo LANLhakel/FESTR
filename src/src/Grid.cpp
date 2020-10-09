@@ -2,34 +2,34 @@
  * @file Grid.cpp
  * @brief Grid of Nodes
  * @author Peter Hakel
- * @version 0.8
+ * @version 0.9
  * @date Created on 21 November 2014\n
- * Last modified on 3 March 2019
+ * Last modified on 28 January 2020
  * @copyright (c) 2015, Triad National Security, LLC.
  * All rights reserved.\n
  * Use of this source code is governed by the BSD 3-Clause License.
  * See top-level license.txt file for full license text.
  */
 
-#include "Grid.h"
-#include "utilities.h"
+#include <Grid.h>
+
+#include <utils.h>
 
 //-----------------------------------------------------------------------------
 
-Grid::Grid(void): node(), num_nodes(0) {}
+Grid::Grid(): node(), num_nodes(0) {}
 
 //-----------------------------------------------------------------------------
 
 Grid::Grid(const std::string &path, const std::string &tlabel):
-    node(), num_nodes(0) {load(path, tlabel);}
+    node(), num_nodes(0)
+{
+    load(path, tlabel);
+}
 
 //-----------------------------------------------------------------------------
 
-Grid::~Grid(void) {clear();}
-
-//-----------------------------------------------------------------------------
-
-void Grid::clear(void)
+void Grid::clear()
 {
     num_nodes = 0;
     node.clear();
@@ -39,13 +39,24 @@ void Grid::clear(void)
 
 void Grid::add_node(const Node &nin)
 {
-    node.push_back(nin);
+    node.emplace_back(nin);
     ++num_nodes;
 }
 
 //-----------------------------------------------------------------------------
 
-Node Grid::get_node(const size_t i) const {return node.at(i);}
+void Grid::add_node(Node &&nin)
+{
+    node.emplace_back(nin);
+    ++num_nodes;
+}
+
+//-----------------------------------------------------------------------------
+
+Node Grid::get_node(const size_t i) const
+{
+    return node.at(i);
+}
 
 //-----------------------------------------------------------------------------
 
@@ -56,7 +67,7 @@ void Grid::replace_node(const Node &nin)
 
 //-----------------------------------------------------------------------------
 
-size_t Grid::size(void) const {return num_nodes;}
+size_t Grid::size() const {return num_nodes;}
 
 //-----------------------------------------------------------------------------
 
@@ -99,7 +110,7 @@ void Grid::load(const std::string &path, const std::string &tlabel)
     for (i = 0; i < num_nodes; ++i)
     {
         infile >> j >> rx >> ry >> rz >> vx >> vy >> vz;
-        node.push_back(Node(i, Vector3d(rx, ry, rz), Vector3d(vx, vy, vz)));
+        node.emplace_back(Node(i, Vector3d(rx, ry, rz), Vector3d(vx, vy, vz)));
     }
     infile.close();
     infile.clear();
@@ -107,7 +118,7 @@ void Grid::load(const std::string &path, const std::string &tlabel)
 
 //-----------------------------------------------------------------------------
 
-std::string Grid::to_string(void) const
+std::string Grid::to_string() const
 {
     std::string s = "";
     for (size_t i = 0; i < num_nodes; ++i)
@@ -128,4 +139,4 @@ std::ostream & operator << (std::ostream &ost, const Grid &o)
 
 //-----------------------------------------------------------------------------
 
-// end Grid.cpp
+//  end Grid.cpp

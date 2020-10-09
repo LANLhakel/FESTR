@@ -2,24 +2,24 @@
  * @file Surface.cpp
  * @brief A composite Face that is a collection of other Face objects
  * @author Peter Hakel
- * @version 0.8
+ * @version 0.9
  * @date Created on 16 December 2014\n
- * Last modified on 3 March 2019
+ * Last modified on 27 February 2020
  * @copyright (c) 2015, Triad National Security, LLC.
  * All rights reserved.\n
  * Use of this source code is governed by the BSD 3-Clause License.
  * See top-level license.txt file for full license text.
  */
 
-#include "Surface.h"
-#include "Polygon.h"
-#include "Sphere.h"
-#include "Cone.h"
+#include <Surface.h>
+
+#include <FaceFactory.h>
+
 #include <algorithm>
 
 //-----------------------------------------------------------------------------
 
-Surface::Surface(void): Face(), nfaces(0), face() {}
+Surface::Surface(): Face(), nfaces(0), face() {}
 
 //-----------------------------------------------------------------------------
 
@@ -30,42 +30,55 @@ Surface::Surface(const size_t my_zone_in, const short int my_id_in):
 
 Surface::Surface(const size_t my_zone_in, const short int my_id_in,
                  const size_t nin):
-    Face(my_zone_in, my_id_in), nfaces(0), face() {face.reserve(nin);}
+    Face(my_zone_in, my_id_in), nfaces(0), face()
+{
+    face.reserve(nin);
+}
 
 //-----------------------------------------------------------------------------
 
 Surface::Surface(const size_t nin): Face(), nfaces(0), face()
-{face.reserve(nin);}
+{
+    face.reserve(nin);
+}
 
 //-----------------------------------------------------------------------------
 
-Surface::Surface(std::ifstream &istr): Face(), nfaces(0), face() {load(istr);}
+Surface::Surface(std::ifstream &istr): Face(), nfaces(0), face()
+{
+    load(istr);
+}
 
 //-----------------------------------------------------------------------------
 
-Surface::~Surface(void) {clear();}
-
-//-----------------------------------------------------------------------------
-
-void Surface::clear(void)
+void Surface::clear()
 {
     nfaces = 0;
-    for_each(face.begin(), face.end(), utils::DeleteObject());
     face.clear();
     Face::clear();
 }
 
 //-----------------------------------------------------------------------------
 
-void Surface::add_face(const Face * const f) {face.push_back(f); ++nfaces;}
+void Surface::add_face(FacePtr f)
+{
+    face.emplace_back(std::move(f));
+    ++nfaces;
+}
 
 //-----------------------------------------------------------------------------
 
-const Face * Surface::get_face(const size_t i) const {return face.at(i);}
+FacePtr Surface::get_face(const size_t i) const
+{
+    return face.at(i);
+}
 
 //-----------------------------------------------------------------------------
 
-size_t Surface::size(void) const {return nfaces;}
+size_t Surface::size() const
+{
+    return nfaces;
+}
 
 //-----------------------------------------------------------------------------
 
@@ -77,7 +90,7 @@ bool Surface::is_curved(const Grid &g) const
 
 //-----------------------------------------------------------------------------
 
-std::string Surface::to_string(void) const
+std::string Surface::to_string() const
 {
     std::string s("Surface\n");
     s += utils::int_to_string(nfaces, ' ', cnst::INT_WIDTH) + "\n";
@@ -98,7 +111,7 @@ void Surface::load(std::ifstream &geometry)
     clear();
     geometry >> nfaces;
     load_face(geometry, 0); // Surface consists of Faces, not Nodes
-    #include "load_Faces.inc"
+    #include <load_Faces.inc>
 }
 
 //-----------------------------------------------------------------------------
@@ -147,6 +160,13 @@ Vector3d Surface::subpoint(const Grid &g, const Vector3d &w) const
 
 //-----------------------------------------------------------------------------
 
+Vector3d Surface::face_point(const Grid &g, const Vector3d &w) const
+{
+    return subpoint(g, w);
+}
+
+//-----------------------------------------------------------------------------
+
 bool Surface::contains(const Grid &g, const Vector3d &w) const
 {
     (void)(g);
@@ -186,4 +206,4 @@ Vector3d Surface::velocity(const Grid &g, const Vector3d &w) const
 
 //-----------------------------------------------------------------------------
 
-// end Surface.cpp
+//  end Surface.cpp

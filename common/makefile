@@ -2,17 +2,26 @@
 
 # Defaults
 
+# Operating system
+os = linux
+
 # Compiler choice
 comp = gnu
 
-# Optimization switch
-opt  = no
+# Language standard version
+OPTIONS := -std=c++11
 
-# OpenMP threading switch
-omp  = no
+# Optimization switch
+opt = no
 
 # MPI parallelization switch
-mpi  = no
+mpi = no
+
+# OpenMP threading switch
+omp = no
+
+# OpenMP vectorization switch
+simd = no
 
 # Boost library switch
 boost = no
@@ -20,19 +29,39 @@ boost = no
 # Archiver choice
 AR = ar rcs
 
+# "make" command
+MAKE = make
+
+# "remove" command
+RM = rm -rf
+
+# "copy" command
+CP = cp
+
+# Windows specifics
+ifeq ($(os),win)
+    MAKE = C:\MinGW\bin\mingw32-make
+    RM = del
+    CP = copy
+    OPTIONS += -DWIN
+endif
 
 # GNU compiler
 ifeq ($(comp),gnu)
     CXX = g++
 
     ifeq ($(opt),yes)
-        OPTIONS := -O3
+        OPTIONS += -O3
     else
-        OPTIONS := -g -O0 -Wall -pedantic
+        OPTIONS += -g -O0 -Wall -pedantic
     endif
 
     ifeq ($(omp),yes)
-        OPTIONS += -fopenmp -DOMPYES
+        OPTIONS += -DOMP -fopenmp
+    endif
+
+    ifeq ($(simd),yes)
+        OPTIONS += -DSIMD -fopenmp
     endif
 
 endif
@@ -43,18 +72,22 @@ ifeq ($(comp),intel)
     CXX = icpc
 
     ifeq ($(opt),yes)
-        OPTIONS := -O3 # -fast
+        OPTIONS += -O3 # -fast
     else
-        OPTIONS := -g -O0 -Wall
-    endif
-
-    ifeq ($(omp),yes)
-        OPTIONS += -qopenmp -DOMPYES
+        OPTIONS += -g -O0 -Wall
     endif
 
     ifeq ($(mpi),yes)
         CXX = mpicxx
-        OPTIONS += -DMPIYES
+        OPTIONS += -DMPI
+    endif
+
+    ifeq ($(omp),yes)
+        OPTIONS += -DOMP -qopenmp
+    endif
+
+    ifeq ($(simd),yes)
+        OPTIONS += -DSIMD -qopenmp
     endif
 
 endif
@@ -65,13 +98,17 @@ ifeq ($(comp),pgi)
     CXX = pgc++
 
     ifeq ($(opt),yes)
-        OPTIONS := -O3 # -Mipa=fast,inline
+        OPTIONS += -O3 # -Mipa=fast,inline
     else
-        OPTIONS := -g -O0 -Mbounds
+        OPTIONS += -g -O0 -Mbounds
     endif
 
     ifeq ($(omp),yes)
-        OPTIONS += -mp -DOMPYES
+        OPTIONS += -DOMP -mp
+    endif
+
+    ifeq ($(simd),yes)
+        OPTIONS += -DSIMD -mp
     endif
 
 endif
@@ -81,7 +118,7 @@ endif
 ifeq ($(comp),full)
     CXX = g++
 
-    OPTIONS := -g -O -Wall -Weffc++ -pedantic -pedantic-errors -Wextra -Wcast-align \
+    OPTIONS += -g -O0 -Wall -Weffc++ -pedantic -pedantic-errors -Wextra -Wcast-align \
                -Wcast-qual -Wchar-subscripts -Wcomment -Wconversion \
                -Wdisabled-optimization -Wfloat-equal \
                -Wformat -Wformat=2 -Wformat-nonliteral -Wformat-security \
@@ -95,7 +132,7 @@ ifeq ($(comp),full)
                -Wswitch-enum -Wtrigraphs -Wuninitialized \
                -Wunused-function -Wunused-label -Wunused-parameter \
                -Wunused-value -Wunused-variable -Wvariadic-macros \
-               -Wvolatile-register-var -Wwrite-strings
+               -Wvolatile-register-var -Wwrite-strings -fno-var-tracking
 endif
 
 # =============== Variables for common paths ===================
@@ -117,16 +154,16 @@ endif
 
 # =============== Variables for paths and file names ===========
 
-BUILDIR  =   build
+BUILDIR  =   ./build
 
 PROGRAM  =   $(patsubst %_main.cpp,%,$(wildcard *_main.cpp))
-PSRCLOC  =   src
+PSRCLOC  =   ./src
 PROGSRC  =   $(PROGRAM)_main.cpp
 PROGOBJ  =   $(BUILDIR)/$(PROGRAM)_main.o
 PROGLIB  =   lib$(PROGRAM).a
 PROGEXE  =   $(PROGRAM)
 
-TESTLOC  =   UniTest
+TESTLOC  =   ./UniTest
 TESTSRC  =   tests.cpp
 TESTOBJ  =   $(BUILDIR)/tests.o
 TESTLIB  =   libtest$(PROGRAM).a
@@ -139,7 +176,7 @@ TSTOBJ   =   $(BUILDIR)/Test.o \
              $(patsubst $(PSRCLOC)/%.cpp, $(BUILDIR)/test_%.o, \
              $(wildcard $(PSRCLOC)/*.cpp))
 
-OPTIONS += -I./$(PSRCLOC)
+OPTIONS += -I$(PSRCLOC)
 LOGFILE  =   $(BUILDIR)/makelog.txt
 
 $(eval CXXPATH = $(shell which $(CXX)))
@@ -168,7 +205,7 @@ $(BUILDIR)/%.o : $(PSRCLOC)/%.cpp
 
 lib$(PROGRAM).a : $(CPPOBJ)
 	@echo
-	@make log
+	@$(MAKE) log
 	$(AR) lib$(PROGRAM).a $^
 
 
@@ -176,24 +213,24 @@ lib$(PROGRAM).a : $(CPPOBJ)
 
 $(TESTEXE) : $(TESTOBJ) $(TESTLIB) $(PROGLIB)
 	@echo
-	$(CXX) $(OPTIONS) -I$(UNITEST) -L. -o $@ $< -ltest$(PROGRAM) -l$(PROGRAM) $(GSLLINK)
+	$(CXX) $(OPTIONS) -I$(UNITEST) -I$(TESTLOC) -L. -o $@ $< -ltest$(PROGRAM) -l$(PROGRAM) $(GSLLINK)
 
 
 # =============== Rules for the unit-test sources ==============
 
 $(TESTOBJ) : $(UNITEST)/$(TESTSRC) $(TESTLOC)/tests_headers.inc $(TESTLOC)/tests_runs.inc
 	@echo
-	@cp $< .
-	$(CXX) $(OPTIONS) -I$(UNITEST) -o $@ -c $(TESTSRC)
-	@rm -rf $(TESTSRC)
+	@$(CP) $< .
+	$(CXX) $(OPTIONS) -I$(UNITEST) -I$(TESTLOC) -o $@ -c $(TESTSRC)
+	@$(RM) $(TESTSRC)
 
 $(BUILDIR)/Test.o : $(UNITEST)/Test.cpp
 	@echo
-	$(CXX) $(OPTIONS) -I$(UNITEST) -o $@ -c $^
+	$(CXX) $(OPTIONS) -I$(UNITEST) -I$(TESTLOC) -o $@ -c $^
 
 $(BUILDIR)/%.o : $(TESTLOC)/%.cpp
 	@echo
-	$(CXX) $(OPTIONS) -I$(UNITEST) -o $@ -c $^
+	$(CXX) $(OPTIONS) -I$(UNITEST) -I$(TESTLOC) -o $@ -c $^
 
 libtest$(PROGRAM).a : $(TSTOBJ)
 	@echo
@@ -216,19 +253,19 @@ log :
 
 .PHONY : clean_obj
 clean_obj :
-	@rm -f $(PROGOBJ) $(CPPOBJ) $(TSTOBJ) $(TESTOBJ)
+	@$(RM) $(PROGOBJ) $(CPPOBJ) $(TSTOBJ) $(TESTOBJ)
 
 .PHONY : clean
 clean :
-	@make clean_obj
-	@rm -f lib$(PROGRAM).a libtest$(PROGRAM).a $(LOGFILE)
+	@$(MAKE) clean_obj
+	@$(RM) lib$(PROGRAM).a libtest$(PROGRAM).a $(LOGFILE)
 
 .PHONY : clean_exe
 clean_exe :
-	@rm -f $(PROGEXE) $(TESTEXE)
+	@$(RM) $(PROGEXE) $(TESTEXE)
 
 .PHONY : clean_all
 clean_all :
-	@make clean
-	@make clean_exe
+	@$(MAKE) clean
+	@$(MAKE) clean_exe
 

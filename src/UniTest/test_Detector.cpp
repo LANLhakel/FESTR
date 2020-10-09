@@ -10,14 +10,14 @@ Los Alamos National Laboratory
 XCP-5 group
 
 Created on 28 January 2015
-Last modified on 3 March 2019
+Last modified on 2 October 2020
 
 Copyright (c) 2015, Triad National Security, LLC.
 All rights reserved.
 Use of this source code is governed by the BSD 3-Clause License.
 See top-level license.txt file for full license text.
 
-CODE NAME:  FESTR, Version 0.8 (C15068)
+CODE NAME:  FESTR, Version 0.9 (C15068)
 Classification Review Number: LA-CC-15-045
 Export Control Classification Number (ECCN): EAR99
 B&R Code:  DP1516090
@@ -26,17 +26,17 @@ B&R Code:  DP1516090
 
 //  Note: only use trimmed strings for names
 
+#include <test_Detector.h>
 #include <Test.h>
-#include "../src/Detector.h"
-#include "../src/Sphere.h"
-#include "../src/Surface.h"
-#include "../src/Mesh.h"
+
+#include <Mesh.h>
+#include <Sphere.h>
+#include <Surface.h>
 
 #include <cstdlib>
 
 void test_Detector(int &failed_test_count, int &disabled_test_count)
 {
-
 const std::string GROUP = "Detector";
 const double EQT = 1.0e-15;
 
@@ -45,7 +45,7 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "to_string_empty", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
         Detector det;
@@ -54,6 +54,8 @@ const double EQT = 1.0e-15;
         s += "\nrx   0.000000e+00   0.000000e+00   0.000000e+00";
         s += "\nry   0.000000e+00   0.000000e+00   0.000000e+00";
         s += "\ndx   0.000000e+00\ndy   0.000000e+00";
+        s += "\npc   0.000000e+00   0.000000e+00   0.000000e+00";
+        s += "\ntheta_max   0.000000e+00";
         s += "\nfwhm  -1.000000e+00\nbacklighter none  -9.000000e+00";
         s += "\ntracking false";
         std::string expected(s);
@@ -66,17 +68,19 @@ const double EQT = 1.0e-15;
 //-----------------------------------------------------------------------------
 
 {
-    Test t(GROUP, "to_string", "fast");
+    Test t(GROUP, "to_string_flat", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        #include "detector_init.inc"
+        #include <detector_init.inc>
         std::string s("DetectorName");
         s += "\nrc   1.000000e+01   2.000000e+01   5.000000e+01";
         s += "\nrx   3.000000e+00   4.000000e+00   1.200000e+01";
         s += "\nry  -4.000000e+00   3.000000e+00   0.000000e+00";
         s += "\ndx   5.000000e-01\ndy   2.000000e-01";
+        s += "\npc  -1.000000e+00  -2.000000e+00  -3.000000e+00";
+        s += "\ntheta_max   0.000000e+00";
         s += "\nfwhm  -2.000000e+00\nbacklighter flat   7.000000e+00";
         s += "\ntracking true";
         std::string expected(s);
@@ -89,9 +93,34 @@ const double EQT = 1.0e-15;
 //-----------------------------------------------------------------------------
 
 {
+    Test t(GROUP, "to_string_file", "fast");
+
+    t.check_to_disable_test(disabled_test_count);
+    if (t.is_enabled())
+    {
+        #include <detector_file.inc>
+        std::string s("DetectorName");
+        s += "\nrc   2.000000e+00   0.000000e+00   0.000000e+00";
+        s += "\nrx   0.000000e+00   5.000000e-01   0.000000e+00";
+        s += "\nry   0.000000e+00   0.000000e+00   5.000000e-01";
+        s += "\ndx   2.000000e-01\ndy   1.000000e+00";
+        s += "\npc   0.000000e+00   0.000000e+00   0.000000e+00";
+        s += "\ntheta_max   0.000000e+00";
+        s += "\nfwhm  -2.000000e+00\nbacklighter file backlighter.txt";
+        s += "\ntracking false";
+        std::string expected(s);
+        std::string actual = det.to_string();
+
+        failed_test_count += t.check_equal(expected, actual);
+    }
+}
+
+//-----------------------------------------------------------------------------
+
+{
     Test t(GROUP, "path_empty", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
         Detector det;
@@ -107,10 +136,10 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "path", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        #include "detector_init.inc"
+        #include <detector_init.inc>
         std::string expected("UniTest/Output/");
         std::string actual = det.get_path();
 
@@ -123,20 +152,20 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "hv_grid", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        std::string fname(cnst::PATH + "UniTest/Output/DetectorName-hv_grid.txt");
-
+        std::string fname(cnststr::PATH + "UniTest/Output/DetectorName-hv_grid.txt");
+        #ifndef WIN
         std::string cmnd("rm -rf " + fname);
         if (system(cmnd.c_str()) != 0)
         {
             std::cerr << "\nError: system call failure in test "
-                      << "Detector_hv_grid" << std::endl;
+                      << "Detector-hv_grid" << std::endl;
             exit(EXIT_FAILURE);
         }
-
-        #include "detector_init.inc"
+        #endif
+        #include <detector_init.inc>
         std::string expected("\n Number of bits:\n           0\n\n");
         expected += " Number of grid points:\n           3\n\n";
         expected += " Grid points:\n           0     3.000000e+02\n";
@@ -151,22 +180,22 @@ const double EQT = 1.0e-15;
 //-----------------------------------------------------------------------------
 
 {
-    Test t(GROUP, "backlighter", "fast");
+    Test t(GROUP, "backlighter_flat", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        std::string fname(cnst::PATH + "UniTest/Output/DetectorName-backlighter.txt");
-
+        std::string fname(cnststr::PATH + "UniTest/Output/DetectorName-backlighter.txt");
+        #ifndef WIN
         std::string cmnd("rm -rf " + fname);
         if (system(cmnd.c_str()) != 0)
         {
             std::cerr << "\nError: system call failure in test "
-                      << "Detector_backlighter" << std::endl;
+                      << "Detector-backlighter" << std::endl;
             exit(EXIT_FAILURE);
         }
-
-        #include "detector_init.inc"
+        #endif
+        #include <detector_init.inc>
         std::string expected("DetectorName-backlighter\n");
         expected += "data in W/cm2/sr/eV\n";
         expected += "   7.000000e+00\n   7.000000e+00\n   7.000000e+00";
@@ -181,7 +210,7 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "dname_empty", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
         Detector det;
@@ -197,7 +226,7 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "fwhm_empty", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
         Detector det;
@@ -213,7 +242,7 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "back_type_empty", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
         Detector det;
@@ -229,7 +258,7 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "back_value_empty", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
         Detector det;
@@ -245,7 +274,7 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "tracking_empty", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
         Detector det;
@@ -261,10 +290,10 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "dname", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        #include "detector_init.inc"
+        #include <detector_init.inc>
         std::string expected("DetectorName");
         std::string actual = det.get_dname();
 
@@ -277,10 +306,10 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "symmetry", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        #include "detector_init.inc"
+        #include <detector_init.inc>
         std::string expected("none");
         std::string actual = det.get_symmetry();
 
@@ -293,10 +322,10 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "my_id", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        #include "detector_init.inc"
+        #include <detector_init.inc>
         int expected(7);
         int actual = det.get_my_id();
 
@@ -309,10 +338,10 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "rc", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        #include "detector_init.inc"
+        #include <detector_init.inc>
         Vector3d expected(10.0, 20.0, 50.0);
         Vector3d actual = det.get_rc();
 
@@ -325,10 +354,10 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "rx", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        #include "detector_init.inc"
+        #include <detector_init.inc>
         Vector3d expected(3.0, 4.0, 12.0);
         Vector3d actual = det.get_rx();
 
@@ -341,10 +370,10 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "ry", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        #include "detector_init.inc"
+        #include <detector_init.inc>
         Vector3d expected(-4.0, 3.0, 0.0);
         Vector3d actual = det.get_ry();
 
@@ -357,10 +386,10 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "ex", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        #include "detector_init.inc"
+        #include <detector_init.inc>
         Vector3d expected(3.0/13.0, 4.0/13.0, 12.0/13.0);
         Vector3d actual = det.get_ex();
 
@@ -373,10 +402,10 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "ey", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        #include "detector_init.inc"
+        #include <detector_init.inc>
         Vector3d expected(-0.8, 0.6, 0.0);
         Vector3d actual = det.get_ey();
 
@@ -389,10 +418,10 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "ez", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        #include "detector_init.inc"
+        #include <detector_init.inc>
         Vector3d expected(-0.55384615384615388,
                           -0.7384615384615385,
                            0.38461538461538464);
@@ -405,12 +434,28 @@ const double EQT = 1.0e-15;
 //-----------------------------------------------------------------------------
 
 {
-    Test t(GROUP, "nhv", "fast");
+    Test t(GROUP, "pc", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        #include "detector_init.inc"
+        #include <detector_init.inc>
+        Vector3d expected(-1.0, -2.0, -3.0);
+        Vector3d actual = det.get_pc();
+
+        failed_test_count += t.check_equal_real_obj(expected, actual, EQT);
+    }
+}
+
+//-----------------------------------------------------------------------------
+
+{
+    Test t(GROUP, "nhv", "fast");
+
+    t.check_to_disable_test(disabled_test_count);
+    if (t.is_enabled())
+    {
+        #include <detector_init.inc>
         size_t expected(3);
         size_t actual = det.get_nhv();
 
@@ -423,10 +468,10 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "hv", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        #include "detector_init.inc"
+        #include <detector_init.inc>
         std::string expected = utils::double_to_string(300.0)
                              + utils::double_to_string(600.0)
                              + utils::double_to_string(900.0);
@@ -442,10 +487,10 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "fwhm", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        #include "detector_init.inc"
+        #include <detector_init.inc>
         double expected(-2.0);
         double actual = det.get_fwhm();
 
@@ -458,10 +503,10 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "nx", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        #include "detector_init.inc"
+        #include <detector_init.inc>
         size_t expected(52);
         size_t actual = det.get_nx();
 
@@ -474,10 +519,10 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "ny", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        #include "detector_init.inc"
+        #include <detector_init.inc>
         size_t expected(50);
         size_t actual = det.get_ny();
 
@@ -490,10 +535,10 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "vertex0", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        #include "detector_init.inc"
+        #include <detector_init.inc>
         Vector3d expected(11.0, 13.0, 38.0);
         Vector3d actual = det.get_vertex(0);
 
@@ -506,10 +551,10 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "vertex1", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        #include "detector_init.inc"
+        #include <detector_init.inc>
         Vector3d expected(17.0, 21.0, 62.0);
         Vector3d actual = det.get_vertex(1);
 
@@ -522,10 +567,10 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "vertex2", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        #include "detector_init.inc"
+        #include <detector_init.inc>
         Vector3d expected(9.0, 27.0, 62.0);
         Vector3d actual = det.get_vertex(2);
 
@@ -538,10 +583,10 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "vertex3", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        #include "detector_init.inc"
+        #include <detector_init.inc>
         Vector3d expected(3.0, 19.0, 38.0);
         Vector3d actual = det.get_vertex(3);
 
@@ -554,10 +599,10 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "ux", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        #include "detector_init.inc"
+        #include <detector_init.inc>
         Vector3d expected(3.0/26.0, 4.0/26.0, 12.0/26.0);
         Vector3d actual = det.get_ux();
 
@@ -570,10 +615,10 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "uy", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        #include "detector_init.inc"
+        #include <detector_init.inc>
         Vector3d expected(-0.16, 0.12, 0.0);
         Vector3d actual = det.get_uy();
 
@@ -586,10 +631,10 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "ro", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        #include "detector_init.inc"
+        #include <detector_init.inc>
         double x = 11.0  +  1.5 / 26.0  -  0.08;
         double y = 13.0  +  2.0 / 26.0  +  0.06;
         double z = 38.0  +  6.0 / 26.0;
@@ -605,10 +650,10 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "theta_max_init", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        #include "detector_init.inc"
+        #include <detector_init.inc>
         double expected(0.0);
         double actual = det.get_theta_max();
 
@@ -621,10 +666,10 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "ntheta_init", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        #include "detector_init.inc"
+        #include <detector_init.inc>
         size_t expected(0);
         size_t actual = det.get_ntheta();
 
@@ -637,10 +682,10 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "nphi_init", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        #include "detector_init.inc"
+        #include <detector_init.inc>
         size_t expected(0);
         size_t actual = det.get_nphi();
 
@@ -653,10 +698,10 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "dtheta_init", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        #include "detector_init.inc"
+        #include <detector_init.inc>
         double expected(0.0);
         double actual = det.get_dtheta();
 
@@ -669,10 +714,10 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "dtheta2_init", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        #include "detector_init.inc"
+        #include <detector_init.inc>
         double expected(0.0);
         double actual = det.get_dtheta2();
 
@@ -685,10 +730,10 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "dphi_init", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        #include "detector_init.inc"
+        #include <detector_init.inc>
         double expected(0.0);
         double actual = det.get_dphi();
 
@@ -701,10 +746,10 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "theta_max", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        #include "detector_init.inc"
+        #include <detector_init.inc>
         det.set_bundle(1.5, 30, 360);
         double expected(1.5);
         double actual = det.get_theta_max();
@@ -718,10 +763,10 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "ntheta", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        #include "detector_init.inc"
+        #include <detector_init.inc>
         det.set_bundle(1.5, 30, 360);
         size_t expected(30);
         size_t actual = det.get_ntheta();
@@ -735,10 +780,10 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "nphi", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        #include "detector_init.inc"
+        #include <detector_init.inc>
         det.set_bundle(1.5, 30, 360);
         size_t expected(360);
         size_t actual = det.get_nphi();
@@ -752,10 +797,10 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "dtheta", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        #include "detector_init.inc"
+        #include <detector_init.inc>
         det.set_bundle(1.5, 30, 360);
         double expected(0.05);
         double actual = det.get_dtheta();
@@ -769,10 +814,10 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "dtheta2", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        #include "detector_init.inc"
+        #include <detector_init.inc>
         det.set_bundle(1.5, 30, 360);
         double expected(0.025);
         double actual = det.get_dtheta2();
@@ -786,10 +831,10 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "dphi", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        #include "detector_init.inc"
+        #include <detector_init.inc>
         det.set_bundle(1.5, 30, 360);
         double expected(cnst::PI/180.0); // 0.017453292519943295
         double actual = det.get_dphi();
@@ -803,11 +848,11 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "theta_max", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        #include "detector_init.inc"
-        #include "mesh.inc"
+        #include <detector_init.inc>
+        #include <mesh.inc>
         double expected(0.22436832280435448);
         double actual = det.compute_theta_max(sc, 13.0);
 
@@ -820,11 +865,11 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "get_bx", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        #include "detector_init.inc"
-        #include "mesh.inc"
+        #include <detector_init.inc>
+        #include <mesh.inc>
         Vector3d expected(0.5457958860232597,
                           0.727727848031013,
                           -0.4153541019422291);
@@ -839,11 +884,11 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "get_by", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        #include "detector_init.inc"
-        #include "mesh.inc"
+        #include <detector_init.inc>
+        #include <mesh.inc>
         Vector3d expected(-0.8164952874166548,
                           0.5732739253570094,
                           -0.06850147540133968);
@@ -858,11 +903,11 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "get_bz", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        #include "detector_init.inc"
-        #include "mesh.inc"
+        #include <detector_init.inc>
+        #include <mesh.inc>
         Vector3d expected(0.1882612451527908,
                           0.3765224903055816,
                           0.9070769084634466);
@@ -877,11 +922,11 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "local_to_global", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        #include "detector_init.inc"
-        #include "mesh.inc"
+        #include <detector_init.inc>
+        #include <mesh.inc>
         Vector3d expected(2.743570196314942,
                           0.7107474682337391,
                           2.4428795742507896);
@@ -896,10 +941,10 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "patch_string_symmetry_none", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        #include "detector_init.inc"
+        #include <detector_init.inc>
         IntPair patch(2, 1);
         std::string expected;
         expected = ("ix  2   1.250000e+00 cm\niy  1   3.000000e-01 cm\n");
@@ -914,10 +959,10 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "patch_string_symmetry_spherical", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        #include "detector_sph.inc"
+        #include <detector_sph.inc>
         IntPair patch(2, 1);
         std::string expected;
         expected = ("ix 2   4.000000e-01 cm\niy 1   0.000000e+00 cm\n");
@@ -932,10 +977,10 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "sph_nx", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        #include "detector_sph.inc"
+        #include <detector_sph.inc>
         size_t expected(3);
         size_t actual = det.get_nx();
 
@@ -948,10 +993,10 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "sph_ny", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        #include "detector_sph.inc"
+        #include <detector_sph.inc>
         size_t expected(1);
         size_t actual = det.get_ny();
 
@@ -964,10 +1009,10 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "sph_back_type", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        #include "detector_sph.inc"
+        #include <detector_sph.inc>
         std::string expected("blackbody");
         std::string actual = det.get_back_type();
 
@@ -980,10 +1025,10 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "sph_back_value", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        #include "detector_sph.inc"
+        #include <detector_sph.inc>
         double expected(7.0);
         double actual = det.get_back_value();
 
@@ -996,10 +1041,10 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "sph_tracking", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        #include "detector_sph.inc"
+        #include <detector_sph.inc>
         bool expected(false);
         bool actual = det.get_tracking();
 
@@ -1010,12 +1055,44 @@ const double EQT = 1.0e-15;
 //-----------------------------------------------------------------------------
 
 {
-    Test t(GROUP, "init_jmin", "fast");
+    Test t(GROUP, "file_back_type", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        #include "detector_init.inc"
+        #include <detector_file.inc>
+        std::string expected("file");
+        std::string actual = det.get_back_type();
+
+        failed_test_count += t.check_equal(expected, actual);
+    }
+}
+
+//-----------------------------------------------------------------------------
+
+{
+    Test t(GROUP, "file_back_value", "fast");
+
+    t.check_to_disable_test(disabled_test_count);
+    if (t.is_enabled())
+    {
+        #include <detector_file.inc>
+        double expected(-5.0);
+        double actual = det.get_back_value();
+
+        failed_test_count += t.check_equal_real_num(expected, actual, EQT);
+    }
+}
+
+//-----------------------------------------------------------------------------
+
+{
+    Test t(GROUP, "init_jmin", "fast");
+
+    t.check_to_disable_test(disabled_test_count);
+    if (t.is_enabled())
+    {
+        #include <detector_init.inc>
         size_t expected(0);
         size_t actual = det.get_jmin();
 
@@ -1028,10 +1105,10 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "init_hvmin", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        #include "detector_init.inc"
+        #include <detector_init.inc>
         double expected(300.0);
         double actual = det.get_hvmin();
 
@@ -1044,10 +1121,10 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "init_jmax", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        #include "detector_init.inc"
+        #include <detector_init.inc>
         size_t expected(2);
         size_t actual = det.get_jmax();
 
@@ -1060,10 +1137,10 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "init_hvmax", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        #include "detector_init.inc"
+        #include <detector_init.inc>
         double expected(900.0);
         double actual = det.get_hvmax();
 
@@ -1076,10 +1153,10 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "hv_grid_jmin", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        #include "detector_hv_grid.inc"
+        #include <detector_hv_grid.inc>
         size_t expected(1);
         size_t actual = det.get_jmin();
 
@@ -1092,10 +1169,10 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "hv_grid_hvmin", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        #include "detector_hv_grid.inc"
+        #include <detector_hv_grid.inc>
         double expected(600.0);
         double actual = det.get_hvmin();
 
@@ -1108,10 +1185,10 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "hv_grid_jmax", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        #include "detector_hv_grid.inc"
+        #include <detector_hv_grid.inc>
         size_t expected(1);
         size_t actual = det.get_jmax();
 
@@ -1124,10 +1201,10 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "hv_grid_hvmax", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        #include "detector_hv_grid.inc"
+        #include <detector_hv_grid.inc>
         double expected(600.0);
         double actual = det.get_hvmax();
 
@@ -1140,10 +1217,10 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "hv_grid_nhv", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        #include "detector_hv_grid.inc"
+        #include <detector_hv_grid.inc>
         size_t expected(1);
         size_t actual = det.get_nhv();
 
@@ -1156,10 +1233,10 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "hv_grid_back_type", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        #include "detector_hv_grid.inc"
+        #include <detector_hv_grid.inc>
         std::string expected("blackbody");
         std::string actual = det.get_back_type();
 
@@ -1172,10 +1249,10 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "hv_grid_back_value", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        #include "detector_hv_grid.inc"
+        #include <detector_hv_grid.inc>
         double expected(7.0);
         double actual = det.get_back_value();
 
@@ -1188,10 +1265,10 @@ const double EQT = 1.0e-15;
 {
     Test t(GROUP, "hv_grid_tracking", "fast");
 
-    check_to_disable_test(t, disabled_test_count);
+    t.check_to_disable_test(disabled_test_count);
     if (t.is_enabled())
     {
-        #include "detector_hv_grid.inc"
+        #include <detector_hv_grid.inc>
         bool expected(false);
         bool actual = det.get_tracking();
 
@@ -1203,4 +1280,4 @@ const double EQT = 1.0e-15;
 
 }
 
-// end test_Detector.cpp
+//  end test_Detector.cpp
