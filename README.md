@@ -251,7 +251,7 @@ Version Log:
         the raytracer in case of Mesh of Cones with Rays grazing nearly parallel
         to near-disk Cone Faces:
         *) Cone::SMALL is now 5.0e-7 cm instead of the original 1.0e-8 cm,
-        *) Cone::MINIMUM_DISTACE = 1.0e-6 cm was added (Rays hitting a Cone
+        *) Cone::MINIMUM_DISTANCE = 1.0e-6 cm was added (Rays hitting a Cone
            within this distance of one of its Nodes are moved inward along the
            Cone to this distance, Vector3d::linear_Vector3d_fit() was added to
            facilitate the associated interpolation, Cone::get_endpoints() was
