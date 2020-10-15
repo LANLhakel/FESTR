@@ -224,7 +224,7 @@ Version Log:
 -------------------------------------------------------------------------------
 
 0.9, October 2020
-     Release: festr_v0.9.tgz:
+     Release of version 0.9:
      *) The code was upgraded to the C++11 standard and ported to Windows 10;
         the makefile was changed to support Windows compilation using MinGW,
      *) raw pointers inside containers were replaced with smart pointers,
