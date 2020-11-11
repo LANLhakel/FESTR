@@ -4,7 +4,7 @@
  * @author Peter Hakel
  * @version 0.9
  * @date Created on 23 October 2014\n
- * Last modified on 6 October 2020
+ * Last modified on 10 November 2020
  * @copyright (c) 2015, Triad National Security, LLC.
  * All rights reserved.\n
  * Use of this source code is governed by the BSD 3-Clause License.
@@ -15,7 +15,7 @@
 
 Finite-Element Spectral Transfer of Radiation
 
-festr.cpp
+festr_main.cpp
 
 CODE NAME:  FESTR, Version 0.9 (C15068)
 Classification Review Number: LA-CC-15-045
@@ -29,6 +29,7 @@ B&R Code:  DP1516090
 #include <Hydro.h>
 #include <utils.h>
 
+#include <chrono>
 #include <cstdlib>
 #include <fstream>
 #include <iostream>
@@ -55,6 +56,9 @@ void print_usage()
 /** @brief Main driver of this code */
 int main(int argc, char **argv)
 {
+    using namespace std::chrono;
+    auto t_begin = high_resolution_clock::now();
+
     const int level = 0; // indentation level for local Progress objects
 
 std::string license("Copyright (c) 2015, Triad National Security, LLC");
@@ -105,7 +109,7 @@ license += "POSSIBILITY OF SUCH DAMAGE.\n";
 
     std::cout << license
               << "\nFESTR: Finite-Element Spectral Transfer of Radiation, "
-              << "Version 0.9, October 2020\n" << std::endl;
+              << "Version 0.9, November 2020\n" << std::endl;
 
     if (argc != 2)
     {
@@ -211,7 +215,11 @@ license += "POSSIBILITY OF SUCH DAMAGE.\n";
     #ifdef MPI
     MPI_Finalize();
     #endif
-    std::cout << "\nend" << std::endl;
+
+    auto t_end = high_resolution_clock::now();
+    auto time_span = duration_cast<duration<double>>(t_end - t_begin);
+    std::cout << "Elapsed time: " << time_span.count() << " seconds.";
+    std::cout << "\n\nend" << std::endl;
 
     return EXIT_SUCCESS;
 }
