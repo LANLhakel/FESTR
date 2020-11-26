@@ -4,7 +4,7 @@
  * @author Peter Hakel
  * @version 0.9
  * @date Created on 20 November 2014\n
- * Last modified on 26 June 2020
+ * Last modified on 26 November 2020
  * @copyright (c) 2015, Triad National Security, LLC.
  * All rights reserved.\n
  * Use of this source code is governed by the BSD 3-Clause License.
@@ -103,7 +103,7 @@ std::string utils::file_to_string(const std::string &fname)
     if (!infile.is_open())
     {
         std::cerr << "Error: file " << fname << " is not open in "
-                  << "utilities::file_to_string" << std::endl;
+                  << "utils::file_to_string" << std::endl;
         exit(EXIT_FAILURE);
     }
     std::string s((std::istreambuf_iterator<char>(infile)),
@@ -243,7 +243,7 @@ void utils::load_eos(const std::string &fname, const size_t n,
     if (!infile.is_open())
     {
         std::cerr << "Error: file " << fname << " is not open in "
-                  << "utilities::load_eos" << std::endl;
+                  << "utils::load_eos" << std::endl;
         exit(EXIT_FAILURE);
     }
 
@@ -337,7 +337,7 @@ std::vector<double> utils::get_grid(const double xlow, const double xhigh,
     }
     else
     {
-        std::cerr << "Error in get_grid (utilities.cpp), "
+        std::cerr << "Error in get_grid (utils.cpp), "
                   << "unknown mode: " << mode << std::endl;
         exit(EXIT_FAILURE);
     }
@@ -404,7 +404,7 @@ bool utils::string_to_bool(std::string b)
     std::transform(b.begin(), b.end(), b.begin(), ::tolower);
     if (b == "true" || b == "on" || b == "1" || b == "yes") return true;
     if (b == "false" || b == "off" || b == "0" || b == "no") return false;
-    std::cerr << "Error in string_to_bool (utilities), unknown argument: "
+    std::cerr << "Error in string_to_bool (utils), unknown argument: "
               << b << std::endl;
     exit(EXIT_FAILURE);
 }
