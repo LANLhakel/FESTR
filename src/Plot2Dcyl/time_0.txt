@@ -1,0 +1,28 @@
+time 0.0e-9 s
+
+Zone 0
+te 0 eV
+tr 0 eV
+np 0 particles/cm3
+nmat 0
+material fraction
+
+Zone 1
+te 6400 eV
+tr 200 eV
+np 1.0e16 particles/cm3
+nmat 3
+material fraction
+h        0.5
+d        0.1
+ar       0.4
+
+Zone 2
+te 6400 eV
+tr 200 eV
+np 1.0e16 particles/cm3
+nmat 3
+material fraction
+h        0.1
+d        0.5
+ar       0.4

@@ -1,0 +1,1 @@
+g++ -std=c++11 -I../src -o plot2dcyl ../src/constants.cpp ../src/utils.cpp ../src/Vector3d.cpp ../src/Node.cpp ../src/Grid.cpp ../src/Face.cpp ../src/Polygon.cpp plot2dcyl_main.cpp -lpthread
