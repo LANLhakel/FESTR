@@ -16,7 +16,7 @@ Output file 2: d_0.dat
 Peter Hakel, LANL XCP-5
 
 Created on 18 August 2021
-Last modified on 30 August 2021
+Last modified on 15 November 2021
 
 Copyright (c) 2015, Triad National Security, LLC.
 All rights reserved.
@@ -34,6 +34,42 @@ See top-level license.txt file for full license text.
 #include <mutex>
 #include <thread>
 #include <vector>
+
+//-----------------------------------------------------------------------------
+
+template <typename T> // T must be callable as void(const int64_t ibegin, const int64_t iend)
+void thread_tasks(T tasks, const int64_t ntasks, const int nthreads)
+{
+    if (nthreads == 1)
+    {
+        tasks(0, ntasks);
+    }
+    else
+    {
+        std::vector<std::thread> t;
+        if (ntasks <= nthreads)
+        {
+            for (int64_t i = 1; i < ntasks; ++i)
+            {
+                t.emplace_back(std::thread(tasks, i, i+1));
+            }
+            tasks(0, 1);
+        }
+        else
+        {
+            int64_t blocksize = ntasks / nthreads;
+            for (int i = 0; i < nthreads-1; ++i)
+            {
+                t.emplace_back(std::thread(tasks, i*blocksize, (i+1)*blocksize));
+            }
+            tasks((nthreads-1)*blocksize, ntasks);
+        }
+        for (int64_t i = 0; i < t.size(); ++i)
+        {
+            t[i].join();
+        }
+    }
+}
 
 //-----------------------------------------------------------------------------
 
@@ -130,8 +166,12 @@ int main(int argc, char **argv)
     int64_t nx = utils::nint(xmax/d) + 1;
     int64_t ny = utils::nint((ymax-ymin)/d) + 1;
     std::cout << "nx: " << nx << "\nny: " << ny << std::endl;
+    // z0: values
     std::vector<double> z0(nx, 0.0); // horizontal (x) index is 2nd (faster moving)
     std::vector<std::vector<double>> z(ny, z0); // vertical (y) index is 1st
+    // p0: paint flags
+    std::vector<int> p0(nx, 0.0); // horizontal (x) index is 2nd (faster moving)
+    std::vector<std::vector<int>> painted(ny, p0); // vertical (y) index is 1st
 
     std::string ftime = "./time_" + std::string(argv[1]) + ".txt";
     std::ifstream timef(ftime.c_str());
@@ -215,6 +255,7 @@ int main(int argc, char **argv)
         if (zone.contains(g, Vector3d(xp, yp, 0.0)))
         {
             z[iyc][ixc] = val; // paint the (approximate) center of the zone
+            painted[iyc][ixc] = 1;
 
             // limiting indeces for the square expanding around ixc, iyc
             int64_t ixmin = ixc;
@@ -237,12 +278,17 @@ int main(int argc, char **argv)
                 // south edge
                 xp = xmin  +  ixmin * d;
                 yp = ymin  +  iymin * d;
+                if (iymin >= 0  &&  iymin < ny)
                 for (ix = ixmin; ix <= ixmax; ++ix)
                 {
                     if (zone.contains(g, Vector3d(xp, yp, 0.0)))
                     {
                         all_are_outside = false;
-                        z[iymin][ix] = val;
+                        if (ix >= 0  &&  ix < nx)
+                        {
+                            z[iymin][ix] = val;
+                            painted[iymin][ix] = 1;
+                        }
                     }
                     xp += d;
                 }
@@ -250,40 +296,61 @@ int main(int argc, char **argv)
                 // east edge
                 xp = xmin  +  ixmax * d;
                 yp = ymin  +  iymin * d;
-                for (iy = iymin; iy <= iymax; ++iy)
+                if (ixmax >= 0  &&  ixmax < nx)
                 {
-                    if (zone.contains(g, Vector3d(xp, yp, 0.0)))
+                    for (iy = iymin; iy <= iymax; ++iy)
                     {
-                        all_are_outside = false;
-                        z[iy][ixmax] = val;
+                        if (zone.contains(g, Vector3d(xp, yp, 0.0)))
+                        {
+                            all_are_outside = false;
+                            if (iy >= 0  &&  iy < ny)
+                            {
+                                z[iy][ixmax] = val;
+                                painted[iy][ixmax] = 1;
+                            }
+                        }
+                        yp += d;
                     }
-                    yp += d;
                 }
 
                 // north edge
                 xp = xmin  +  ixmin * d;
                 yp = ymin  +  iymax * d;
-                for (ix = ixmin; ix <= ixmax; ++ix)
+                if (iymax >= 0  &&  iymax < ny)
                 {
-                    if (zone.contains(g, Vector3d(xp, yp, 0.0)))
+                    for (ix = ixmin; ix <= ixmax; ++ix)
                     {
-                        all_are_outside = false;
-                        z[iymax][ix] = val;
+                        if (zone.contains(g, Vector3d(xp, yp, 0.0)))
+                        {
+                            all_are_outside = false;
+                            if (ix >= 0  &&  ix < nx)
+                            {
+                                z[iymax][ix] = val;
+                                painted[iymax][ix] = 1;
+                            }
+                        }
+                        xp += d;
                     }
-                    xp += d;
                 }
 
                 // west edge
                 xp = xmin  +  ixmin * d;
                 yp = ymin  +  iymin * d;
-                for (iy = iymin; iy <= iymax; ++iy)
+                if (ixmin >= 0  &&  ixmin < nx)
                 {
-                    if (zone.contains(g, Vector3d(xp, yp, 0.0)))
+                    for (iy = iymin; iy <= iymax; ++iy)
                     {
-                        all_are_outside = false;
-                        z[iy][ixmin] = val;
+                        if (zone.contains(g, Vector3d(xp, yp, 0.0)))
+                        {
+                            all_are_outside = false;
+                            if (iy >= 0  &&  iy < ny)
+                            {
+                                z[iy][ixmin] = val;
+                                painted[iy][ixmin] = 1;
+                            }
+                        }
+                        yp += d;
                     }
-                    yp += d;
                 }
 
                 if (all_are_outside) break;
@@ -317,6 +384,24 @@ int main(int argc, char **argv)
     process_zones();
     for (int ith = 1; ith < nth; ++ith) th[ith].join();
 
+    // painting skipped points
+    auto paint_row = [&](const int64_t iy)
+    {
+        for (int64_t ix = nx-1; ix > 0; --ix)
+        {
+            if (painted[iy][ix-1] == 0   &&   painted[iy][ix] == 1)
+            {
+                z[iy][ix-1] = z[iy][ix];
+                painted[iy][ix-1] = 1;
+            }
+        }
+    };
+    auto paint_rows = [&](const int64_t ibegin, const int64_t iend)
+    {
+        for (int64_t iy = ibegin; iy < iend; ++iy) paint_row(iy);
+    };
+    thread_tasks(paint_rows, ny, nth);
+
     // write output file
     std::string pfname = "./" + q + "_" + tlabel + ".dat";
     std::cout << "writing output file: " << pfname << std::endl;
@@ -343,3 +428,4 @@ int main(int argc, char **argv)
 //-----------------------------------------------------------------------------
 
 // end plot2dcyl_main.cpp
+
