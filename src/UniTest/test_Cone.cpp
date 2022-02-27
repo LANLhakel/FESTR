@@ -10,7 +10,7 @@ Los Alamos National Laboratory
 XCP-5 group
 
 Created on 14 May 2015
-Last modified on 2 October 2020
+Last modified on 17 February 2022
 
 Copyright (c) 2015, Triad National Security, LLC.
 All rights reserved.
@@ -1848,6 +1848,38 @@ const double EQT = 1.0e-15;
         #include <cone_endpoints.inc>
         Vector3d expected(1.0, sqrt(3.0), 0.0);
         Vector3d actual = f->get_endpoints(g, phi).second;
+        failed_test_count += t.check_equal_real_obj(expected, actual, EQT);
+    }
+}
+
+//-----------------------------------------------------------------------------
+
+{
+    Test t(GROUP, "vertical_ray_t", "fast");
+
+    t.check_to_disable_test(disabled_test_count);
+    if (t.is_enabled())
+    {
+        #include <cone_vertical_ray.inc>
+        double expected = 6.66961938e-10;
+        double actual = f->intercept(g, p, u, EQT, fid).t;
+
+        failed_test_count += t.check_equal_real_num(expected, actual, EQT);
+    }
+}
+
+//-----------------------------------------------------------------------------
+
+{
+    Test t(GROUP, "vertical_ray_w", "fast");
+
+    t.check_to_disable_test(disabled_test_count);
+    if (t.is_enabled())
+    {
+        #include <cone_vertical_ray.inc>
+        Vector3d expected = Vector3d(9.957215928e-07, 0.0, 0.604984212404056);
+        Vector3d actual = f->intercept(g, p, u, EQT, fid).w;
+
         failed_test_count += t.check_equal_real_obj(expected, actual, EQT);
     }
 }

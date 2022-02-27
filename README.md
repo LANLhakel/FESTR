@@ -303,7 +303,10 @@ Version Log:
      *) unit-test sources were given their own .h files and all the test sources
         were modified accordingly,
      *) check_to_disable_test() was converted from a free function to a public
-        method of class Test; all unit-test drivers were changed accordingly.
+        method of class Test; all unit-test drivers were changed accordingly,
+     *) a branch was added in Cone::intercept to bypass numerical issues for
+        vertical Rays; two new associated units tests were added in file
+        test_Cone.cpp, which include the new file cone_vertical.inc.
 
 -------------------------------------------------------------------------------
 

@@ -4,7 +4,7 @@
  * @author Peter Hakel
  * @version 0.9
  * @date Created on 14 May 2015\n
- * Last modified on 8 October 2020
+ * Last modified on 17 February 2022
  * @copyright (c) 2015, Triad National Security, LLC.
  * All rights reserved.\n
  * Use of this source code is governed by the BSD 3-Clause License.
@@ -218,11 +218,34 @@ RetIntercept Cone::intercept(const Grid &g, const Vector3d &p,
         double hh = gg  +  zd * dr * dr; // Eq.(11)
         double uzdr = uz * dr;
 
-        // Eq.(12)
-        double a = dz2 * (ux*ux + uy*uy)  -  uzdr * uzdr;
-        double b = 2.0 * (ff  -  uz * hh);
-        double c = dz2 * (rp2 - ra*ra)  -  zd * (gg + hh);
-        #include <choose_root.inc>
+        double uxy2 = ux*ux + uy*uy;
+        if (uxy2 > 1.0e-8)
+        {   // general case
+            // Eq.(12)
+            double a = dz2 * uxy2  -  uzdr * uzdr;
+            double b = 2.0 * (ff  -  uz * hh);
+            double c = dz2 * (rp2 - ra*ra)  -  zd * (gg + hh);
+            #include <choose_root.inc>
+        }
+        else
+        {   // avoid numerical problems for vertical rays
+            if (fabs(dr) < Vector3d::get_small())
+            {   // no solution if *this is a cylinder
+                double BIG = -Vector3d::get_big();
+                rv.t = BIG;
+                rv.w = Vector3d(BIG, BIG, BIG);
+                rv.is_found = false;
+            }
+            else
+            {
+                rv.w.setx(px);
+                rv.w.sety(py);
+                rv.w.setz(za  +  (sqrt(rp2) - ra) * dz / dr);
+                rv.t = (rv.w.getz() - p.getz()) / uz;
+                rv.is_found = utils::sign_eqt(rv.t, eqt) == 1 && contains(g, rv.w);
+            }
+        }
+
         // check whether Ray runs along *this
         double phi = atan2(rv.w.gety(), rv.w.getx());
         double b_rad = bhead.getx();
