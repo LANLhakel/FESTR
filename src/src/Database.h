@@ -7,7 +7,7 @@
  * @author Peter Hakel
  * @version 0.9
  * @date Created on 31 December 2014\n
- * Last modified on 6 October 2020
+ * Last modified on 8 March 2022
  * @copyright (c) 2015, Triad National Security, LLC.
  * All rights reserved.\n
  * Use of this source code is governed by the BSD 3-Clause License.
@@ -458,7 +458,7 @@ public:
      * @param[in] o StoichZbar object to be copied (shallow copy of dp OK)
      * @return Reference to copied object
      */
-    StoichZbar &operator=(const StoichZbar &o) = default;
+    StoichZbar &operator=(const StoichZbar &o) = delete;
 
     /**
      * @brief Charge-neutrality constraint

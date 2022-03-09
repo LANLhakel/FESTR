@@ -306,7 +306,8 @@ Version Log:
         method of class Test; all unit-test drivers were changed accordingly,
      *) a branch was added in Cone::intercept to bypass numerical issues for
         vertical Rays; two new associated units tests were added in file
-        test_Cone.cpp, which include the new file cone_vertical.inc.
+        test_Cone.cpp, which include the new file cone_vertical.inc,
+     *) copy assignment of StoichZbar in Database.h was explicitly deleted.
 
 -------------------------------------------------------------------------------
 
