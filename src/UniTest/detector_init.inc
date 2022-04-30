@@ -11,7 +11,7 @@ Los Alamos National Laboratory
 XCP-5 group
 
 Created on 28 January 2015
-Last modified on 28 January 2020
+Last modified on 29 April 2022
 
 Copyright (c) 2015, Triad National Security, LLC.
 All rights reserved.
@@ -45,8 +45,9 @@ Vector3d pc(sc);
 std::string back_type("flat");
 std::string back_value("7.0");
 bool tracking(true);
+bool write_Ray(true);
 Detector det(0, 0, 0, diag_path, dname, path, dbpth, symmetry, my_id, rc, rx, ry,
              dx, dy, nhv, hv_min, hv_max, fwhm, pc, back_type, back_value,
-             tracking);
+             tracking, write_Ray);
 
 //  end detector_init.inc

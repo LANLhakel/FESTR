@@ -4,7 +4,7 @@
  * @author Peter Hakel
  * @version 0.9
  * @date Created on 14 May 2015\n
- * Last modified on 17 February 2022
+ * Last modified on 28 April 2022
  * @copyright (c) 2015, Triad National Security, LLC.
  * All rights reserved.\n
  * Use of this source code is governed by the BSD 3-Clause License.
@@ -219,13 +219,85 @@ RetIntercept Cone::intercept(const Grid &g, const Vector3d &p,
         double uzdr = uz * dr;
 
         double uxy2 = ux*ux + uy*uy;
+        double uxy = sqrt(uxy2);
         if (uxy2 > 1.0e-8)
-        {   // general case
-            // Eq.(12)
-            double a = dz2 * uxy2  -  uzdr * uzdr;
-            double b = 2.0 * (ff  -  uz * hh);
-            double c = dz2 * (rp2 - ra*ra)  -  zd * (gg + hh);
-            #include <choose_root.inc>
+        {
+            if (lines_intersect(p, u, Vector3d(0.0, 0.0, 0.0), Vector3d(0.0, 0.0, 1.0), 1.0e-10)
+                &&  fabs(u.getz() / uxy) > 0.001)
+            {   // Ray line (defined by the p and u vectors) intersects z-axis (pmh_2022_0427)
+                // but is not horizontal
+                double phi = atan2(uy, ux);
+                Vector3d up = u.get_rz();
+                Vector3d pp = p.get_rz();
+                if (fabs(atan2(py, px) - phi) > cnst::PI/2) pp.setx(-pp.getx());
+                std::pair<bool, Vector3d> hit1rz = lines_intersection(pp, up, atail, bhead, eqt);
+                Vector3d a2(-atail.getx(), atail.gety(), 0.0);
+                Vector3d b2(-bhead.getx(), bhead.gety(), 0.0);
+                std::pair<bool, Vector3d> hit2rz = lines_intersection(pp, up, a2, b2, eqt);
+
+                // initially assuming there is no solution
+                double BIG = -Vector3d::get_big();
+                rv.t = BIG;
+                rv.w = Vector3d(BIG, BIG, BIG);
+                rv.is_found = false;
+
+                // 1st candidate
+                Vector3d hit1(BIG, BIG, BIG);
+                double t1 = BIG;
+                if (hit1rz.first)
+                {
+                    Vector3d h1 = hit1rz.second;
+                    hit1.setx(h1.getx() * cos(phi));
+                    hit1.sety(h1.getx() * sin(phi));
+                    hit1.setz(h1.gety());
+                    Vector3d d1 = hit1 - p;
+                    t1 = d1.norm() / u.norm() * (d1.unit() * u.unit());
+                 }
+
+                // 2nd candidate
+                Vector3d hit2(BIG, BIG, BIG);
+                double t2 = BIG;
+                if (hit2rz.first)
+                {
+                    Vector3d h2 = hit2rz.second;
+                    hit2.setx(h2.getx() * cos(phi));
+                    hit2.sety(h2.getx() * sin(phi));
+                    hit2.setz(h2.gety());
+                    Vector3d d2 = hit2 - p;
+                    t2 = d2.norm() / u.norm() * (d2.unit() * u.unit());
+                 }
+
+                // ensure t2 <= t1;
+                if (t2 > t1)
+                {
+                    std::swap(t1, t2);
+                    std::swap(hit1, hit2);
+                    std::swap(hit1rz, hit2rz);
+                }
+
+                // pick the smallest positive solution (c.f. choose_root.inc)
+                if (utils::sign_eqt(t1, eqt) == 1)
+                {
+                    rv.t = t1;
+                    rv.w = hit1;
+                    rv.is_found = true;
+                }
+                if (rv.fid != fid  &&  utils::sign_eqt(t2, eqt) == 1)
+                {
+                    rv.t = t2;
+                    rv.w = hit2;
+                    rv.is_found = true;
+                }
+
+            }
+            else
+            {   // general case
+                // Eq.(12)
+                double a = dz2 * uxy2  -  uzdr * uzdr;
+                double b = 2.0 * (ff  -  uz * hh);
+                double c = dz2 * (rp2 - ra*ra)  -  zd * (gg + hh);
+                #include <choose_root.inc>
+            }
         }
         else
         {   // avoid numerical problems for vertical rays

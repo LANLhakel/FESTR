@@ -4,7 +4,7 @@
  * @author Peter Hakel
  * @version 0.9
  * @date Created on 28 January 2015\n
- * Last modified on 8 October 2020
+ * Last modified on 29 April 2022
  * @copyright (c) 2015, Triad National Security, LLC.
  * All rights reserved.\n
  * Use of this source code is governed by the BSD 3-Clause License.
@@ -449,7 +449,8 @@ Detector::Detector(): yt(), yst(),
     xr(), yr(), zr(), dx(0.0), dy(0.0), da(0.0),
     ux(), uy(), nhv(0), hv(), hvmin(0.0), hvmax(0.0),
     jmin(0), jmax(0), fwhm(-1.0), back_type("none"), back_fname(""),
-    back_value(-9.0), yback(), tracking(false), nx(0), ny(0), nxd(0), nyd(0),
+    back_value(-9.0), yback(), tracking(false),  write_Ray(true),
+    nx(0), ny(0), nxd(0), nyd(0),
     pc(), theta_max(0.0), ntheta(0), nphi(0), nthetad(0), nphid(0),
     dtheta(0.0), dphi(0.0), dtheta2(0.0), gdet(), p(), yp(), ys()
     {}
@@ -467,7 +468,8 @@ Detector::Detector(const size_t freq_patch_in, const size_t freq_Ray_in,
                    const double hv_min, const double hv_max,
                    const double fwhm_in, const Vector3d &pc_in,
                    const std::string &back_type_in,
-                   const std::string &back_value_in, const bool tracking_in):
+                   const std::string &back_value_in, const bool tracking_in,
+                   const bool write_Ray_in):
     yt(), yst(),
     freq_patch(freq_patch_in), freq_Ray(freq_Ray_in), freq_trace(freq_trace_in),
     dname(dname_in), path(path_in), symmetry(sym_in), my_id(my_id_in),
@@ -476,9 +478,9 @@ Detector::Detector(const size_t freq_patch_in, const size_t freq_Ray_in,
     ux(), uy(), nhv(0), hv(), hvmin(hv_min), hvmax(hv_max),
     jmin(nhv_in), jmax(0), fwhm(fwhm_in), back_type(back_type_in),
     back_fname(""), back_value(-9.0), yback(), tracking(tracking_in),
-    nx(0), ny(0), nxd(0), nyd(0), pc(pc_in), theta_max(0.0),
-    ntheta(0), nphi(0), nthetad(0), nphid(0), dtheta(0.0), dphi(0.0),
-    dtheta2(0.0), gdet(), p(), yp(), ys()
+    write_Ray(write_Ray_in), nx(0), ny(0), nxd(0), nyd(0), pc(pc_in),
+    theta_max(0.0), ntheta(0), nphi(0), nthetad(0), nphid(0), dtheta(0.0),
+    dphi(0.0), dtheta2(0.0), gdet(), p(), yp(), ys()
 {
     // set hv grid
     std::string hvpath(dbase_path + "grids/hv_grid.txt");
@@ -674,6 +676,7 @@ std::string Detector::to_string() const
     else
         s += utils::double_to_string(back_value);
     s += "\ntracking " + utils::bool_to_string(tracking);
+    s += "\nwrite_Ray " + utils::bool_to_string(write_Ray);
     return s;
 }
 
@@ -1043,15 +1046,18 @@ void Detector::do_Ray(Progress *parent,
     }
     else
     {
-        double scale = gol.get_best_scale(cname);
-        if (utils::sign_eqt(scale - 1.0, cnst::SCALE_EQT) == 0)
-            header += "\ndata in W/cm2/sr/eV";
-        else
-        {
-            header += "\ndata in arbitrary_units";
-            ybroad *= scale;
+        if (write_Ray)
+            {
+                double scale = gol.get_best_scale(cname);
+            if (utils::sign_eqt(scale - 1.0, cnst::SCALE_EQT) == 0)
+                header += "\ndata in W/cm2/sr/eV";
+            else
+            {
+                header += "\ndata in arbitrary_units";
+                ybroad *= scale;
+            }
+            ybroad.to_file(fname, header);
         }
-        ybroad.to_file(fname, header);
     }
 }
 

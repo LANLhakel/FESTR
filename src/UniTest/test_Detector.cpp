@@ -10,7 +10,7 @@ Los Alamos National Laboratory
 XCP-5 group
 
 Created on 28 January 2015
-Last modified on 2 October 2020
+Last modified on 29 April 2022
 
 Copyright (c) 2015, Triad National Security, LLC.
 All rights reserved.
@@ -58,6 +58,7 @@ const double EQT = 1.0e-15;
         s += "\ntheta_max   0.000000e+00";
         s += "\nfwhm  -1.000000e+00\nbacklighter none  -9.000000e+00";
         s += "\ntracking false";
+        s += "\nwrite_Ray true";
         std::string expected(s);
         std::string actual = det.to_string();
 
@@ -83,6 +84,7 @@ const double EQT = 1.0e-15;
         s += "\ntheta_max   0.000000e+00";
         s += "\nfwhm  -2.000000e+00\nbacklighter flat   7.000000e+00";
         s += "\ntracking true";
+        s += "\nwrite_Ray true";
         std::string expected(s);
         std::string actual = det.to_string();
 
@@ -108,6 +110,7 @@ const double EQT = 1.0e-15;
         s += "\ntheta_max   0.000000e+00";
         s += "\nfwhm  -2.000000e+00\nbacklighter file backlighter.txt";
         s += "\ntracking false";
+        s += "\nwrite_Ray true";
         std::string expected(s);
         std::string actual = det.to_string();
 

@@ -14,3 +14,4 @@ range 300.0 900.0 eV
 fwhm -3.0 eV
 backlighter flat 3.0e30 W/cm2/sr/eV
 tracking no
+write_Ray yes

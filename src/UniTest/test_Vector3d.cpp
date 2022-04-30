@@ -8,7 +8,7 @@ Los Alamos National Laboratory
 XCP-5 group
 
 Created on 23 October 2014
-Last modified on 2 October 2020
+Last modified on 26 April 2022
 
 Copyright (c) 2015, Triad National Security, LLC.
 All rights reserved.
@@ -1429,6 +1429,158 @@ const double EQT = 1.0e-15;
         double f = (a-b).norm() / 4.0;
         Vector3d expected(0.625, 0.625*sqrt(3.0), 3.0);
         Vector3d actual = linear_Vector3d_fit(f, a, b);
+
+        failed_test_count += t.check_equal_real_obj(expected, actual, EQT);
+    }
+}
+
+//-----------------------------------------------------------------------------
+
+{
+    Test t(GROUP, "lines_intersect_true", "fast");
+
+    t.check_to_disable_test(disabled_test_count);
+    if (t.is_enabled())
+    {
+        Vector3d p(-1.0, -2.0, 0.0);
+        Vector3d u(-1.0, -2.0, -3.0);
+        Vector3d q(0.0, 0.0, 4.0);
+        Vector3d v(0.0, 0.0, 2.0);
+        bool expected = true;
+        bool actual = lines_intersect(p, u, q, v, EQT);
+
+        failed_test_count += t.check_equal(expected, actual);
+    }
+}
+
+//-----------------------------------------------------------------------------
+
+{
+    Test t(GROUP, "lines_intersect_false", "fast");
+
+    t.check_to_disable_test(disabled_test_count);
+    if (t.is_enabled())
+    {
+        Vector3d p(1.0, -2.0, 0.0);
+        Vector3d u(-1.0, -2.0, -3.0);
+        Vector3d q(0.0, 0.0, 4.0);
+        Vector3d v(0.0, 0.0, 2.0);
+        bool expected = false;
+        bool actual = lines_intersect(p, u, q, v, EQT);
+
+        failed_test_count += t.check_equal(expected, actual);
+    }
+}
+
+//-----------------------------------------------------------------------------
+
+{
+    Test t(GROUP, "lines_intersection_inside_first", "fast");
+
+    t.check_to_disable_test(disabled_test_count);
+    if (t.is_enabled())
+    {
+        Vector3d p(0.0, 1.0, 0.0);
+        Vector3d u(1.0, 1.0, 0.0);
+        Vector3d a(5.0, 0.0, 0.0);
+        Vector3d b(0.0, 5.0, 0.0);
+        bool expected = true;
+        bool actual = lines_intersection(p, u, a, b, EQT).first;
+
+        failed_test_count += t.check_equal(expected, actual);
+    }
+}
+
+//-----------------------------------------------------------------------------
+
+{
+    Test t(GROUP, "lines_intersection_inside_second", "fast");
+
+    t.check_to_disable_test(disabled_test_count);
+    if (t.is_enabled())
+    {
+        Vector3d p(0.0, 1.0, 0.0);
+        Vector3d u(1.0, 1.0, 0.0);
+        Vector3d a(5.0, 0.0, 0.0);
+        Vector3d b(0.0, 5.0, 0.0);
+        Vector3d expected = Vector3d(2.0, 3.0, 0.0);
+        Vector3d actual = lines_intersection(p, u, a, b, EQT).second;
+
+        failed_test_count += t.check_equal_real_obj(expected, actual, EQT);
+    }
+}
+
+//-----------------------------------------------------------------------------
+
+{
+    Test t(GROUP, "lines_intersection_outside_first", "fast");
+
+    t.check_to_disable_test(disabled_test_count);
+    if (t.is_enabled())
+    {
+        Vector3d p(0.0, 1.0, 0.0);
+        Vector3d u(1.0, 1.0, 0.0);
+        Vector3d a(5.0, 0.0, 0.0);
+        Vector3d b(4.0, 1.0, 0.0);
+        bool expected = false;
+        bool actual = lines_intersection(p, u, a, b, EQT).first;
+
+        failed_test_count += t.check_equal(expected, actual);
+    }
+}
+
+//-----------------------------------------------------------------------------
+
+{
+    Test t(GROUP, "lines_intersection_outside_second", "fast");
+
+    t.check_to_disable_test(disabled_test_count);
+    if (t.is_enabled())
+    {
+        Vector3d p(0.0, 1.0, 0.0);
+        Vector3d u(1.0, 1.0, 0.0);
+        Vector3d a(5.0, 0.0, 0.0);
+        Vector3d b(0.0, 5.0, 0.0);
+        Vector3d expected = Vector3d(2.0, 3.0, 0.0);
+        Vector3d actual = lines_intersection(p, u, a, b, EQT).second;
+
+        failed_test_count += t.check_equal_real_obj(expected, actual, EQT);
+    }
+}
+
+//-----------------------------------------------------------------------------
+
+{
+    Test t(GROUP, "lines_intersection_edge_first", "fast");
+
+    t.check_to_disable_test(disabled_test_count);
+    if (t.is_enabled())
+    {
+        Vector3d p(0.0, 1.0, 0.0);
+        Vector3d u(1.0, 1.0, 0.0);
+        Vector3d a(5.0, 0.0, 0.0);
+        Vector3d b(2.0, 3.0, 0.0);
+        bool expected = true;
+        bool actual = lines_intersection(p, u, a, b, EQT).first;
+
+        failed_test_count += t.check_equal(expected, actual);
+    }
+}
+
+//-----------------------------------------------------------------------------
+
+{
+    Test t(GROUP, "lines_intersection_edge_second", "fast");
+
+    t.check_to_disable_test(disabled_test_count);
+    if (t.is_enabled())
+    {
+        Vector3d p(0.0, 1.0, 0.0);
+        Vector3d u(1.0, 1.0, 0.0);
+        Vector3d a(5.0, 0.0, 0.0);
+        Vector3d b(0.0, 5.0, 0.0);
+        Vector3d expected = Vector3d(2.0, 3.0, 0.0);
+        Vector3d actual = lines_intersection(p, u, a, b, EQT).second;
 
         failed_test_count += t.check_equal_real_obj(expected, actual, EQT);
     }

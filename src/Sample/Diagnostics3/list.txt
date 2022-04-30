@@ -1,0 +1,4 @@
+Frequency of prints  1
+Number of Detectors  1
+Detector_Name ntheta nphi freq_Ray
+Sphere1d           0           0           1

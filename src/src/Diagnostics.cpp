@@ -4,7 +4,7 @@
  * @author Peter Hakel
  * @version 0.9
  * @date Created on 5 February 2015\n
- * Last modified on 16 March 2020
+ * Last modified on 29 April 2022
  * @copyright (c) 2015, Triad National Security, LLC.
  * All rights reserved.\n
  * Use of this source code is governed by the BSD 3-Clause License.
@@ -76,7 +76,7 @@ Diagnostics::Diagnostics(const int level_in,
     utils::find_word(infile, "Detectors");
     int i, n;
     size_t ntheta, nphi, freq_Ray, freq_patch, freq_trace;
-    std::string dname, symmetry, back_type, tracking_str;
+    std::string dname, symmetry, back_type, tracking_str, write_Ray_str;
     double dx, dy, theta_max, hv_min, hv_max, fwhm;
     std::string back_value;
     infile >> n;
@@ -147,7 +147,11 @@ Diagnostics::Diagnostics(const int level_in,
         utils::find_word(indet, "tracking");
         indet >> tracking_str;
         bool tracking(utils::string_to_bool(tracking_str));
-        
+
+        utils::find_word(indet, "write_Ray");
+        indet >> write_Ray_str;
+        bool write_Ray(utils::string_to_bool(write_Ray_str));
+
         indet.close();
         indet.clear();
 
@@ -155,7 +159,7 @@ Diagnostics::Diagnostics(const int level_in,
         Detector detctr(freq_patch, freq_Ray, freq_trace, diag_path,
                         dname, outpath, dbpth, symmetry, i, rc, rx, ry, dx, dy,
                         nhv, hv_min, hv_max, fwhm, pc, back_type, back_value,
-                        tracking);
+                        tracking, write_Ray);
         if ((detctr.get_symmetry() != "none") && (n != 1))
         {
             std::cerr << "Error: Only 1 Detector is permitted in 1-D"

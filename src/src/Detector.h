@@ -7,7 +7,7 @@
  * @author Peter Hakel
  * @version 0.9
  * @date Created on 28 January 2015\n
- * Last modified on 8 October 2020
+ * Last modified on 29 April 2022
  * @copyright (c) 2015, Triad National Security, LLC.
  * All rights reserved.\n
  * Use of this source code is governed by the BSD 3-Clause License.
@@ -84,6 +84,7 @@ public:
      *            backlighter's temperature (eV) if back_type == "blackbody";
      *            backlighter's file name if back_type == "file"
      * @param[in] tracking_in Initializes Detector::tracking
+     * @param[in] write_Ray_in Initializes Detector::write_Ray_in
      */
     Detector(const size_t freq_patch_in, const size_t freq_Ray_in,
              const size_t freq_trace_in, const std::string &diag_path,
@@ -95,7 +96,8 @@ public:
              const size_t nhv_in, const double hv_min, const double hv_max,
              const double fwhm_in, const Vector3d &pc_in,
              const std::string &back_type_in,
-             const std::string &back_value_in, const bool tracking_in);
+             const std::string &back_value_in, const bool tracking_in,
+             const bool write_Ray_in);
 
     /**
      * @brief Absolute difference between two Detectors
@@ -590,6 +592,9 @@ public:
 
     /// Tracking of partial results along *this Detector's Rays
     bool tracking;
+
+    /// Turn on/off writing spectra from each Ray
+    bool write_Ray;
 
     /// Number of intervals along x dimension
     size_t nx;

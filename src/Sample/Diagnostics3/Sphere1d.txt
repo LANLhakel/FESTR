@@ -10,8 +10,8 @@ dx  0.2 cm
 dy  0.2 cm
 pc  0.0 0.0 0.0 cm
 theta_max 0.0 rad
-range 300.0 900.0 eV
+range 4000.0 5000.0 eV
 fwhm -3.0 eV
 backlighter blackbody 0.0 eV
-tracking yes
+tracking no
 write_Ray yes

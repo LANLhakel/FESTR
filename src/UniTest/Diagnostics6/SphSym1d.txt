@@ -14,3 +14,4 @@ range 300.0 900.0 eV
 fwhm -3.0 eV
 backlighter file backlighter.txt
 tracking no
+write_Ray yes

@@ -7,7 +7,7 @@
  * @author Peter Hakel
  * @version 0.9
  * @date Created on 11 November 2014\n
- * Last modified on 8 October 2020
+ * Last modified on 20 April 2022
  * @copyright (c) 2015, Triad National Security, LLC.
  * All rights reserved.\n
  * Use of this source code is governed by the BSD 3-Clause License.
@@ -397,6 +397,36 @@ Vector3d operator * (const T f, const Vector3d &v)
 Vector3d linear_Vector3d_fit(const double f,
                              const Vector3d &a, const Vector3d &b);
 
+//-----------------------------------------------------------------------------
+
+/**
+ * @brief Return whether two lines in 3D intersect or not
+ * @param[in] p Point on the first line
+ * @param[in] u First line's direction vector
+ * @param[in] q Point on the second line
+ * @param[in] v Second line's direction vector
+ * @param[in] eqt Numerical tolerance ("zero")
+ * @return true/false
+ */
+bool lines_intersect(const Vector3d &p, const Vector3d &u,
+                     const Vector3d &q, const Vector3d &v,
+                     const double eqt);
+
+//-----------------------------------------------------------------------------
+
+/**
+ * @brief Return the intersection of two lines (representing a Ray and a Cone)
+ * @param[in] p Point on the first line (from Ray)
+ * @param[in] u First line's direction vector (from Ray)
+ * @param[in] a One point on the second line (from Cone)
+ * @param[in] b Another point on the second line (from Cone)
+ * @param[in] eqt Numerical tolerance ("zero")
+ * @return first=true/false (i.e., found/not_found); second=intersection_point
+ */
+std::pair<bool, Vector3d>
+lines_intersection(const Vector3d &p, const Vector3d &u,
+                   const Vector3d &a, const Vector3d &b,
+                   const double eqt);
 //-----------------------------------------------------------------------------
 
 #endif  // LANL_ASC_PEM_VECTOR3D_H_

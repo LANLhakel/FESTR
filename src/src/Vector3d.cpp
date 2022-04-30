@@ -4,7 +4,7 @@
  * @author Peter Hakel
  * @version 0.9
  * @date Created on 11 November 2014\n
- * Last modified on 8 October 2020
+ * Last modified on 27 April 2022
  * @copyright (c) 2015, Triad National Security, LLC.
  * All rights reserved.\n
  * Use of this source code is governed by the BSD 3-Clause License.
@@ -334,6 +334,43 @@ Vector3d linear_Vector3d_fit(const double f,
 {
     double d = f / (a-b).norm();
     return (1.0-d) * a  +  d * b;
+}
+
+//-----------------------------------------------------------------------------
+
+bool lines_intersect(const Vector3d &p, const Vector3d &u,
+                     const Vector3d &q, const Vector3d &v,
+                     const double eqt)
+{   // pmh_2022_0427
+    return fabs((p - q) * (u % v).unit()) < fabs(eqt);
+}
+
+//-----------------------------------------------------------------------------
+
+std::pair<bool, Vector3d>
+lines_intersection(const Vector3d &p, const Vector3d &u,
+                   const Vector3d &a, const Vector3d &b,
+                   const double eqt)
+{   // pmh_2022_0427
+    double zero = fabs(eqt);
+    double big = Vector3d::get_big();
+    std::pair<bool, Vector3d> rv(false, Vector3d(big, big, big));
+    double px = p.getx();
+    double py = p.gety();
+    double un = u.norm();
+    double ux = u.getx() / un;
+    double uy = u.gety() / un;
+    double ra = a.getx();
+    double za = a.gety();
+    double dr = b.getx() - ra;
+    double dz = b.gety() - za;
+    double d  = uy * dr  -  ux * dz;
+    if (fabs(d) < zero) return rv; // parallel lines
+    double ds = ux * (za - py)  -  uy * (ra - px);
+    double s  = ds / d;
+    rv.first = s > -zero  &&  s < 1.0+zero;
+    rv.second = a  +  (b - a) * s;
+    return rv;
 }
 
 //-----------------------------------------------------------------------------
