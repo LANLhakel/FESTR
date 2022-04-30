@@ -76,17 +76,16 @@ $(function() {
 <code>#include &lt;<a class="el" href="utils_8h_source.html">utils.h</a>&gt;</code><br />
 <code>#include &lt;cmath&gt;</code><br />
 <code>#include &lt;choose_root.inc&gt;</code><br />
-</div><table class="memberdecls">
+</div>
+<p><a href="_sphere_8cpp_source.html">Go to the source code of this file.</a></p>
+<table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="define-members" name="define-members"></a>
 Macros</h2></td></tr>
-<tr class="memitem:a96a62cd7e62f6927b685f66ff909402b"><td class="memItemLeft" align="right" valign="top"><a id="a96a62cd7e62f6927b685f66ff909402b" name="a96a62cd7e62f6927b685f66ff909402b"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>NODE</b>(X)&#160;&#160;&#160;g.get_node(get_node((X)))</td></tr>
+<tr class="memitem:a96a62cd7e62f6927b685f66ff909402b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_sphere_8cpp.html#a96a62cd7e62f6927b685f66ff909402b">NODE</a>(X)&#160;&#160;&#160;g.get_node(get_node((X)))</td></tr>
 <tr class="separator:a96a62cd7e62f6927b685f66ff909402b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aecc62e2fee1e931d1b83a4ad7fb48b32"><td class="memItemLeft" align="right" valign="top"><a id="aecc62e2fee1e931d1b83a4ad7fb48b32" name="aecc62e2fee1e931d1b83a4ad7fb48b32"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>POINT</b>(X)&#160;&#160;&#160;NODE((X)).getr()</td></tr>
+<tr class="memitem:aecc62e2fee1e931d1b83a4ad7fb48b32"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_sphere_8cpp.html#aecc62e2fee1e931d1b83a4ad7fb48b32">POINT</a>(X)&#160;&#160;&#160;NODE((X)).getr()</td></tr>
 <tr class="separator:aecc62e2fee1e931d1b83a4ad7fb48b32"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac36ed37441f7ce755a5f4dbb7f90fa38"><td class="memItemLeft" align="right" valign="top"><a id="ac36ed37441f7ce755a5f4dbb7f90fa38" name="ac36ed37441f7ce755a5f4dbb7f90fa38"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>VELOCITY</b>(X)&#160;&#160;&#160;NODE((X)).getv()</td></tr>
+<tr class="memitem:ac36ed37441f7ce755a5f4dbb7f90fa38"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_sphere_8cpp.html#ac36ed37441f7ce755a5f4dbb7f90fa38">VELOCITY</a>(X)&#160;&#160;&#160;NODE((X)).getv()</td></tr>
 <tr class="separator:ac36ed37441f7ce755a5f4dbb7f90fa38"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
@@ -97,7 +96,70 @@ Macros</h2></td></tr>
 Last modified on 27 February 2020 </dd></dl>
 <dl class="section copyright"><dt>Copyright</dt><dd>(c) 2015, Triad National Security, LLC. All rights reserved.<br  />
 Use of this source code is governed by the BSD 3-Clause License. See top-level license.txt file for full license text. </dd></dl>
-</div></div><!-- contents -->
+
+<p class="definition">Definition in file <a class="el" href="_sphere_8cpp_source.html">Sphere.cpp</a>.</p>
+</div><h2 class="groupheader">Macro Definition Documentation</h2>
+<a id="a96a62cd7e62f6927b685f66ff909402b" name="a96a62cd7e62f6927b685f66ff909402b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a96a62cd7e62f6927b685f66ff909402b">&#9670;&nbsp;</a></span>NODE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define NODE</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">X</td><td>)</td>
+          <td>&#160;&#160;&#160;g.get_node(get_node((X)))</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="_sphere_8cpp_source.html#l00022">22</a> of file <a class="el" href="_sphere_8cpp_source.html">Sphere.cpp</a>.</p>
+
+</div>
+</div>
+<a id="aecc62e2fee1e931d1b83a4ad7fb48b32" name="aecc62e2fee1e931d1b83a4ad7fb48b32"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aecc62e2fee1e931d1b83a4ad7fb48b32">&#9670;&nbsp;</a></span>POINT</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define POINT</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">X</td><td>)</td>
+          <td>&#160;&#160;&#160;NODE((X)).getr()</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="_sphere_8cpp_source.html#l00023">23</a> of file <a class="el" href="_sphere_8cpp_source.html">Sphere.cpp</a>.</p>
+
+</div>
+</div>
+<a id="ac36ed37441f7ce755a5f4dbb7f90fa38" name="ac36ed37441f7ce755a5f4dbb7f90fa38"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac36ed37441f7ce755a5f4dbb7f90fa38">&#9670;&nbsp;</a></span>VELOCITY</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define VELOCITY</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">X</td><td>)</td>
+          <td>&#160;&#160;&#160;NODE((X)).getv()</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="_sphere_8cpp_source.html#l00024">24</a> of file <a class="el" href="_sphere_8cpp_source.html">Sphere.cpp</a>.</p>
+
+</div>
+</div>
+</div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
 Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.3

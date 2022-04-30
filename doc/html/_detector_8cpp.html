@@ -82,7 +82,9 @@ $(function() {
 <code>#include &lt;cstring&gt;</code><br />
 <code>#include &lt;iostream&gt;</code><br />
 <code>#include &lt;patch_counter.inc&gt;</code><br />
-</div><table class="memberdecls">
+</div>
+<p><a href="_detector_8cpp_source.html">Go to the source code of this file.</a></p>
+<table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_patch_i_d.html">PatchID</a></td></tr>
@@ -100,17 +102,14 @@ Namespaces</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a9ed755d235331b9e0e1022ae993b785b"><td class="memItemLeft" align="right" valign="top"><a id="a9ed755d235331b9e0e1022ae993b785b" name="a9ed755d235331b9e0e1022ae993b785b"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>PatchEnvironment::construct</b> (<a class="el" href="class_detector.html">Detector</a> *this_det_in, <a class="el" href="class_progress.html">Progress</a> *parent_in, const <a class="el" href="class_grid.html">Grid</a> *g_in, const <a class="el" href="class_mesh.html">Mesh</a> *m_in, const <a class="el" href="class_database.html">Database</a> *d_in, const <a class="el" href="class_table.html">Table</a> *tbl_in, size_t it_in, double t_in, double dt_in, int ntd_in, <a class="el" href="class_goal.html">Goal</a> *gol_in)</td></tr>
-<tr class="memdesc:a9ed755d235331b9e0e1022ae993b785b"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="namespace_patch_environment.html" title="Encapsulates &quot;globals&quot; for MPI parallelization using TaskPool.">PatchEnvironment</a> "constructor". <br /></td></tr>
+<tr class="memitem:a9ed755d235331b9e0e1022ae993b785b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_patch_environment.html#a9ed755d235331b9e0e1022ae993b785b">PatchEnvironment::construct</a> (<a class="el" href="class_detector.html">Detector</a> *this_det_in, <a class="el" href="class_progress.html">Progress</a> *parent_in, const <a class="el" href="class_grid.html">Grid</a> *g_in, const <a class="el" href="class_mesh.html">Mesh</a> *m_in, const <a class="el" href="class_database.html">Database</a> *d_in, const <a class="el" href="class_table.html">Table</a> *tbl_in, size_t it_in, double t_in, double dt_in, int ntd_in, <a class="el" href="class_goal.html">Goal</a> *gol_in)</td></tr>
+<tr class="memdesc:a9ed755d235331b9e0e1022ae993b785b"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="namespace_patch_environment.html" title="Encapsulates &quot;globals&quot; for MPI parallelization using TaskPool.">PatchEnvironment</a> "constructor".  <a href="namespace_patch_environment.html#a9ed755d235331b9e0e1022ae993b785b">More...</a><br /></td></tr>
 <tr class="separator:a9ed755d235331b9e0e1022ae993b785b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9bd89dfa6b3e99298a199e7fc84f74a1"><td class="memItemLeft" align="right" valign="top"><a id="a9bd89dfa6b3e99298a199e7fc84f74a1" name="a9bd89dfa6b3e99298a199e7fc84f74a1"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>PatchEnvironment::do_patch</b> (const <a class="el" href="struct_patch_i_d.html">PatchID</a> &amp;pid, <a class="el" href="struct_patch_spectrum.html">PatchSpectrum</a> &amp;pout)</td></tr>
-<tr class="memdesc:a9bd89dfa6b3e99298a199e7fc84f74a1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Used as the distributed task function TaskPool::perform_task. <br /></td></tr>
+<tr class="memitem:a9bd89dfa6b3e99298a199e7fc84f74a1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_patch_environment.html#a9bd89dfa6b3e99298a199e7fc84f74a1">PatchEnvironment::do_patch</a> (const <a class="el" href="struct_patch_i_d.html">PatchID</a> &amp;pid, <a class="el" href="struct_patch_spectrum.html">PatchSpectrum</a> &amp;pout)</td></tr>
+<tr class="memdesc:a9bd89dfa6b3e99298a199e7fc84f74a1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Used as the distributed task function TaskPool::perform_task.  <a href="namespace_patch_environment.html#a9bd89dfa6b3e99298a199e7fc84f74a1">More...</a><br /></td></tr>
 <tr class="separator:a9bd89dfa6b3e99298a199e7fc84f74a1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3ab07037c33668d6f0b5e382c4d00563"><td class="memItemLeft" align="right" valign="top"><a id="a3ab07037c33668d6f0b5e382c4d00563" name="a3ab07037c33668d6f0b5e382c4d00563"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>PatchEnvironment::space_integ</b> (const <a class="el" href="struct_patch_spectrum.html">PatchSpectrum</a> &amp;pout)</td></tr>
-<tr class="memdesc:a3ab07037c33668d6f0b5e382c4d00563"><td class="mdescLeft">&#160;</td><td class="mdescRight">Used as the root-process task function TaskPool::process_results. <br /></td></tr>
+<tr class="memitem:a3ab07037c33668d6f0b5e382c4d00563"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_patch_environment.html#a3ab07037c33668d6f0b5e382c4d00563">PatchEnvironment::space_integ</a> (const <a class="el" href="struct_patch_spectrum.html">PatchSpectrum</a> &amp;pout)</td></tr>
+<tr class="memdesc:a3ab07037c33668d6f0b5e382c4d00563"><td class="mdescLeft">&#160;</td><td class="mdescRight">Used as the root-process task function TaskPool::process_results.  <a href="namespace_patch_environment.html#a3ab07037c33668d6f0b5e382c4d00563">More...</a><br /></td></tr>
 <tr class="separator:a3ab07037c33668d6f0b5e382c4d00563"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac5997bb88e861feffdf559a2623e375f"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_detector_8cpp.html#ac5997bb88e861feffdf559a2623e375f">time_string</a> (const size_t it, const int ntd, const double t)</td></tr>
 <tr class="memdesc:ac5997bb88e861feffdf559a2623e375f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converter of time ID to string.  <a href="_detector_8cpp.html#ac5997bb88e861feffdf559a2623e375f">More...</a><br /></td></tr>
@@ -124,41 +123,29 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>PatchEnvironment::spa
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
-<tr class="memitem:a0769fdf8ae4a93160e8fa426cff0acaf"><td class="memItemLeft" align="right" valign="top"><a id="a0769fdf8ae4a93160e8fa426cff0acaf" name="a0769fdf8ae4a93160e8fa426cff0acaf"></a>
-<a class="el" href="class_detector.html">Detector</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>PatchEnvironment::this_det</b></td></tr>
+<tr class="memitem:a0769fdf8ae4a93160e8fa426cff0acaf"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_detector.html">Detector</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_patch_environment.html#a0769fdf8ae4a93160e8fa426cff0acaf">PatchEnvironment::this_det</a></td></tr>
 <tr class="separator:a0769fdf8ae4a93160e8fa426cff0acaf"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac9b26303164b2331199d4735609955d9"><td class="memItemLeft" align="right" valign="top"><a id="ac9b26303164b2331199d4735609955d9" name="ac9b26303164b2331199d4735609955d9"></a>
-<a class="el" href="class_progress.html">Progress</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>PatchEnvironment::parent</b></td></tr>
+<tr class="memitem:ac9b26303164b2331199d4735609955d9"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_progress.html">Progress</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_patch_environment.html#ac9b26303164b2331199d4735609955d9">PatchEnvironment::parent</a></td></tr>
 <tr class="separator:ac9b26303164b2331199d4735609955d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a036de31f64909b6a8482eb714e322690"><td class="memItemLeft" align="right" valign="top"><a id="a036de31f64909b6a8482eb714e322690" name="a036de31f64909b6a8482eb714e322690"></a>
-const <a class="el" href="class_grid.html">Grid</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>PatchEnvironment::g</b></td></tr>
+<tr class="memitem:a036de31f64909b6a8482eb714e322690"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="class_grid.html">Grid</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_patch_environment.html#a036de31f64909b6a8482eb714e322690">PatchEnvironment::g</a></td></tr>
 <tr class="separator:a036de31f64909b6a8482eb714e322690"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1cde21000e4e332a2489818dd5f11408"><td class="memItemLeft" align="right" valign="top"><a id="a1cde21000e4e332a2489818dd5f11408" name="a1cde21000e4e332a2489818dd5f11408"></a>
-const <a class="el" href="class_mesh.html">Mesh</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>PatchEnvironment::m</b></td></tr>
+<tr class="memitem:a1cde21000e4e332a2489818dd5f11408"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="class_mesh.html">Mesh</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_patch_environment.html#a1cde21000e4e332a2489818dd5f11408">PatchEnvironment::m</a></td></tr>
 <tr class="separator:a1cde21000e4e332a2489818dd5f11408"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab7b3156946608d408a66f113a905863e"><td class="memItemLeft" align="right" valign="top"><a id="ab7b3156946608d408a66f113a905863e" name="ab7b3156946608d408a66f113a905863e"></a>
-const <a class="el" href="class_database.html">Database</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>PatchEnvironment::d</b></td></tr>
+<tr class="memitem:ab7b3156946608d408a66f113a905863e"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="class_database.html">Database</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_patch_environment.html#ab7b3156946608d408a66f113a905863e">PatchEnvironment::d</a></td></tr>
 <tr class="separator:ab7b3156946608d408a66f113a905863e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7545caadbf132f8b943b782546141eb9"><td class="memItemLeft" align="right" valign="top"><a id="a7545caadbf132f8b943b782546141eb9" name="a7545caadbf132f8b943b782546141eb9"></a>
-const <a class="el" href="class_table.html">Table</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>PatchEnvironment::tbl</b></td></tr>
+<tr class="memitem:a7545caadbf132f8b943b782546141eb9"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="class_table.html">Table</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_patch_environment.html#a7545caadbf132f8b943b782546141eb9">PatchEnvironment::tbl</a></td></tr>
 <tr class="separator:a7545caadbf132f8b943b782546141eb9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a73a3c95aba145115de0c7856c00b8786"><td class="memItemLeft" align="right" valign="top"><a id="a73a3c95aba145115de0c7856c00b8786" name="a73a3c95aba145115de0c7856c00b8786"></a>
-size_t&#160;</td><td class="memItemRight" valign="bottom"><b>PatchEnvironment::it</b></td></tr>
+<tr class="memitem:a73a3c95aba145115de0c7856c00b8786"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_patch_environment.html#a73a3c95aba145115de0c7856c00b8786">PatchEnvironment::it</a></td></tr>
 <tr class="separator:a73a3c95aba145115de0c7856c00b8786"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a802ac57e9b2d81984bcaa28c9b6540ff"><td class="memItemLeft" align="right" valign="top"><a id="a802ac57e9b2d81984bcaa28c9b6540ff" name="a802ac57e9b2d81984bcaa28c9b6540ff"></a>
-double&#160;</td><td class="memItemRight" valign="bottom"><b>PatchEnvironment::t</b></td></tr>
+<tr class="memitem:a802ac57e9b2d81984bcaa28c9b6540ff"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_patch_environment.html#a802ac57e9b2d81984bcaa28c9b6540ff">PatchEnvironment::t</a></td></tr>
 <tr class="separator:a802ac57e9b2d81984bcaa28c9b6540ff"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa90e3efc4722f17d3a810525447c4eb7"><td class="memItemLeft" align="right" valign="top"><a id="aa90e3efc4722f17d3a810525447c4eb7" name="aa90e3efc4722f17d3a810525447c4eb7"></a>
-double&#160;</td><td class="memItemRight" valign="bottom"><b>PatchEnvironment::dt</b></td></tr>
+<tr class="memitem:aa90e3efc4722f17d3a810525447c4eb7"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_patch_environment.html#aa90e3efc4722f17d3a810525447c4eb7">PatchEnvironment::dt</a></td></tr>
 <tr class="separator:aa90e3efc4722f17d3a810525447c4eb7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7e6faf802a0051086566a8be2855e69c"><td class="memItemLeft" align="right" valign="top"><a id="a7e6faf802a0051086566a8be2855e69c" name="a7e6faf802a0051086566a8be2855e69c"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>PatchEnvironment::ntd</b></td></tr>
+<tr class="memitem:a7e6faf802a0051086566a8be2855e69c"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_patch_environment.html#a7e6faf802a0051086566a8be2855e69c">PatchEnvironment::ntd</a></td></tr>
 <tr class="separator:a7e6faf802a0051086566a8be2855e69c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a39b655ecd7776aefe92111e50243bd91"><td class="memItemLeft" align="right" valign="top"><a id="a39b655ecd7776aefe92111e50243bd91" name="a39b655ecd7776aefe92111e50243bd91"></a>
-<a class="el" href="class_goal.html">Goal</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>PatchEnvironment::gol</b></td></tr>
+<tr class="memitem:a39b655ecd7776aefe92111e50243bd91"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_goal.html">Goal</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_patch_environment.html#a39b655ecd7776aefe92111e50243bd91">PatchEnvironment::gol</a></td></tr>
 <tr class="separator:a39b655ecd7776aefe92111e50243bd91"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3f5ceb7b5184e406b582e21ec540ff83"><td class="memItemLeft" align="right" valign="top"><a id="a3f5ceb7b5184e406b582e21ec540ff83" name="a3f5ceb7b5184e406b582e21ec540ff83"></a>
-size_t&#160;</td><td class="memItemRight" valign="bottom"><b>PatchEnvironment::j</b></td></tr>
+<tr class="memitem:a3f5ceb7b5184e406b582e21ec540ff83"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_patch_environment.html#a3f5ceb7b5184e406b582e21ec540ff83">PatchEnvironment::j</a></td></tr>
 <tr class="separator:a3f5ceb7b5184e406b582e21ec540ff83"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
@@ -169,6 +156,8 @@ size_t&#160;</td><td class="memItemRight" valign="bottom"><b>PatchEnvironment::j
 Last modified on 29 April 2022 </dd></dl>
 <dl class="section copyright"><dt>Copyright</dt><dd>(c) 2015, Triad National Security, LLC. All rights reserved.<br  />
 Use of this source code is governed by the BSD 3-Clause License. See top-level license.txt file for full license text. </dd></dl>
+
+<p class="definition">Definition in file <a class="el" href="_detector_8cpp_source.html">Detector.cpp</a>.</p>
 </div><h2 class="groupheader">Function Documentation</h2>
 <a id="ac975ca3f8ca717c2295ec27cb2adaeae" name="ac975ca3f8ca717c2295ec27cb2adaeae"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ac975ca3f8ca717c2295ec27cb2adaeae">&#9670;&nbsp;</a></span>operator&lt;&lt;()</h2>
@@ -205,6 +194,8 @@ Use of this source code is governed by the BSD 3-Clause License. See top-level l
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Reference to output stream </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="_detector_8cpp_source.html#l01453">1453</a> of file <a class="el" href="_detector_8cpp_source.html">Detector.cpp</a>.</p>
 
 </div>
 </div>
@@ -243,6 +234,8 @@ Use of this source code is governed by the BSD 3-Clause License. See top-level l
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>String intended for file name </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="_detector_8cpp_source.html#l01448">1448</a> of file <a class="el" href="_detector_8cpp_source.html">Detector.cpp</a>.</p>
 
 </div>
 </div>
@@ -288,6 +281,8 @@ Use of this source code is governed by the BSD 3-Clause License. See top-level l
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>String intended for file header </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="_detector_8cpp_source.html#l01440">1440</a> of file <a class="el" href="_detector_8cpp_source.html">Detector.cpp</a>.</p>
 
 </div>
 </div>

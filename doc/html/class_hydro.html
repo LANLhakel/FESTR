@@ -78,9 +78,8 @@ $(function() {
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a06d1852fde51a138a5db6210f79203ed"><td class="memItemLeft" align="right" valign="top"><a id="a06d1852fde51a138a5db6210f79203ed" name="a06d1852fde51a138a5db6210f79203ed"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>Hydro</b> ()</td></tr>
-<tr class="memdesc:a06d1852fde51a138a5db6210f79203ed"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default constructor. <br /></td></tr>
+<tr class="memitem:a06d1852fde51a138a5db6210f79203ed"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_hydro.html#a06d1852fde51a138a5db6210f79203ed">Hydro</a> ()</td></tr>
+<tr class="memdesc:a06d1852fde51a138a5db6210f79203ed"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default constructor.  <a href="class_hydro.html#a06d1852fde51a138a5db6210f79203ed">More...</a><br /></td></tr>
 <tr class="separator:a06d1852fde51a138a5db6210f79203ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3e1712a38a3869cbabaac009f8584c0e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_hydro.html#a3e1712a38a3869cbabaac009f8584c0e">Hydro</a> (const bool analysis_in, const std::string &amp;hydro_path, const std::string &amp;table_path, const std::string &amp;table_fname, const std::string &amp;symmetry_in, const double tmin_in, const double tmax_in)</td></tr>
 <tr class="memdesc:a3e1712a38a3869cbabaac009f8584c0e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Parametrized constructor: connects *this with input data files.  <a href="class_hydro.html#a3e1712a38a3869cbabaac009f8584c0e">More...</a><br /></td></tr>
@@ -139,9 +138,32 @@ Public Member Functions</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p >Holds material conditions within all <a class="el" href="class_zone.html" title="Spatial zone, defined by a list bounding Face objects.">Zone</a> objects in the <a class="el" href="class_mesh.html" title="Mesh of Zone objects.">Mesh</a>. </p>
+
+<p class="definition">Definition at line <a class="el" href="_hydro_8h_source.html#l00026">26</a> of file <a class="el" href="_hydro_8h_source.html">Hydro.h</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a06d1852fde51a138a5db6210f79203ed" name="a06d1852fde51a138a5db6210f79203ed"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a06d1852fde51a138a5db6210f79203ed">&#9670;&nbsp;</a></span>Hydro() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Hydro::Hydro </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Default constructor. </p>
+
+<p class="definition">Definition at line <a class="el" href="_hydro_8cpp_source.html#l00026">26</a> of file <a class="el" href="_hydro_8cpp_source.html">Hydro.cpp</a>.</p>
+
+</div>
+</div>
 <a id="a3e1712a38a3869cbabaac009f8584c0e" name="a3e1712a38a3869cbabaac009f8584c0e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3e1712a38a3869cbabaac009f8584c0e">&#9670;&nbsp;</a></span>Hydro()</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a3e1712a38a3869cbabaac009f8584c0e">&#9670;&nbsp;</a></span>Hydro() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -210,6 +232,8 @@ Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 
+<p class="definition">Definition at line <a class="el" href="_hydro_8cpp_source.html#l00034">34</a> of file <a class="el" href="_hydro_8cpp_source.html">Hydro.cpp</a>.</p>
+
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
@@ -238,6 +262,8 @@ Public Member Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Hydro::time[it+1] - Hydro::time[it] (seconds) </dd></dl>
 
+<p class="definition">Definition at line <a class="el" href="_hydro_8cpp_source.html#l00201">201</a> of file <a class="el" href="_hydro_8cpp_source.html">Hydro.cpp</a>.</p>
+
 </div>
 </div>
 <a id="aa66da754ee9baad93147b906a8caaaef" name="aa66da754ee9baad93147b906a8caaaef"></a>
@@ -257,6 +283,8 @@ Public Member Functions</h2></td></tr>
 
 <p>Getter for Hydro::analysis. </p>
 <dl class="section return"><dt>Returns</dt><dd>"true" for analysis, "false" for postprocessing mode </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="_hydro_8cpp_source.html#l00266">266</a> of file <a class="el" href="_hydro_8cpp_source.html">Hydro.cpp</a>.</p>
 
 </div>
 </div>
@@ -278,6 +306,8 @@ Public Member Functions</h2></td></tr>
 <p>Getter for Hydro::ndim. </p>
 <dl class="section return"><dt>Returns</dt><dd>Number of analysis cases per <a class="el" href="class_cell.html" title="Class Zone reduced to hold only materials&#39; search grids for analysis.">Cell</a> </dd></dl>
 
+<p class="definition">Definition at line <a class="el" href="_hydro_8cpp_source.html#l00152">152</a> of file <a class="el" href="_hydro_8cpp_source.html">Hydro.cpp</a>.</p>
+
 </div>
 </div>
 <a id="ac1bc7fbac516057da1f6d8e93ffd8a0d" name="ac1bc7fbac516057da1f6d8e93ffd8a0d"></a>
@@ -297,6 +327,8 @@ Public Member Functions</h2></td></tr>
 
 <p>Getter for Hydro::nintervals. </p>
 <dl class="section return"><dt>Returns</dt><dd>Number of time intervals, or search cases </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="_hydro_8cpp_source.html#l00166">166</a> of file <a class="el" href="_hydro_8cpp_source.html">Hydro.cpp</a>.</p>
 
 </div>
 </div>
@@ -318,6 +350,8 @@ Public Member Functions</h2></td></tr>
 <p>Getter for Hydro::ntd. </p>
 <dl class="section return"><dt>Returns</dt><dd>Number of digits needed to represent Hydro::ntimes </dd></dl>
 
+<p class="definition">Definition at line <a class="el" href="_hydro_8cpp_source.html#l00173">173</a> of file <a class="el" href="_hydro_8cpp_source.html">Hydro.cpp</a>.</p>
+
 </div>
 </div>
 <a id="a26af02fc92afd97e0a50ca086c13990b" name="a26af02fc92afd97e0a50ca086c13990b"></a>
@@ -337,6 +371,8 @@ Public Member Functions</h2></td></tr>
 
 <p>Getter for Hydro::ntimes. </p>
 <dl class="section return"><dt>Returns</dt><dd>Number of time instants, or search cases + 1 </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="_hydro_8cpp_source.html#l00159">159</a> of file <a class="el" href="_hydro_8cpp_source.html">Hydro.cpp</a>.</p>
 
 </div>
 </div>
@@ -358,6 +394,8 @@ Public Member Functions</h2></td></tr>
 <p>Getter for Hydro::nzones. </p>
 <dl class="section return"><dt>Returns</dt><dd>Number of <a class="el" href="class_zone.html" title="Spatial zone, defined by a list bounding Face objects.">Zone</a> objects in the <a class="el" href="class_mesh.html" title="Mesh of Zone objects.">Mesh</a> </dd></dl>
 
+<p class="definition">Definition at line <a class="el" href="_hydro_8cpp_source.html#l00273">273</a> of file <a class="el" href="_hydro_8cpp_source.html">Hydro.cpp</a>.</p>
+
 </div>
 </div>
 <a id="a22b78208da86b32396f5b37e2a78cc9e" name="a22b78208da86b32396f5b37e2a78cc9e"></a>
@@ -377,6 +415,8 @@ Public Member Functions</h2></td></tr>
 
 <p>Getter for Hydro::path. </p>
 <dl class="section return"><dt>Returns</dt><dd>Directory path to input data files for *this <a class="el" href="class_hydro.html" title="Holds material conditions within all Zone objects in the Mesh.">Hydro</a> </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="_hydro_8cpp_source.html#l00138">138</a> of file <a class="el" href="_hydro_8cpp_source.html">Hydro.cpp</a>.</p>
 
 </div>
 </div>
@@ -398,6 +438,8 @@ Public Member Functions</h2></td></tr>
 <p>Getter for Hydro::symmetry. </p>
 <dl class="section return"><dt>Returns</dt><dd>"spherical" or "none" (from class <a class="el" href="class_detector.html" title="Detector object.">Detector</a>) </dd></dl>
 
+<p class="definition">Definition at line <a class="el" href="_hydro_8cpp_source.html#l00287">287</a> of file <a class="el" href="_hydro_8cpp_source.html">Hydro.cpp</a>.</p>
+
 </div>
 </div>
 <a id="a48a1fac6008154913c89cc4a0dc31006" name="a48a1fac6008154913c89cc4a0dc31006"></a>
@@ -417,6 +459,8 @@ Public Member Functions</h2></td></tr>
 
 <p>Getter for <a class="el" href="class_table.html" title="Atomic data for materials.">Table</a> of materials. </p>
 <dl class="section return"><dt>Returns</dt><dd>Reference to Hydro::tbl </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="_hydro_8cpp_source.html#l00145">145</a> of file <a class="el" href="_hydro_8cpp_source.html">Hydro.cpp</a>.</p>
 
 </div>
 </div>
@@ -438,6 +482,8 @@ Public Member Functions</h2></td></tr>
 <p>Getter for Hydro::tmax. </p>
 <dl class="section return"><dt>Returns</dt><dd>Maximum time instant included (seconds) </dd></dl>
 
+<p class="definition">Definition at line <a class="el" href="_hydro_8cpp_source.html#l00187">187</a> of file <a class="el" href="_hydro_8cpp_source.html">Hydro.cpp</a>.</p>
+
 </div>
 </div>
 <a id="a3f9ac91d447611ddc9e9e45b56fef8ec" name="a3f9ac91d447611ddc9e9e45b56fef8ec"></a>
@@ -457,6 +503,8 @@ Public Member Functions</h2></td></tr>
 
 <p>Getter for Hydro::tmin. </p>
 <dl class="section return"><dt>Returns</dt><dd>Minimum time instant included (seconds) </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="_hydro_8cpp_source.html#l00180">180</a> of file <a class="el" href="_hydro_8cpp_source.html">Hydro.cpp</a>.</p>
 
 </div>
 </div>
@@ -502,6 +550,8 @@ Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 
+<p class="definition">Definition at line <a class="el" href="_hydro_8cpp_source.html#l00208">208</a> of file <a class="el" href="_hydro_8cpp_source.html">Hydro.cpp</a>.</p>
+
 </div>
 </div>
 <a id="a7279ca1505252a1d81f58eee168e3f02" name="a7279ca1505252a1d81f58eee168e3f02"></a>
@@ -527,6 +577,8 @@ Public Member Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
+
+<p class="definition">Definition at line <a class="el" href="_hydro_8cpp_source.html#l00280">280</a> of file <a class="el" href="_hydro_8cpp_source.html">Hydro.cpp</a>.</p>
 
 </div>
 </div>
@@ -555,6 +607,8 @@ Public Member Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Time instant (seconds) </dd></dl>
 
+<p class="definition">Definition at line <a class="el" href="_hydro_8cpp_source.html#l00194">194</a> of file <a class="el" href="_hydro_8cpp_source.html">Hydro.cpp</a>.</p>
+
 </div>
 </div>
 <a id="ad4de06ef11de84781e86bc89cb3fe317" name="ad4de06ef11de84781e86bc89cb3fe317"></a>
@@ -582,6 +636,8 @@ Public Member Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Time index for Hydro::time </dd></dl>
 
+<p class="definition">Definition at line <a class="el" href="_hydro_8cpp_source.html#l00294">294</a> of file <a class="el" href="_hydro_8cpp_source.html">Hydro.cpp</a>.</p>
+
 </div>
 </div>
 <a id="a246993661e4d950201dc63a8b9d73ecd" name="a246993661e4d950201dc63a8b9d73ecd"></a>
@@ -602,11 +658,13 @@ Public Member Functions</h2></td></tr>
 <p>String representation of a <a class="el" href="class_hydro.html" title="Holds material conditions within all Zone objects in the Mesh.">Hydro</a> object. </p>
 <dl class="section return"><dt>Returns</dt><dd>String representation of *this </dd></dl>
 
+<p class="definition">Definition at line <a class="el" href="_hydro_8cpp_source.html#l00258">258</a> of file <a class="el" href="_hydro_8cpp_source.html">Hydro.cpp</a>.</p>
+
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li><a class="el" href="_hydro_8h_source.html">Hydro.h</a></li>
-<li><a class="el" href="_hydro_8cpp.html">Hydro.cpp</a></li>
+<li><a class="el" href="_hydro_8cpp_source.html">Hydro.cpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->
