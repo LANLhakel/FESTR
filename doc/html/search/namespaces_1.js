@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['patchenvironment',['PatchEnvironment',['../db/da8/namespace_patch_environment.html',1,'']]]
+  ['patchenvironment_0',['PatchEnvironment',['../namespace_patch_environment.html',1,'']]]
 ];
