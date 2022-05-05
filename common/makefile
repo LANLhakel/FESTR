@@ -67,6 +67,27 @@ ifeq ($(comp),gnu)
 endif
 
 
+# Clang compiler
+ifeq ($(comp),clang)
+    CXX = clang++
+
+    ifeq ($(opt),yes)
+        OPTIONS += -O3
+    else
+        OPTIONS += -g -O0 -Wall -pedantic
+    endif
+
+    ifeq ($(omp),yes)
+        OPTIONS += -DOMP -fopenmp
+    endif
+
+    ifeq ($(simd),yes)
+        OPTIONS += -DSIMD -fopenmp
+    endif
+
+endif
+
+
 # Intel compiler
 ifeq ($(comp),intel)
     CXX = icpc
