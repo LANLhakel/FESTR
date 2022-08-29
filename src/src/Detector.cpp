@@ -4,7 +4,7 @@
  * @author Peter Hakel
  * @version 0.9
  * @date Created on 28 January 2015\n
- * Last modified on 29 April 2022
+ * Last modified on 11 August 2022
  * @copyright (c) 2015, Triad National Security, LLC.
  * All rights reserved.\n
  * Use of this source code is governed by the BSD 3-Clause License.
@@ -15,35 +15,32 @@
 
 pmh_2015_0210
 pmh_2015_0312
+pmh_2022_0711
 
 =============================================================================*/
 
 #include <Detector.h>
 
+#include <constants.h>
+#include <glob.h>
 #include <Node.h>
 #include <utils.h>
 
+#include <algorithm>
+#include <cmath>
 #include <cstdlib>
 #include <cstring>
 #include <iostream>
 
-/*
-#ifdef OMP
+#ifdef _OPENMP
 #include <omp.h>
 #endif
-*/
 
 //-----------------------------------------------------------------------------
 
 #ifdef MPI
 #include <TaskPool.h>
 #endif
-
-//-----------------------------------------------------------------------------
-
-const size_t Detector::NPT = 4;
-
-//-----------------------------------------------------------------------------
 
 /// Used as IT type in TaskPool for MPI parallelization of patches
 struct PatchID
@@ -335,8 +332,16 @@ void do_patch(const PatchID &pid, PatchSpectrum &pout)
     }
 
     const std::string SEP("----------------------------------------\n");
-    size_t ncount(this_det->ntheta == 0 ? 1 : (this_det->ntheta-1)*this_det->nphi + 1);
-    Progress counter(this_det->dname + "_Ray", next_level, ncount, next_freq,
+    std::vector<size_t> ndims; // nphi as a function of itheta
+    ndims.push_back(1); // central Ray for this patch; itheta = iphi = 0
+    size_t nrays = 1;
+    for (size_t itheta = 1; itheta < this_det->ntheta; ++itheta)
+    {
+        size_t nphi = this_det->calculate_nphi(itheta);
+        nrays += nphi;
+        ndims.push_back(nphi);
+    }
+    Progress counter(this_det->dname + "_Ray", next_level, nrays, next_freq,
                      SEP, std::cout);
 
     this_det->yp[patch].fill(0.0);
@@ -345,24 +350,25 @@ void do_patch(const PatchID &pid, PatchSpectrum &pout)
     std::string tname(time_fname(it, ntd));
     std::string header(time_string(it, ntd, t));
     header += this_det->patch_string(patch);
-    this_det->do_Ray(&counter, patch, INT_PAIR_00, *g, *m, *d, *tbl,
-                     cname, header, tname, *gol);
-    counter.advance();
 
-/*
-    #ifdef OMP
-    omp_set_num_threads(atoi(getenv("OMP_NUM_THREADS")));
+    #ifdef _OPENMP
+    omp_set_num_threads(glob::nthreads);
     #pragma omp parallel for default(none) \
-     firstprivate(this_det,gol,tname,header,cname,tbl,d,m,g,patch) shared(counter) collapse(2)
+     firstprivate(this_det,gol,tname,header,cname,tbl,d,m,g,patch,it,nrays,ndims) \
+     shared(counter)
     #endif
-*/
-    for (size_t itheta = 1; itheta < this_det->ntheta; ++itheta)
-        for (size_t iphi = 0; iphi < this_det->nphi; ++iphi)
-        {
-            this_det->do_Ray(&counter, patch, IntPair(itheta, iphi), *g, *m, *d, *tbl,
-                             cname, header, tname, *gol);
-            counter.advance();
-        }
+    for (size_t itheta_iphi = 0; itheta_iphi < nrays; ++itheta_iphi)
+    {
+        auto itheta_iphi_pair = utils::one_to_two(ndims, itheta_iphi);
+        size_t itheta = itheta_iphi_pair.first;
+        size_t iphi = itheta_iphi_pair.second;
+        this_det->do_Ray(&counter, patch, IntPair(itheta, iphi), *g, *m, *d, *tbl,
+                         it, cname, header, tname, *gol);
+        #ifdef _OPENMP
+        #pragma omp critical
+        #endif
+        {counter.advance();}
+    }
 
     if (this_det->ntheta > 0) // (W/eV); (W/cm2/sr/eV) for ntheta == 0
     {
@@ -449,10 +455,10 @@ Detector::Detector(): yt(), yst(),
     xr(), yr(), zr(), dx(0.0), dy(0.0), da(0.0),
     ux(), uy(), nhv(0), hv(), hvmin(0.0), hvmax(0.0),
     jmin(0), jmax(0), fwhm(-1.0), back_type("none"), back_fname(""),
-    back_value(-9.0), yback(), tracking(false),  write_Ray(true),
+    back_value(-9.0), yback(), trad(), tracking(false), write_Ray(true),
     nx(0), ny(0), nxd(0), nyd(0),
     pc(), theta_max(0.0), ntheta(0), nphi(0), nthetad(0), nphid(0),
-    dtheta(0.0), dphi(0.0), dtheta2(0.0), gdet(), p(), yp(), ys()
+    dtheta(0.0), dtheta2(0.0), gdet(), p(), yp(), ys()
     {}
 
 //-----------------------------------------------------------------------------
@@ -477,10 +483,10 @@ Detector::Detector(const size_t freq_patch_in, const size_t freq_Ray_in,
     xr(), yr(), zr(), dx(dx_in), dy(dy_in), da(dx_in*dy_in),
     ux(), uy(), nhv(0), hv(), hvmin(hv_min), hvmax(hv_max),
     jmin(nhv_in), jmax(0), fwhm(fwhm_in), back_type(back_type_in),
-    back_fname(""), back_value(-9.0), yback(), tracking(tracking_in),
+    back_fname(""), back_value(-9.0), yback(), trad(), tracking(tracking_in),
     write_Ray(write_Ray_in), nx(0), ny(0), nxd(0), nyd(0), pc(pc_in),
     theta_max(0.0), ntheta(0), nphi(0), nthetad(0), nphid(0), dtheta(0.0),
-    dphi(0.0), dtheta2(0.0), gdet(), p(), yp(), ys()
+    dtheta2(0.0), gdet(), p(), yp(), ys()
 {
     // set hv grid
     std::string hvpath(dbase_path + "grids/hv_grid.txt");
@@ -584,7 +590,7 @@ Detector::Detector(const size_t freq_patch_in, const size_t freq_Ray_in,
     for (size_t i = 0; i < NPT; ++i) p.add_node(i);
 
     // set up the backlighter
-    if (back_type == "file")
+    if (back_type == "file"  ||  back_type == "history")
     {
         back_fname = back_value_in;
         back_value = -5.0;
@@ -619,6 +625,22 @@ Detector::Detector(const size_t freq_patch_in, const size_t freq_Ray_in,
     {
         for (size_t ihv = 0; ihv < nhv; ++ihv)
             yback.at(ihv) = utils::planckian(hv.at(ihv), back_value);
+    }
+    else if (back_type == "history")
+    {
+        std::ifstream bl_file(back_fname);
+        size_t nt = 0;
+        std::string str;
+        bl_file >> str >> nt;
+        trad.assign(nt, 0.0);
+        double t = 0.0;
+        utils::find_line(bl_file, "# start");
+        for (size_t it = 0; it < nt; ++it)
+        {
+            bl_file >> t >> trad[it] ;
+        }
+        bl_file.close();
+        bl_file.clear();
     }
 
     // write out the working backlighter spectrum
@@ -689,9 +711,8 @@ void Detector::set_bundle(const double theta_max_in,
     ntheta = ntheta_in;
     nphi = nphi_in;
     nthetad = utils::ndigits(ntheta);
-    nphid = utils::ndigits(nphi);
+    nphid = utils::ndigits(calculate_nphi(ntheta-1));
     if (ntheta > 0) dtheta = theta_max / static_cast<double>(ntheta);
-    if (nphi > 0) dphi = cnst::TWO_PI / static_cast<double>(nphi);
     dtheta2 = dtheta / 2.0;
 }
 
@@ -942,6 +963,34 @@ size_t Detector::get_nphi() const
 
 //-----------------------------------------------------------------------------
 
+size_t Detector::calculate_nphi(const size_t i) const
+{   // pmh_2022_0711
+    if (i == 0) return 1;
+    int rv = utils::nint(sin((i+0.5)*dtheta) / sin(dtheta2));
+    return std::max(static_cast<size_t>(rv), nphi);
+}
+
+//-----------------------------------------------------------------------------
+
+std::pair<double, double> Detector::theta_phi(const IntPair &direction) const
+{   // pmh_2022_0711
+    double theta = 0.0;
+    size_t nphi = 0;
+    if (direction.first > 0)
+    {
+        theta = (static_cast<double>(direction.first) + 0.5) * dtheta;
+        nphi = calculate_nphi(direction.first);
+    }
+    double phi = 0.0;
+    if (nphi > 0)
+    {
+        phi = static_cast<double>(direction.second) * cnst::TWO_PI / nphi;
+    }
+    return {theta, phi};
+}
+
+//-----------------------------------------------------------------------------
+
 double Detector::get_dtheta() const
 {
     return dtheta;
@@ -956,13 +1005,6 @@ double Detector::get_dtheta2() const
 
 //-----------------------------------------------------------------------------
 
-double Detector::get_dphi() const
-{
-    return dphi;
-}
-
-//-----------------------------------------------------------------------------
-
 Vector3d Detector::local_to_global(const Vector3d &v) const
 {
     return Vector3d( xr * v, yr * v, zr * v );
@@ -973,7 +1015,7 @@ Vector3d Detector::local_to_global(const Vector3d &v) const
 void Detector::do_Ray(Progress *parent,
                       const IntPair &patch, const IntPair &direction,
                       const Grid &g, const Mesh &m, const Database &d,
-                      const Table &tbl,
+                      const Table &tbl, const size_t it,
                       const std::string &froot, const std::string &hroot,
                       const std::string &tname, Goal &gol)
 {
@@ -986,8 +1028,9 @@ void Detector::do_Ray(Progress *parent,
     else if (symmetry == "spherical")
         r0  =  rc  +  ux * ix;
 
-    double theta = static_cast<double>(direction.first) * dtheta;
-    double phi = static_cast<double>(direction.second) * dphi;
+    auto theta_phi_pair = theta_phi(direction);
+    double theta = theta_phi_pair.first;
+    double phi = theta_phi_pair.second;
     Vector3d cvec(local_to_global(-cnst::CV * Vector3d(theta, phi)));
 
     const double EQT = 1.0e-15;
@@ -1022,18 +1065,29 @@ void Detector::do_Ray(Progress *parent,
         ray.patch_id = patch;
         ray.bundle_id = direction;
         ray.trace(g, m);
+        if (back_type == "history")
+        {
+            double t_rad = trad[it];
+            for (size_t ihv = 0; ihv < nhv; ++ihv)
+                yback[ihv] = utils::planckian(hv.at(ihv), t_rad);
+        }
         ray.set_backlighter(yback);
         ray.cross_Mesh(m, d, tbl, symmetry, ix);
         if (ntheta == 0) // parallel Rays; one Ray per patch (W/cm2/sr/eV)
             yp[patch] = ray.y;
         else // bundle of Rays per patch (W/cm2/eV)
-        {
-            double domega; // pmh_2016_1013
+        {   // pmh_2022_0711
+            double domega = 0.0;
             if (direction == INT_PAIR_00) // spherical cap
-                domega = cnst::FOUR_PI * pow(sin(dtheta/4.0), 2);
+                domega = cnst::FOUR_PI * pow(sin(dtheta2), 2);
             else // spherical rectangle
-                domega = 2.0 * dphi * sin(theta) * sin(dtheta2);
-            yp[patch] += ray.y * (domega * ez.cos_angle(ray.v));
+                domega = cnst::FOUR_PI
+                       * sin((static_cast<double>(direction.first)+0.5) * dtheta)
+                       * sin(dtheta2) / calculate_nphi(direction.first);
+            #ifdef _OPENMP
+            #pragma omp critical
+            #endif
+            {yp[patch] += ray.y * (domega * ez.cos_angle(ray.v));}
         }
     }
 
@@ -1047,8 +1101,8 @@ void Detector::do_Ray(Progress *parent,
     else
     {
         if (write_Ray)
-            {
-                double scale = gol.get_best_scale(cname);
+        {
+            double scale = gol.get_best_scale(cname);
             if (utils::sign_eqt(scale - 1.0, cnst::SCALE_EQT) == 0)
                 header += "\ndata in W/cm2/sr/eV";
             else
@@ -1083,8 +1137,16 @@ void Detector::do_patch(Progress *parent, const IntPair &patch,
         next_freq = parent->get_next_freq(freq_Ray);
     }
     const std::string SEP("----------------------------------------\n");
-    size_t ncount(ntheta == 0 ? 1 : (ntheta-1)*nphi + 1);
-    Progress counter(dname + "_Ray", next_level, ncount, next_freq,
+    std::vector<size_t> ndims; // nphi as a function of itheta
+    ndims.push_back(1); // central Ray for this patch; itheta = iphi = 0
+    size_t nrays = 1;
+    for (size_t itheta = 1; itheta < ntheta; ++itheta)
+    {
+        size_t nphi = calculate_nphi(itheta);
+        nrays += nphi;
+        ndims.push_back(nphi);
+    }
+    Progress counter(dname + "_Ray", next_level, nrays, next_freq,
                      SEP, std::cout);
 
     yp[patch].fill(0.0);
@@ -1093,17 +1155,19 @@ void Detector::do_patch(Progress *parent, const IntPair &patch,
     std::string tname(time_fname(it, ntd));
     std::string header(time_string(it, ntd, t));
     header += patch_string(patch);
-    do_Ray(&counter, patch, INT_PAIR_00, g, m, d, tbl,
+    do_Ray(&counter, patch, INT_PAIR_00, g, m, d, tbl, it,
            cname, header, tname, gol);
     counter.advance();
 
-    for (size_t itheta = 1; itheta < ntheta; ++itheta)
-        for (size_t iphi = 0; iphi < nphi; ++iphi)
-        {
-            do_Ray(&counter, patch, IntPair(itheta, iphi), g, m, d, tbl,
-                   cname, header, tname, gol);
-            counter.advance();
-        }
+    for (size_t itheta_iphi = 0; itheta_iphi < nrays; ++itheta_iphi)
+    {
+        auto itheta_iphi_pair = utils::one_to_two(ndims, itheta_iphi);
+        size_t itheta = itheta_iphi_pair.first;
+        size_t iphi = itheta_iphi_pair.second;
+        do_Ray(&counter, patch, IntPair(itheta, iphi), g, m, d, tbl,
+               it, cname, header, tname, gol);
+        counter.advance();
+    }
 
     if (ntheta > 0) // (W/eV); (W/cm2/sr/eV) for ntheta == 0
     {
@@ -1378,13 +1442,14 @@ std::string Detector::omega_string(const IntPair &direction) const
     const size_t &it = direction.first;
     const size_t &ip = direction.second;
 
-    double theta = utils::degrees(dtheta * static_cast<double>(it));
-    double phi = utils::degrees(dphi * static_cast<double>(ip));
+    auto theta_phi_pair = theta_phi(direction);
+    double theta = theta_phi_pair.first;
+    double phi = theta_phi_pair.second;
 
     return "it " + utils::int_to_string(it, ' ', nthetad)
-         + utils::double_to_string(theta) + " deg\n"
+         + utils::double_to_string(utils::degrees(theta)) + " deg\n"
          + "ip " + utils::int_to_string(ip, ' ', nphid)
-         + utils::double_to_string(phi) + " deg";
+         + utils::double_to_string(utils::degrees(phi)) + " deg";
 }
 
 //-----------------------------------------------------------------------------
@@ -1446,7 +1511,9 @@ std::string time_string(const size_t it, const int ntd, const double t)
 //-----------------------------------------------------------------------------
 
 std::string time_fname(const size_t it, const int ntd)
-{return "time" + utils::int_to_string(it, '0', ntd);}
+{
+    return "time" + utils::int_to_string(it, '0', ntd);
+}
 
 //-----------------------------------------------------------------------------
 

@@ -7,7 +7,7 @@
  * @author Peter Hakel
  * @version 0.9
  * @date Created on 28 January 2015\n
- * Last modified on 29 April 2022
+ * Last modified on 27 July 2022
  * @copyright (c) 2015, Triad National Security, LLC.
  * All rights reserved.\n
  * Use of this source code is governed by the BSD 3-Clause License.
@@ -117,8 +117,7 @@ public:
      * @param[in] theta_max_in Initializes Detector::theta_max
      * @param[in] ntheta_in Initializes Detector::ntheta,
      *            Detector::nthetad, Detector::dtheta, Detector::dtheta2
-     * @param[in] nphi_in Initializes Detector::nphi, Detector::nphid,
-     *            Detector::dphi
+     * @param[in] nphi_in Initializes Detector::nphi
      */
     void set_bundle(const double theta_max_in,
                     const size_t ntheta_in, const size_t nphi_in);
@@ -332,9 +331,23 @@ public:
 
     /**
      * @brief Getter for Detector::nphi
-     * @return Number of intervals in azimuthal direction
+     * @return Minimum number of intervals in azimuthal direction
      */
     size_t get_nphi() const;
+
+    /**
+     * @brief Azimuthal discretization of a given polar direction
+     * @param[in] i Polar-angle index
+     * @return Number of intervals in azimuthal direction
+     */
+    size_t calculate_nphi(const size_t i) const;
+
+    /**
+     * @brief Calculate polar and azimuthal angles
+     * @param[in] direction Integer indeces of the two angles
+     * @return Pair of angles (first=polar, second=azimuthal)
+     */
+    std::pair<double, double> theta_phi(const IntPair &direction) const;
 
     /**
      * @brief Getter for Detector::dtheta
@@ -347,12 +360,6 @@ public:
      * @return Half spacing (radians) in polar direction
      */
     double get_dtheta2() const;
-
-    /**
-     * @brief Getter for Detector::dphi
-     * @return Spacing (radians) in azimuthal direction
-     */
-    double get_dphi() const;
 
     /**
      * @brief Converter of Ray direction vector
@@ -370,6 +377,7 @@ public:
      * @param[in] m Reference to the current Mesh object
      * @param[in] d Reference to the current Database object
      * @param[in] tbl Reference to the current Table object
+     * @param[in] it Current time step index
      * @param[in] froot Root of the filename for the current spatial patch
      * @param[in] hroot Root of the file header for the current spatial patch
      * @param[in] tname Root of the filename for the current time interval
@@ -378,7 +386,7 @@ public:
     void do_Ray(Progress *parent,
                 const IntPair &patch, const IntPair &direction,
                 const Grid &g, const Mesh &m, const Database &d,
-                const Table &tbl,
+                const Table &tbl, const size_t it,
                 const std::string &froot, const std::string &hroot,
                 const std::string &tname, Goal &gol);
 
@@ -480,7 +488,7 @@ public:
 //private:
 
     /// Number of Grid points
-    static const size_t NPT;
+    static constexpr size_t NPT = 4;
 
     /// Frequency of Progress prints for loop over patches
     size_t freq_patch;
@@ -590,6 +598,9 @@ public:
     /// Backlighter values (W/cm2/sr/eV)
     std::vector<double> yback;
 
+    /// Backlighter temperature time history values (eV)
+    std::vector<double> trad;
+
     /// Tracking of partial results along *this Detector's Rays
     bool tracking;
 
@@ -617,7 +628,7 @@ public:
     /// Number of intervals in polar direction
     size_t ntheta;
 
-    /// Number of intervals in azimuthal direction
+    /// Minimum number of intervals in azimuthal direction
     size_t nphi;
 
     /// Number of digits needed to label ntheta
@@ -628,9 +639,6 @@ public:
 
     /// Spacing (radians) in polar direction
     double dtheta;
-
-    /// Spacing (radians) in azimuthal direction
-    double dphi;
 
     /// Half Detector::dtheta
     double dtheta2;

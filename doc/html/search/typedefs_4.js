@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['specpatch_0',['SpecPatch',['../_detector_8h.html#ae932dbf73e1316deb6fba7d43d33a308',1,'Detector.h']]]
+  ['objectiveptr',['ObjectivePtr',['../dd/d29/_objective_8h.html#a32b757734518824e0149c10c97f56c34',1,'Objective.h']]]
 ];

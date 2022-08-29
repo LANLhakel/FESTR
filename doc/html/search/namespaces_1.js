@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['patchenvironment_0',['PatchEnvironment',['../namespace_patch_environment.html',1,'']]]
+  ['glob',['glob',['../d7/df8/namespaceglob.html',1,'']]]
 ];

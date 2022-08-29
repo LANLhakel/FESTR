@@ -1,0 +1,4 @@
+Frequency of prints  0
+Number of Detectors  1
+Detector_Name ntheta nphi freq_Ray
+SolidAngle_at20cm 20    4        0

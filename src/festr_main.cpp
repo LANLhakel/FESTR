@@ -4,7 +4,7 @@
  * @author Peter Hakel
  * @version 0.9
  * @date Created on 23 October 2014\n
- * Last modified on 10 November 2020
+ * Last modified on 18 August 2022
  * @copyright (c) 2015, Triad National Security, LLC.
  * All rights reserved.\n
  * Use of this source code is governed by the BSD 3-Clause License.
@@ -25,11 +25,11 @@ B&R Code:  DP1516090
 =============================================================================*/
 
 #include <Diagnostics.h>
+#include <glob.h>
 #include <Goal.h>
 #include <Hydro.h>
 #include <utils.h>
 
-#include <chrono>
 #include <cstdlib>
 #include <fstream>
 #include <iostream>
@@ -48,7 +48,11 @@ const std::string main_name = "festr";
 /** @brief Prints the format of the execution command */
 void print_usage()
 {
-    std::cout << "Usage: ./" << main_name << " <options_file>" << std::endl;
+    std::cout << "Usage: ./" << main_name << " <options_file>";
+    #ifdef _OPENMP
+    std::cout << " [nthreads=1]";
+    #endif
+    std::cout << std::endl;
 }
 
 //-----------------------------------------------------------------------------
@@ -56,9 +60,6 @@ void print_usage()
 /** @brief Main driver of this code */
 int main(int argc, char **argv)
 {
-    using namespace std::chrono;
-    auto t_begin = high_resolution_clock::now();
-
     const int level = 0; // indentation level for local Progress objects
 
 std::string license("Copyright (c) 2015, Triad National Security, LLC");
@@ -109,9 +110,13 @@ license += "POSSIBILITY OF SUCH DAMAGE.\n";
 
     std::cout << license
               << "\nFESTR: Finite-Element Spectral Transfer of Radiation, "
-              << "Version 0.9, November 2020\n" << std::endl;
+              << "Version 0.9, March 2020\n" << std::endl;
 
-    if (argc != 2)
+    #ifdef _OPENMP
+    if ((argc != 2)  &&  (argc != 3))
+    #else
+    if (argc != 2)  
+    #endif
     {
         print_usage();
         exit(EXIT_FAILURE);
@@ -119,6 +124,10 @@ license += "POSSIBILITY OF SUCH DAMAGE.\n";
     std::cout << "Running: ";
     for (int i = 0; i < argc; ++i) std::cout << " " << argv[i];
     std::cout << "\n" << std::endl;
+
+    #ifdef _OPENMP
+    if (argc == 3) glob::nthreads = atoi(argv[2]); else glob::nthreads = 1;
+    #endif
 
     std::ifstream options(argv[1]);
     if (!options.is_open())
@@ -215,11 +224,7 @@ license += "POSSIBILITY OF SUCH DAMAGE.\n";
     #ifdef MPI
     MPI_Finalize();
     #endif
-
-    auto t_end = high_resolution_clock::now();
-    auto time_span = duration_cast<duration<double>>(t_end - t_begin);
-    std::cout << "Elapsed time: " << time_span.count() << " seconds.";
-    std::cout << "\n\nend" << std::endl;
+    std::cout << "\nend" << std::endl;
 
     return EXIT_SUCCESS;
 }

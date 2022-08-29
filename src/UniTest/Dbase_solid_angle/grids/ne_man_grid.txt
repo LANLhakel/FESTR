@@ -1,0 +1,9 @@
+ 
+ Number of bits:
+           1
+ 
+ Number of grid points:
+           1
+ 
+ Grid points:
+           0   1.0

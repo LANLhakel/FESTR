@@ -313,7 +313,9 @@ Version Log:
      *) a branch was added in Cone::intercept to bypass numerical issues for
         vertical Rays; two new associated units tests were added in file
         test_Cone.cpp, which include the new file cone_vertical.inc,
-     *) copy assignment of StoichZbar in Database.h was explicitly deleted.
+     *) copy assignment of StoichZbar in Database.h was explicitly deleted,
+     *) a new Ray-casting scheme was implemented for Ray bundles,
+     *) Ray-casting within a Ray bundle can be threaded with OpenMP.
 
 -------------------------------------------------------------------------------
 

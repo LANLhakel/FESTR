@@ -10,7 +10,7 @@ Los Alamos National Laboratory
 XCP-5 group
 
 Created on 28 January 2015
-Last modified on 29 April 2022
+Last modified on 27 July 2022
 
 Copyright (c) 2015, Triad National Security, LLC.
 All rights reserved.
@@ -731,22 +731,6 @@ const double EQT = 1.0e-15;
 //-----------------------------------------------------------------------------
 
 {
-    Test t(GROUP, "dphi_init", "fast");
-
-    t.check_to_disable_test(disabled_test_count);
-    if (t.is_enabled())
-    {
-        #include <detector_init.inc>
-        double expected(0.0);
-        double actual = det.get_dphi();
-
-        failed_test_count += t.check_equal_real_num(expected, actual, EQT);
-    }
-}
-
-//-----------------------------------------------------------------------------
-
-{
     Test t(GROUP, "theta_max", "fast");
 
     t.check_to_disable_test(disabled_test_count);
@@ -824,23 +808,6 @@ const double EQT = 1.0e-15;
         det.set_bundle(1.5, 30, 360);
         double expected(0.025);
         double actual = det.get_dtheta2();
-
-        failed_test_count += t.check_equal_real_num(expected, actual, EQT);
-    }
-}
-
-//-----------------------------------------------------------------------------
-
-{
-    Test t(GROUP, "dphi", "fast");
-
-    t.check_to_disable_test(disabled_test_count);
-    if (t.is_enabled())
-    {
-        #include <detector_init.inc>
-        det.set_bundle(1.5, 30, 360);
-        double expected(cnst::PI/180.0); // 0.017453292519943295
-        double actual = det.get_dphi();
 
         failed_test_count += t.check_equal_real_num(expected, actual, EQT);
     }

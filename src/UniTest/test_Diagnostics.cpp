@@ -5,13 +5,14 @@ Definitions for unit, integration, and regression tests for class Diagnostics.
 
 pmh_2015_0210
 pmh_2015_0312
+pmh_2022_0711
 
 Peter Hakel
 Los Alamos National Laboratory
 XCP-5 group
 
 Created on 5 February 2015
-Last modified on 29 April 2022
+Last modified on 11 August 2022
 
 Copyright (c) 2015, Triad National Security, LLC.
 All rights reserved.
@@ -31,6 +32,7 @@ B&R Code:  DP1516090
 #include <Test.h>
 
 #include <Database.h>
+#include <glob.h>
 #include <Goal.h>
 #include <Grid.h>
 #include <Hydro.h>
@@ -487,22 +489,6 @@ const double EQT = 1.0e-15;
 //-----------------------------------------------------------------------------
 
 {
-    Test t(GROUP, "Detector0_dphi0", "fast");
-
-    t.check_to_disable_test(disabled_test_count);
-    if (t.is_enabled())
-    {
-        #include <diagnostics1.inc>
-        double expected(0.0);
-        double actual = det.get_dphi();
-
-        failed_test_count += t.check_equal_real_num(expected, actual, EQT);
-    }
-}
-
-//-----------------------------------------------------------------------------
-
-{
     Test t(GROUP, "Detector0_ntheta", "fast");
 
     t.check_to_disable_test(disabled_test_count);
@@ -563,23 +549,6 @@ const double EQT = 1.0e-15;
         #include <set_bundle.inc>
         double expected(0.03767603082998559);
         double actual = det.get_dtheta2();
-
-        failed_test_count += t.check_equal_real_num(expected, actual, EQT);
-    }
-}
-
-//-----------------------------------------------------------------------------
-
-{
-    Test t(GROUP, "Detector0_dphi", "fast");
-
-    t.check_to_disable_test(disabled_test_count);
-    if (t.is_enabled())
-    {
-        #include <diagnostics1.inc>
-        #include <set_bundle.inc>
-        double expected(cnst::PI/180.0);
-        double actual = det.get_dphi();
 
         failed_test_count += t.check_equal_real_num(expected, actual, EQT);
     }
@@ -1290,6 +1259,78 @@ const double EQT = 1.0e-15;
         double actual = det.get_backlighter().at(2);
 
         failed_test_count += t.check_equal_real_num(expected, actual, EQT);
+    }
+}
+
+//-----------------------------------------------------------------------------
+
+{
+    Test t(GROUP, "solid_angle_at10cm", "fast");
+
+    t.check_to_disable_test(disabled_test_count);
+    if (t.is_enabled())
+    {
+        #include <diagnostics_solid_angle_at10cm.inc>
+        std::string fname(cnststr::PATH + "UniTest/Output/" + det.get_dname());
+        fname += "-yp_ix0_iy0_time0.txt";
+        #ifndef WIN
+        std::string cmnd("rm -rf " + fname);
+        if (system(cmnd.c_str()) != 0)
+        {
+            std::cerr << "\nError: system call failure in test Diagnostics-"
+                      << "solid_angle"
+                      << std::endl;
+            exit(EXIT_FAILURE);
+        }
+        #endif
+        diag.execute(d, h, gol);
+        std::string expected("SolidAngle_at10cm-yp_ix0_iy0_time0\n");
+        expected += "time 0    0.000000e+00 s\n";
+        expected += "ix 0   5.000000e-01 cm\n";
+        expected += "iy 0   5.000000e-01 cm\ndata in W/eV\n";
+        expected += "   4.502241e-02\n   4.502241e-02\n   4.502241e-02";
+        // expected ~ 4 * pi * pow(sin(0.12/2), 2); pmh_2022_0711
+        // since specific intensity is made to equal 1 for all Rays,
+        // and patch area is chosen to be 1 cm2,
+        // so that actual ~ solid angle spanned by the spherical cap
+        std::string actual(utils::file_to_string(fname));
+
+        failed_test_count += t.check_equal(expected, actual);
+    }
+}
+
+//-----------------------------------------------------------------------------
+
+{
+    Test t(GROUP, "solid_angle_at20cm", "fast");
+
+    t.check_to_disable_test(disabled_test_count);
+    if (t.is_enabled())
+    {
+        #include <diagnostics_solid_angle_at20cm.inc>
+        std::string fname(cnststr::PATH + "UniTest/Output/" + det.get_dname());
+        fname += "-yp_ix0_iy0_time0.txt";
+        #ifndef WIN
+        std::string cmnd("rm -rf " + fname);
+        if (system(cmnd.c_str()) != 0)
+        {
+            std::cerr << "\nError: system call failure in test Diagnostics-"
+                      << "solid_angle"
+                      << std::endl;
+            exit(EXIT_FAILURE);
+        }
+        #endif
+        diag.execute(d, h, gol);
+        std::string expected("SolidAngle_at20cm-yp_ix0_iy0_time0\n");
+        expected += "time 0    0.000000e+00 s\n";
+        expected += "ix 0   5.000000e-01 cm\n";
+        expected += "iy 0   5.000000e-01 cm\ndata in W/eV\n";
+        expected += "   1.129622e-02\n   1.129622e-02\n   1.129622e-02";
+        // verifying inverse-square law:
+        // expected ~ 1/4 of the result at10cm due to the doubled distance
+        std::string actual(utils::file_to_string(fname));
+
+        failed_test_count += t.check_equal(expected, actual);
     }
 }
 

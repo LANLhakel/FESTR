@@ -1,0 +1,6 @@
+# Number of time instants
+# Time instants in seconds
+# start
+2
+0 0
+1 3e-09
