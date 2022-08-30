@@ -57,7 +57,7 @@ ifeq ($(comp),gnu)
     endif
 
     ifeq ($(omp),yes)
-        OPTIONS += -DOMP -fopenmp
+        OPTIONS += -fopenmp
     endif
 
     ifeq ($(simd),yes)
@@ -78,7 +78,7 @@ ifeq ($(comp),clang)
     endif
 
     ifeq ($(omp),yes)
-        OPTIONS += -DOMP -fopenmp
+        OPTIONS += -fopenmp
     endif
 
     ifeq ($(simd),yes)
@@ -104,7 +104,7 @@ ifeq ($(comp),intel)
     endif
 
     ifeq ($(omp),yes)
-        OPTIONS += -DOMP -qopenmp
+        OPTIONS += -qopenmp
     endif
 
     ifeq ($(simd),yes)
@@ -125,7 +125,7 @@ ifeq ($(comp),pgi)
     endif
 
     ifeq ($(omp),yes)
-        OPTIONS += -DOMP -mp
+        OPTIONS += -mp
     endif
 
     ifeq ($(simd),yes)
