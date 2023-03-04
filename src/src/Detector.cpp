@@ -4,7 +4,7 @@
  * @author Peter Hakel
  * @version 0.9
  * @date Created on 28 January 2015\n
- * Last modified on 11 August 2022
+ * Last modified on 3 March 2023
  * @copyright (c) 2015, Triad National Security, LLC.
  * All rights reserved.\n
  * Use of this source code is governed by the BSD 3-Clause License.
@@ -966,7 +966,8 @@ size_t Detector::get_nphi() const
 size_t Detector::calculate_nphi(const size_t i) const
 {   // pmh_2022_0711
     if (i == 0) return 1;
-    int rv = utils::nint(sin((i+0.5)*dtheta) / sin(dtheta2));
+    double iplushalf = static_cast<double>(i) + 0.5;
+    int rv = utils::nint(sin(iplushalf*dtheta) / sin(dtheta2));
     return std::max(static_cast<size_t>(rv), nphi);
 }
 
@@ -975,16 +976,17 @@ size_t Detector::calculate_nphi(const size_t i) const
 std::pair<double, double> Detector::theta_phi(const IntPair &direction) const
 {   // pmh_2022_0711
     double theta = 0.0;
-    size_t nphi = 0;
+    size_t nphi_l = 0;
     if (direction.first > 0)
     {
         theta = (static_cast<double>(direction.first) + 0.5) * dtheta;
-        nphi = calculate_nphi(direction.first);
+        nphi_l = calculate_nphi(direction.first);
     }
     double phi = 0.0;
-    if (nphi > 0)
+    if (nphi_l > 0)
     {
-        phi = static_cast<double>(direction.second) * cnst::TWO_PI / nphi;
+        phi = static_cast<double>(direction.second) * cnst::TWO_PI
+            / static_cast<double>(nphi_l);
     }
     return {theta, phi};
 }
@@ -1083,7 +1085,8 @@ void Detector::do_Ray(Progress *parent,
             else // spherical rectangle
                 domega = cnst::FOUR_PI
                        * sin((static_cast<double>(direction.first)+0.5) * dtheta)
-                       * sin(dtheta2) / calculate_nphi(direction.first);
+                       * sin(dtheta2)
+                       / static_cast<double>(calculate_nphi(direction.first));
             #ifdef _OPENMP
             #pragma omp critical
             #endif
@@ -1142,9 +1145,9 @@ void Detector::do_patch(Progress *parent, const IntPair &patch,
     size_t nrays = 1;
     for (size_t itheta = 1; itheta < ntheta; ++itheta)
     {
-        size_t nphi = calculate_nphi(itheta);
-        nrays += nphi;
-        ndims.push_back(nphi);
+        size_t nphi_l = calculate_nphi(itheta);
+        nrays += nphi_l;
+        ndims.push_back(nphi_l);
     }
     Progress counter(dname + "_Ray", next_level, nrays, next_freq,
                      SEP, std::cout);
