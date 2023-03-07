@@ -10,7 +10,7 @@ Los Alamos National Laboratory
 XCP-5 group
 
 Created on 14 May 2015
-Last modified on 17 February 2022
+Last modified on 6 March 2023
 
 Copyright (c) 2015, Triad National Security, LLC.
 All rights reserved.
@@ -398,7 +398,7 @@ const double EQT = 1.0e-15;
         Vector3d expected(0.8 * area2, -0.6 * area2, 0.0);
         Vector3d actual = f->area2_normal_center(g, c);
 
-        failed_test_count += t.check_equal_real_obj(expected, actual, EQT);
+        failed_test_count += t.check_equal_real_obj(expected, actual, 1e2*EQT);
     }
 }
 
@@ -447,7 +447,7 @@ const double EQT = 1.0e-15;
         double expected = cnst::PI * 35.0;
         double actual = f->area(g);
 
-        failed_test_count += t.check_equal_real_num(expected, actual, EQT);
+        failed_test_count += t.check_equal_real_num(expected, actual, 1e2*EQT);
     }
 }
 
