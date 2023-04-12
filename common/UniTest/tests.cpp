@@ -8,7 +8,7 @@ Los Alamos National Laboratory
 XCP-5 group
 
 Created on 30 October 2018
-Last modified on 14 July 2020
+Last modified on 11 April 2023
 
 Copyright (c) 2018, Triad National Security, LLC.
 All rights reserved.
@@ -143,17 +143,6 @@ int main(int argc, char **argv)
     std::cout << "\n";
     if (Test::tests_were_run())
     {
-        std::cout << Test::get_requested() << " tests run: "
-                  << Test::get_run_test_count() << std::endl;
-        if (failed_test_count != 0)
-                std::cout << failed_test_count << " of "
-                          << Test::get_requested()
-                          << " tests FAIL" << std::endl;
-        else
-            if (Test::get_run_test_count() > 0)
-                std::cout << Test::get_requested()
-                          << " tests PASS" << std::endl;
-
         if (disabled_test_count != 0)
         {
             if (disabled_test_count == 1)
@@ -167,6 +156,17 @@ int main(int argc, char **argv)
         if (Test::get_disabled_speed() != "")
             std::cout << Test::get_disabled_speed()
                       << " tests were disabled." << std::endl;
+
+        std::cout << Test::get_requested() << " tests run: "
+                  << Test::get_run_test_count() << std::endl;
+        if (failed_test_count != 0)
+                std::cout << failed_test_count << " of "
+                          << Test::get_requested()
+                          << " tests FAIL" << std::endl;
+        else
+            if (Test::get_run_test_count() > 0)
+                std::cout << Test::get_requested()
+                          << " tests PASS" << std::endl;
     }
     else
     {
