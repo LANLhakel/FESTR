@@ -46,9 +46,31 @@ ifeq ($(os),win)
     OPTIONS += -DWIN
 endif
 
+
 # GNU compiler
 ifeq ($(comp),gnu)
     CXX = g++
+
+    ifeq ($(opt),yes)
+        OPTIONS += -O3
+    else
+        OPTIONS += -g -O0 -Wall -pedantic
+    endif
+
+    ifeq ($(omp),yes)
+        OPTIONS += -fopenmp
+    endif
+
+    ifeq ($(simd),yes)
+        OPTIONS += -DSIMD -fopenmp
+    endif
+
+endif
+
+
+# Homebrew compiler
+ifeq ($(comp),brew)
+    CXX = /opt/homebrew/bin/g++-12
 
     ifeq ($(opt),yes)
         OPTIONS += -O3
