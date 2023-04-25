@@ -89,6 +89,27 @@ ifeq ($(comp),brew)
 endif
 
 
+# MacPorts compiler
+ifeq ($(comp),ports)
+    CXX = /opt/local/bin/arm64-apple-darwin22-g++-mp-12
+
+    ifeq ($(opt),yes)
+        OPTIONS += -O3
+    else
+        OPTIONS += -g -O0 -Wall -pedantic
+    endif
+
+    ifeq ($(omp),yes)
+        OPTIONS += -fopenmp
+    endif
+
+    ifeq ($(simd),yes)
+        OPTIONS += -DSIMD -fopenmp
+    endif
+
+endif
+
+
 # Clang compiler
 ifeq ($(comp),clang)
     CXX = clang++
