@@ -35,9 +35,6 @@ MAKE = make
 # "remove" command
 RM = rm -rf
 
-# "copy" command
-CP = cp
-
 # Windows specifics
 ifeq ($(os),win)
     MAKE = C:\MinGW\bin\mingw32-make
@@ -228,7 +225,7 @@ PROGLIB  =   lib$(PROGRAM).a
 PROGEXE  =   $(PROGRAM)
 
 TESTLOC  =   ./UniTest
-TESTSRC  =   tests.cpp
+TESTSRC  =   $(UNITEST)/tests.cpp
 TESTOBJ  =   $(BUILDIR)/tests.o
 TESTLIB  =   libtest$(PROGRAM).a
 TESTEXE  =   tests
@@ -282,11 +279,9 @@ $(TESTEXE) : $(TESTOBJ) $(TESTLIB) $(PROGLIB)
 
 # =============== Rules for the unit-test sources ==============
 
-$(TESTOBJ) : $(UNITEST)/$(TESTSRC) $(TESTLOC)/tests_headers.inc $(TESTLOC)/tests_runs.inc
+$(TESTOBJ) : $(TESTSRC) $(TESTLOC)/tests_headers.inc $(TESTLOC)/tests_runs.inc
 	@echo
-	@$(CP) $< .
 	$(CXX) $(OPTIONS) -I$(UNITEST) -I$(TESTLOC) -o $@ -c $(TESTSRC)
-	@$(RM) $(TESTSRC)
 
 $(BUILDIR)/Test.o : $(UNITEST)/Test.cpp
 	@echo
