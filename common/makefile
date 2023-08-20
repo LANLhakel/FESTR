@@ -2,9 +2,6 @@
 
 # Defaults
 
-# Operating system
-os = linux
-
 # Compiler choice
 comp = gnu
 
