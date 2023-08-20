@@ -36,10 +36,9 @@ MAKE = make
 RM = rm -rf
 
 # Windows specifics
-ifeq ($(os),win)
+ifeq ($(OS),Windows_NT)
     MAKE = C:\MinGW\bin\mingw32-make
     RM = del
-    CP = copy
     OPTIONS += -DWIN
 endif
 
