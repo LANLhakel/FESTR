@@ -8,7 +8,7 @@ Los Alamos National Laboratory
 XCP-5 group
 
 Created on 30 October 2018
-Last modified on 11 April 2023
+Last modified on 14 April 2024
 
 Copyright (c) 2018, Triad National Security, LLC.
 All rights reserved.
@@ -176,7 +176,7 @@ int main(int argc, char **argv)
         print_usage();
     }
 
-    return EXIT_SUCCESS;
+    return failed_test_count == 0  ?  0  :  1;
 }
 
 //-----------------------------------------------------------------------------
