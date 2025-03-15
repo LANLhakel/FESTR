@@ -63,7 +63,7 @@ endif
 
 # Homebrew compiler
 ifeq ($(comp),brew)
-    CXX = /opt/homebrew/bin/g++-12
+    CXX = /opt/homebrew/bin/g++-14
 
     ifeq ($(opt),yes)
         OPTIONS += -O3
