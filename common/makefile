@@ -134,7 +134,7 @@ ifeq ($(comp),brew15)
     endif
 
 endif
-ifeq ($(comp),brew)
+ifeq ($(comp),brew16)
     CXX = g++-16
 
     ifeq ($(opt),yes)
