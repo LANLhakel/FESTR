@@ -61,9 +61,81 @@ ifeq ($(comp),gnu)
 endif
 
 
-# Homebrew compiler
+# Homebrew compilers
+ifeq ($(comp),brew12)
+    CXX = g++-12
+
+    ifeq ($(opt),yes)
+        OPTIONS += -O3
+    else
+        OPTIONS += -g -O0 -Wall -pedantic
+    endif
+
+    ifeq ($(omp),yes)
+        OPTIONS += -fopenmp
+    endif
+
+    ifeq ($(simd),yes)
+        OPTIONS += -DSIMD -fopenmp
+    endif
+
+endif
+ifeq ($(comp),brew13)
+    CXX = g++-13
+
+    ifeq ($(opt),yes)
+        OPTIONS += -O3
+    else
+        OPTIONS += -g -O0 -Wall -pedantic
+    endif
+
+    ifeq ($(omp),yes)
+        OPTIONS += -fopenmp
+    endif
+
+    ifeq ($(simd),yes)
+        OPTIONS += -DSIMD -fopenmp
+    endif
+
+endif
+ifeq ($(comp),brew14)
+    CXX = g++-14
+
+    ifeq ($(opt),yes)
+        OPTIONS += -O3
+    else
+        OPTIONS += -g -O0 -Wall -pedantic
+    endif
+
+    ifeq ($(omp),yes)
+        OPTIONS += -fopenmp
+    endif
+
+    ifeq ($(simd),yes)
+        OPTIONS += -DSIMD -fopenmp
+    endif
+
+endif
+ifeq ($(comp),brew15)
+    CXX = g++-15
+
+    ifeq ($(opt),yes)
+        OPTIONS += -O3
+    else
+        OPTIONS += -g -O0 -Wall -pedantic
+    endif
+
+    ifeq ($(omp),yes)
+        OPTIONS += -fopenmp
+    endif
+
+    ifeq ($(simd),yes)
+        OPTIONS += -DSIMD -fopenmp
+    endif
+
+endif
 ifeq ($(comp),brew)
-    CXX = /opt/homebrew/bin/g++-14
+    CXX = g++-16
 
     ifeq ($(opt),yes)
         OPTIONS += -O3
